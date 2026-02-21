@@ -1,5 +1,10 @@
 // types
 import type { z } from "zod";
-import type { signupFormValidation } from "@/forms/Signup/validations";
+import type {
+  signupEmailFormValidation,
+  signupInfoFormValidation
+} from "@/forms/Signup/validations";
 
-export type SignupFormValues = z.infer<typeof signupFormValidation>;
+export type SignupEmailFormValues = z.infer<typeof signupEmailFormValidation>;
+
+export type SignupInfoFormValues = z.infer<typeof signupInfoFormValidation>;

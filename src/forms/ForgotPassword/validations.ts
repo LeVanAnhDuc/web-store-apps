@@ -10,11 +10,11 @@ export const newPasswordValidation = z
   .object({
     [NEW_PASSWORD]: z
       .string()
-      .min(1, "required")
-      .min(8, "minLength")
-      .max(100, "maxLength")
-      .regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "requirements"),
-    [CONFIRM_PASSWORD]: z.string().min(1, "required")
+      .min(1, { message: "required" })
+      .min(8, { message: "minLength" })
+      .max(100, { message: "maxLength" })
+      .regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, { message: "requirements" }),
+    [CONFIRM_PASSWORD]: z.string().min(1, { message: "required" })
   })
   .refine((data) => data[NEW_PASSWORD] === data[CONFIRM_PASSWORD], {
     message: "mismatch",

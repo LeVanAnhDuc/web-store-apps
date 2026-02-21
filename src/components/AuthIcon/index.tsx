@@ -1,16 +1,33 @@
-import type { LucideProps } from "lucide-react";
-import type { ForwardRefExoticComponent, RefAttributes } from "react";
+// types
+import type { LucideIcon } from "lucide-react";
+// components
+import { ScaleSpring } from "@/components/Animated";
+// others
+import { cn } from "@/libs/utils";
 
 const AuthIcon = ({
-  Icon
+  Icon,
+  animated = false,
+  className
 }: {
-  Icon: ForwardRefExoticComponent<
-    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
-  >;
-}) => (
-  <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600">
-    <Icon className="h-8 w-8 text-white" />
-  </div>
-);
+  Icon: LucideIcon;
+  animated?: boolean;
+  className?: string;
+}) => {
+  const iconElement = (
+    <div
+      className={cn(
+        "bg-primary inline-flex h-16 w-16 items-center justify-center rounded-full",
+        className
+      )}
+    >
+      <Icon className="text-primary-foreground h-8 w-8" />
+    </div>
+  );
+
+  if (animated) return <ScaleSpring>{iconElement}</ScaleSpring>;
+
+  return iconElement;
+};
 
 export default AuthIcon;

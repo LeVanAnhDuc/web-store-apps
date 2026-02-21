@@ -1,15 +1,15 @@
-// libs
-import { useTranslations } from "next-intl";
+"use client";
+
 // types
 import type { EmailStepFormValues } from "@/types/Login";
 // components
-import { Input } from "@/components/ui/input";
+import CustomInput from "@/components/CustomInput";
+import FormFieldMessage from "@/components/FormFieldMessage";
 import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
-  FormMessage
+  FormLabel
 } from "@/components/ui/form";
 // hooks
 import { useFieldProps } from "@/hooks";
@@ -18,8 +18,13 @@ import CONSTANTS from "@/constants";
 
 const { EMAIL } = CONSTANTS.FIELD_NAMES.LOGIN_FIELD_NAMES;
 
-const EmailInput = ({ disabled = false }: { disabled?: boolean }) => {
-  const t = useTranslations("login.form.input");
+const EmailInput = ({
+  label,
+  disabled = false
+}: {
+  label: string;
+  disabled?: boolean;
+}) => {
   const { field, fieldState } = useFieldProps<EmailStepFormValues>(EMAIL);
 
   return (
@@ -27,18 +32,17 @@ const EmailInput = ({ disabled = false }: { disabled?: boolean }) => {
       {...field}
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="text-foreground">{t("labelEmail")}</FormLabel>
+          <FormLabel className="text-foreground">{label}</FormLabel>
           <FormControl>
-            <Input
+            <CustomInput
               {...field}
               type="email"
               placeholder="example@gmail.com"
               aria-invalid={fieldState.invalid}
               disabled={disabled}
-              className="border-input bg-background focus:border-ring focus:ring-ring h-12 rounded-lg px-4 transition-all duration-200"
             />
           </FormControl>
-          <FormMessage />
+          <FormFieldMessage />
         </FormItem>
       )}
     />

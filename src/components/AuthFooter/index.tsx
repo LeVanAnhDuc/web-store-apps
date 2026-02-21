@@ -1,10 +1,10 @@
-"use client";
+// libs
+import { getTranslations } from "next-intl/server";
+// others
+import { Link } from "@/i18n/navigation";
 
-import Link from "next/link";
-import { useTranslations } from "next-intl";
-
-const AuthFooter = () => {
-  const t = useTranslations("common.footer");
+const AuthFooter = async () => {
+  const t = await getTranslations("common");
 
   return (
     <div className="mt-6 text-center">
@@ -13,21 +13,21 @@ const AuthFooter = () => {
           href="#"
           className="hover:text-foreground transition-colors duration-200"
         >
-          {t("help")}
+          {t("footer.help")}
         </Link>
         <span>•</span>
         <Link
           href="#"
           className="hover:text-foreground transition-colors duration-200"
         >
-          {t("privacy")}
+          {t("footer.privacy")}
         </Link>
         <span>•</span>
         <Link
           href="#"
           className="hover:text-foreground transition-colors duration-200"
         >
-          {t("terms")}
+          {t("footer.terms")}
         </Link>
       </div>
     </div>

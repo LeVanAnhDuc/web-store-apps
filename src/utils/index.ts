@@ -1,10 +1,7 @@
 // libs
 import { toast } from "sonner";
-import { jwtDecode } from "jwt-decode";
 // types
 import type { Locale } from "next-intl";
-// stores
-import { authStoreState } from "@/stores";
 // i18n
 import { defaultLocale, locales } from "@/i18n/config";
 
@@ -21,20 +18,6 @@ export const confirmErrorToast = (message: string): Promise<void> =>
 
 export const errorToast = (message: string) => toast.error(message);
 
-export const getAuthorizationHeader = () => {
-  const { idToken } = authStoreState();
-
-  return idToken ? `Bearer ${idToken}` : undefined;
-};
-
-export const decodeToken = <T>(token: string) => {
-  try {
-    return jwtDecode<T>(token);
-  } catch {
-    return undefined;
-  }
-};
-
 export const getCurrentLocale = (): Locale => {
   try {
     const pathname = window.location.pathname;
@@ -45,4 +28,23 @@ export const getCurrentLocale = (): Locale => {
   } catch {
     return defaultLocale;
   }
+};
+
+export const formatLastUsed = (date: Date): string => {
+  const now = new Date();
+  const diff = now.getTime() - date.getTime();
+  const minutes = Math.floor(diff / 60000);
+  const hours = Math.floor(diff / 3600000);
+  const days = Math.floor(diff / 86400000);
+
+  if (minutes < 60) return `${minutes}m ago`;
+  if (hours < 24) return `${hours}h ago`;
+  return `${days}d ago`;
+};
+
+export const parseDownloads = (downloads: string): number => {
+  const num = parseInt(downloads.replace(/[^0-9]/g, ""), 10);
+  if (downloads.includes("K")) return num * 1000;
+  if (downloads.includes("M")) return num * 1000000;
+  return num;
 };

@@ -1,10 +1,14 @@
 {
   "app": {
-    "name": "Ứng dụng Đức",
-    "description": "Chào mừng đến với nền tảng Đức"
+    "name": "Apartment",
+    "description": "Ứng dụng Web Căn hộ"
   },
-  "avatarDropdown": {
-    "account": "Tài khoản",
+  "localeDialog": {
+    "languageTab": "Ngôn ngữ và khu vực",
+    "currencyTab": "Loại tiền tệ",
+    "selectLanguage": "Chọn ngôn ngữ và khu vực"
+  },
+  "userMenu": {
     "signOut": "Đăng xuất",
     "logoutDescription": "Đăng xuất khỏi tài khoản",
     "profile": "Hồ sơ",
@@ -19,16 +23,54 @@
   "or": "hoặc",
   "footer": {
     "help": "Trợ giúp",
-    "privacy": "Quyền riêng tư",
+    "privacy": "Bảo mật",
     "terms": "Điều khoản"
   },
   "validation": {
     "email": {
       "required": "Vui lòng nhập email",
-      "invalid": "Email không hợp lệ"
+      "invalid": "Email không đúng định dạng"
     },
     "password": {
-      "required": "Vui lòng nhập mật khẩu"
+      "required": "Vui lòng nhập mật khẩu",
+      "minLength": "Mật khẩu phải có ít nhất 8 ký tự",
+      "maxLength": "Mật khẩu không được vượt quá 100 ký tự",
+      "requirements": "Mật khẩu phải chứa chữ hoa, chữ thường và số"
+    },
+    "newPassword": {
+      "required": "Vui lòng nhập mật khẩu mới",
+      "minLength": "Mật khẩu phải có ít nhất 8 ký tự",
+      "maxLength": "Mật khẩu không được vượt quá 100 ký tự",
+      "requirements": "Mật khẩu phải chứa chữ hoa, chữ thường và số"
+    },
+    "confirmPassword": {
+      "required": "Vui lòng xác nhận mật khẩu",
+      "mismatch": "Mật khẩu không khớp"
+    },
+    "passwordConfirm": {
+      "required": "Vui lòng xác nhận mật khẩu",
+      "mismatch": "Mật khẩu không khớp"
+    },
+    "fullName": {
+      "required": "Vui lòng nhập họ tên",
+      "minLength": "Họ tên phải có ít nhất 2 ký tự"
+    },
+    "gender": {
+      "required": "Vui lòng chọn giới tính"
+    },
+    "birthday": {
+      "required": "Vui lòng chọn ngày sinh"
+    },
+    "subject": {
+      "required": "Vui lòng nhập tiêu đề",
+      "minLength": "Tiêu đề phải có ít nhất 5 ký tự"
+    },
+    "category": {
+      "required": "Vui lòng chọn danh mục"
+    },
+    "message": {
+      "required": "Vui lòng nhập nội dung",
+      "minLength": "Nội dung phải có ít nhất 20 ký tự"
     }
   }
 }

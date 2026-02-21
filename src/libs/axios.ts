@@ -6,23 +6,13 @@ import type {
   AxiosInstance,
   InternalAxiosRequestConfig
 } from "axios";
-// stores
-import { authStoreState } from "@/stores";
 // others
-import {
-  confirmErrorToast,
-  getAuthorizationHeader,
-  getCurrentLocale
-} from "@/utils";
+import { confirmErrorToast, getCurrentLocale } from "@/utils";
 import CONSTANTS from "@/constants";
 
 const API_TIMEOUT = 30000;
 
 const handleLogout = () => {
-  const { clearStorages } = authStoreState();
-
-  clearStorages();
-
   const currentLocale = getCurrentLocale();
   window.location.href = `/${currentLocale}${CONSTANTS.ROUTES.LOGIN}`;
 };
@@ -62,7 +52,8 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const idToken = getAuthorizationHeader();
+    // TODO: Get id token from store
+    const idToken = "";
 
     if (idToken) config.headers.Authorization = idToken;
 

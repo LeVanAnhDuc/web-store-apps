@@ -1,10 +1,14 @@
 {
   "app": {
-    "name": "Đức Application",
-    "description": "Welcome to Đức platform"
+    "name": "Apartment",
+    "description": "Apartment Web Application"
   },
-  "avatarDropdown": {
-    "account": "Account",
+  "localeDialog": {
+    "languageTab": "Language and Region",
+    "currencyTab": "Currency",
+    "selectLanguage": "Select language and region"
+  },
+  "userMenu": {
     "signOut": "Sign Out",
     "logoutDescription": "Logout from account",
     "profile": "Profile",
@@ -25,10 +29,48 @@
   "validation": {
     "email": {
       "required": "Please enter email",
-      "invalid": "Invalid email"
+      "invalid": "Invalid email format"
     },
     "password": {
-      "required": "Please enter password"
+      "required": "Please enter password",
+      "minLength": "Password must be at least 8 characters",
+      "maxLength": "Password must not exceed 100 characters",
+      "requirements": "Password must contain uppercase, lowercase and number"
+    },
+    "newPassword": {
+      "required": "Please enter new password",
+      "minLength": "Password must be at least 8 characters",
+      "maxLength": "Password must not exceed 100 characters",
+      "requirements": "Password must contain uppercase, lowercase and number"
+    },
+    "confirmPassword": {
+      "required": "Please confirm your password",
+      "mismatch": "Passwords do not match"
+    },
+    "passwordConfirm": {
+      "required": "Please confirm your password",
+      "mismatch": "Passwords do not match"
+    },
+    "fullName": {
+      "required": "Please enter full name",
+      "minLength": "Full name must be at least 2 characters"
+    },
+    "gender": {
+      "required": "Please select gender"
+    },
+    "birthday": {
+      "required": "Please select birthday"
+    },
+    "subject": {
+      "required": "Please enter subject",
+      "minLength": "Subject must be at least 5 characters"
+    },
+    "category": {
+      "required": "Please select category"
+    },
+    "message": {
+      "required": "Please enter message",
+      "minLength": "Message must be at least 20 characters"
     }
   }
 }

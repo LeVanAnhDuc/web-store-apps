@@ -1,0 +1,49 @@
+{
+  "title": "Dashboard",
+  "description": "Explore our curated collection of apps designed to boost your productivity and creativity",
+  "header": {
+    "appName": "AppStore",
+    "searchPlaceholder": "Search apps..."
+  },
+  "welcome": {
+    "greeting": "Welcome back!",
+    "title": "Discover Amazing Apps",
+    "description": "Explore our curated collection of apps designed to boost your productivity and creativity.",
+    "exploreButton": "Explore Featured"
+  },
+  "recentlyUsed": {
+    "title": "Recently Used",
+    "viewAll": "View All"
+  },
+  "allApps": {
+    "title": "All Apps"
+  },
+  "sidebar": {
+    "nav": {
+      "home": "Home",
+      "recent": "Recent",
+      "history": "History"
+    },
+    "starredApps": "Starred Apps",
+    "categories": "Categories",
+    "allApps": "All Apps"
+  },
+  "sort": {
+    "featured": "Featured",
+    "rating": "Rating",
+    "downloads": "Downloads",
+    "name": "Name"
+  },
+  "categories": {
+    "productivity": "Productivity",
+    "creativity": "Creativity",
+    "communication": "Communication",
+    "entertainment": "Entertainment",
+    "health": "Health",
+    "education": "Education",
+    "finance": "Finance",
+    "shopping": "Shopping",
+    "lifestyle": "Lifestyle",
+    "utilities": "Utilities"
+  }
+}

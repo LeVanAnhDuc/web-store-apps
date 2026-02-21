@@ -1,18 +1,51 @@
 {
   "title": "Sign-up Page",
-  "form": {
+  "emailStep": {
     "title": "Create an account",
-    "description": "Enter your details below to create your account",
+    "description": "Start your journey with us",
     "input": {
-      "labelFullName": "Full Name",
-      "labelEmail": "Email",
-      "labelPhone": "Phone",
-      "labelPassword": "Password",
-      "labelPasswordConfirm": "Confirm Password"
+      "labelEmail": "Email"
     },
     "button": {
-      "signup": "Sign Up",
-      "signupWithGoogle": "Sign Up with Google"
+      "next": "Next",
+      "signupWithGoogle": "Sign up with Google",
+      "signupWithFacebook": "Sign up with Facebook"
+    }
+  },
+  "infoStep": {
+    "title": "Personal Information",
+    "input": {
+      "labelFullName": "Full Name",
+      "placeholderFullName": "John Doe",
+      "labelGender": "Gender",
+      "placeholderGender": "Select gender",
+      "gender": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "labelBirthday": "Birthday",
+      "placeholderBirthday": "Select birthday",
+      "labelPassword": "Password",
+      "placeholderPassword": "At least 8 characters",
+      "labelPasswordConfirm": "Confirm Password",
+      "placeholderPasswordConfirm": "Re-enter password"
+    },
+    "button": {
+      "submit": "Create Account"
+    }
+  },
+  "otpStep": {
+    "title": "Verify Email",
+    "description": "We've sent a verification code to",
+    "instruction": "Please enter the 6-digit code sent to your email to verify your account",
+    "verifying": "Verifying...",
+    "resendSuccess": "OTP has been resent!",
+    "button": {
+      "resend": "Resend OTP",
+      "resendIn": "Resend in {seconds}s",
+      "sending": "Sending...",
+      "changeEmail": "Change email"
     }
   },
   "link": {

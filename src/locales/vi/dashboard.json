@@ -1,0 +1,49 @@
+{
+  "title": "Bảng điều khiển",
+  "description": "Khám phá bộ sưu tập ứng dụng được tuyển chọn để nâng cao năng suất và sáng tạo của bạn",
+  "header": {
+    "appName": "Kho ứng dụng",
+    "searchPlaceholder": "Tìm kiếm ứng dụng..."
+  },
+  "welcome": {
+    "greeting": "Chào mừng trở lại!",
+    "title": "Khám phá ứng dụng tuyệt vời",
+    "description": "Khám phá bộ sưu tập ứng dụng được tuyển chọn để nâng cao năng suất và sáng tạo của bạn.",
+    "exploreButton": "Khám phá nổi bật"
+  },
+  "recentlyUsed": {
+    "title": "Sử dụng gần đây",
+    "viewAll": "Xem tất cả"
+  },
+  "allApps": {
+    "title": "Tất cả ứng dụng"
+  },
+  "sidebar": {
+    "nav": {
+      "home": "Trang chủ",
+      "recent": "Gần đây",
+      "history": "Lịch sử"
+    },
+    "starredApps": "Ứng dụng yêu thích",
+    "categories": "Danh mục",
+    "allApps": "Tất cả ứng dụng"
+  },
+  "sort": {
+    "featured": "Nổi bật",
+    "rating": "Đánh giá",
+    "downloads": "Lượt tải",
+    "name": "Tên"
+  },
+  "categories": {
+    "productivity": "Năng suất",
+    "creativity": "Sáng tạo",
+    "communication": "Liên lạc",
+    "entertainment": "Giải trí",
+    "health": "Sức khỏe",
+    "education": "Giáo dục",
+    "finance": "Tài chính",
+    "shopping": "Mua sắm",
+    "lifestyle": "Phong cách sống",
+    "utilities": "Tiện ích"
+  }
+}

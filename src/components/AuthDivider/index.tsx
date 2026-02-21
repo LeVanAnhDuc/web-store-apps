@@ -1,10 +1,10 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+// libs
+import { getTranslations } from "next-intl/server";
+// components
 import { Separator } from "@/components/ui/separator";
 
-const AuthDivider = () => {
-  const t = useTranslations("common");
+const AuthDivider = async () => {
+  const t = await getTranslations("common");
 
   return (
     <div className="relative my-6">

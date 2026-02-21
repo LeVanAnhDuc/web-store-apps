@@ -1,17 +1,12 @@
 // types
 import type { ReactNode } from "react";
-// components
-import Header from "@/components/Header";
+// layouts
+import DashboardLayout from "@/layouts/DashboardLayout";
 
 export default function Layout({
   children
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return (
-    <main>
-      <Header />
-      <div className="min-h-[calc(100vh-4rem)] pt-16">{children}</div>
-    </main>
-  );
+  return <DashboardLayout>{children}</DashboardLayout>;
 }

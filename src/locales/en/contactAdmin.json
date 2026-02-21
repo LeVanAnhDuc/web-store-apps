@@ -1,0 +1,88 @@
+{
+  "title": "Contact Admin",
+  "form": {
+    "title": "Contact Support",
+    "description": "We are always ready to assist you 24/7",
+    "responseTime": {
+      "title": "Average response time",
+      "description": "We will respond within {hours} business hours"
+    },
+    "input": {
+      "labelEmail": "Contact email",
+      "labelEmailNote": "(recommended)",
+      "labelSubject": "Subject",
+      "labelCategory": "Category",
+      "labelPriority": "Priority",
+      "labelMessage": "Detailed description",
+      "placeholderSubject": "Summarize your issue...",
+      "placeholderCategory": "Select category",
+      "placeholderMessage": "Please describe your issue in detail. Include steps to reproduce the error if any...",
+      "emailHint": "Enter your email to receive a response from us",
+      "emailAutoFillHint": "Email auto-filled, you can change it if needed"
+    },
+    "category": {
+      "account": "Account issues",
+      "technical": "Technical errors",
+      "feature": "Feature requests",
+      "billing": "Billing",
+      "security": "Security",
+      "other": "Other"
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "button": {
+      "submit": "Submit support request",
+      "submitting": "Submitting..."
+    },
+    "hint": {
+      "minChars": "Minimum {count} characters",
+      "charCount": "{count} characters"
+    },
+    "footerNote": "You will receive a confirmation email after submitting the request"
+  },
+  "success": {
+    "title": "Request submitted successfully!",
+    "description": "Thank you for contacting us",
+    "ticketInfo": {
+      "title": "Request code",
+      "labelSubject": "Subject:",
+      "labelCategory": "Category:",
+      "labelPriority": "Priority:"
+    },
+    "nextSteps": {
+      "title": "What happens next?",
+      "step1": {
+        "title": "Confirmation email",
+        "description": "We have sent a confirmation email to {email}"
+      },
+      "step2": {
+        "title": "Review request",
+        "description": "Our support team will review your request"
+      },
+      "step3": {
+        "title": "Response",
+        "description": "You will receive a response within 24 business hours"
+      }
+    },
+    "importantNotes": {
+      "title": "Important notes",
+      "note1": "Please save the request code {ticketNumber}",
+      "note2": "Check your spam folder if you don't see the confirmation email",
+      "note3": "You can reply directly to the email to add more information"
+    },
+    "response": {
+      "withEmail": "We will respond via email: {email}",
+      "withEmailTime": "Expected response time: 24-48 hours",
+      "anonymous": "You submitted without providing an email",
+      "anonymousNote": "We will not be able to contact you back",
+      "anonymousSaveTicket": "Please save the ticket code to track status"
+    },
+    "button": {
+      "back": "Go back",
+      "print": "Print information"
+    }
+  }
+}

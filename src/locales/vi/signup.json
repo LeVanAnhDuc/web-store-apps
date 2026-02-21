@@ -1,18 +1,51 @@
 {
   "title": "Trang đăng ký",
-  "form": {
+  "emailStep": {
     "title": "Tạo tài khoản",
-    "description": "Nhập thông tin chi tiết của bạn dưới đây để tạo tài khoản của bạn",
+    "description": "Bắt đầu hành trình của bạn với chúng tôi",
     "input": {
-      "labelFullName": "Họ và tên",
-      "labelEmail": "Email",
-      "labelPhone": "Số điện thoại",
-      "labelPassword": "Mật khẩu",
-      "labelPasswordConfirm": "Xác nhận mật khẩu"
+      "labelEmail": "Email"
     },
     "button": {
-      "signup": "Đăng ký",
-      "signupWithGoogle": "Đăng ký với Google"
+      "next": "Tiếp theo",
+      "signupWithGoogle": "Đăng ký với Google",
+      "signupWithFacebook": "Đăng ký với Facebook"
+    }
+  },
+  "infoStep": {
+    "title": "Thông tin cá nhân",
+    "input": {
+      "labelFullName": "Họ và tên",
+      "placeholderFullName": "Nguyễn Văn A",
+      "labelGender": "Giới tính",
+      "placeholderGender": "Chọn giới tính",
+      "gender": {
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác"
+      },
+      "labelBirthday": "Ngày sinh",
+      "placeholderBirthday": "Chọn ngày sinh",
+      "labelPassword": "Mật khẩu",
+      "placeholderPassword": "Tối thiểu 8 ký tự",
+      "labelPasswordConfirm": "Xác nhận mật khẩu",
+      "placeholderPasswordConfirm": "Nhập lại mật khẩu"
+    },
+    "button": {
+      "submit": "Tạo tài khoản"
+    }
+  },
+  "otpStep": {
+    "title": "Xác thực email",
+    "description": "Chúng tôi đã gửi mã xác thực đến",
+    "instruction": "Vui lòng nhập mã 6 chữ số được gửi đến email của bạn để xác thực tài khoản",
+    "verifying": "Đang xác thực...",
+    "resendSuccess": "Mã OTP đã được gửi lại!",
+    "button": {
+      "resend": "Gửi lại mã OTP",
+      "resendIn": "Gửi lại sau {seconds}s",
+      "sending": "Đang gửi...",
+      "changeEmail": "Thay đổi email"
     }
   },
   "link": {

@@ -2,11 +2,11 @@
 // types
 import type { PropsWithChildren } from "react";
 // contexts
-import ProviderTheme from "../ProviderTheme";
-import ProvidersReactQuery from "../ProvidersReactQuery";
+import ReactQueryProvider from "../ReactQueryProvider";
+import ThemeProvider from "../ThemeProvider";
 
 const AppProvider = ({ children }: PropsWithChildren) => {
-  const Provider = [ProvidersReactQuery, ProviderTheme];
+  const Provider = [ReactQueryProvider, ThemeProvider];
 
   return Provider.reduceRight(
     (acc, Provider) => <Provider>{acc}</Provider>,

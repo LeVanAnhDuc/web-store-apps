@@ -2,12 +2,23 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 // types
 import type { UseFormProps } from "react-hook-form";
-import type { SignupFormValues } from "@/types/Signup";
+import type {
+  SignupEmailFormValues,
+  SignupInfoFormValues
+} from "@/types/Signup";
 // forms
-import { initialSignupFormData } from "./data";
-import { signupFormValidation } from "./validations";
+import { initialSignupEmailFormData, initialSignupInfoFormData } from "./data";
+import {
+  signupEmailFormValidation,
+  signupInfoFormValidation
+} from "./validations";
 
-export const signupFormProps: UseFormProps<SignupFormValues> = {
-  defaultValues: initialSignupFormData,
-  resolver: zodResolver(signupFormValidation)
+export const signupEmailFormProps: UseFormProps<SignupEmailFormValues> = {
+  defaultValues: initialSignupEmailFormData,
+  resolver: zodResolver(signupEmailFormValidation)
+};
+
+export const signupInfoFormProps: UseFormProps<SignupInfoFormValues> = {
+  defaultValues: initialSignupInfoFormData,
+  resolver: zodResolver(signupInfoFormValidation)
 };
