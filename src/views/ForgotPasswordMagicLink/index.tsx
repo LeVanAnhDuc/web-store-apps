@@ -9,6 +9,8 @@ import AuthStepLayout from "@/components/AuthStepLayout";
 import AuthIcon from "@/components/AuthIcon";
 import MagicLinkForm from "./mains/MagicLinkForm";
 import BackButton from "./components/BackButton";
+// ghosts
+import SendMagicLinkEffect from "./ghosts/SendMagicLinkEffect";
 // others
 import CONSTANTS from "@/constants";
 
@@ -44,6 +46,7 @@ const ForgotPasswordMagicLink = async ({
         tryOtherHref={tryOtherHref}
         translations={translations}
       />
+      <SendMagicLinkEffect email={decodedEmail} />
     </AuthStepLayout>
   );
 };

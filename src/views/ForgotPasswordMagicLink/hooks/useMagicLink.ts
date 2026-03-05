@@ -1,11 +1,16 @@
 "use client";
 
 // libs
+import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+// requests
+import { sendForgotPasswordMagicLink } from "@/requests/forgotPassword";
 // hooks
 import { useCountdown } from "@/hooks";
+// others
+import CONSTANTS from "@/constants";
 
-const COUNTDOWN_SECONDS = 60;
+const { RESEND_COUNTDOWN } = CONSTANTS.FORGOT_PASSWORD;
 
 export const useMagicLink = ({
   email,
@@ -14,26 +19,26 @@ export const useMagicLink = ({
   email: string;
   messages: {
     resendSuccess: string;
-    errorGeneric: string;
   };
 }) => {
   const {
     seconds: countdown,
     isFinished: canResend,
     reset: resetCountdown
-  } = useCountdown(COUNTDOWN_SECONDS);
+  } = useCountdown(RESEND_COUNTDOWN);
 
-  const handleResend = () => {
-    // TODO: Implement magic link API
-    console.log("Resend magic link:", email);
-    toast.success(messages.resendSuccess);
-    resetCountdown();
-  };
+  const { mutate: sendMagicLink, isPending: isResending } = useMutation({
+    mutationFn: () => sendForgotPasswordMagicLink(email),
+    onSuccess: () => {
+      toast.success(messages.resendSuccess);
+      resetCountdown();
+    }
+  });
 
   return {
     countdown,
     canResend,
-    isResending: false,
-    handleResend
+    isResending,
+    handleResend: sendMagicLink
   };
 };

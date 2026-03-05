@@ -23,11 +23,9 @@ const MagicLinkForm = ({
     button: { resend, resendIn, sending, tryOther },
     resendSuccess
   } = translations.form.magicLink;
-  const { generic: errorGeneric } = translations.message.error;
-
   const { countdown, canResend, isResending, handleResend } = useMagicLink({
     email,
-    messages: { resendSuccess, errorGeneric }
+    messages: { resendSuccess }
   });
 
   return (
