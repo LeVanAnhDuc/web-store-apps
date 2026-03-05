@@ -16,9 +16,9 @@ const { LOGIN } = CONSTANTS.ROUTES;
 const ResetPassword = async ({
   searchParams
 }: {
-  searchParams: Promise<{ email?: string; token?: string }>;
+  searchParams: Promise<{ email?: string; token?: string; method?: string }>;
 }) => {
-  const { email, token } = await searchParams;
+  const { email, token, method } = await searchParams;
 
   // Security: Redirect if missing email or token
   if (!email || !token) redirect(LOGIN);
@@ -39,6 +39,7 @@ const ResetPassword = async ({
       <ResetPasswordForm
         email={decodedEmail}
         token={decodedToken}
+        method={method}
         translations={translations}
       />
     </AuthStepLayout>

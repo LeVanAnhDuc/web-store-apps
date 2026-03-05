@@ -2,7 +2,6 @@
 
 // libs
 import { FormProvider, useForm } from "react-hook-form";
-import { toast } from "sonner";
 // types
 import type { ResetPasswordFormValues } from "@/types/ResetPassword";
 import type { ResetPasswordMessages } from "@/types/libs";
@@ -12,30 +11,28 @@ import PasswordInput from "@/components/PasswordInput";
 import PasswordRequirements from "../../components/PasswordRequirements";
 // forms
 import { resetPasswordFormProps } from "@/forms/ResetPassword";
+// hooks
+import { useResetPassword } from "../../hooks/useResetPassword";
 // others
-import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
-const { NEW_PASSWORD, CONFIRM_PASSWORD } =
-  CONSTANTS.FIELD_NAMES.FORGOT_PASSWORD_FIELD_NAMES;
-const { LOGIN } = CONSTANTS.ROUTES;
+const { NEW_PASSWORD } = CONSTANTS.FIELD_NAMES.FORGOT_PASSWORD_FIELD_NAMES;
+const { CONFIRM_PASSWORD } = CONSTANTS.FIELD_NAMES.FORGOT_PASSWORD_FIELD_NAMES;
 
 const ResetPasswordForm = ({
   email,
   token,
+  method,
   translations
 }: {
   email: string;
   token: string;
+  method?: string;
   translations: ResetPasswordMessages;
 }) => {
-  const router = useRouter();
-
   const methods = useForm<ResetPasswordFormValues>({
     ...resetPasswordFormProps
   });
-  const { formState } = methods;
-  const { isSubmitting } = formState;
 
   const {
     input: {
@@ -49,18 +46,35 @@ const ResetPasswordForm = ({
   } = translations.form;
   const { success } = translations.message;
 
-  const onSubmit = async (data: ResetPasswordFormValues) => {
-    // TODO: Call API to reset password with email, token, and newPassword
-    console.log("Reset password:", {
-      email,
-      token,
-      newPassword: data.newPassword
-    });
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+  const {
+    resetToken,
+    isVerifying,
+    verifyFailed,
+    reset: doReset,
+    isResetting
+  } = useResetPassword({ email, token, method, successMessage: success });
 
-    toast.success(success);
-    router.push(LOGIN);
+  const onSubmit = (data: ResetPasswordFormValues) => {
+    doReset(data[NEW_PASSWORD]);
   };
+
+  if (isVerifying) {
+    return (
+      <p className="text-muted-foreground py-8 text-center text-sm">
+        Verifying...
+      </p>
+    );
+  }
+
+  if (verifyFailed) {
+    return (
+      <p className="text-destructive py-8 text-center text-sm">
+        {translations.message.error.tokenExpired}
+      </p>
+    );
+  }
+
+  const isDisabled = isResetting || !resetToken;
 
   return (
     <FormProvider {...methods}>
@@ -69,20 +83,21 @@ const ResetPasswordForm = ({
           name={NEW_PASSWORD}
           label={labelNewPassword}
           placeholder={placeholderNewPassword}
-          disabled={isSubmitting}
+          disabled={isDisabled}
         />
         <PasswordInput
           name={CONFIRM_PASSWORD}
           label={labelConfirmPassword}
           placeholder={placeholderConfirmPassword}
-          disabled={isSubmitting}
+          disabled={isDisabled}
         />
         <PasswordRequirements labels={requirements} />
 
         <CustomButton
           type="submit"
           fullWidth
-          loading={isSubmitting}
+          loading={isResetting}
+          disabled={isDisabled}
           className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 rounded-lg transition-all duration-200 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
         >
           {reset}
