@@ -3,3 +3,5 @@ export type {
   ContactAdminActions,
   ContactAdminStore
 } from "./contactAdmin";
+
+export type { AuthState, AuthActions, AuthStore } from "./auth";

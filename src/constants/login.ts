@@ -1,0 +1,6 @@
+const LOGIN_CONSTANTS = {
+  OTP_LENGTH: 6,
+  RESEND_COUNTDOWN: 60
+};
+
+export default LOGIN_CONSTANTS;

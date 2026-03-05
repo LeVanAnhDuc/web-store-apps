@@ -2,8 +2,6 @@
 
 // libs
 import { useState } from "react";
-import { toast } from "sonner";
-import { useRouter } from "@/i18n/navigation";
 // types
 import type { LoginMessages } from "@/types/libs";
 // components
@@ -11,32 +9,24 @@ import ResendButton from "@/components/ResendButton";
 import OtpInputGroup from "@/components/OtpInputGroup";
 import OtpInstruction from "../../components/OtpInstruction";
 // hooks
-import { useCountdown } from "@/hooks";
+import { useOtpLogin } from "../../hooks/useOtpLogin";
 // ghosts
 import AutoVerifyOtpEffect from "@/ghosts/AutoVerifyOtpEffect";
 // others
 import CONSTANTS from "@/constants";
 
-const { OTP_LENGTH, RESEND_COUNTDOWN } = CONSTANTS.FORGOT_PASSWORD;
-const { HOME } = CONSTANTS.ROUTES;
+const { OTP_LENGTH } = CONSTANTS.LOGIN;
 
 const OtpStepForm = ({
+  email,
   tryOtherHref,
   translations
 }: {
+  email: string;
   tryOtherHref: string;
   translations: LoginMessages;
 }) => {
-  const router = useRouter();
-  const {
-    seconds: countdown,
-    isFinished: canResend,
-    reset: resetCountdown
-  } = useCountdown(RESEND_COUNTDOWN);
-
   const [otp, setOtp] = useState("");
-  const [isResending, setIsResending] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
 
   const {
     button: { resend, resendIn, sending, tryOther },
@@ -45,42 +35,29 @@ const OtpStepForm = ({
     verifying
   } = translations.form.otp;
 
-  const handleVerify = async () => {
+  const { sendOtp, verifyOtp, isSending, isVerifying, countdown, canResend } =
+    useOtpLogin({
+      email,
+      resendSuccessMessage: resendSuccess,
+      onVerifyError: () => setOtp("")
+    });
+
+  const handleVerify = () => {
     if (otp.length !== OTP_LENGTH) return;
-
-    setIsVerifying(true);
-
-    // TODO: Implement actual verification API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setIsVerifying(false);
-
-    // After OTP verified, go to home/dashboard
-    router.push(HOME);
+    verifyOtp(otp);
   };
 
-  const handleResend = async () => {
-    setIsResending(true);
-
-    // TODO: Implement actual resend API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    toast.success(resendSuccess);
-    resetCountdown();
-    setIsResending(false);
+  const handleResend = () => {
+    sendOtp();
     setOtp("");
-  };
-
-  const handleOtpChange = (value: string) => {
-    setOtp(value);
   };
 
   return (
     <>
       <OtpInputGroup
         value={otp}
-        onChange={handleOtpChange}
-        disabled={isResending}
+        onChange={setOtp}
+        disabled={isSending}
         isVerifying={isVerifying}
         verifyingLabel={verifying}
       />
@@ -90,7 +67,7 @@ const OtpStepForm = ({
       <ResendButton
         countdown={countdown}
         canResend={canResend}
-        isResending={isResending}
+        isResending={isSending}
         isProcessing={isVerifying}
         onResend={handleResend}
         tryOtherHref={tryOtherHref}

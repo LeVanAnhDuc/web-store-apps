@@ -9,6 +9,7 @@ import type {
 // others
 import { confirmErrorToast, getCurrentLocale } from "@/utils";
 import CONSTANTS from "@/constants";
+import { useAuthStore } from "@/stores";
 
 const API_TIMEOUT = 30000;
 
@@ -52,10 +53,9 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    // TODO: Get id token from store
-    const idToken = "";
+    const accessToken = useAuthStore.getState().tokens?.accessToken;
 
-    if (idToken) config.headers.Authorization = idToken;
+    if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`;
 
     return config;
   },
@@ -71,11 +71,15 @@ axiosInstance.interceptors.response.use(
 
     // ============================================
     // HANDLE 401 - AUTO REFRESH TOKEN (SILENT)
+    // Only runs for authenticated requests (has Authorization header).
+    // Unauthenticated requests (login, signup) return 401 for wrong credentials
+    // and should be handled by the caller, not intercepted here.
     // ============================================
     if (
       error.response?.status === 401 &&
       originalRequest &&
-      !originalRequest._retry
+      !originalRequest._retry &&
+      originalRequest.headers?.Authorization
     ) {
       // Queue subsequent requests while refreshing
       if (isRefreshing) {
@@ -94,8 +98,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      // TODO: Get refresh token from store
-      const refreshToken = "";
+      const refreshToken = useAuthStore.getState().tokens?.refreshToken;
 
       if (!refreshToken) {
         processQueue(error, null);
@@ -106,18 +109,28 @@ axiosInstance.interceptors.response.use(
       }
 
       try {
-        // TODO: Call refresh API
-        //
-        const idToken = "";
+        const response = await axiosInstance.post<
+          ResponsePattern<{
+            accessToken: string;
+            idToken: string;
+            expiresIn: number;
+          }>
+        >("/auth/refresh", { refreshToken });
 
-        // TODO: Save new token
-        //
+        const { accessToken, idToken, expiresIn } = response.data.data;
+
+        useAuthStore.getState().setTokens({
+          accessToken,
+          idToken,
+          refreshToken,
+          expiresIn
+        });
 
         if (originalRequest.headers)
-          originalRequest.headers.Authorization = `Bearer ${idToken}`;
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
 
         // Process queued requests
-        processQueue(null, idToken);
+        processQueue(null, accessToken);
         isRefreshing = false;
 
         // Retry original request

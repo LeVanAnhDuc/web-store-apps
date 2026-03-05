@@ -9,6 +9,8 @@ import AuthStepLayout from "@/components/AuthStepLayout";
 import AuthIcon from "@/components/AuthIcon";
 import OtpStepForm from "./mains/OtpStepForm";
 import BackButton from "./components/BackButton";
+// ghosts
+import SendOtpEffect from "./ghosts/SendOtpEffect";
 // others
 import CONSTANTS from "@/constants";
 
@@ -42,7 +44,12 @@ const LoginOtp = async ({
       email={decodedEmail}
       backButton={<BackButton email={decodedEmail} />}
     >
-      <OtpStepForm tryOtherHref={tryOtherHref} translations={translations} />
+      <OtpStepForm
+        email={decodedEmail}
+        tryOtherHref={tryOtherHref}
+        translations={translations}
+      />
+      <SendOtpEffect email={decodedEmail} />
     </AuthStepLayout>
   );
 };

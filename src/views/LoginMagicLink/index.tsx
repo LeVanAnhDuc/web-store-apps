@@ -10,6 +10,8 @@ import AuthIcon from "@/components/AuthIcon";
 import MagicLinkForm from "./mains/MagicLinkForm";
 import MagicLinkInstructions from "./components/MagicLinkInstructions";
 import BackButton from "./components/BackButton";
+// ghosts
+import SendMagicLinkEffect from "./ghosts/SendMagicLinkEffect";
 // others
 import CONSTANTS from "@/constants";
 
@@ -43,7 +45,12 @@ const LoginMagicLink = async ({
       backButton={<BackButton email={decodedEmail} />}
     >
       <MagicLinkInstructions translations={translations} />
-      <MagicLinkForm tryOtherHref={tryOtherHref} translations={translations} />
+      <MagicLinkForm
+        email={decodedEmail}
+        tryOtherHref={tryOtherHref}
+        translations={translations}
+      />
+      <SendMagicLinkEffect email={decodedEmail} />
     </AuthStepLayout>
   );
 };

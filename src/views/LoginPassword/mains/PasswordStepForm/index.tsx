@@ -12,6 +12,8 @@ import ForgotPasswordLink from "../../components/ForgotPasswordLink";
 import TryAnotherButton from "../../components/TryAnotherButton";
 // forms
 import { passwordStepFormProps } from "@/forms/Login";
+// hooks
+import { usePasswordLogin } from "../../hooks/usePasswordLogin";
 // others
 import CONSTANTS from "@/constants";
 
@@ -24,6 +26,7 @@ const PasswordStepForm = ({
   email: string;
   translations: LoginMessages;
 }) => {
+  const { login, isPending } = usePasswordLogin();
   const methods = useForm<PasswordStepFormValues>({ ...passwordStepFormProps });
 
   const {
@@ -33,8 +36,7 @@ const PasswordStepForm = ({
   const { forgotPassword } = translations.link;
 
   const onSubmit = (data: PasswordStepFormValues) => {
-    // TODO: Implement login API
-    console.log("Login submit:", { email, password: data[PASSWORD] });
+    login({ email, password: data[PASSWORD] });
   };
 
   return (
@@ -44,15 +46,17 @@ const PasswordStepForm = ({
           name={PASSWORD}
           label={labelEnterPassword}
           placeholder={placeholderPassword}
+          disabled={isPending}
         />
         <ForgotPasswordLink email={email} label={forgotPassword} />
         <div className="flex gap-3">
           <TryAnotherButton email={email} label={tryAnother} />
           <CustomButton
             type="submit"
+            disabled={isPending}
             className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 flex-1 rounded-lg transition-all duration-200 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {next}
+            {isPending ? "..." : next}
           </CustomButton>
         </div>
       </form>
