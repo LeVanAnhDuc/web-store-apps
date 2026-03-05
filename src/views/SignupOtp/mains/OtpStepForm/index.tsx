@@ -17,7 +17,7 @@ import AutoVerifyOtpEffect from "@/ghosts/AutoVerifyOTPEffect";
 // others
 import CONSTANTS from "@/constants";
 
-const { OTP_LENGTH, RESEND_COUNTDOWN } = CONSTANTS.FORGOT_PASSWORD;
+const { OTP_LENGTH, RESEND_COUNTDOWN } = CONSTANTS.SIGNUP;
 const { SIGNUP_INFO } = CONSTANTS.ROUTES;
 
 const OtpStepForm = ({

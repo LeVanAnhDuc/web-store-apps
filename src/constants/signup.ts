@@ -1,0 +1,8 @@
+const SIGNUP_CONSTANTS = {
+  OTP_LENGTH: 6,
+  RESEND_COUNTDOWN: 60,
+  SIGNUP_EMAIL_PARAM: "email",
+  SIGNUP_SESSION_PARAM: "sessionToken"
+};
+
+export default SIGNUP_CONSTANTS;
