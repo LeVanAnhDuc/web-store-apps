@@ -13,7 +13,7 @@ import OtpInstructionBox from "../../components/OtpInstructionBox";
 // hooks
 import { useCountdown } from "@/hooks";
 // ghosts
-import AutoVerifyOtpEffect from "@/ghosts/AutoVerifyOtpEffect";
+import AutoVerifyOtpEffect from "@/ghosts/AutoVerifyOTPEffect";
 // others
 import CONSTANTS from "@/constants";
 

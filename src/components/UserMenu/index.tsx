@@ -9,7 +9,7 @@ import AvatarUser from "./components/AvatarUser";
 import CustomButton from "../CustomButton";
 import UserInfoHeader from "./mains/UserInfoHeader";
 import MenuItems from "./mains/MenuItems";
-import SignOutItem from "./mains/SignOutItem";
+import SignOutItem from "./mains/SignoutItem";
 
 const UserMenu = () => (
   <DropdownMenu>
