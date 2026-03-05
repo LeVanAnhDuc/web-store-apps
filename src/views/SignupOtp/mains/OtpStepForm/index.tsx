@@ -2,8 +2,6 @@
 
 // libs
 import { useState } from "react";
-import { toast } from "sonner";
-import { useRouter } from "@/i18n/navigation";
 // types
 import type { SignupMessages } from "@/types/libs";
 // components
@@ -11,14 +9,13 @@ import ResendButton from "@/components/ResendButton";
 import OtpInputGroup from "@/components/OtpInputGroup";
 import OtpInstruction from "../../components/OtpInstruction";
 // hooks
-import { useCountdown } from "@/hooks";
+import { useSignupOtp } from "../../hooks/useSignupOtp";
 // ghosts
 import AutoVerifyOtpEffect from "@/ghosts/AutoVerifyOTPEffect";
 // others
 import CONSTANTS from "@/constants";
 
-const { OTP_LENGTH, RESEND_COUNTDOWN } = CONSTANTS.SIGNUP;
-const { SIGNUP_INFO } = CONSTANTS.ROUTES;
+const { OTP_LENGTH } = CONSTANTS.SIGNUP;
 
 const OtpStepForm = ({
   email,
@@ -29,16 +26,7 @@ const OtpStepForm = ({
   changeEmailHref: string;
   translations: SignupMessages;
 }) => {
-  const router = useRouter();
-  const {
-    seconds: countdown,
-    isFinished: canResend,
-    reset: resetCountdown
-  } = useCountdown(RESEND_COUNTDOWN);
-
   const [otp, setOtp] = useState("");
-  const [isResending, setIsResending] = useState(false);
-  const [isVerifying, setIsVerifying] = useState(false);
 
   const {
     button: { changeEmail, resend, resendIn, sending },
@@ -47,41 +35,34 @@ const OtpStepForm = ({
     verifying
   } = translations.otpStep;
 
-  const handleVerify = async () => {
+  const {
+    verifyOtp,
+    resendOtp,
+    isVerifying,
+    isResending,
+    countdown,
+    canResend
+  } = useSignupOtp({
+    email,
+    resendSuccessMessage: resendSuccess,
+    onVerifyError: () => setOtp("")
+  });
+
+  const handleVerify = () => {
     if (otp.length !== OTP_LENGTH) return;
-
-    setIsVerifying(true);
-
-    // TODO: Implement actual verification API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setIsVerifying(false);
-    // After OTP verified, go to info step
-    const encodedEmail = encodeURIComponent(email);
-    router.push(`${SIGNUP_INFO}?email=${encodedEmail}`);
+    verifyOtp(otp);
   };
 
-  const handleResend = async () => {
-    setIsResending(true);
-
-    // TODO: Implement actual resend API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    toast.success(resendSuccess);
-    resetCountdown();
-    setIsResending(false);
+  const handleResend = () => {
+    resendOtp();
     setOtp("");
-  };
-
-  const handleOtpChange = (value: string) => {
-    setOtp(value);
   };
 
   return (
     <>
       <OtpInputGroup
         value={otp}
-        onChange={handleOtpChange}
+        onChange={setOtp}
         disabled={isResending}
         isVerifying={isVerifying}
         verifyingLabel={verifying}
