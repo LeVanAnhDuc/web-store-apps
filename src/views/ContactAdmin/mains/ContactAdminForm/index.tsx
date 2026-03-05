@@ -14,13 +14,8 @@ import MessageTextarea from "../../components/MessageTextarea";
 import SubmitButton from "../../components/SubmitButton";
 // forms
 import { contactAdminFormProps } from "@/forms/ContactAdmin";
-// stores
-import { useContactAdminStore } from "@/stores";
-// others
-import { useRouter } from "@/i18n/navigation";
-import CONSTANTS from "@/constants";
-
-const { CONTACT_ADMIN_SUCCESS } = CONSTANTS.ROUTES;
+// hooks
+import { useContactAdmin } from "../../hooks/useContactAdmin";
 
 const ContactAdminForm = ({
   initialEmail,
@@ -32,7 +27,6 @@ const ContactAdminForm = ({
     "input" | "category" | "priority" | "button" | "hint"
   >;
 }) => {
-  const router = useRouter();
   const { input, category, priority, button, hint } = labels;
   const {
     labelEmail,
@@ -48,7 +42,7 @@ const ContactAdminForm = ({
     emailAutoFillHint
   } = input;
 
-  const setSuccessData = useContactAdminStore((state) => state.setSuccessData);
+  const { submit, isPending } = useContactAdmin();
 
   const methods = useForm<ContactAdminFormValues>({
     ...contactAdminFormProps,
@@ -58,18 +52,8 @@ const ContactAdminForm = ({
     }
   });
 
-  const { isSubmitting } = methods.formState;
-
-  const generateTicketNumber = () =>
-    `TICKET-${Date.now().toString().slice(-8)}`;
-
-  const onSubmit = async (data: ContactAdminFormValues) => {
-    // TODO: Implement actual API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    const ticketNumber = generateTicketNumber();
-    setSuccessData(data, ticketNumber);
-    router.push(CONTACT_ADMIN_SUCCESS);
+  const onSubmit = (data: ContactAdminFormValues) => {
+    submit(data);
   };
 
   const hintText = initialEmail ? emailAutoFillHint : emailHint;
@@ -78,19 +62,19 @@ const ContactAdminForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-5">
         <EmailInput
-          disabled={isSubmitting}
+          disabled={isPending}
           hint={hintText}
           labels={{ label: labelEmail, labelNote: labelEmailNote }}
         />
 
         <SubjectInput
-          disabled={isSubmitting}
+          disabled={isPending}
           labels={{ label: labelSubject, placeholder: placeholderSubject }}
         />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           <CategorySelect
-            disabled={isSubmitting}
+            disabled={isPending}
             labels={{
               label: labelCategory,
               placeholder: placeholderCategory,
@@ -98,13 +82,13 @@ const ContactAdminForm = ({
             }}
           />
           <PrioritySelect
-            disabled={isSubmitting}
+            disabled={isPending}
             labels={{ label: labelPriority, options: priority }}
           />
         </div>
 
         <MessageTextarea
-          disabled={isSubmitting}
+          disabled={isPending}
           labels={{
             label: labelMessage,
             placeholder: placeholderMessage,
@@ -112,7 +96,7 @@ const ContactAdminForm = ({
           }}
         />
 
-        <SubmitButton isSubmitting={isSubmitting} labels={button} />
+        <SubmitButton isSubmitting={isPending} labels={button} />
       </form>
     </FormProvider>
   );
