@@ -41,7 +41,23 @@
       "minChars": "Tối thiểu {count} ký tự",
       "charCount": "{count} ký tự"
     },
-    "footerNote": "Bạn sẽ nhận được email xác nhận sau khi gửi yêu cầu"
+    "attachments": {
+      "label": "Tệp đính kèm",
+      "labelNote": "(không bắt buộc)",
+      "hint": "Tối đa 5 tệp · 5MB mỗi tệp · JPG, PNG, GIF, PDF, DOC, DOCX",
+      "dragDrop": "Kéo thả tệp vào đây hoặc",
+      "browse": "chọn tệp",
+      "remove": "Xóa",
+      "errors": {
+        "fileTooLarge": "Tệp \"{name}\" vượt quá giới hạn 5MB",
+        "typeNotSupported": "Loại tệp \"{name}\" không được hỗ trợ",
+        "maxFilesExceeded": "Tối đa 5 tệp được phép"
+      }
+    },
+    "footerNote": "Bạn sẽ nhận được email xác nhận sau khi gửi yêu cầu",
+    "errors": {
+      "rateLimitExceeded": "Quá nhiều yêu cầu. Vui lòng thử lại sau vài phút."
+    }
   },
   "success": {
     "title": "Gửi yêu cầu thành công!",

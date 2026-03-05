@@ -1,6 +1,7 @@
 "use client";
 
 // libs
+import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 // types
 import type { ContactAdminFormValues } from "@/types/ContactAdmin";
@@ -12,6 +13,7 @@ import CategorySelect from "../../components/CategorySelect";
 import PrioritySelect from "../../components/PrioritySelect";
 import MessageTextarea from "../../components/MessageTextarea";
 import SubmitButton from "../../components/SubmitButton";
+import FileUploadInput from "../../components/FileUploadInput";
 // forms
 import { contactAdminFormProps } from "@/forms/ContactAdmin";
 // hooks
@@ -28,6 +30,7 @@ const ContactAdminForm = ({
   >;
 }) => {
   const { input, category, priority, button, hint } = labels;
+  const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
   const {
     labelEmail,
     labelEmailNote,
@@ -53,7 +56,7 @@ const ContactAdminForm = ({
   });
 
   const onSubmit = (data: ContactAdminFormValues) => {
-    submit(data);
+    submit({ data, files: attachedFiles });
   };
 
   const hintText = initialEmail ? emailAutoFillHint : emailHint;
@@ -94,6 +97,11 @@ const ContactAdminForm = ({
             placeholder: placeholderMessage,
             hint
           }}
+        />
+
+        <FileUploadInput
+          disabled={isPending}
+          onFilesChange={setAttachedFiles}
         />
 
         <SubmitButton isSubmitting={isPending} labels={button} />

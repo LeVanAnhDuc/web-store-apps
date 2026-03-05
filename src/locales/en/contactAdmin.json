@@ -41,7 +41,23 @@
       "minChars": "Minimum {count} characters",
       "charCount": "{count} characters"
     },
-    "footerNote": "You will receive a confirmation email after submitting the request"
+    "attachments": {
+      "label": "Attachments",
+      "labelNote": "(optional)",
+      "hint": "Max 5 files · 5MB each · JPG, PNG, GIF, PDF, DOC, DOCX",
+      "dragDrop": "Drag & drop files here or",
+      "browse": "browse",
+      "remove": "Remove",
+      "errors": {
+        "fileTooLarge": "File \"{name}\" exceeds the 5MB limit",
+        "typeNotSupported": "File type \"{name}\" is not supported",
+        "maxFilesExceeded": "Maximum 5 files allowed"
+      }
+    },
+    "footerNote": "You will receive a confirmation email after submitting the request",
+    "errors": {
+      "rateLimitExceeded": "Too many requests. Please try again in a few minutes."
+    }
   },
   "success": {
     "title": "Request submitted successfully!",

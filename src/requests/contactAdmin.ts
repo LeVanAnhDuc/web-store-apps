@@ -8,7 +8,8 @@ type SubmitContactResponse = {
 };
 
 export const submitContact = async (
-  data: ContactAdminFormValues
+  data: ContactAdminFormValues,
+  files?: File[]
 ): Promise<SubmitContactResponse> => {
   const formData = new FormData();
 
@@ -17,6 +18,7 @@ export const submitContact = async (
   formData.append("category", data.category);
   formData.append("priority", data.priority);
   formData.append("message", data.message);
+  files?.forEach((file) => formData.append("attachments", file));
 
   const response = await axiosInstance.post<
     ResponsePattern<SubmitContactResponse>
