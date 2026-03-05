@@ -9,6 +9,8 @@ import AuthStepLayout from "@/components/AuthStepLayout";
 import AuthIcon from "@/components/AuthIcon";
 import OtpStepForm from "./mains/OtpStepForm";
 import BackButton from "./components/BackButton";
+// ghosts
+import SendOtpEffect from "./ghosts/SendOtpEffect";
 // others
 import CONSTANTS from "@/constants";
 
@@ -44,6 +46,7 @@ const ForgotPasswordOtp = async ({
         tryOtherHref={tryOtherHref}
         translations={translations}
       />
+      <SendOtpEffect email={decodedEmail} />
     </AuthStepLayout>
   );
 };
