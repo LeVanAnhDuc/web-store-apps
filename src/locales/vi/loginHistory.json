@@ -1,0 +1,65 @@
+{
+  "title": "Lịch sử đăng nhập",
+  "description": "Xem hoạt động đăng nhập gần đây của bạn",
+  "table": {
+    "method": "Phương thức",
+    "status": "Trạng thái",
+    "ip": "Địa chỉ IP",
+    "country": "Quốc gia",
+    "city": "Thành phố",
+    "deviceType": "Thiết bị",
+    "browser": "Trình duyệt",
+    "os": "Hệ điều hành",
+    "clientType": "Loại client",
+    "createdAt": "Thời gian",
+    "failReason": "Lý do thất bại",
+    "empty": "Không có lịch sử đăng nhập",
+    "userId": "ID người dùng",
+    "usernameAttempted": "Tên đăng nhập thử",
+    "userAgent": "User Agent",
+    "timezoneOffset": "Múi giờ",
+    "isAnomaly": "Bất thường",
+    "anomalyReasons": "Lý do bất thường"
+  },
+  "filters": {
+    "title": "Bộ lọc",
+    "status": "Trạng thái",
+    "method": "Phương thức",
+    "country": "Quốc gia",
+    "city": "Thành phố",
+    "fromDate": "Từ ngày",
+    "toDate": "Đến ngày",
+    "userId": "ID người dùng",
+    "ip": "Địa chỉ IP",
+    "all": "Tất cả",
+    "clear": "Xóa",
+    "apply": "Áp dụng"
+  },
+  "status": {
+    "success": "Thành công",
+    "failed": "Thất bại"
+  },
+  "method": {
+    "password": "Mật khẩu",
+    "otp": "OTP",
+    "magic-link": "Magic Link",
+    "forgot-password": "Quên mật khẩu"
+  },
+  "deviceType": {
+    "DESKTOP": "Máy tính",
+    "MOBILE": "Di động",
+    "TABLET": "Máy tính bảng",
+    "UNKNOWN": "Không rõ"
+  },
+  "pagination": {
+    "previous": "Trước",
+    "next": "Tiếp",
+    "page": "Trang",
+    "of": "trong",
+    "results": "kết quả"
+  },
+  "admin": {
+    "title": "Toàn bộ lịch sử đăng nhập",
+    "description": "Xem lịch sử đăng nhập của tất cả người dùng"
+  }
+}

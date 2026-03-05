@@ -1,0 +1,65 @@
+{
+  "title": "Login History",
+  "description": "View your recent login activity",
+  "table": {
+    "method": "Method",
+    "status": "Status",
+    "ip": "IP Address",
+    "country": "Country",
+    "city": "City",
+    "deviceType": "Device",
+    "browser": "Browser",
+    "os": "OS",
+    "clientType": "Client",
+    "createdAt": "Date",
+    "failReason": "Fail Reason",
+    "empty": "No login history found",
+    "userId": "User ID",
+    "usernameAttempted": "Username Attempted",
+    "userAgent": "User Agent",
+    "timezoneOffset": "Timezone",
+    "isAnomaly": "Anomaly",
+    "anomalyReasons": "Anomaly Reasons"
+  },
+  "filters": {
+    "title": "Filters",
+    "status": "Status",
+    "method": "Method",
+    "country": "Country",
+    "city": "City",
+    "fromDate": "From Date",
+    "toDate": "To Date",
+    "userId": "User ID",
+    "ip": "IP Address",
+    "all": "All",
+    "clear": "Clear",
+    "apply": "Apply"
+  },
+  "status": {
+    "success": "Success",
+    "failed": "Failed"
+  },
+  "method": {
+    "password": "Password",
+    "otp": "OTP",
+    "magic-link": "Magic Link",
+    "forgot-password": "Forgot Password"
+  },
+  "deviceType": {
+    "DESKTOP": "Desktop",
+    "MOBILE": "Mobile",
+    "TABLET": "Tablet",
+    "UNKNOWN": "Unknown"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of",
+    "results": "results"
+  },
+  "admin": {
+    "title": "All Login History",
+    "description": "View all users' login activity"
+  }
+}

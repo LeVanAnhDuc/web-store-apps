@@ -5,6 +5,7 @@ import forgotPassword from "./forgotPassword.json";
 import resetPassword from "./resetPassword.json";
 import contactAdmin from "./contactAdmin.json";
 import dashboard from "./dashboard.json";
+import loginHistory from "./loginHistory.json";
 
 const messages = {
   common,
@@ -13,7 +14,8 @@ const messages = {
   forgotPassword,
   resetPassword,
   contactAdmin,
-  dashboard
+  dashboard,
+  loginHistory
 };
 
 export default messages;
