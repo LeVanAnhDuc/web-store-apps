@@ -14,7 +14,9 @@ const ROUTES = {
   SIGNUP_INFO: "/signup/info",
   HOME: "/",
   CONTACT_ADMIN: "/contact-admin",
-  CONTACT_ADMIN_SUCCESS: "/contact-admin/success"
+  CONTACT_ADMIN_SUCCESS: "/contact-admin/success",
+  ADMIN_CONTACTS: "/admin/contacts",
+  MY_CONTACTS: "/contacts/me"
 };
 
 export default ROUTES;

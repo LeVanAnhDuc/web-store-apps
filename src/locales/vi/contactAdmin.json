@@ -100,5 +100,86 @@
       "back": "Quay lại",
       "print": "In thông tin"
     }
+  },
+  "admin": {
+    "list": {
+      "title": "Yêu cầu liên hệ",
+      "description": "Quản lý tất cả yêu cầu hỗ trợ của người dùng",
+      "table": {
+        "ticketNumber": "Mã ticket",
+        "email": "Email",
+        "subject": "Tiêu đề",
+        "category": "Danh mục",
+        "priority": "Ưu tiên",
+        "status": "Trạng thái",
+        "attachments": "Tệp",
+        "createdAt": "Ngày tạo",
+        "empty": "Không có yêu cầu liên hệ",
+        "viewDetail": "Xem"
+      },
+      "filters": {
+        "title": "Bộ lọc",
+        "status": "Trạng thái",
+        "category": "Danh mục",
+        "priority": "Ưu tiên",
+        "email": "Email",
+        "ticketNumber": "Mã ticket",
+        "search": "Tìm kiếm",
+        "searchPlaceholder": "Tìm theo tiêu đề, email, mã ticket...",
+        "fromDate": "Từ ngày",
+        "toDate": "Đến ngày",
+        "all": "Tất cả",
+        "clear": "Xóa",
+        "apply": "Áp dụng"
+      },
+      "status": {
+        "new": "Mới",
+        "processing": "Đang xử lý",
+        "resolved": "Đã giải quyết"
+      }
+    },
+    "detail": {
+      "title": "Chi tiết yêu cầu",
+      "back": "Quay lại danh sách",
+      "fields": {
+        "ticketNumber": "Mã ticket",
+        "email": "Email",
+        "subject": "Tiêu đề",
+        "category": "Danh mục",
+        "priority": "Ưu tiên",
+        "status": "Trạng thái",
+        "ipAddress": "Địa chỉ IP",
+        "userId": "ID người dùng",
+        "message": "Nội dung",
+        "createdAt": "Ngày tạo",
+        "updatedAt": "Cập nhật lúc",
+        "attachments": "Tệp đính kèm"
+      },
+      "updateStatus": {
+        "label": "Cập nhật trạng thái",
+        "success": "Cập nhật trạng thái thành công",
+        "error": "Cập nhật trạng thái thất bại"
+      },
+      "attachments": {
+        "empty": "Không có tệp đính kèm",
+        "download": "Tải xuống",
+        "preview": "Xem trước"
+      }
+    }
+  },
+  "myContacts": {
+    "title": "Yêu cầu của tôi",
+    "description": "Xem các yêu cầu hỗ trợ bạn đã gửi",
+    "table": {
+      "ticketNumber": "Mã ticket",
+      "subject": "Tiêu đề",
+      "category": "Danh mục",
+      "priority": "Ưu tiên",
+      "status": "Trạng thái",
+      "attachments": "Tệp",
+      "createdAt": "Ngày gửi",
+      "empty": "Bạn chưa gửi yêu cầu nào"
+    },
+    "submitNew": "Gửi yêu cầu mới"
   }
 }
