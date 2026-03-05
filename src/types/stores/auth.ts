@@ -7,6 +7,7 @@ export type AuthState = {
 export type AuthActions = {
   setTokens: (tokens: LoginTokenResponse) => void;
   clearTokens: () => void;
+  logout: () => Promise<void>;
 };
 
 export type AuthStore = AuthState & AuthActions;
