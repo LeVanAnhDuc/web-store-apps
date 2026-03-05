@@ -17,11 +17,11 @@ const { SIGNUP } = CONSTANTS.ROUTES;
 const SignupInfo = async ({
   searchParams
 }: {
-  searchParams: Promise<{ email?: string }>;
+  searchParams: Promise<{ email?: string; sessionToken?: string }>;
 }) => {
-  const { email } = await searchParams;
+  const { email, sessionToken } = await searchParams;
 
-  if (!email) redirect(SIGNUP);
+  if (!email || !sessionToken) redirect(SIGNUP);
 
   const decodedEmail = decodeURIComponent(email);
   const messages = await getMessages();
@@ -34,7 +34,11 @@ const SignupInfo = async ({
       email={decodedEmail}
       backButton={<BackButton />}
     >
-      <InfoStepForm translations={translations} />
+      <InfoStepForm
+        email={decodedEmail}
+        sessionToken={sessionToken}
+        translations={translations}
+      />
     </AuthStepLayout>
   );
 };

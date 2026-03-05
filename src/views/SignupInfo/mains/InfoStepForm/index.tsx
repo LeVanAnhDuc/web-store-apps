@@ -13,13 +13,25 @@ import BirthdayInput from "../../components/BirthdayInput";
 import SubmitButton from "../../components/SubmitButton";
 // forms
 import { signupInfoFormProps } from "@/forms/Signup";
+// hooks
+import { useSignupComplete } from "../../hooks/useSignupComplete";
 // others
 import CONSTANTS from "@/constants";
 
-const { PASSWORD, PASSWORD_CONFIRM } = CONSTANTS.FIELD_NAMES.SIGNUP_FIELD_NAMES;
+const { PASSWORD, PASSWORD_CONFIRM, FULL_NAME, GENDER, BIRTHDAY } =
+  CONSTANTS.FIELD_NAMES.SIGNUP_FIELD_NAMES;
 
-const InfoStepForm = ({ translations }: { translations: SignupMessages }) => {
+const InfoStepForm = ({
+  email,
+  sessionToken,
+  translations
+}: {
+  email: string;
+  sessionToken: string;
+  translations: SignupMessages;
+}) => {
   const methods = useForm<SignupInfoFormValues>({ ...signupInfoFormProps });
+  const { complete, isPending } = useSignupComplete();
 
   const {
     input: {
@@ -38,9 +50,17 @@ const InfoStepForm = ({ translations }: { translations: SignupMessages }) => {
     button: { submit }
   } = translations.infoStep;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = (data: SignupInfoFormValues) => {
-    // TODO: Call API to register user with email and form data
+    complete({
+      email,
+      sessionToken,
+      fullName: data[FULL_NAME],
+      gender: data[GENDER],
+      dateOfBirth: data[BIRTHDAY],
+      password: data[PASSWORD],
+      confirmPassword: data[PASSWORD_CONFIRM],
+      acceptTerms: true
+    });
   };
 
   return (
@@ -49,29 +69,34 @@ const InfoStepForm = ({ translations }: { translations: SignupMessages }) => {
         <FullNameInput
           label={labelFullName}
           placeholder={placeholderFullName}
+          disabled={isPending}
         />
         <GenderSelect
           label={labelGender}
           placeholder={placeholderGender}
           genderLabels={gender}
+          disabled={isPending}
         />
         <BirthdayInput
           label={labelBirthday}
           placeholder={placeholderBirthday}
+          disabled={isPending}
         />
         <PasswordInput
           name={PASSWORD}
           label={labelPassword}
           placeholder={placeholderPassword}
+          disabled={isPending}
           required
         />
         <PasswordInput
           name={PASSWORD_CONFIRM}
           label={labelPasswordConfirm}
           placeholder={placeholderPasswordConfirm}
+          disabled={isPending}
           required
         />
-        <SubmitButton label={submit} />
+        <SubmitButton label={submit} loading={isPending} />
       </form>
     </FormProvider>
   );
