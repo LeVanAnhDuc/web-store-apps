@@ -20,7 +20,7 @@ import CustomSelectTrigger from "@/components/CustomSelectTrigger";
 // hooks
 import { useFieldProps } from "@/hooks";
 // others
-import { GENDER_VALUES } from "@/constants/signup";
+import { GENDER_VALUES } from "@/constants/pages/signup";
 import CONSTANTS from "@/constants";
 
 const { GENDER } = CONSTANTS.FIELD_NAMES.SIGNUP_FIELD_NAMES;

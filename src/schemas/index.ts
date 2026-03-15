@@ -1,7 +1,7 @@
 // libs
 import * as z from "zod";
 // others
-import { GENDER_VALUES } from "@/constants/signup";
+import { GENDER_VALUES } from "@/constants/pages/signup";
 import { getDateOfBirthBounds } from "@/utils";
 
 const SAFE_EMAIL_PATTERN =

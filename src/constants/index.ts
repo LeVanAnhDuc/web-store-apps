@@ -1,10 +1,10 @@
 import ROUTES from "./routes";
 import FIELD_NAMES from "./fieldNames";
 import STORAGE_KEYS from "./storageKeys";
-import FORGOT_PASSWORD from "./forgotPassword";
-import CONTACT_ADMIN from "./contactAdmin";
-import LOGIN from "./login";
-import SIGNUP from "./signup";
+import FORGOT_PASSWORD from "./pages/forgotPassword";
+import CONTACT_ADMIN from "./pages/contactAdmin";
+import LOGIN from "./pages/login";
+import SIGNUP from "./pages/signup";
 
 const CONSTANTS = {
   ROUTES,
