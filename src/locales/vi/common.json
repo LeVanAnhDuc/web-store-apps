@@ -29,7 +29,10 @@
   "validation": {
     "email": {
       "required": "Vui lòng nhập email",
-      "invalid": "Email không đúng định dạng"
+      "minLength": "Email phải có ít nhất 3 ký tự",
+      "maxLength": "Email không được vượt quá 254 ký tự",
+      "invalid": "Email không đúng định dạng",
+      "invalidHint": "Định dạng hợp lệ: name@domain.com • 3–254 ký tự • Không chứa ký tự điều khiển hoặc ký tự vô hình"
     },
     "password": {
       "required": "Vui lòng nhập mật khẩu",
@@ -56,10 +59,12 @@
       "minLength": "Họ tên phải có ít nhất 2 ký tự"
     },
     "gender": {
-      "required": "Vui lòng chọn giới tính"
+      "required": "Vui lòng chọn giới tính",
+      "invalid": "Giới tính không hợp lệ"
     },
     "birthday": {
-      "required": "Vui lòng chọn ngày sinh"
+      "required": "Vui lòng chọn ngày sinh",
+      "invalid": "Ngày sinh phải trong khoảng 13–120 tuổi"
     },
     "subject": {
       "required": "Vui lòng nhập tiêu đề",

@@ -29,7 +29,10 @@
   "validation": {
     "email": {
       "required": "Please enter email",
-      "invalid": "Invalid email format"
+      "minLength": "Email must be at least 3 characters",
+      "maxLength": "Email must not exceed 254 characters",
+      "invalid": "Invalid email format",
+      "invalidHint": "Valid format: name@domain.com • 3–254 characters • No control or invisible characters"
     },
     "password": {
       "required": "Please enter password",
@@ -56,10 +59,12 @@
       "minLength": "Full name must be at least 2 characters"
     },
     "gender": {
-      "required": "Please select gender"
+      "required": "Please select gender",
+      "invalid": "Invalid gender"
     },
     "birthday": {
-      "required": "Please select birthday"
+      "required": "Please select birthday",
+      "invalid": "Date of birth must be between 13–120 years old"
     },
     "subject": {
       "required": "Please enter subject",

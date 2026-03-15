@@ -27,14 +27,20 @@ const FormFieldMessage = ({ className }: { className?: string }) => {
     message = errorKey;
   }
 
+  const hintKey = `${translationKey}Hint`;
+  const hint = t.has(hintKey as Parameters<typeof t.has>[0])
+    ? t(hintKey as Parameters<typeof t>[0])
+    : null;
+
   return (
-    <p
+    <div
       data-slot="form-message"
       id={formMessageId}
-      className={cn("text-destructive text-sm", className)}
+      className={cn("flex flex-col gap-0.5", className)}
     >
-      {message}
-    </p>
+      <p className="text-destructive text-sm">{message}</p>
+      {hint && <p className="text-muted-foreground text-xs">{hint}</p>}
+    </div>
   );
 };
 
