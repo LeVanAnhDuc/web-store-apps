@@ -43,7 +43,7 @@ const PasswordStepForm = ({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-5">
         <PasswordInput
           name={PASSWORD}
           label={labelEnterPassword}

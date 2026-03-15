@@ -87,7 +87,7 @@ const OptionsForm = ({
       </div>
 
       <RecoveryOptionsInfo hint={hint} />
-      <div className="text-center">
+      <div className="pt-5 text-center">
         <Link
           href={LOGIN}
           className="text-primary text-sm transition-colors duration-200 hover:underline"
