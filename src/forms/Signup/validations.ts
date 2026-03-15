@@ -3,6 +3,7 @@ import * as z from "zod";
 // schemas
 import {
   emailSchema,
+  fullNameSchema,
   passwordSchema,
   genderSchema,
   birthdaySchema
@@ -19,10 +20,7 @@ export const signupEmailFormValidation = z.object({
 
 export const signupInfoFormValidation = z
   .object({
-    [FULL_NAME]: z
-      .string()
-      .min(1, { message: "required" })
-      .min(2, { message: "minLength" }),
+    [FULL_NAME]: fullNameSchema,
     [GENDER]: genderSchema,
     [BIRTHDAY]: birthdaySchema,
     [PASSWORD]: passwordSchema,

@@ -30,6 +30,15 @@ export const birthdaySchema = z
     { message: "invalid" }
   );
 
+const SAFE_FULLNAME_PATTERN = /^[\p{L}\s\-'.]+$/u;
+
+export const fullNameSchema = z
+  .string()
+  .min(1, { message: "required" })
+  .min(2, { message: "minLength" })
+  .max(100, { message: "maxLength" })
+  .regex(SAFE_FULLNAME_PATTERN, { message: "invalid" });
+
 export const passwordSchema = z
   .string()
   .min(1, { message: "required" })

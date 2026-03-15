@@ -60,7 +60,10 @@
     },
     "fullName": {
       "required": "Vui lòng nhập họ tên",
-      "minLength": "Họ tên phải có ít nhất 2 ký tự"
+      "minLength": "Họ tên phải có ít nhất 2 ký tự",
+      "maxLength": "Họ tên không được vượt quá 100 ký tự",
+      "invalid": "Họ tên chứa ký tự không hợp lệ",
+      "invalidHint": "Ký tự cho phép: chữ cái (mọi ngôn ngữ), khoảng trắng, dấu gạch ngang (-), dấu nháy đơn ('), dấu chấm (.)"
     },
     "gender": {
       "required": "Vui lòng chọn giới tính",

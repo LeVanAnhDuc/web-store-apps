@@ -60,7 +60,10 @@
     },
     "fullName": {
       "required": "Please enter full name",
-      "minLength": "Full name must be at least 2 characters"
+      "minLength": "Full name must be at least 2 characters",
+      "maxLength": "Full name must not exceed 100 characters",
+      "invalid": "Full name contains invalid characters",
+      "invalidHint": "Allowed: letters (any language), spaces, hyphens (-), apostrophes ('), periods (.)"
     },
     "gender": {
       "required": "Please select gender",
