@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 // components
 import Header from "@/components/Header";
 import AuthFooter from "@/components/AuthFooter";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 export default function Layout({
   children
@@ -11,6 +12,7 @@ export default function Layout({
 }>) {
   return (
     <>
+      <AnimatedBackground />
       <Header />
       <main className="auth-background flex min-h-screen flex-col items-center justify-center p-4 pt-20">
         {children}
