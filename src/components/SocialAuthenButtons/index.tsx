@@ -31,7 +31,6 @@ const FacebookIcon = () => (
 type SocialAuthenButtonsProps = {
   onGoogleClick?: () => void;
   onFacebookClick?: () => void;
-  isLoading?: boolean;
   labels: {
     google: string;
     facebook: string;
@@ -41,7 +40,6 @@ type SocialAuthenButtonsProps = {
 const SocialAuthenButtons = ({
   onGoogleClick,
   onFacebookClick,
-  isLoading = false,
   labels
 }: SocialAuthenButtonsProps) => (
   <div className="space-y-3">
@@ -49,7 +47,7 @@ const SocialAuthenButtons = ({
       type="button"
       variant="outline"
       onClick={onGoogleClick}
-      disabled={isLoading}
+      disabled
       fullWidth
       iconLeft={<GoogleIcon />}
       className="border-input hover:bg-accent h-12 transition-all duration-200"
@@ -61,7 +59,7 @@ const SocialAuthenButtons = ({
       type="button"
       variant="outline"
       onClick={onFacebookClick}
-      disabled={isLoading}
+      disabled
       fullWidth
       iconLeft={<FacebookIcon />}
       className="border-input hover:bg-accent h-12 transition-all duration-200"
