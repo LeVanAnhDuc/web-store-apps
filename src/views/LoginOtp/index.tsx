@@ -6,7 +6,6 @@ import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import OtpStepForm from "./mains/OtpStepForm";
-import BackButton from "./components/BackButton";
 // ghosts
 import SendOtpEffect from "./ghosts/SendOtpEffect";
 // others
@@ -39,7 +38,6 @@ const LoginOtp = async ({
       title={otp.title}
       description={otp.description}
       email={decodedEmail}
-      backButton={<BackButton email={decodedEmail} />}
     >
       <OtpStepForm
         email={decodedEmail}

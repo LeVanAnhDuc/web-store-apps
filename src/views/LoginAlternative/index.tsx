@@ -7,7 +7,6 @@ import type { LoginMessages } from "@/types/libs";
 import AuthStepLayout from "@/components/AuthStepLayout";
 import AlternativeOptions from "./mains/AlternativeOptions";
 import LoginOptionsInfo from "./components/LoginOptionsInfo";
-import BackButton from "./components/BackButton";
 // others
 import CONSTANTS from "@/constants";
 
@@ -31,11 +30,7 @@ const LoginAlternative = async ({
   const { form } = translations;
 
   return (
-    <AuthStepLayout
-      title={form.titleChooseMethod}
-      email={decodedEmail}
-      backButton={<BackButton />}
-    >
+    <AuthStepLayout title={form.titleChooseMethod} email={decodedEmail}>
       <AlternativeOptions
         email={decodedEmail}
         currentPath={currentPath}

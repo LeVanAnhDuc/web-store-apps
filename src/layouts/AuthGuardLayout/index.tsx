@@ -2,7 +2,7 @@
 
 // libs
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 // types
 import type { ReactNode } from "react";
 // stores

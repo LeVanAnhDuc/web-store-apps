@@ -6,7 +6,6 @@ import type { ForgotPasswordMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import OtpStepForm from "./mains/OtpStepForm";
-import BackButton from "./components/BackButton";
 // ghosts
 import SendOtpEffect from "./ghosts/SendOtpEffect";
 // others
@@ -36,7 +35,6 @@ const ForgotPasswordOtp = async ({
       title={otp.title}
       description={otp.description}
       email={decodedEmail}
-      backButton={<BackButton email={decodedEmail} />}
     >
       <OtpStepForm
         email={decodedEmail}

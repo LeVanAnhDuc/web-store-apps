@@ -6,7 +6,6 @@ import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import PasswordStepForm from "./mains/PasswordStepForm";
-import BackButton from "./components/BackButton";
 // others
 import CONSTANTS from "@/constants";
 
@@ -29,7 +28,6 @@ const LoginPassword = async ({
     <AuthStepLayout
       title={translations.form.titlePassword}
       email={decodedEmail}
-      backButton={<BackButton />}
     >
       <PasswordStepForm email={decodedEmail} translations={translations} />
     </AuthStepLayout>

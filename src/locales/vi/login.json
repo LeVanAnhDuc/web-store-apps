@@ -19,7 +19,9 @@
       "loginWithFacebook": "Đăng nhập với Facebook",
       "comingSoon": "sắp ra mắt",
       "next": "Tiếp tục với email",
-      "tryAnother": "Thử cách khác"
+      "signIn": "Đăng nhập",
+      "tryAnother": "Thử cách khác",
+      "changeEmail": "Đổi email"
     },
     "alternative": {
       "magicLink": {

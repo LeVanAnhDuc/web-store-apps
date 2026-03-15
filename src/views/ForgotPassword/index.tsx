@@ -6,7 +6,6 @@ import type { ForgotPasswordMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import OptionsForm from "./mains/OptionsForm";
-import BackButton from "./components/BackButton";
 // others
 import CONSTANTS from "@/constants";
 
@@ -30,11 +29,7 @@ const ForgotPassword = async ({
   const { options } = translations.form;
 
   return (
-    <AuthStepLayout
-      title={options.title}
-      email={decodedEmail}
-      backButton={<BackButton />}
-    >
+    <AuthStepLayout title={options.title} email={decodedEmail}>
       <OptionsForm
         email={decodedEmail}
         currentPath={currentPath}

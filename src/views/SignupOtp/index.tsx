@@ -6,7 +6,6 @@ import type { SignupMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import OtpStepForm from "./mains/OtpStepForm";
-import BackButton from "./components/BackButton";
 // others
 import CONSTANTS from "@/constants";
 
@@ -31,7 +30,6 @@ const SignupOtp = async ({
       title={otpStep.title}
       description={otpStep.description}
       email={decodedEmail}
-      backButton={<BackButton />}
     >
       <OtpStepForm
         email={decodedEmail}

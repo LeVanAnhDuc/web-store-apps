@@ -15,9 +15,11 @@ import { passwordStepFormProps } from "@/forms/Login";
 // hooks
 import { usePasswordLogin } from "../../hooks/usePasswordLogin";
 // others
+import { Link } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
 const { PASSWORD } = CONSTANTS.FIELD_NAMES.LOGIN_FIELD_NAMES;
+const { LOGIN } = CONSTANTS.ROUTES;
 
 const PasswordStepForm = ({
   email,
@@ -31,7 +33,7 @@ const PasswordStepForm = ({
 
   const {
     input: { labelEnterPassword, placeholderPassword },
-    button: { tryAnother, next }
+    button: { tryAnother, signIn, changeEmail }
   } = translations.form;
   const { forgotPassword } = translations.link;
 
@@ -48,16 +50,28 @@ const PasswordStepForm = ({
           placeholder={placeholderPassword}
           disabled={isPending}
         />
-        <ForgotPasswordLink email={email} label={forgotPassword} />
-        <div className="flex gap-3">
-          <TryAnotherButton email={email} label={tryAnother} />
-          <CustomButton
-            type="submit"
+        <div className="flex items-center justify-between">
+          <ForgotPasswordLink email={email} label={forgotPassword} />
+          <TryAnotherButton
+            email={email}
             disabled={isPending}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 flex-1 rounded-lg transition-all duration-200 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+            label={tryAnother}
+          />
+        </div>
+        <CustomButton
+          type="submit"
+          disabled={isPending}
+          className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 w-full rounded-lg transition-all duration-200 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isPending ? "..." : signIn}
+        </CustomButton>
+        <div className="text-center">
+          <Link
+            href={LOGIN}
+            className="text-primary text-sm transition-colors duration-200 hover:underline"
           >
-            {isPending ? "..." : next}
-          </CustomButton>
+            {changeEmail}
+          </Link>
         </div>
       </form>
     </FormProvider>

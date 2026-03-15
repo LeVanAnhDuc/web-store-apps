@@ -7,7 +7,6 @@ import type { LoginMessages } from "@/types/libs";
 import AuthStepLayout from "@/components/AuthStepLayout";
 import MagicLinkForm from "./mains/MagicLinkForm";
 import MagicLinkInstructions from "./components/MagicLinkInstructions";
-import BackButton from "./components/BackButton";
 // ghosts
 import SendMagicLinkEffect from "./ghosts/SendMagicLinkEffect";
 // others
@@ -39,7 +38,6 @@ const LoginMagicLink = async ({
       title={magicLink.title}
       description={magicLink.description}
       email={decodedEmail}
-      backButton={<BackButton email={decodedEmail} />}
     >
       <MagicLinkInstructions translations={translations} />
       <MagicLinkForm

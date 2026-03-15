@@ -19,7 +19,9 @@
       "loginWithFacebook": "Sign in with Facebook",
       "comingSoon": "coming soon",
       "next": "Continue with email",
-      "tryAnother": "Try another way"
+      "signIn": "Sign in",
+      "tryAnother": "Try another way",
+      "changeEmail": "Change email"
     },
     "alternative": {
       "magicLink": {

@@ -7,7 +7,6 @@ import AuthStepLayout from "@/components/AuthStepLayout";
 import ResponseTimeAlert from "./mains/ResponseTimeAlert";
 import FooterNote from "./mains/FooterNote";
 import ContactAdminForm from "./mains/ContactAdminForm";
-import BackButton from "./components/BackButton";
 // ghosts
 import SetReferrerPathEffect from "./ghosts/SetReferrerPathEffect";
 
@@ -39,7 +38,6 @@ const ContactAdmin = async ({
       title={title}
       description={description}
       maxWidth="2xl"
-      backButton={<BackButton referrerPath={from} />}
       ghostComponents={<SetReferrerPathEffect referrerPath={from} />}
     >
       <ResponseTimeAlert labels={responseTime} />

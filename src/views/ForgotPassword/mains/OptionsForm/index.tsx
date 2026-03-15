@@ -6,11 +6,16 @@ import type { ForgotPasswordMessages } from "@/types/libs";
 import RecoveryOptionCard from "../../components/RecoveryOptionCard";
 import RecoveryOptionsInfo from "../../components/RecoveryOptionsInfo";
 // others
+import { Link } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
 const ANIMATION_DELAY_STEP = 0.1;
-const { FORGOT_PASSWORD_OTP, FORGOT_PASSWORD_MAGIC_LINK, CONTACT_ADMIN } =
-  CONSTANTS.ROUTES;
+const {
+  FORGOT_PASSWORD_OTP,
+  FORGOT_PASSWORD_MAGIC_LINK,
+  CONTACT_ADMIN,
+  LOGIN
+} = CONSTANTS.ROUTES;
 
 const OptionsForm = ({
   email,
@@ -26,8 +31,15 @@ const OptionsForm = ({
   const encodedEmail = encodeURIComponent(email);
   const encodedFrom = encodeURIComponent(currentPath);
 
-  const { description, otp, magicLink, twoFactor, contactAdmin, hint } =
-    translations.form.options;
+  const {
+    description,
+    otp,
+    magicLink,
+    twoFactor,
+    contactAdmin,
+    hint,
+    changeEmail
+  } = translations.form.options;
   const { unavailable } = translations.badge;
 
   return (
@@ -75,6 +87,14 @@ const OptionsForm = ({
       </div>
 
       <RecoveryOptionsInfo hint={hint} />
+      <div className="text-center">
+        <Link
+          href={LOGIN}
+          className="text-primary text-sm transition-colors duration-200 hover:underline"
+        >
+          {changeEmail}
+        </Link>
+      </div>
     </>
   );
 };

@@ -6,7 +6,6 @@ import type { SignupMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import InfoStepForm from "./mains/InfoStepForm";
-import BackButton from "./components/BackButton";
 // others
 import CONSTANTS from "@/constants";
 
@@ -26,11 +25,7 @@ const SignupInfo = async ({
   const translations = messages.signup as SignupMessages;
 
   return (
-    <AuthStepLayout
-      title={translations.infoStep.title}
-      email={decodedEmail}
-      backButton={<BackButton />}
-    >
+    <AuthStepLayout title={translations.infoStep.title} email={decodedEmail}>
       <InfoStepForm
         email={decodedEmail}
         sessionToken={sessionToken}

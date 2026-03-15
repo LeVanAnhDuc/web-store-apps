@@ -6,7 +6,6 @@ import type { ForgotPasswordMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import MagicLinkForm from "./mains/MagicLinkForm";
-import BackButton from "./components/BackButton";
 // ghosts
 import SendMagicLinkEffect from "./ghosts/SendMagicLinkEffect";
 // others
@@ -36,7 +35,6 @@ const ForgotPasswordMagicLink = async ({
       title={magicLink.title}
       description={magicLink.description}
       email={decodedEmail}
-      backButton={<BackButton email={decodedEmail} />}
     >
       <MagicLinkForm
         email={decodedEmail}
