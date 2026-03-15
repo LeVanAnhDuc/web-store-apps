@@ -75,14 +75,16 @@
     },
     "subject": {
       "required": "Please enter subject",
-      "minLength": "Subject must be at least 5 characters"
+      "minLength": "Subject must be at least 5 characters",
+      "maxLength": "Subject must not exceed 200 characters"
     },
     "category": {
       "required": "Please select category"
     },
     "message": {
       "required": "Please enter message",
-      "minLength": "Message must be at least 20 characters"
+      "minLength": "Message must be at least 20 characters",
+      "maxLength": "Message must not exceed 5000 characters"
     }
   }
 }

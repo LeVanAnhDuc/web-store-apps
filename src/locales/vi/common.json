@@ -75,14 +75,16 @@
     },
     "subject": {
       "required": "Vui lòng nhập tiêu đề",
-      "minLength": "Tiêu đề phải có ít nhất 5 ký tự"
+      "minLength": "Tiêu đề phải có ít nhất 5 ký tự",
+      "maxLength": "Tiêu đề không được vượt quá 200 ký tự"
     },
     "category": {
       "required": "Vui lòng chọn danh mục"
     },
     "message": {
       "required": "Vui lòng nhập nội dung",
-      "minLength": "Nội dung phải có ít nhất 20 ký tự"
+      "minLength": "Nội dung phải có ít nhất 20 ký tự",
+      "maxLength": "Nội dung không được vượt quá 5000 ký tự"
     }
   }
 }
