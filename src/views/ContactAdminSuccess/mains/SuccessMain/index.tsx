@@ -9,7 +9,6 @@ import TicketInfo from "../../components/TicketInfo";
 import NextSteps from "../../components/NextSteps";
 import ImportantNotes from "../../components/ImportantNotes";
 import BackButton from "../../components/BackButton";
-import PrintButton from "../../components/PrintButton";
 import { FadeSlideUp } from "@/components/Animated";
 // ghosts
 import RedirectGuardEffect from "../../ghosts/RedirectGuardEffect";
@@ -28,7 +27,7 @@ const SuccessMain = ({
 }) => {
   const router = useRouter();
   const { ticketInfo, nextSteps, importantNotes, button } = labels;
-  const { back, print } = button;
+  const { back } = button;
 
   const { formData, referrerPath, ticketNumber, reset } = useContactAdminStore(
     useShallow((state) => ({
@@ -56,9 +55,8 @@ const SuccessMain = ({
 
       <ImportantNotes ticketNumber={ticketNumber} labels={importantNotes} />
 
-      <FadeSlideUp delay={1} className="flex flex-col gap-3 sm:flex-row">
+      <FadeSlideUp delay={1}>
         <BackButton label={back} onClick={handleBack} />
-        <PrintButton label={print} />
       </FadeSlideUp>
 
       <RedirectGuardEffect formData={formData} ticketNumber={ticketNumber} />

@@ -71,8 +71,7 @@
       "note1": "Please save the request code {ticketNumber}"
     },
     "button": {
-      "back": "Go back",
-      "print": "Print information"
+      "back": "Go back"
     }
   },
   "admin": {

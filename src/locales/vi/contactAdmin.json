@@ -71,8 +71,7 @@
       "note1": "Vui lòng lưu lại mã yêu cầu {ticketNumber}"
     },
     "button": {
-      "back": "Quay lại",
-      "print": "In thông tin"
+      "back": "Quay lại"
     }
   },
   "admin": {
