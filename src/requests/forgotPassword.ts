@@ -1,31 +1,13 @@
+// types
+import type {
+  SendOtpResponse,
+  VerifyOtpResponse,
+  SendMagicLinkResponse,
+  VerifyMagicLinkResponse,
+  ResetPasswordResponse
+} from "@/types/ForgotPassword";
 // others
 import axiosInstance from "@/libs/axios";
-
-type SendOtpResponse = {
-  success: boolean;
-  expiresIn: number;
-  cooldown: number;
-};
-
-type VerifyOtpResponse = {
-  success: boolean;
-  resetToken: string;
-};
-
-type SendMagicLinkResponse = {
-  success: boolean;
-  expiresIn: number;
-  cooldown: number;
-};
-
-type VerifyMagicLinkResponse = {
-  success: boolean;
-  resetToken: string;
-};
-
-type ResetPasswordResponse = {
-  success: boolean;
-};
 
 export const sendForgotPasswordOtp = async (
   email: string

@@ -2,7 +2,6 @@
 import * as z from "zod";
 // schemas
 import {
-  emailSchema,
   fullNameSchema,
   passwordSchema,
   genderSchema,
@@ -11,12 +10,8 @@ import {
 // others
 import CONSTANTS from "@/constants";
 
-const { EMAIL, FULL_NAME, GENDER, BIRTHDAY, PASSWORD, PASSWORD_CONFIRM } =
+const { FULL_NAME, GENDER, BIRTHDAY, PASSWORD, PASSWORD_CONFIRM } =
   CONSTANTS.FIELD_NAMES.SIGNUP_FIELD_NAMES;
-
-export const signupEmailFormValidation = z.object({
-  [EMAIL]: emailSchema
-});
 
 export const signupInfoFormValidation = z
   .object({

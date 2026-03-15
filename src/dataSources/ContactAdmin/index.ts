@@ -1,12 +1,3 @@
-export const CATEGORIES = [
-  "account",
-  "technical",
-  "feature",
-  "billing",
-  "security",
-  "other"
-] as const;
-
 export const NEXT_STEPS = [
   {
     key: "step2",

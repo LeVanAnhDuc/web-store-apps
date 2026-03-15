@@ -1,7 +1,7 @@
 // types
 import type { ReactNode } from "react";
 // components
-import EmailBadge from "@/components/EmailBadge";
+import EmailBadge from "./components/EmailBadge";
 import { FadeSlideUp, FadeIn } from "@/components/Animated";
 // others
 import { cn } from "@/libs/utils";
