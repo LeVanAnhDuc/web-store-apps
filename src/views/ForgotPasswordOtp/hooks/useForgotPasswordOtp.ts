@@ -14,7 +14,7 @@ import { useCountdown } from "@/hooks";
 import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
-const { RESET_PASSWORD } = CONSTANTS.ROUTES;
+const { FORGOT_PASSWORD_RESET } = CONSTANTS.ROUTES;
 const { RESEND_COUNTDOWN } = CONSTANTS.FORGOT_PASSWORD;
 
 export const useForgotPasswordOtp = ({
@@ -37,7 +37,7 @@ export const useForgotPasswordOtp = ({
     mutationFn: (otp: string) => verifyForgotPasswordOtp(email, otp),
     onSuccess: ({ resetToken }) => {
       router.push(
-        `${RESET_PASSWORD}?email=${encodeURIComponent(email)}&token=${resetToken}`
+        `${FORGOT_PASSWORD_RESET}?email=${encodeURIComponent(email)}&token=${resetToken}`
       );
     },
     onError: onVerifyError

@@ -15,5 +15,5 @@ export type Messages = typeof messages;
 export type LoginMessages = Messages["login"];
 export type SignupMessages = Messages["signup"];
 export type ForgotPasswordMessages = Messages["forgotPassword"];
-export type ResetPasswordMessages = Messages["resetPassword"];
+export type ForgotPasswordResetMessages = Messages["forgotPasswordReset"];
 export type ContactAdminMessages = Messages["contactAdmin"];

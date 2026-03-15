@@ -7,7 +7,7 @@ import { toast } from "sonner";
 // requests
 import {
   verifyForgotPasswordMagicLink,
-  resetPassword
+  forgotPasswordReset
 } from "@/requests/forgotPassword";
 // others
 import { useRouter } from "@/i18n/navigation";
@@ -15,7 +15,7 @@ import CONSTANTS from "@/constants";
 
 const { LOGIN } = CONSTANTS.ROUTES;
 
-export const useResetPassword = ({
+export const useForgotPasswordReset = ({
   email,
   token,
   method,
@@ -50,7 +50,7 @@ export const useResetPassword = ({
 
   const { mutate: reset, isPending: isResetting } = useMutation({
     mutationFn: (newPassword: string) =>
-      resetPassword(email, resetToken!, newPassword),
+      forgotPasswordReset(email, resetToken!, newPassword),
     onSuccess: () => {
       toast.success(successMessage);
       router.push(LOGIN);

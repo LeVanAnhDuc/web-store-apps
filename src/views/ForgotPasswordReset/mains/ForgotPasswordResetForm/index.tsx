@@ -3,23 +3,23 @@
 // libs
 import { FormProvider, useForm } from "react-hook-form";
 // types
-import type { ResetPasswordFormValues } from "@/types/ResetPassword";
-import type { ResetPasswordMessages } from "@/types/libs";
+import type { ForgotPasswordResetFormValues } from "@/types/ForgotPasswordReset";
+import type { ForgotPasswordResetMessages } from "@/types/libs";
 // components
 import CustomButton from "@/components/CustomButton";
 import PasswordInput from "@/components/PasswordInput";
 import PasswordRequirements from "../../components/PasswordRequirements";
 // forms
-import { resetPasswordFormProps } from "@/forms/ResetPassword";
+import { forgotPasswordResetFormProps } from "@/forms/ForgotPasswordReset";
 // hooks
-import { useResetPassword } from "../../hooks/useResetPassword";
+import { useForgotPasswordReset } from "../../hooks/useForgotPasswordReset";
 // others
 import CONSTANTS from "@/constants";
 
 const { NEW_PASSWORD } = CONSTANTS.FIELD_NAMES.FORGOT_PASSWORD_FIELD_NAMES;
 const { CONFIRM_PASSWORD } = CONSTANTS.FIELD_NAMES.FORGOT_PASSWORD_FIELD_NAMES;
 
-const ResetPasswordForm = ({
+const ForgotPasswordResetForm = ({
   email,
   token,
   method,
@@ -28,10 +28,10 @@ const ResetPasswordForm = ({
   email: string;
   token: string;
   method?: string;
-  translations: ResetPasswordMessages;
+  translations: ForgotPasswordResetMessages;
 }) => {
-  const methods = useForm<ResetPasswordFormValues>({
-    ...resetPasswordFormProps
+  const methods = useForm<ForgotPasswordResetFormValues>({
+    ...forgotPasswordResetFormProps
   });
 
   const {
@@ -52,9 +52,9 @@ const ResetPasswordForm = ({
     verifyFailed,
     reset: doReset,
     isResetting
-  } = useResetPassword({ email, token, method, successMessage: success });
+  } = useForgotPasswordReset({ email, token, method, successMessage: success });
 
-  const onSubmit = (data: ResetPasswordFormValues) => {
+  const onSubmit = (data: ForgotPasswordResetFormValues) => {
     doReset(data[NEW_PASSWORD]);
   };
 
@@ -92,7 +92,6 @@ const ResetPasswordForm = ({
           disabled={isDisabled}
         />
         <PasswordRequirements labels={requirements} />
-
         <CustomButton
           type="submit"
           fullWidth
@@ -107,4 +106,4 @@ const ResetPasswordForm = ({
   );
 };
 
-export default ResetPasswordForm;
+export default ForgotPasswordResetForm;

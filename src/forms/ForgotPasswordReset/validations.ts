@@ -8,7 +8,7 @@ import CONSTANTS from "@/constants";
 const { NEW_PASSWORD, CONFIRM_PASSWORD } =
   CONSTANTS.FIELD_NAMES.FORGOT_PASSWORD_FIELD_NAMES;
 
-export const resetPasswordValidation = z
+export const forgotPasswordResetValidation = z
   .object({
     [NEW_PASSWORD]: passwordSchema,
     [CONFIRM_PASSWORD]: z.string().min(1, "required")

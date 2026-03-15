@@ -49,7 +49,7 @@ export const verifyForgotPasswordMagicLink = async (
   return response.data.data;
 };
 
-export const resetPassword = async (
+export const forgotPasswordReset = async (
   email: string,
   resetToken: string,
   newPassword: string

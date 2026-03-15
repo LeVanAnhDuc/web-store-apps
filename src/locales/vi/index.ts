@@ -2,7 +2,7 @@ import common from "./common.json";
 import login from "./login.json";
 import signup from "./signup.json";
 import forgotPassword from "./forgotPassword.json";
-import resetPassword from "./resetPassword.json";
+import forgotPasswordReset from "./forgotPasswordReset.json";
 import contactAdmin from "./contactAdmin.json";
 import dashboard from "./dashboard.json";
 import loginHistory from "./loginHistory.json";
@@ -12,7 +12,7 @@ const messages = {
   login,
   signup,
   forgotPassword,
-  resetPassword,
+  forgotPasswordReset,
   contactAdmin,
   dashboard,
   loginHistory

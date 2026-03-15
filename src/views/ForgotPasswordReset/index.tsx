@@ -2,16 +2,16 @@
 import { getMessages } from "next-intl/server";
 import { redirect } from "next/navigation";
 // types
-import type { ResetPasswordMessages } from "@/types/libs";
+import type { ForgotPasswordResetMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import ResetPasswordForm from "./mains/ResetPasswordForm";
+import ForgotPasswordResetForm from "./mains/ForgotPasswordResetForm";
 // others
 import CONSTANTS from "@/constants";
 
 const { LOGIN } = CONSTANTS.ROUTES;
 
-const ResetPassword = async ({
+const ForgotPasswordReset = async ({
   searchParams
 }: {
   searchParams: Promise<{ email?: string; token?: string; method?: string }>;
@@ -25,11 +25,12 @@ const ResetPassword = async ({
   const decodedToken = decodeURIComponent(token);
 
   const messages = await getMessages();
-  const translations = messages.resetPassword as ResetPasswordMessages;
+  const translations =
+    messages.forgotPasswordReset as ForgotPasswordResetMessages;
 
   return (
     <AuthStepLayout title={translations.form.title} email={decodedEmail}>
-      <ResetPasswordForm
+      <ForgotPasswordResetForm
         email={decodedEmail}
         token={decodedToken}
         method={method}
@@ -39,4 +40,4 @@ const ResetPassword = async ({
   );
 };
 
-export default ResetPassword;
+export default ForgotPasswordReset;
