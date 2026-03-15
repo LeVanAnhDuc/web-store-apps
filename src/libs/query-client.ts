@@ -5,9 +5,9 @@ import { isAxiosError } from "axios";
 import { errorToast } from "@/utils";
 
 const getErrorMessage = (error: unknown): string => {
-  if (isAxiosError(error)) {
+  if (isAxiosError<ErrorResponsePattern>(error)) {
     const status = error.response?.status;
-    const message = error.response?.data?.message;
+    const message = error.response?.data?.error?.message;
 
     const errorMapping: Record<number, string> = {
       400: message || "Bad request. Please check your input.",
@@ -18,7 +18,7 @@ const getErrorMessage = (error: unknown): string => {
       429: "Too many requests. Please try again later."
     };
 
-    return errorMapping[status as number] || message || "An error occurred";
+    return message || errorMapping[status as number] || "An error occurred";
   }
 
   if (error instanceof Error) return error.message;

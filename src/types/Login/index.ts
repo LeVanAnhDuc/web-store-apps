@@ -11,17 +11,18 @@ export type LoginFormValues = EmailStepFormValues & PasswordStepFormValues;
 
 export type LoginTokenResponse = {
   accessToken: string;
-  refreshToken: string;
   idToken: string;
   expiresIn: number;
 };
 
 export type SendOtpResponse = {
-  message: string;
+  success: boolean;
   expiresIn: number;
+  cooldown: number;
 };
 
 export type SendMagicLinkResponse = {
-  message: string;
+  success: boolean;
   expiresIn: number;
+  cooldown: number;
 };

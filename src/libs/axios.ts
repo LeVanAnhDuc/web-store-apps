@@ -97,16 +97,6 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const refreshToken = useAuthStore.getState().tokens?.refreshToken;
-
-      if (!refreshToken) {
-        processQueue(error, null);
-        isRefreshing = false;
-        await confirmErrorToast("Session expired. Please login again.");
-        handleLogout();
-        return Promise.reject(error);
-      }
-
       try {
         const response = await axiosInstance.post<
           ResponsePattern<{
@@ -114,14 +104,13 @@ axiosInstance.interceptors.response.use(
             idToken: string;
             expiresIn: number;
           }>
-        >("/auth/refresh", { refreshToken });
+        >("/auth/refresh");
 
         const { accessToken, idToken, expiresIn } = response.data.data;
 
         useAuthStore.getState().setTokens({
           accessToken,
           idToken,
-          refreshToken,
           expiresIn
         });
 
