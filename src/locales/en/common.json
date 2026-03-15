@@ -37,14 +37,18 @@
     "password": {
       "required": "Please enter password",
       "minLength": "Password must be at least 8 characters",
-      "maxLength": "Password must not exceed 100 characters",
-      "requirements": "Password must contain uppercase, lowercase and number"
+      "minLengthHint": "Valid length: 8–128 characters",
+      "maxLength": "Password must not exceed 128 characters",
+      "requirements": "Password must contain uppercase, lowercase, number and special character",
+      "requirementsHint": "Allowed characters: A–Z, a–z, 0–9, @$!%*?&"
     },
     "newPassword": {
       "required": "Please enter new password",
       "minLength": "Password must be at least 8 characters",
-      "maxLength": "Password must not exceed 100 characters",
-      "requirements": "Password must contain uppercase, lowercase and number"
+      "minLengthHint": "Valid length: 8–128 characters",
+      "maxLength": "Password must not exceed 128 characters",
+      "requirements": "Password must contain uppercase, lowercase, number and special character",
+      "requirementsHint": "Allowed characters: A–Z, a–z, 0–9, @$!%*?&"
     },
     "confirmPassword": {
       "required": "Please confirm your password",
