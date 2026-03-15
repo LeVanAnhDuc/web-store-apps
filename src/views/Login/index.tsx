@@ -4,9 +4,9 @@ import { getMessages } from "next-intl/server";
 import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthDivider from "@/components/AuthDivider";
 import SocialAuthenButtons from "@/components/SocialAuthenButtons";
 import EmailStepForm from "./mains/EmailStepForm";
+import AuthDivider from "./components/AuthDivider";
 
 const Login = async () => {
   const messages = await getMessages();
@@ -18,7 +18,8 @@ const Login = async () => {
       <SocialAuthenButtons
         labels={{
           google: form.button.loginWithGoogle,
-          facebook: form.button.loginWithFacebook
+          facebook: form.button.loginWithFacebook,
+          comingSoon: form.button.comingSoon
         }}
       />
       <AuthDivider />
