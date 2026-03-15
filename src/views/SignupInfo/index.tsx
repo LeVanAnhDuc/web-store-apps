@@ -1,12 +1,10 @@
 // libs
 import { getMessages } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { UserCircle } from "lucide-react";
 // types
 import type { SignupMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthIcon from "@/components/AuthIcon";
 import InfoStepForm from "./mains/InfoStepForm";
 import BackButton from "./components/BackButton";
 // others
@@ -29,7 +27,6 @@ const SignupInfo = async ({
 
   return (
     <AuthStepLayout
-      icon={<AuthIcon Icon={UserCircle} />}
       title={translations.infoStep.title}
       email={decodedEmail}
       backButton={<BackButton />}

@@ -1,12 +1,10 @@
 // libs
 import { getMessages } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { ShieldCheck } from "lucide-react";
 // types
 import type { SignupMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthIcon from "@/components/AuthIcon";
 import OtpStepForm from "./mains/OtpStepForm";
 import BackButton from "./components/BackButton";
 // others
@@ -30,7 +28,6 @@ const SignupOtp = async ({
 
   return (
     <AuthStepLayout
-      icon={<AuthIcon Icon={ShieldCheck} animated />}
       title={otpStep.title}
       description={otpStep.description}
       email={decodedEmail}

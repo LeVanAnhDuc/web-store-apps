@@ -1,12 +1,10 @@
 // libs
 import { getMessages } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { KeyRound } from "lucide-react";
 // types
 import type { ResetPasswordMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthIcon from "@/components/AuthIcon";
 import ResetPasswordForm from "./mains/ResetPasswordForm";
 // others
 import CONSTANTS from "@/constants";
@@ -31,7 +29,6 @@ const ResetPassword = async ({
 
   return (
     <AuthStepLayout
-      icon={<AuthIcon Icon={KeyRound} animated />}
       title={translations.form.title}
       description={translations.form.description}
       email={decodedEmail}

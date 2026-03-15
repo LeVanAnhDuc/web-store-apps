@@ -5,7 +5,6 @@ import type { ContactAdminMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import SuccessMain from "./mains/SuccessMain";
-import SuccessIcon from "./components/SuccessIcon";
 
 const ContactAdminSuccess = async () => {
   const messages = await getMessages();
@@ -23,12 +22,7 @@ const ContactAdminSuccess = async () => {
   const { category, priority } = form;
 
   return (
-    <AuthStepLayout
-      icon={<SuccessIcon />}
-      title={title}
-      description={description}
-      maxWidth="2xl"
-    >
+    <AuthStepLayout title={title} description={description} maxWidth="2xl">
       <SuccessMain
         labels={{
           ticketInfo,

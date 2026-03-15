@@ -1,11 +1,9 @@
 // libs
 import { getMessages } from "next-intl/server";
-import { Headset } from "lucide-react";
 // types
 import type { ContactAdminMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthIcon from "@/components/AuthIcon";
 import ResponseTimeAlert from "./mains/ResponseTimeAlert";
 import FooterNote from "./mains/FooterNote";
 import ContactAdminForm from "./mains/ContactAdminForm";
@@ -38,7 +36,6 @@ const ContactAdmin = async ({
 
   return (
     <AuthStepLayout
-      icon={<AuthIcon Icon={Headset} animated />}
       title={title}
       description={description}
       maxWidth="2xl"

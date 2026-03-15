@@ -1,12 +1,10 @@
 // libs
 import { getMessages } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { KeyRound } from "lucide-react";
 // types
 import type { ForgotPasswordMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthIcon from "@/components/AuthIcon";
 import OptionsForm from "./mains/OptionsForm";
 import BackButton from "./components/BackButton";
 // others
@@ -33,7 +31,6 @@ const ForgotPassword = async ({
 
   return (
     <AuthStepLayout
-      icon={<AuthIcon Icon={KeyRound} animated />}
       title={options.title}
       email={decodedEmail}
       backButton={<BackButton />}
