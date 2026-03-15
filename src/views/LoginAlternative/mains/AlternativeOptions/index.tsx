@@ -28,7 +28,7 @@ const AlternativeOptions = ({
     translations.form.alternative;
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-5">
       <LoginOptionCard
         icon={Mail}
         title={magicLink.title}

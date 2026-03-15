@@ -27,7 +27,7 @@ const ResendButton = ({
     tryOther: string;
   };
 }) => (
-  <FadeIn delay={0.4} className="space-y-3">
+  <FadeIn delay={0.4} className="space-y-5">
     <CustomButton
       onClick={onResend}
       disabled={!canResend || isProcessing}

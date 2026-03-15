@@ -14,7 +14,7 @@ const MagicLinkInstructions = ({
   } = translations.form.magicLink;
 
   return (
-    <FadeIn delay={0.3} className="mb-6 space-y-4">
+    <FadeIn delay={0.3} className="mb-6 space-y-5">
       <div className="bg-info/10 rounded-lg p-4">
         <p className="text-foreground text-sm">
           <span className="mb-2 block">{check}</span>

@@ -37,7 +37,7 @@ type SocialAuthenButtonsProps = {
 };
 
 const SocialAuthenButtons = ({ labels }: SocialAuthenButtonsProps) => (
-  <div className="space-y-3">
+  <div className="space-y-5">
     <CustomButton
       type="button"
       variant="outline"

@@ -46,7 +46,7 @@ const OptionsForm = ({
     <>
       <p className="text-muted-foreground mb-6 text-center">{description}</p>
 
-      <div className="space-y-3">
+      <div className="space-y-5">
         <RecoveryOptionCard
           icon={Smartphone}
           title={otp.title}
