@@ -56,6 +56,7 @@
     },
     "magicLink": {
       "title": "Check your email",
+      "subtitle": "Sign in with a magic link sent to your email",
       "description": "We have sent a magic link to",
       "instruction": {
         "check": "Please check your inbox",

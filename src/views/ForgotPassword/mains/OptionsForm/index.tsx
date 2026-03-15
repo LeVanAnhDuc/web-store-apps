@@ -4,7 +4,6 @@ import { Smartphone, Mail, ShieldCheck, Headset } from "lucide-react";
 import type { ForgotPasswordMessages } from "@/types/libs";
 // components
 import RecoveryOptionCard from "../../components/RecoveryOptionCard";
-import RecoveryOptionsInfo from "../../components/RecoveryOptionsInfo";
 // others
 import { Link } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
@@ -31,63 +30,51 @@ const OptionsForm = ({
   const encodedEmail = encodeURIComponent(email);
   const encodedFrom = encodeURIComponent(currentPath);
 
-  const {
-    description,
-    otp,
-    magicLink,
-    twoFactor,
-    contactAdmin,
-    hint,
-    changeEmail
-  } = translations.form.options;
+  const { description, otp, magicLink, twoFactor, contactAdmin, changeEmail } =
+    translations.form.options;
   const { unavailable } = translations.badge;
 
   return (
-    <>
-      <p className="text-muted-foreground mb-6 text-center">{description}</p>
-
-      <div className="space-y-5">
-        <RecoveryOptionCard
-          icon={Smartphone}
-          title={otp.title}
-          description={otp.description}
-          colorVariant="info"
-          href={`${FORGOT_PASSWORD_OTP}?email=${encodedEmail}`}
-          animationDelay={0}
-        />
-        <RecoveryOptionCard
-          icon={Mail}
-          title={magicLink.title}
-          description={magicLink.description}
-          colorVariant="primary"
-          href={`${FORGOT_PASSWORD_MAGIC_LINK}?email=${encodedEmail}`}
-          animationDelay={ANIMATION_DELAY_STEP}
-        />
-        <RecoveryOptionCard
-          icon={ShieldCheck}
-          title={twoFactor.title}
-          description={
-            has2FAEnabled
-              ? twoFactor.descriptionEnabled
-              : twoFactor.descriptionDisabled
-          }
-          colorVariant="success"
-          animationDelay={ANIMATION_DELAY_STEP * 2}
-          disabled={!has2FAEnabled}
-          unavailableLabel={unavailable}
-        />
-        <RecoveryOptionCard
-          icon={Headset}
-          title={contactAdmin.title}
-          description={contactAdmin.description}
-          colorVariant="info"
-          href={`${CONTACT_ADMIN}?email=${encodedEmail}&from=${encodedFrom}`}
-          animationDelay={ANIMATION_DELAY_STEP * 3}
-        />
-      </div>
-
-      <RecoveryOptionsInfo hint={hint} />
-      <div className="pt-5 text-center">
+    <div className="space-y-5">
+      <p className="text-muted-foreground text-center">{description}</p>
+      <RecoveryOptionCard
+        icon={Smartphone}
+        title={otp.title}
+        description={otp.description}
+        colorVariant="info"
+        href={`${FORGOT_PASSWORD_OTP}?email=${encodedEmail}`}
+        animationDelay={0}
+      />
+      <RecoveryOptionCard
+        icon={Mail}
+        title={magicLink.title}
+        description={magicLink.description}
+        colorVariant="primary"
+        href={`${FORGOT_PASSWORD_MAGIC_LINK}?email=${encodedEmail}`}
+        animationDelay={ANIMATION_DELAY_STEP}
+      />
+      <RecoveryOptionCard
+        icon={ShieldCheck}
+        title={twoFactor.title}
+        description={
+          has2FAEnabled
+            ? twoFactor.descriptionEnabled
+            : twoFactor.descriptionDisabled
+        }
+        colorVariant="success"
+        animationDelay={ANIMATION_DELAY_STEP * 2}
+        disabled={!has2FAEnabled}
+        unavailableLabel={unavailable}
+      />
+      <RecoveryOptionCard
+        icon={Headset}
+        title={contactAdmin.title}
+        description={contactAdmin.description}
+        colorVariant="info"
+        href={`${CONTACT_ADMIN}?email=${encodedEmail}&from=${encodedFrom}`}
+        animationDelay={ANIMATION_DELAY_STEP * 3}
+      />
+      <div className="text-center">
         <Link
           href={LOGIN}
           className="text-primary text-sm transition-colors duration-200 hover:underline"
@@ -95,7 +82,7 @@ const OptionsForm = ({
           {changeEmail}
         </Link>
       </div>
-    </>
+    </div>
   );
 };
 

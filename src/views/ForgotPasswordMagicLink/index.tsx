@@ -31,11 +31,7 @@ const ForgotPasswordMagicLink = async ({
   const { magicLink } = translations.form;
 
   return (
-    <AuthStepLayout
-      title={magicLink.title}
-      description={magicLink.description}
-      email={decodedEmail}
-    >
+    <AuthStepLayout description={magicLink.subtitle} email={decodedEmail}>
       <MagicLinkForm
         email={decodedEmail}
         tryOtherHref={tryOtherHref}

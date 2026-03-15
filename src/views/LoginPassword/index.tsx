@@ -25,10 +25,7 @@ const LoginPassword = async ({
   const translations = messages.login as LoginMessages;
 
   return (
-    <AuthStepLayout
-      title={translations.form.titlePassword}
-      email={decodedEmail}
-    >
+    <AuthStepLayout email={decodedEmail}>
       <PasswordStepForm email={decodedEmail} translations={translations} />
     </AuthStepLayout>
   );

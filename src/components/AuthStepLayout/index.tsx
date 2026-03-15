@@ -30,16 +30,16 @@ const AuthStepLayout = ({
 }) => (
   <main className="auth-background flex items-center justify-center">
     <FadeSlideUp className={cn("w-full", MAX_WIDTH_CLASSES[maxWidth])}>
-      <div className="auth-card relative p-8 md:p-10">
-        {title && (
+      <div className="auth-card relative space-y-5 p-8 md:p-10">
+        {(title || description) && (
           <FadeIn delay={0.2} y={10}>
-            <h1 className="text-foreground mb-5 text-center text-2xl font-medium">
-              {title}
-            </h1>
+            {title && (
+              <h1 className="text-foreground text-center text-2xl font-medium">
+                {title}
+              </h1>
+            )}
             {description && (
-              <p className="text-muted-foreground mb-4 text-center">
-                {description}
-              </p>
+              <p className="text-muted-foreground text-center">{description}</p>
             )}
           </FadeIn>
         )}

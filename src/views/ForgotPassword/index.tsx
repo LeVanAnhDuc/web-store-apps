@@ -26,10 +26,9 @@ const ForgotPassword = async ({
 
   const messages = await getMessages();
   const translations = messages.forgotPassword as ForgotPasswordMessages;
-  const { options } = translations.form;
 
   return (
-    <AuthStepLayout title={options.title} email={decodedEmail}>
+    <AuthStepLayout email={decodedEmail}>
       <OptionsForm
         email={decodedEmail}
         currentPath={currentPath}
