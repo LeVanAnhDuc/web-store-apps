@@ -1,23 +1,12 @@
 // types
 import type { ReactNode } from "react";
 // components
-import Header from "@/components/Header";
-import AuthFooter from "@/components/AuthFooter";
-import AnimatedBackground from "@/components/AnimatedBackground";
+import PublicLayout from "@/layouts/PublicLayout";
 
 export default function Layout({
   children
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return (
-    <>
-      <AnimatedBackground />
-      <Header />
-      <main className="auth-background flex min-h-screen flex-col items-center justify-center p-4 pt-20">
-        {children}
-        <AuthFooter />
-      </main>
-    </>
-  );
+  return <PublicLayout>{children}</PublicLayout>;
 }
