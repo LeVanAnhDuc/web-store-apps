@@ -1,5 +1,7 @@
 // libs
 import * as z from "zod";
+// schemas
+import { emailSchema } from "@/schemas";
 // dataSources
 import { PRIORITY_VALUES } from "@/dataSources/ContactAdmin";
 // others
@@ -9,14 +11,7 @@ const { EMAIL, SUBJECT, CATEGORY, PRIORITY, MESSAGE } =
   CONSTANTS.FIELD_NAMES.CONTACT_ADMIN_FIELD_NAMES;
 
 export const contactAdminValidation = z.object({
-  [EMAIL]: z
-    .string()
-    .email({ message: "invalid" })
-    .refine((value) => CONSTANTS.REGEX_EMAIL.test(value), {
-      message: "invalid"
-    })
-    .optional()
-    .or(z.literal("")),
+  [EMAIL]: emailSchema.optional().or(z.literal("")),
   [SUBJECT]: z
     .string()
     .min(1, { message: "required" })

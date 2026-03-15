@@ -1,7 +1,7 @@
 // libs
 import * as z from "zod";
 // schemas
-import { passwordSchema } from "@/schemas";
+import { emailSchema, passwordSchema } from "@/schemas";
 // others
 import CONSTANTS from "@/constants";
 
@@ -9,13 +9,7 @@ const { EMAIL, FULL_NAME, GENDER, BIRTHDAY, PASSWORD, PASSWORD_CONFIRM } =
   CONSTANTS.FIELD_NAMES.SIGNUP_FIELD_NAMES;
 
 export const signupEmailFormValidation = z.object({
-  [EMAIL]: z
-    .string()
-    .min(1, { message: "required" })
-    .email({ message: "invalid" })
-    .refine((value) => CONSTANTS.REGEX_EMAIL.test(value), {
-      message: "invalid"
-    })
+  [EMAIL]: emailSchema
 });
 
 export const signupInfoFormValidation = z

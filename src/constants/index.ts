@@ -9,8 +9,6 @@ import SIGNUP from "./signup";
 const CONSTANTS = {
   ROUTES,
   FIELD_NAMES,
-  REGEX_EMAIL:
-    /^[a-zA-Z0-9](?:[a-zA-Z0-9]|(?<![.])[.](?![.]))*[a-zA-Z0-9]@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   STORAGE_KEYS,
   FORGOT_PASSWORD,
   CONTACT_ADMIN,
