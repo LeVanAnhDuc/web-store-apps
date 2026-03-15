@@ -1,17 +1,5 @@
 {
   "title": "Trang đăng ký",
-  "emailStep": {
-    "title": "Tạo tài khoản",
-    "description": "Bắt đầu hành trình của bạn với chúng tôi",
-    "input": {
-      "labelEmail": "Email"
-    },
-    "button": {
-      "next": "Tiếp theo",
-      "signupWithGoogle": "Đăng ký với Google",
-      "signupWithFacebook": "Đăng ký với Facebook"
-    }
-  },
   "infoStep": {
     "title": "Thông tin cá nhân",
     "input": {
@@ -48,9 +36,5 @@
       "sending": "Đang gửi...",
       "changeEmail": "Thay đổi email"
     }
-  },
-  "link": {
-    "descriptionSignUp": "Đã có tài khoản",
-    "login": "Đăng nhập"
   }
 }

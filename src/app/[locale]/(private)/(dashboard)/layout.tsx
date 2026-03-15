@@ -1,6 +1,6 @@
 // types
 import type { ReactNode } from "react";
-// layouts
+// components
 import DashboardLayout from "@/layouts/DashboardLayout";
 
 export default function Layout({

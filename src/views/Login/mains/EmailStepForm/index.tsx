@@ -9,31 +9,30 @@ import EmailInput from "../../components/EmailInput";
 import NextButton from "../../components/NextButton";
 // forms
 import { emailStepFormProps } from "@/forms/Login";
+// hooks
+import { useLoginEmail } from "../../hooks/useLoginEmail";
 // others
-import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
 const { EMAIL } = CONSTANTS.FIELD_NAMES.LOGIN_FIELD_NAMES;
-const { LOGIN_PASSWORD } = CONSTANTS.ROUTES;
 
 const EmailStepForm = ({
   labels
 }: {
   labels: { email: string; next: string };
 }) => {
-  const router = useRouter();
   const methods = useForm<EmailStepFormValues>({ ...emailStepFormProps });
+  const { checkEmail, isPending } = useLoginEmail();
 
   const onSubmit = (data: EmailStepFormValues) => {
-    const email = encodeURIComponent(data[EMAIL]);
-    router.push(`${LOGIN_PASSWORD}?email=${email}`);
+    checkEmail(data[EMAIL]);
   };
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
-        <EmailInput label={labels.email} />
-        <NextButton label={labels.next} />
+        <EmailInput label={labels.email} disabled={isPending} />
+        <NextButton label={labels.next} loading={isPending} />
       </form>
     </FormProvider>
   );

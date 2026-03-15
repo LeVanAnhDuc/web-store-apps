@@ -1,4 +1,4 @@
-export const SIGNUP_FIELD_NAMES = {
+const SIGNUP_FIELD_NAMES = {
   EMAIL: "email",
   FULL_NAME: "fullName",
   GENDER: "gender",
@@ -6,3 +6,5 @@ export const SIGNUP_FIELD_NAMES = {
   PASSWORD: "password",
   PASSWORD_CONFIRM: "passwordConfirm"
 };
+
+export default SIGNUP_FIELD_NAMES;

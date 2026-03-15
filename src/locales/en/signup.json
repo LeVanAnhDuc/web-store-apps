@@ -1,17 +1,5 @@
 {
   "title": "Sign-up Page",
-  "emailStep": {
-    "title": "Create an account",
-    "description": "Start your journey with us",
-    "input": {
-      "labelEmail": "Email"
-    },
-    "button": {
-      "next": "Next",
-      "signupWithGoogle": "Sign up with Google",
-      "signupWithFacebook": "Sign up with Facebook"
-    }
-  },
   "infoStep": {
     "title": "Personal Information",
     "input": {
@@ -48,9 +36,5 @@
       "sending": "Sending...",
       "changeEmail": "Change email"
     }
-  },
-  "link": {
-    "descriptionSignUp": "Already have an account",
-    "login": "Login"
   }
 }

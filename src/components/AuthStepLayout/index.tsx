@@ -23,8 +23,8 @@ const AuthStepLayout = ({
   children,
   ghostComponents
 }: {
-  icon: ReactNode;
-  title: string;
+  icon?: ReactNode;
+  title?: string;
   description?: string;
   email?: string;
   backButton?: ReactNode;
@@ -37,18 +37,22 @@ const AuthStepLayout = ({
       <div className="auth-card relative p-8 md:p-10">
         {backButton}
 
-        <div className="mb-8 text-center">
-          <div className="mb-4 flex justify-center">{icon}</div>
+        {(icon || title) && (
+          <div className="mb-8 text-center">
+            {icon && <div className="mb-4 flex justify-center">{icon}</div>}
 
-          <FadeIn delay={0.2} y={10}>
-            <h1 className="text-foreground mb-2 text-2xl font-medium">
-              {title}
-            </h1>
-            {description && (
-              <p className="text-muted-foreground mb-4">{description}</p>
+            {title && (
+              <FadeIn delay={0.2} y={10}>
+                <h1 className="text-foreground mb-2 text-2xl font-medium">
+                  {title}
+                </h1>
+                {description && (
+                  <p className="text-muted-foreground mb-4">{description}</p>
+                )}
+              </FadeIn>
             )}
-          </FadeIn>
-        </div>
+          </div>
+        )}
 
         {email && <EmailBadge email={email} />}
 

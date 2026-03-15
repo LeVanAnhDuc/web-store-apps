@@ -8,10 +8,10 @@ import type { LoginMessages } from "@/types/libs";
 import ResendButton from "@/components/ResendButton";
 import OtpInputGroup from "@/components/OtpInputGroup";
 import OtpInstruction from "../../components/OtpInstruction";
-// hooks
-import { useOtpLogin } from "../../hooks/useOtpLogin";
 // ghosts
 import AutoVerifyOtpEffect from "@/ghosts/AutoVerifyOTPEffect";
+// hooks
+import { useOtpLogin } from "../../hooks/useOtpLogin";
 // others
 import CONSTANTS from "@/constants";
 

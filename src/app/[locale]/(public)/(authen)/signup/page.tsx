@@ -1,21 +1,13 @@
 // libs
-import { getTranslations } from "next-intl/server";
+import { redirect } from "next/navigation";
 // types
 import type { Locale } from "@/i18n/config";
-// components
-import Signup from "@/views/Signup";
 
-export async function generateMetadata({
+export default async function SignupPage({
   params
 }: {
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "signup" });
-
-  return {
-    title: t("title")
-  };
+  redirect(`/${locale}/login`);
 }
-
-export default Signup;

@@ -1,5 +1,5 @@
 import LOGIN_FIELD_NAMES from "./Login";
-import { SIGNUP_FIELD_NAMES } from "./Signup";
+import SIGNUP_FIELD_NAMES from "./Signup";
 import FORGOT_PASSWORD_FIELD_NAMES from "./ForgotPassword";
 import CONTACT_ADMIN_FIELD_NAMES from "./ContactAdmin";
 
