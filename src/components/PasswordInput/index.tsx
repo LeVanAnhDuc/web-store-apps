@@ -51,15 +51,15 @@ const PasswordInput = ({
               />
               <button
                 type="button"
-                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 transition-colors duration-200 disabled:opacity-50"
+                className="absolute top-1/2 right-3 -translate-y-1/2 opacity-50 hover:opacity-50 disabled:opacity-30"
                 onClick={togglePasswordVisibility}
                 onMouseDown={(e) => e.preventDefault()}
                 disabled={disabled}
               >
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5" />
+                  <EyeOff className="size-4" />
                 ) : (
-                  <Eye className="h-5 w-5" />
+                  <Eye className="size-4" />
                 )}
               </button>
             </div>

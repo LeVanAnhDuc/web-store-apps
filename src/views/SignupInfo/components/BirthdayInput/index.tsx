@@ -66,8 +66,10 @@ const BirthdayInput = ({
                     aria-invalid={fieldState.invalid}
                     fullWidth
                     className={cn(
-                      "h-12 justify-between",
-                      !field.value && "text-muted-foreground"
+                      "h-12 justify-between px-3! py-2 text-sm font-normal hover:bg-transparent",
+                      field.value
+                        ? "hover:text-foreground"
+                        : "text-muted-foreground hover:text-muted-foreground"
                     )}
                   >
                     {field.value ? (
@@ -77,7 +79,7 @@ const BirthdayInput = ({
                     ) : (
                       <span>{placeholder}</span>
                     )}
-                    <CalendarIcon className="h-4 w-4" />
+                    <CalendarIcon className="size-4 opacity-50" />
                   </CustomButton>
                 </FormControl>
               </PopoverTrigger>
