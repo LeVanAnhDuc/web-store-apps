@@ -15,20 +15,22 @@ const Login = async () => {
 
   return (
     <AuthStepLayout>
-      <SocialAuthenButtons
-        labels={{
-          google: form.button.loginWithGoogle,
-          facebook: form.button.loginWithFacebook,
-          comingSoon: form.button.comingSoon
-        }}
-      />
-      <AuthDivider />
-      <EmailStepForm
-        labels={{
-          email: form.input.labelEmail,
-          next: form.button.next
-        }}
-      />
+      <div className="space-y-4">
+        <SocialAuthenButtons
+          labels={{
+            google: form.button.loginWithGoogle,
+            facebook: form.button.loginWithFacebook,
+            comingSoon: form.button.comingSoon
+          }}
+        />
+        <AuthDivider />
+        <EmailStepForm
+          labels={{
+            email: form.input.labelEmail,
+            next: form.button.next
+          }}
+        />
+      </div>
     </AuthStepLayout>
   );
 };

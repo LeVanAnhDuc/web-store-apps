@@ -23,7 +23,7 @@ const CustomButton = ({
   className,
   loading,
   variant = "default",
-  size = "default",
+  size = "lg",
   fullWidth,
   iconRight,
   iconLeft,
@@ -38,7 +38,7 @@ const CustomButton = ({
   <ButtonUI
     className={cn(
       "hover:cursor-pointer",
-      SIZE_TEXT_CLASSES[size ?? "default"],
+      SIZE_TEXT_CLASSES[size ?? "lg"],
       {
         "w-full": fullWidth
       },

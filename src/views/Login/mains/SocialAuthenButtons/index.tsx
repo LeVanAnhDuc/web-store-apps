@@ -49,7 +49,7 @@ const SocialAuthenButtons = ({ labels }: SocialAuthenButtonsProps) => (
         <GoogleIcon />
         {labels.google}
       </span>
-      <span className="text-muted-foreground text-xs font-normal">
+      <span className="text-muted-foreground font-normal">
         ({labels.comingSoon})
       </span>
     </CustomButton>
@@ -65,7 +65,7 @@ const SocialAuthenButtons = ({ labels }: SocialAuthenButtonsProps) => (
         <FacebookIcon />
         {labels.facebook}
       </span>
-      <span className="text-muted-foreground text-xs font-normal">
+      <span className="text-muted-foreground font-normal">
         ({labels.comingSoon})
       </span>
     </CustomButton>

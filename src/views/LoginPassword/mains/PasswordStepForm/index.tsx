@@ -61,7 +61,8 @@ const PasswordStepForm = ({
         <CustomButton
           type="submit"
           disabled={isPending}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 w-full rounded-lg transition-all duration-200 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-12"
+          fullWidth
         >
           {isPending ? "..." : signIn}
         </CustomButton>
