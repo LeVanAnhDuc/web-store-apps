@@ -35,7 +35,6 @@ const MyContactsTable = () => {
   const tTable = useTranslations("contactAdmin.myContacts.table");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
-  const tPriority = useTranslations("contactAdmin.form.priority");
   const tPagination = useTranslations("loginHistory.pagination");
   const t = useTranslations("contactAdmin.myContacts");
   const searchParams = useSearchParams();
@@ -98,9 +97,6 @@ const MyContactsTable = () => {
                 {tTable("category")}
               </th>
               <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("priority")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
                 {tTable("status")}
               </th>
               <th className="text-muted-foreground px-4 py-3 text-left font-medium">
@@ -125,9 +121,6 @@ const MyContactsTable = () => {
                 </td>
                 <td className="text-muted-foreground px-4 py-3">
                   {tCategory(item.category)}
-                </td>
-                <td className="text-muted-foreground px-4 py-3">
-                  {tPriority(item.priority)}
                 </td>
                 <td className="px-4 py-3">
                   <Badge

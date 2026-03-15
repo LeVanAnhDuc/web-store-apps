@@ -24,7 +24,6 @@ export const submitContact = async (
   if (data.email) formData.append("email", data.email);
   formData.append("subject", data.subject);
   formData.append("category", data.category);
-  formData.append("priority", data.priority);
   formData.append("message", data.message);
   files?.forEach((file) => formData.append("attachments", file));
 

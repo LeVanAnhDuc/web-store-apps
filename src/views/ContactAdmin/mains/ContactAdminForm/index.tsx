@@ -10,7 +10,6 @@ import type { ContactAdminMessages } from "@/types/libs";
 import EmailInput from "../../components/EmailInput";
 import SubjectInput from "../../components/SubjectInput";
 import CategorySelect from "../../components/CategorySelect";
-import PrioritySelect from "../../components/PrioritySelect";
 import MessageTextarea from "../../components/MessageTextarea";
 import SubmitButton from "../../components/SubmitButton";
 import FileUploadInput from "../../components/FileUploadInput";
@@ -26,10 +25,10 @@ const ContactAdminForm = ({
   initialEmail?: string;
   labels: Pick<
     ContactAdminMessages["form"],
-    "input" | "category" | "priority" | "button" | "hint"
+    "input" | "category" | "button" | "hint"
   >;
 }) => {
-  const { input, category, priority, button, hint } = labels;
+  const { input, category, button, hint } = labels;
   const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
   const {
     labelEmail,
@@ -38,7 +37,6 @@ const ContactAdminForm = ({
     placeholderSubject,
     labelCategory,
     placeholderCategory,
-    labelPriority,
     labelMessage,
     placeholderMessage,
     emailHint,
@@ -75,20 +73,14 @@ const ContactAdminForm = ({
           labels={{ label: labelSubject, placeholder: placeholderSubject }}
         />
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <CategorySelect
-            disabled={isPending}
-            labels={{
-              label: labelCategory,
-              placeholder: placeholderCategory,
-              options: category
-            }}
-          />
-          <PrioritySelect
-            disabled={isPending}
-            labels={{ label: labelPriority, options: priority }}
-          />
-        </div>
+        <CategorySelect
+          disabled={isPending}
+          labels={{
+            label: labelCategory,
+            placeholder: placeholderCategory,
+            options: category
+          }}
+        />
 
         <MessageTextarea
           disabled={isPending}

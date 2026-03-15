@@ -19,7 +19,7 @@ const ContactAdminSuccess = async () => {
     button,
     response
   } = success;
-  const { category, priority } = form;
+  const { category } = form;
 
   return (
     <AuthStepLayout title={title} description={description} maxWidth="2xl">
@@ -30,8 +30,7 @@ const ContactAdminSuccess = async () => {
           importantNotes,
           button,
           response,
-          category,
-          priority
+          category
         }}
       />
     </AuthStepLayout>

@@ -1,11 +1,7 @@
-// types
-import type { Priority } from "@/dataSources/ContactAdmin";
-
 export interface ContactAdminFormValues {
   email?: string;
   subject: string;
   category: string;
-  priority: Priority;
   message: string;
 }
 
@@ -19,6 +15,7 @@ export type ContactCategory =
   | "billing"
   | "security"
   | "other";
+export type Priority = "low" | "medium" | "high";
 
 export interface ContactAttachmentResponse {
   originalName: string;

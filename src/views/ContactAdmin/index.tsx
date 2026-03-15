@@ -27,7 +27,6 @@ const ContactAdmin = async ({
     responseTime,
     input,
     category,
-    priority,
     button,
     hint,
     footerNote
@@ -44,7 +43,7 @@ const ContactAdmin = async ({
 
       <ContactAdminForm
         initialEmail={decodedEmail}
-        labels={{ input, category, priority, button, hint }}
+        labels={{ input, category, button, hint }}
       />
 
       <FooterNote label={footerNote} />

@@ -32,7 +32,6 @@ const AdminContactsTable = () => {
   const tTable = useTranslations("contactAdmin.admin.list.table");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
-  const tPriority = useTranslations("contactAdmin.form.priority");
   const tPagination = useTranslations("loginHistory.pagination");
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -47,9 +46,6 @@ const AdminContactsTable = () => {
     }),
     ...(searchParams.get("category") && {
       category: searchParams.get("category") as AdminContactsQuery["category"]
-    }),
-    ...(searchParams.get("priority") && {
-      priority: searchParams.get("priority") as AdminContactsQuery["priority"]
     }),
     ...(searchParams.get("email") && { email: searchParams.get("email")! }),
     ...(searchParams.get("ticketNumber") && {
@@ -107,9 +103,6 @@ const AdminContactsTable = () => {
                 {tTable("category")}
               </th>
               <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("priority")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
                 {tTable("status")}
               </th>
               <th className="text-muted-foreground px-4 py-3 text-left font-medium">
@@ -125,7 +118,7 @@ const AdminContactsTable = () => {
             {items.length === 0 ? (
               <tr>
                 <td
-                  colSpan={9}
+                  colSpan={8}
                   className="text-muted-foreground py-12 text-center"
                 >
                   {tTable("empty")}
@@ -149,7 +142,6 @@ const AdminContactsTable = () => {
                   <td className="text-muted-foreground px-4 py-3">
                     {tCategory(item.category)}
                   </td>
-                  <td className="px-4 py-3">{tPriority(item.priority)}</td>
                   <td className="px-4 py-3">
                     <Badge
                       variant={statusVariant[item.status]}

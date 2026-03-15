@@ -12,7 +12,6 @@
       "labelEmailNote": "(recommended)",
       "labelSubject": "Subject",
       "labelCategory": "Category",
-      "labelPriority": "Priority",
       "labelMessage": "Detailed description",
       "placeholderSubject": "Summarize your issue...",
       "placeholderCategory": "Select category",
@@ -27,11 +26,6 @@
       "billing": "Billing",
       "security": "Security",
       "other": "Other"
-    },
-    "priority": {
-      "low": "Low",
-      "medium": "Medium",
-      "high": "High"
     },
     "button": {
       "submit": "Submit support request",
@@ -65,8 +59,7 @@
     "ticketInfo": {
       "title": "Request code",
       "labelSubject": "Subject:",
-      "labelCategory": "Category:",
-      "labelPriority": "Priority:"
+      "labelCategory": "Category:"
     },
     "nextSteps": {
       "title": "What happens next?",
@@ -110,7 +103,6 @@
         "email": "Email",
         "subject": "Subject",
         "category": "Category",
-        "priority": "Priority",
         "status": "Status",
         "attachments": "Files",
         "createdAt": "Date",
@@ -121,7 +113,6 @@
         "title": "Filters",
         "status": "Status",
         "category": "Category",
-        "priority": "Priority",
         "email": "Email",
         "ticketNumber": "Ticket Number",
         "search": "Search",
@@ -146,7 +137,6 @@
         "email": "Email",
         "subject": "Subject",
         "category": "Category",
-        "priority": "Priority",
         "status": "Status",
         "ipAddress": "IP Address",
         "userId": "User ID",
@@ -174,7 +164,6 @@
       "ticketNumber": "Ticket",
       "subject": "Subject",
       "category": "Category",
-      "priority": "Priority",
       "status": "Status",
       "attachments": "Files",
       "createdAt": "Date",

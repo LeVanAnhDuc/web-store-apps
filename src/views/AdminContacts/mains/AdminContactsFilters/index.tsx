@@ -19,7 +19,6 @@ import CustomButton from "@/components/CustomButton";
 type FilterFormValues = {
   status: string;
   category: string;
-  priority: string;
   email: string;
   ticketNumber: string;
   search: string;
@@ -31,7 +30,6 @@ const AdminContactsFilters = () => {
   const t = useTranslations("contactAdmin.admin.list.filters");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
-  const tPriority = useTranslations("contactAdmin.form.priority");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -41,7 +39,6 @@ const AdminContactsFilters = () => {
       defaultValues: {
         status: searchParams.get("status") ?? "",
         category: searchParams.get("category") ?? "",
-        priority: searchParams.get("priority") ?? "",
         email: searchParams.get("email") ?? "",
         ticketNumber: searchParams.get("ticketNumber") ?? "",
         search: searchParams.get("search") ?? "",
@@ -55,7 +52,6 @@ const AdminContactsFilters = () => {
     params.set("page", "1");
     if (data.status) params.set("status", data.status);
     if (data.category) params.set("category", data.category);
-    if (data.priority) params.set("priority", data.priority);
     if (data.email) params.set("email", data.email);
     if (data.ticketNumber) params.set("ticketNumber", data.ticketNumber);
     if (data.search) params.set("search", data.search);
@@ -68,7 +64,6 @@ const AdminContactsFilters = () => {
     reset({
       status: "",
       category: "",
-      priority: "",
       email: "",
       ticketNumber: "",
       search: "",
@@ -139,28 +134,6 @@ const AdminContactsFilters = () => {
               ).map((c) => (
                 <SelectItem key={c} value={c}>
                   {tCategory(c)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">
-            {t("priority")}
-          </Label>
-          <Select
-            value={watch("priority")}
-            onValueChange={(v) => setValue("priority", v)}
-          >
-            <SelectTrigger className="h-9">
-              <SelectValue placeholder={t("all")} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">{t("all")}</SelectItem>
-              {(["low", "medium", "high"] as const).map((p) => (
-                <SelectItem key={p} value={p}>
-                  {tPriority(p)}
                 </SelectItem>
               ))}
             </SelectContent>

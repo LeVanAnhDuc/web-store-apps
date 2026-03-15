@@ -41,7 +41,6 @@ const ContactDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("contactAdmin.admin.detail");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
-  const tPriority = useTranslations("contactAdmin.form.priority");
   const queryClient = useQueryClient();
   const [selectedStatus, setSelectedStatus] = useState<ContactStatus | "">("");
 
@@ -137,12 +136,6 @@ const ContactDetailCard = ({ id }: { id: string }) => {
             {t("fields.category")}
           </dt>
           <dd className="mt-1 text-sm">{tCategory(contact.category)}</dd>
-        </div>
-        <div>
-          <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
-            {t("fields.priority")}
-          </dt>
-          <dd className="mt-1 text-sm">{tPriority(contact.priority)}</dd>
         </div>
         <div>
           <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">

@@ -12,7 +12,6 @@
       "labelEmailNote": "(khuyến khích)",
       "labelSubject": "Tiêu đề",
       "labelCategory": "Danh mục",
-      "labelPriority": "Mức độ ưu tiên",
       "labelMessage": "Mô tả chi tiết",
       "placeholderSubject": "Tóm tắt vấn đề của bạn...",
       "placeholderCategory": "Chọn danh mục",
@@ -27,11 +26,6 @@
       "billing": "Thanh toán",
       "security": "Bảo mật",
       "other": "Khác"
-    },
-    "priority": {
-      "low": "Thấp",
-      "medium": "Trung bình",
-      "high": "Cao"
     },
     "button": {
       "submit": "Gửi yêu cầu hỗ trợ",
@@ -65,8 +59,7 @@
     "ticketInfo": {
       "title": "Mã yêu cầu",
       "labelSubject": "Tiêu đề:",
-      "labelCategory": "Danh mục:",
-      "labelPriority": "Mức độ:"
+      "labelCategory": "Danh mục:"
     },
     "nextSteps": {
       "title": "Điều gì xảy ra tiếp theo?",
@@ -110,7 +103,6 @@
         "email": "Email",
         "subject": "Tiêu đề",
         "category": "Danh mục",
-        "priority": "Ưu tiên",
         "status": "Trạng thái",
         "attachments": "Tệp",
         "createdAt": "Ngày tạo",
@@ -121,7 +113,6 @@
         "title": "Bộ lọc",
         "status": "Trạng thái",
         "category": "Danh mục",
-        "priority": "Ưu tiên",
         "email": "Email",
         "ticketNumber": "Mã ticket",
         "search": "Tìm kiếm",
@@ -146,7 +137,6 @@
         "email": "Email",
         "subject": "Tiêu đề",
         "category": "Danh mục",
-        "priority": "Ưu tiên",
         "status": "Trạng thái",
         "ipAddress": "Địa chỉ IP",
         "userId": "ID người dùng",
@@ -174,7 +164,6 @@
       "ticketNumber": "Mã ticket",
       "subject": "Tiêu đề",
       "category": "Danh mục",
-      "priority": "Ưu tiên",
       "status": "Trạng thái",
       "attachments": "Tệp",
       "createdAt": "Ngày gửi",

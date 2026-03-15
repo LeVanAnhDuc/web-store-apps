@@ -5,6 +5,5 @@ export const initialContactAdminData: ContactAdminFormValues = {
   email: "",
   subject: "",
   category: "",
-  priority: "medium",
   message: ""
 };
