@@ -1,9 +1,7 @@
 // libs
 import { redirect } from "next/navigation";
-import { Link } from "lucide-react";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthIcon from "@/components/AuthIcon";
 import { Spinner } from "@/components/ui/spinner";
 // ghosts
 import VerifyMagicLinkEffect from "./ghosts/VerifyMagicLinkEffect";
@@ -26,11 +24,7 @@ const LoginMagicLinkVerify = async ({
   const decodedEmail = decodeURIComponent(email);
 
   return (
-    <AuthStepLayout
-      icon={<AuthIcon Icon={Link} animated />}
-      title="Verifying magic link..."
-      email={decodedEmail}
-    >
+    <AuthStepLayout title="Verifying magic link..." email={decodedEmail}>
       <div className="flex justify-center py-4">
         <Spinner className="size-8" />
       </div>

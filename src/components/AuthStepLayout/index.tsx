@@ -14,7 +14,6 @@ const MAX_WIDTH_CLASSES: Record<MaxWidth, string> = {
 };
 
 const AuthStepLayout = ({
-  icon,
   title,
   description,
   email,
@@ -23,7 +22,6 @@ const AuthStepLayout = ({
   children,
   ghostComponents
 }: {
-  icon?: ReactNode;
   title?: string;
   description?: string;
   email?: string;
@@ -34,12 +32,10 @@ const AuthStepLayout = ({
 }) => (
   <main className="auth-background flex items-center justify-center">
     <FadeSlideUp className={cn("w-full", MAX_WIDTH_CLASSES[maxWidth])}>
-      <div className="auth-card relative p-8 md:p-10">
-        {backButton}
-
-        {(icon || title) && (
-          <div className="mb-8 text-center">
-            {icon && <div className="mb-4 flex justify-center">{icon}</div>}
+      <div className="auth-card p-8 md:p-10">
+        {(backButton || title) && (
+          <div className="relative mb-8 text-center">
+            {backButton}
 
             {title && (
               <FadeIn delay={0.2} y={10}>

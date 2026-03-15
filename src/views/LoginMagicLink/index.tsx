@@ -1,12 +1,10 @@
 // libs
 import { getMessages } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { Mail } from "lucide-react";
 // types
 import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthIcon from "@/components/AuthIcon";
 import MagicLinkForm from "./mains/MagicLinkForm";
 import MagicLinkInstructions from "./components/MagicLinkInstructions";
 import BackButton from "./components/BackButton";
@@ -38,7 +36,6 @@ const LoginMagicLink = async ({
 
   return (
     <AuthStepLayout
-      icon={<AuthIcon Icon={Mail} animated />}
       title={magicLink.title}
       description={magicLink.description}
       email={decodedEmail}

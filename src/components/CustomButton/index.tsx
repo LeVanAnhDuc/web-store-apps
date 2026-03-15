@@ -8,10 +8,22 @@ import { Spinner } from "../ui/spinner";
 // others
 import { cn } from "@/libs/utils";
 
+type ButtonSize = NonNullable<VariantProps<typeof buttonVariants>["size"]>;
+
+const SIZE_TEXT_CLASSES: Record<ButtonSize, string> = {
+  sm: "text-xs",
+  default: "text-sm",
+  lg: "text-base",
+  icon: "",
+  "icon-sm": "",
+  "icon-lg": ""
+};
+
 const CustomButton = ({
   className,
   loading,
   variant = "default",
+  size = "default",
   fullWidth,
   iconRight,
   iconLeft,
@@ -26,6 +38,7 @@ const CustomButton = ({
   <ButtonUI
     className={cn(
       "hover:cursor-pointer",
+      SIZE_TEXT_CLASSES[size ?? "default"],
       {
         "w-full": fullWidth,
         "hover:bg-primary/80": variant === "default"
@@ -34,6 +47,7 @@ const CustomButton = ({
     )}
     disabled={loading || props.disabled}
     variant={variant}
+    size={size}
     {...props}
   >
     {loading ? <Spinner /> : iconLeft}

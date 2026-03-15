@@ -1,12 +1,10 @@
 // libs
 import { getMessages } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { KeyRound } from "lucide-react";
 // types
 import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthIcon from "@/components/AuthIcon";
 import AlternativeOptions from "./mains/AlternativeOptions";
 import LoginOptionsInfo from "./components/LoginOptionsInfo";
 import BackButton from "./components/BackButton";
@@ -34,7 +32,6 @@ const LoginAlternative = async ({
 
   return (
     <AuthStepLayout
-      icon={<AuthIcon Icon={KeyRound} />}
       title={form.titleChooseMethod}
       email={decodedEmail}
       backButton={<BackButton />}

@@ -3,6 +3,7 @@
   "form": {
     "title": "Login",
     "titleWelcome": "Welcome",
+    "titlePassword": "Enter your password",
     "titleChooseMethod": "Choose login method",
     "description": "Continue to use the service",
     "descriptionChooseMethod": "Choose the login method that suits you",

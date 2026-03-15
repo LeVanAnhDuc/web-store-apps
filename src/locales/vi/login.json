@@ -3,6 +3,7 @@
   "form": {
     "title": "Đăng nhập",
     "titleWelcome": "Chào mừng",
+    "titlePassword": "Nhập mật khẩu để đăng nhập",
     "titleChooseMethod": "Chọn cách đăng nhập",
     "description": "Tiếp tục để sử dụng dịch vụ",
     "descriptionChooseMethod": "Chọn phương thức đăng nhập phù hợp với bạn",

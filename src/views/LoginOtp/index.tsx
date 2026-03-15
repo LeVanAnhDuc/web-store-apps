@@ -1,12 +1,10 @@
 // libs
 import { getMessages } from "next-intl/server";
 import { redirect } from "next/navigation";
-import { Lock } from "lucide-react";
 // types
 import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AuthIcon from "@/components/AuthIcon";
 import OtpStepForm from "./mains/OtpStepForm";
 import BackButton from "./components/BackButton";
 // ghosts
@@ -38,7 +36,6 @@ const LoginOtp = async ({
 
   return (
     <AuthStepLayout
-      icon={<AuthIcon Icon={Lock} animated />}
       title={otp.title}
       description={otp.description}
       email={decodedEmail}
