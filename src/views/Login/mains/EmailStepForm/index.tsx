@@ -30,7 +30,7 @@ const EmailStepForm = ({
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-5">
         <EmailInput label={labels.email} disabled={isPending} />
         <NextButton label={labels.next} loading={isPending} />
       </form>

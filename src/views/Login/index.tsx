@@ -15,7 +15,7 @@ const Login = async () => {
 
   return (
     <AuthStepLayout>
-      <div className="space-y-4">
+      <div className="space-y-5">
         <SocialAuthenButtons
           labels={{
             google: form.button.loginWithGoogle,
