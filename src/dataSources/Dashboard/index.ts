@@ -81,7 +81,7 @@ export const getSortLabel = (
   value: SortOption
 ): string => t(value);
 
-export type CategoryKey =
+type CategoryKey =
   | "productivity"
   | "creativity"
   | "communication"
@@ -93,7 +93,7 @@ export type CategoryKey =
   | "lifestyle"
   | "utilities";
 
-export const getCategoryKey = (category: AppCategory): CategoryKey =>
+const getCategoryKey = (category: AppCategory): CategoryKey =>
   category.toLowerCase() as CategoryKey;
 
 export const getCategoryLabel = (

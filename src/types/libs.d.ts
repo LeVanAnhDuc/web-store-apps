@@ -13,7 +13,6 @@ declare module "next-intl" {
 // Export inferred message types for reuse
 export type Messages = typeof messages;
 export type LoginMessages = Messages["login"];
-export type CommonMessages = Messages["common"];
 export type SignupMessages = Messages["signup"];
 export type ForgotPasswordMessages = Messages["forgotPassword"];
 export type ResetPasswordMessages = Messages["resetPassword"];

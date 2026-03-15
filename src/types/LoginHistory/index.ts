@@ -4,8 +4,8 @@ export type LoginHistoryMethod =
   | "otp"
   | "magic-link"
   | "forgot-password";
-export type DeviceType = "DESKTOP" | "MOBILE" | "TABLET" | "UNKNOWN";
-export type ClientType = "WEB" | "MOBILE_IOS" | "MOBILE_ANDROID";
+type DeviceType = "DESKTOP" | "MOBILE" | "TABLET" | "UNKNOWN";
+type ClientType = "WEB" | "MOBILE_IOS" | "MOBILE_ANDROID";
 
 export interface LoginHistoryItem {
   _id: string;
