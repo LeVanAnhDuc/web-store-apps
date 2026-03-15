@@ -28,11 +28,7 @@ const ResetPassword = async ({
   const translations = messages.resetPassword as ResetPasswordMessages;
 
   return (
-    <AuthStepLayout
-      title={translations.form.title}
-      description={translations.form.description}
-      email={decodedEmail}
-    >
+    <AuthStepLayout title={translations.form.title} email={decodedEmail}>
       <ResetPasswordForm
         email={decodedEmail}
         token={decodedToken}
