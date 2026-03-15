@@ -1,5 +1,7 @@
 // libs
 import * as z from "zod";
+// schemas
+import { passwordSchema } from "@/schemas";
 // constants
 import CONSTANTS from "@/constants";
 
@@ -8,12 +10,7 @@ const { NEW_PASSWORD, CONFIRM_PASSWORD } =
 
 export const resetPasswordValidation = z
   .object({
-    [NEW_PASSWORD]: z
-      .string()
-      .min(1, "required")
-      .min(8, "minLength")
-      .max(100, "maxLength")
-      .regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "requirements"),
+    [NEW_PASSWORD]: passwordSchema,
     [CONFIRM_PASSWORD]: z.string().min(1, "required")
   })
   .refine((data) => data[NEW_PASSWORD] === data[CONFIRM_PASSWORD], {

@@ -1,5 +1,7 @@
 // libs
 import * as z from "zod";
+// schemas
+import { passwordSchema } from "@/schemas";
 // others
 import CONSTANTS from "@/constants";
 
@@ -16,9 +18,5 @@ export const emailStepValidation = z.object({
 });
 
 export const passwordStepValidation = z.object({
-  [PASSWORD]: z
-    .string()
-    .min(1, { message: "required" })
-    .min(8, { message: "minLength" })
-    .max(100, { message: "maxLength" })
+  [PASSWORD]: passwordSchema
 });

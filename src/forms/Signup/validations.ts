@@ -1,5 +1,7 @@
 // libs
 import * as z from "zod";
+// schemas
+import { passwordSchema } from "@/schemas";
 // others
 import CONSTANTS from "@/constants";
 
@@ -24,12 +26,7 @@ export const signupInfoFormValidation = z
       .min(2, { message: "minLength" }),
     [GENDER]: z.string().min(1, { message: "required" }),
     [BIRTHDAY]: z.string().min(1, { message: "required" }),
-    [PASSWORD]: z
-      .string()
-      .min(1, { message: "required" })
-      .min(8, { message: "minLength" })
-      .max(100, { message: "maxLength" })
-      .regex(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, { message: "requirements" }),
+    [PASSWORD]: passwordSchema,
     [PASSWORD_CONFIRM]: z.string().min(1, { message: "required" })
   })
   .refine((data) => data[PASSWORD] === data[PASSWORD_CONFIRM], {
