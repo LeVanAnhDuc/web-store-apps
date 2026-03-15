@@ -11,6 +11,7 @@ export type LoginFormValues = EmailStepFormValues & PasswordStepFormValues;
 
 export type LoginTokenResponse = {
   accessToken: string;
+  refreshToken: string;
   idToken: string;
   expiresIn: number;
 };

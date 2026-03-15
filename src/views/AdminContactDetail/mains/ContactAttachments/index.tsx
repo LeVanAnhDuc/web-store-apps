@@ -55,7 +55,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={att.previewUrl}
-                    alt={att.filename}
+                    alt={att.originalName}
                     className="mb-2 h-20 w-full rounded object-cover"
                   />
                 </button>
@@ -64,13 +64,13 @@ const ContactAttachments = ({ id }: { id: string }) => {
                   <FileText className="text-muted-foreground size-10" />
                 </div>
               )}
-              <p className="truncate text-xs font-medium">{att.filename}</p>
+              <p className="truncate text-xs font-medium">{att.originalName}</p>
               <p className="text-muted-foreground text-xs">
                 {(att.size / 1024).toFixed(0)} KB
               </p>
               <a
-                href={att.path}
-                download={att.filename}
+                href={att.previewUrl ?? undefined}
+                download={att.originalName}
                 className="text-primary mt-2 flex items-center gap-1 text-xs hover:underline"
               >
                 <Download className="size-3" />

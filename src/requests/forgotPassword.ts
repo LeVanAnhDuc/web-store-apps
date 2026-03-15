@@ -4,7 +4,7 @@ import axiosInstance from "@/libs/axios";
 type SendOtpResponse = {
   success: boolean;
   expiresIn: number;
-  cooldownSeconds: number;
+  cooldown: number;
 };
 
 type VerifyOtpResponse = {
@@ -15,7 +15,7 @@ type VerifyOtpResponse = {
 type SendMagicLinkResponse = {
   success: boolean;
   expiresIn: number;
-  cooldownSeconds: number;
+  cooldown: number;
 };
 
 type VerifyMagicLinkResponse = {

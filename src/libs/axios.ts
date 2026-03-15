@@ -101,15 +101,18 @@ axiosInstance.interceptors.response.use(
         const response = await axiosInstance.post<
           ResponsePattern<{
             accessToken: string;
+            refreshToken: string;
             idToken: string;
             expiresIn: number;
           }>
         >("/auth/refresh");
 
-        const { accessToken, idToken, expiresIn } = response.data.data;
+        const { accessToken, refreshToken, idToken, expiresIn } =
+          response.data.data;
 
         useAuthStore.getState().setTokens({
           accessToken,
+          refreshToken,
           idToken,
           expiresIn
         });

@@ -21,21 +21,22 @@ export type ContactCategory =
   | "other";
 
 export interface ContactAttachmentResponse {
-  filename: string;
+  originalName: string;
+  fileName: string;
   mimeType: string;
   size: number;
-  path: string;
   previewUrl: string | null;
 }
 
 export interface ContactListItem {
   _id: string;
   ticketNumber: string;
-  email: string;
+  email: string | null;
   subject: string;
   category: ContactCategory;
   priority: Priority;
   status: ContactStatus;
+  userId: string | null;
   attachmentCount: number;
   createdAt: string;
   updatedAt: string;
@@ -43,8 +44,7 @@ export interface ContactListItem {
 
 export interface ContactDetailItem extends ContactListItem {
   message: string;
-  ipAddress: string;
-  userId: string | null;
+  ipAddress: string | null;
   attachments: ContactAttachmentResponse[];
 }
 
