@@ -13,7 +13,7 @@ const SendMagicLinkEffect = ({ email }: { email: string }) => {
 
   useEffect(() => {
     sendMagicLink();
-  }, [sendMagicLink]);
+  }, []);
 
   return null;
 };

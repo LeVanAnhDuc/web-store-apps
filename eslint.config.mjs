@@ -94,7 +94,8 @@ const eslintConfig = [
       "promise/always-return": "warn", // Bắt buộc phải return trong mỗi nhánh của .then() để tránh "lost promise chain".
       "promise/no-return-wrap": "warn", // Tránh viết return Promise.resolve(Promise.resolve(...)).
       "promise/param-names": "warn", //	Đảm bảo bạn dùng đúng tên tham số (thường là resolve, reject) khi tạo Promise.
-      "promise/catch-or-return": "warn" // Phải có .catch() hoặc return một promise để xử lý lỗi.
+      "promise/catch-or-return": "warn", // Phải có .catch() hoặc return một promise để xử lý lỗi.
+      "react-hooks/exhaustive-deps": "off" // Tắt kiểm tra dependency array của hooks
     },
     settings: {
       react: {

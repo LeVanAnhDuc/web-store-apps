@@ -46,7 +46,6 @@ export const useResetPassword = ({
     if (isMagicLink) {
       verifyMagicLink();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { mutate: reset, isPending: isResetting } = useMutation({
