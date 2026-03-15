@@ -23,7 +23,7 @@ const NextSteps = ({
         <Clock className="text-info h-5 w-5" />
         {labels.title}
       </h3>
-      <div className="space-y-3">
+      <div className="space-y-5">
         {steps.map((step, index) => (
           <FadeSlideLeft
             key={step.key}
