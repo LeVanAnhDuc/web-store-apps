@@ -6,6 +6,7 @@ const PasswordRequirements = ({
     minLength: string;
     uppercase: string;
     number: string;
+    specialChar: string;
   };
 }) => (
   <div className="bg-cream rounded-lg p-4">
@@ -14,6 +15,7 @@ const PasswordRequirements = ({
       <li>{labels.minLength}</li>
       <li>{labels.uppercase}</li>
       <li>{labels.number}</li>
+      <li>{labels.specialChar}</li>
     </ul>
   </div>
 );
