@@ -22,7 +22,8 @@
       "gender": {
         "male": "Nam",
         "female": "Nữ",
-        "other": "Khác"
+        "other": "Khác",
+        "prefer_not_to_say": "Không muốn nói"
       },
       "labelBirthday": "Ngày sinh",
       "placeholderBirthday": "Chọn ngày sinh",

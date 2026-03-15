@@ -1,7 +1,12 @@
 // libs
 import * as z from "zod";
 // schemas
-import { emailSchema, passwordSchema } from "@/schemas";
+import {
+  emailSchema,
+  passwordSchema,
+  genderSchema,
+  birthdaySchema
+} from "@/schemas";
 // others
 import CONSTANTS from "@/constants";
 
@@ -18,8 +23,8 @@ export const signupInfoFormValidation = z
       .string()
       .min(1, { message: "required" })
       .min(2, { message: "minLength" }),
-    [GENDER]: z.string().min(1, { message: "required" }),
-    [BIRTHDAY]: z.string().min(1, { message: "required" }),
+    [GENDER]: genderSchema,
+    [BIRTHDAY]: birthdaySchema,
     [PASSWORD]: passwordSchema,
     [PASSWORD_CONFIRM]: z.string().min(1, { message: "required" })
   })

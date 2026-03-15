@@ -1,5 +1,8 @@
 // libs
 import * as z from "zod";
+// others
+import { GENDER_VALUES } from "@/constants/signup";
+import { getDateOfBirthBounds } from "@/utils";
 
 const SAFE_EMAIL_PATTERN =
   // eslint-disable-next-line no-control-regex
@@ -12,6 +15,20 @@ export const emailSchema = z
   .max(254, { message: "maxLength" })
   .email({ message: "invalid" })
   .regex(SAFE_EMAIL_PATTERN, { message: "invalid" });
+
+export const genderSchema = z.enum(GENDER_VALUES, { message: "invalid" });
+
+export const birthdaySchema = z
+  .string()
+  .min(1, { message: "required" })
+  .refine(
+    (value) => {
+      const date = new Date(value);
+      const { minDate, maxDate } = getDateOfBirthBounds();
+      return date >= minDate && date <= maxDate;
+    },
+    { message: "invalid" }
+  );
 
 export const passwordSchema = z
   .string()

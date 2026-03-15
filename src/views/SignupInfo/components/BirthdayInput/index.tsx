@@ -25,6 +25,7 @@ import {
 // hooks
 import { useFieldProps } from "@/hooks";
 // others
+import { getDateOfBirthBounds } from "@/utils";
 import CONSTANTS from "@/constants";
 import { cn } from "@/libs/utils";
 
@@ -41,7 +42,7 @@ const BirthdayInput = ({
 }) => {
   const locale = useLocale();
   const { field, fieldState } = useFieldProps<SignupInfoFormValues>(BIRTHDAY);
-  const today = new Date();
+  const { minDate, maxDate } = getDateOfBirthBounds();
 
   const dateLocale = locale === "vi" ? vi : enUS;
 
@@ -87,11 +88,11 @@ const BirthdayInput = ({
                   onSelect={(date) => {
                     field.onChange(date ? format(date, "yyyy-MM-dd") : "");
                   }}
-                  disabled={(date) => date > today}
+                  disabled={(date) => date > maxDate || date < minDate}
                   defaultMonth={selectedDate || new Date(2000, 0)}
                   captionLayout="dropdown"
-                  fromYear={1900}
-                  toYear={today.getFullYear()}
+                  fromYear={minDate.getFullYear()}
+                  toYear={maxDate.getFullYear()}
                   locale={dateLocale}
                   className="w-[var(--radix-popover-trigger-width)] p-0"
                   classNames={{

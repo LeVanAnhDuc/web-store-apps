@@ -5,6 +5,9 @@ import type {
   signupInfoFormValidation
 } from "@/forms/Signup/validations";
 import type { LoginTokenResponse } from "@/types/Login";
+import type { GENDER_VALUES } from "@/constants/signup";
+
+export type GenderValue = (typeof GENDER_VALUES)[number];
 
 export type SignupEmailFormValues = z.infer<typeof signupEmailFormValidation>;
 

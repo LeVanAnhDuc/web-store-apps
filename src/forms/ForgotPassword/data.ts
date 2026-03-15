@@ -1,6 +1,6 @@
 // types
 import type { NewPasswordFormValues } from "@/types/ForgotPassword";
-// constants
+// others
 import CONSTANTS from "@/constants";
 
 const { NEW_PASSWORD, CONFIRM_PASSWORD } =

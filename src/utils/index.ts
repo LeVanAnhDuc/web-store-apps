@@ -2,8 +2,25 @@
 import { toast } from "sonner";
 // types
 import type { Locale } from "next-intl";
-// i18n
+// others
+import CONSTANTS from "@/constants";
 import { defaultLocale, locales } from "@/i18n/config";
+
+export const getDateOfBirthBounds = () => {
+  const { MIN_AGE, MAX_AGE } = CONSTANTS.SIGNUP.AGE_VALIDATION;
+  const today = new Date();
+  const maxDate = new Date(
+    today.getFullYear() - MIN_AGE,
+    today.getMonth(),
+    today.getDate()
+  );
+  const minDate = new Date(
+    today.getFullYear() - MAX_AGE,
+    today.getMonth(),
+    today.getDate()
+  );
+  return { minDate, maxDate };
+};
 
 export const confirmErrorToast = (message: string): Promise<void> =>
   new Promise((resolve) => {
