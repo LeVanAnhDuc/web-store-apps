@@ -7,9 +7,9 @@ const BackButtonBase = () => (
   <Button
     variant="ghost"
     size="icon"
-    className="absolute top-1/2 left-4 -translate-y-1/2 rounded-full"
+    className="absolute left-2 -translate-y-1/2 rounded-full"
   >
-    <ArrowLeft className="h-5 w-5" />
+    <ArrowLeft className="size-5 text-neutral-600" />
   </Button>
 );
 

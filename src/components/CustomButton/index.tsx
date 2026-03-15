@@ -40,8 +40,7 @@ const CustomButton = ({
       "hover:cursor-pointer",
       SIZE_TEXT_CLASSES[size ?? "default"],
       {
-        "w-full": fullWidth,
-        "hover:bg-primary/80": variant === "default"
+        "w-full": fullWidth
       },
       className
     )}
