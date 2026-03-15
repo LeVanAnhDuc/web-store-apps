@@ -1,7 +1,7 @@
 {
   "app": {
-    "name": "Apartment",
-    "description": "Apartment Web Application"
+    "name": "App Store",
+    "description": "App Store Web Application"
   },
   "localeDialog": {
     "languageTab": "Language and Region",

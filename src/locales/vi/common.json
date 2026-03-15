@@ -1,7 +1,7 @@
 {
   "app": {
-    "name": "Apartment",
-    "description": "Ứng dụng Web Căn hộ"
+    "name": "App Store",
+    "description": "Ứng dụng Web App Store"
   },
   "localeDialog": {
     "languageTab": "Ngôn ngữ và khu vực",
