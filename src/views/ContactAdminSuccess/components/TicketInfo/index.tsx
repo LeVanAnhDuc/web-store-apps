@@ -9,18 +9,13 @@ import { FadeSlideUp } from "@/components/Animated";
 const TicketInfo = ({
   ticketNumber,
   formData,
-  labels,
-  categoryLabels
+  labels
 }: {
   ticketNumber: string | null;
   formData: ContactAdminFormValues | null;
   labels: ContactAdminMessages["success"]["ticketInfo"];
-  categoryLabels: ContactAdminMessages["form"]["category"];
 }) => {
-  const { subject, category } = formData || {};
-  const categoryLabel = category
-    ? categoryLabels[category as keyof typeof categoryLabels]
-    : "";
+  const { subject } = formData || {};
 
   return (
     <FadeSlideUp
@@ -46,12 +41,6 @@ const TicketInfo = ({
           <span className="text-foreground ml-4 flex-1 text-right text-sm">
             {subject}
           </span>
-        </div>
-        <div className="flex items-start justify-between">
-          <span className="text-muted-foreground text-sm">
-            {labels.labelCategory}
-          </span>
-          <span className="text-foreground text-sm">{categoryLabel}</span>
         </div>
       </div>
     </FadeSlideUp>

@@ -6,7 +6,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 // types
-import type { ContactStatus } from "@/types/ContactAdmin";
+import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
 // components
 import { Badge } from "@/components/ui/badge";
 import {
@@ -19,7 +19,8 @@ import {
 // requests
 import {
   getAdminContactDetail,
-  updateContactStatus
+  updateContactStatus,
+  updateContactCategory
 } from "@/requests/contactAdmin";
 
 const statusVariant: Record<
@@ -30,6 +31,15 @@ const statusVariant: Record<
   processing: "secondary",
   resolved: "outline"
 };
+
+const CATEGORY_VALUES: ContactCategory[] = [
+  "account",
+  "technical",
+  "feature",
+  "billing",
+  "security",
+  "other"
+];
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleString(undefined, {
@@ -43,6 +53,9 @@ const ContactDetailCard = ({ id }: { id: string }) => {
   const tCategory = useTranslations("contactAdmin.form.category");
   const queryClient = useQueryClient();
   const [selectedStatus, setSelectedStatus] = useState<ContactStatus | "">("");
+  const [selectedCategory, setSelectedCategory] = useState<
+    ContactCategory | ""
+  >("");
 
   const { data: contact, isLoading } = useQuery({
     queryKey: ["adminContactDetail", id],
@@ -50,10 +63,13 @@ const ContactDetailCard = ({ id }: { id: string }) => {
   });
 
   useEffect(() => {
-    if (contact) setSelectedStatus(contact.status);
+    if (contact) {
+      setSelectedStatus(contact.status);
+      setSelectedCategory(contact.category);
+    }
   }, [contact]);
 
-  const { mutate: changeStatus, isPending: isUpdating } = useMutation({
+  const { mutate: changeStatus, isPending: isUpdatingStatus } = useMutation({
     mutationFn: (status: ContactStatus) => updateContactStatus(id, status),
     onSuccess: () => {
       toast.success(t("updateStatus.success"));
@@ -64,6 +80,23 @@ const ContactDetailCard = ({ id }: { id: string }) => {
       toast.error(t("updateStatus.error"));
     }
   });
+
+  const { mutate: changeCategory, isPending: isUpdatingCategory } = useMutation(
+    {
+      mutationFn: (category: ContactCategory) =>
+        updateContactCategory(id, category),
+      onSuccess: () => {
+        toast.success(t("updateCategory.success"));
+        queryClient.invalidateQueries({
+          queryKey: ["adminContactDetail", id]
+        });
+        queryClient.invalidateQueries({ queryKey: ["adminContacts"] });
+      },
+      onError: () => {
+        toast.error(t("updateCategory.error"));
+      }
+    }
+  );
 
   if (isLoading) {
     return (
@@ -97,7 +130,7 @@ const ContactDetailCard = ({ id }: { id: string }) => {
                 setSelectedStatus(v as ContactStatus);
                 changeStatus(v as ContactStatus);
               }}
-              disabled={isUpdating}
+              disabled={isUpdatingStatus}
             >
               <SelectTrigger className="h-9 w-[160px]">
                 <SelectValue placeholder={t("updateStatus.label")} />
@@ -132,10 +165,30 @@ const ContactDetailCard = ({ id }: { id: string }) => {
           </div>
         )}
         <div>
-          <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+          <dt className="text-muted-foreground mb-1 text-xs font-medium tracking-wide uppercase">
             {t("fields.category")}
           </dt>
-          <dd className="mt-1 text-sm">{tCategory(contact.category)}</dd>
+          <dd>
+            <Select
+              value={selectedCategory}
+              onValueChange={(v) => {
+                setSelectedCategory(v as ContactCategory);
+                changeCategory(v as ContactCategory);
+              }}
+              disabled={isUpdatingCategory}
+            >
+              <SelectTrigger className="h-8 w-full text-sm">
+                <SelectValue placeholder={t("updateCategory.label")} />
+              </SelectTrigger>
+              <SelectContent>
+                {CATEGORY_VALUES.map((cat) => (
+                  <SelectItem key={cat} value={cat}>
+                    {tCategory(cat)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </dd>
         </div>
         <div>
           <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">

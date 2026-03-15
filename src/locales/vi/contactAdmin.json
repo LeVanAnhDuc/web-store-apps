@@ -11,10 +11,8 @@
       "labelEmail": "Email liên hệ",
       "labelEmailNote": "(khuyến khích)",
       "labelSubject": "Tiêu đề",
-      "labelCategory": "Danh mục",
       "labelMessage": "Mô tả chi tiết",
       "placeholderSubject": "Tóm tắt vấn đề của bạn...",
-      "placeholderCategory": "Chọn danh mục",
       "placeholderMessage": "Vui lòng mô tả chi tiết vấn đề của bạn. Bao gồm các bước tái hiện lỗi nếu có...",
       "emailHint": "Nhập email để nhận phản hồi từ chúng tôi",
       "emailAutoFillHint": "Email được điền tự động, bạn có thể thay đổi nếu cần"
@@ -58,8 +56,7 @@
     "description": "Cảm ơn bạn đã liên hệ với chúng tôi",
     "ticketInfo": {
       "title": "Mã yêu cầu",
-      "labelSubject": "Tiêu đề:",
-      "labelCategory": "Danh mục:"
+      "labelSubject": "Tiêu đề:"
     },
     "nextSteps": {
       "title": "Điều gì xảy ra tiếp theo?",
@@ -149,6 +146,11 @@
         "label": "Cập nhật trạng thái",
         "success": "Cập nhật trạng thái thành công",
         "error": "Cập nhật trạng thái thất bại"
+      },
+      "updateCategory": {
+        "label": "Cập nhật danh mục",
+        "success": "Cập nhật danh mục thành công",
+        "error": "Cập nhật danh mục thất bại"
       },
       "attachments": {
         "empty": "Không có tệp đính kèm",

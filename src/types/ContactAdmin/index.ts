@@ -1,7 +1,6 @@
 export interface ContactAdminFormValues {
   email?: string;
   subject: string;
-  category: string;
   message: string;
 }
 

@@ -9,7 +9,7 @@ import SuccessMain from "./mains/SuccessMain";
 const ContactAdminSuccess = async () => {
   const messages = await getMessages();
   const translations = messages.contactAdmin as ContactAdminMessages;
-  const { success, form } = translations;
+  const { success } = translations;
   const {
     title,
     description,
@@ -19,7 +19,6 @@ const ContactAdminSuccess = async () => {
     button,
     response
   } = success;
-  const { category } = form;
 
   return (
     <AuthStepLayout title={title} description={description} maxWidth="2xl">
@@ -29,8 +28,7 @@ const ContactAdminSuccess = async () => {
           nextSteps,
           importantNotes,
           button,
-          response,
-          category
+          response
         }}
       />
     </AuthStepLayout>

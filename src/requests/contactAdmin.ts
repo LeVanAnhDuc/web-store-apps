@@ -6,7 +6,8 @@ import type {
   PaginatedContactsResponse,
   PaginatedUserContactsResponse,
   ContactDetailItem,
-  ContactStatus
+  ContactStatus,
+  ContactCategory
 } from "@/types/ContactAdmin";
 // others
 import axiosInstance from "@/libs/axios";
@@ -23,7 +24,6 @@ export const submitContact = async (
 
   if (data.email) formData.append("email", data.email);
   formData.append("subject", data.subject);
-  formData.append("category", data.category);
   formData.append("message", data.message);
   files?.forEach((file) => formData.append("attachments", file));
 
@@ -61,6 +61,13 @@ export const updateContactStatus = async (
   status: ContactStatus
 ): Promise<void> => {
   await axiosInstance.patch(`/admin/contacts/${id}/status`, { status });
+};
+
+export const updateContactCategory = async (
+  id: string,
+  category: ContactCategory
+): Promise<void> => {
+  await axiosInstance.patch(`/admin/contacts/${id}/category`, { category });
 };
 
 export const getMyContacts = async (

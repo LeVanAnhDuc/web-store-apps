@@ -11,10 +11,8 @@
       "labelEmail": "Contact email",
       "labelEmailNote": "(recommended)",
       "labelSubject": "Subject",
-      "labelCategory": "Category",
       "labelMessage": "Detailed description",
       "placeholderSubject": "Summarize your issue...",
-      "placeholderCategory": "Select category",
       "placeholderMessage": "Please describe your issue in detail. Include steps to reproduce the error if any...",
       "emailHint": "Enter your email to receive a response from us",
       "emailAutoFillHint": "Email auto-filled, you can change it if needed"
@@ -58,8 +56,7 @@
     "description": "Thank you for contacting us",
     "ticketInfo": {
       "title": "Request code",
-      "labelSubject": "Subject:",
-      "labelCategory": "Category:"
+      "labelSubject": "Subject:"
     },
     "nextSteps": {
       "title": "What happens next?",
@@ -149,6 +146,11 @@
         "label": "Update Status",
         "success": "Status updated successfully",
         "error": "Failed to update status"
+      },
+      "updateCategory": {
+        "label": "Update Category",
+        "success": "Category updated successfully",
+        "error": "Failed to update category"
       },
       "attachments": {
         "empty": "No attachments",

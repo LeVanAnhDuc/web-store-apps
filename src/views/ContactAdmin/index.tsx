@@ -21,16 +21,8 @@ const ContactAdmin = async ({
   const messages = await getMessages();
   const translations = messages.contactAdmin as ContactAdminMessages;
   const { form } = translations;
-  const {
-    title,
-    description,
-    responseTime,
-    input,
-    category,
-    button,
-    hint,
-    footerNote
-  } = form;
+  const { title, description, responseTime, input, button, hint, footerNote } =
+    form;
 
   return (
     <AuthStepLayout
@@ -43,7 +35,7 @@ const ContactAdmin = async ({
 
       <ContactAdminForm
         initialEmail={decodedEmail}
-        labels={{ input, category, button, hint }}
+        labels={{ input, button, hint }}
       />
 
       <FooterNote label={footerNote} />

@@ -9,7 +9,6 @@ import type { ContactAdminMessages } from "@/types/libs";
 // components
 import EmailInput from "../../components/EmailInput";
 import SubjectInput from "../../components/SubjectInput";
-import CategorySelect from "../../components/CategorySelect";
 import MessageTextarea from "../../components/MessageTextarea";
 import SubmitButton from "../../components/SubmitButton";
 import FileUploadInput from "../../components/FileUploadInput";
@@ -23,20 +22,15 @@ const ContactAdminForm = ({
   labels
 }: {
   initialEmail?: string;
-  labels: Pick<
-    ContactAdminMessages["form"],
-    "input" | "category" | "button" | "hint"
-  >;
+  labels: Pick<ContactAdminMessages["form"], "input" | "button" | "hint">;
 }) => {
-  const { input, category, button, hint } = labels;
+  const { input, button, hint } = labels;
   const [attachedFiles, setAttachedFiles] = useState<File[]>([]);
   const {
     labelEmail,
     labelEmailNote,
     labelSubject,
     placeholderSubject,
-    labelCategory,
-    placeholderCategory,
     labelMessage,
     placeholderMessage,
     emailHint,
@@ -71,15 +65,6 @@ const ContactAdminForm = ({
         <SubjectInput
           disabled={isPending}
           labels={{ label: labelSubject, placeholder: placeholderSubject }}
-        />
-
-        <CategorySelect
-          disabled={isPending}
-          labels={{
-            label: labelCategory,
-            placeholder: placeholderCategory,
-            options: category
-          }}
         />
 
         <MessageTextarea
