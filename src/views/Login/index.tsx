@@ -4,7 +4,7 @@ import { getMessages } from "next-intl/server";
 import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import SocialAuthenButtons from "@/components/SocialAuthenButtons";
+import SocialAuthenButtons from "./mains/SocialAuthenButtons";
 import EmailStepForm from "./mains/EmailStepForm";
 import AuthDivider from "./components/AuthDivider";
 
