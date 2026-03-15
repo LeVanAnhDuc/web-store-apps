@@ -23,11 +23,11 @@ const SuccessMain = ({
 }: {
   labels: Pick<
     ContactAdminMessages["success"],
-    "ticketInfo" | "nextSteps" | "importantNotes" | "button" | "response"
+    "ticketInfo" | "nextSteps" | "importantNotes" | "button"
   >;
 }) => {
   const router = useRouter();
-  const { ticketInfo, nextSteps, importantNotes, button, response } = labels;
+  const { ticketInfo, nextSteps, importantNotes, button } = labels;
   const { back, print } = button;
 
   const { formData, referrerPath, ticketNumber, reset } = useContactAdminStore(
@@ -52,11 +52,7 @@ const SuccessMain = ({
         labels={ticketInfo}
       />
 
-      <NextSteps
-        email={formData?.email}
-        labels={nextSteps}
-        responseLabels={response}
-      />
+      <NextSteps labels={nextSteps} />
 
       <ImportantNotes ticketNumber={ticketNumber} labels={importantNotes} />
 

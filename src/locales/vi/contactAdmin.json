@@ -2,7 +2,6 @@
   "title": "Liên hệ quản trị viên",
   "form": {
     "title": "Liên hệ hỗ trợ",
-    "description": "Chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7",
     "responseTime": {
       "title": "Thời gian phản hồi trung bình",
       "description": "Chúng tôi sẽ phản hồi trong vòng {hours} giờ làm việc"
@@ -46,24 +45,18 @@
         "maxFilesExceeded": "Tối đa 5 tệp được phép"
       }
     },
-    "footerNote": "Bạn sẽ nhận được email xác nhận sau khi gửi yêu cầu",
     "errors": {
       "rateLimitExceeded": "Quá nhiều yêu cầu. Vui lòng thử lại sau vài phút."
     }
   },
   "success": {
-    "title": "Gửi yêu cầu thành công!",
-    "description": "Cảm ơn bạn đã liên hệ với chúng tôi",
+    "title": "Cảm ơn bạn đã liên hệ với chúng tôi",
     "ticketInfo": {
       "title": "Mã yêu cầu",
       "labelSubject": "Tiêu đề:"
     },
     "nextSteps": {
       "title": "Điều gì xảy ra tiếp theo?",
-      "step1": {
-        "title": "Email xác nhận",
-        "description": "Chúng tôi đã gửi email xác nhận đến {email}"
-      },
       "step2": {
         "title": "Xem xét yêu cầu",
         "description": "Đội ngũ hỗ trợ sẽ xem xét yêu cầu của bạn"
@@ -75,16 +68,7 @@
     },
     "importantNotes": {
       "title": "Lưu ý quan trọng",
-      "note1": "Vui lòng lưu lại mã yêu cầu {ticketNumber}",
-      "note2": "Kiểm tra cả hộp thư spam nếu không thấy email xác nhận",
-      "note3": "Bạn có thể trả lời trực tiếp email để bổ sung thông tin"
-    },
-    "response": {
-      "withEmail": "Chúng tôi sẽ phản hồi qua email: {email}",
-      "withEmailTime": "Thời gian dự kiến: 24-48 giờ",
-      "anonymous": "Bạn đã gửi mà không cung cấp email",
-      "anonymousNote": "Chúng tôi sẽ không thể liên hệ lại với bạn",
-      "anonymousSaveTicket": "Vui lòng lưu mã ticket để theo dõi trạng thái"
+      "note1": "Vui lòng lưu lại mã yêu cầu {ticketNumber}"
     },
     "button": {
       "back": "Quay lại",

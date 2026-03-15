@@ -9,11 +9,6 @@ export const CATEGORIES = [
 
 export const NEXT_STEPS = [
   {
-    key: "step1",
-    color: "from-info to-info/80",
-    textColor: "text-info-foreground"
-  },
-  {
     key: "step2",
     color: "from-primary to-primary/80",
     textColor: "text-primary-foreground"

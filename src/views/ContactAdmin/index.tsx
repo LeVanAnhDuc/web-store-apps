@@ -5,7 +5,6 @@ import type { ContactAdminMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import ResponseTimeAlert from "./mains/ResponseTimeAlert";
-import FooterNote from "./mains/FooterNote";
 import ContactAdminForm from "./mains/ContactAdminForm";
 // ghosts
 import SetReferrerPathEffect from "./ghosts/SetReferrerPathEffect";
@@ -21,13 +20,11 @@ const ContactAdmin = async ({
   const messages = await getMessages();
   const translations = messages.contactAdmin as ContactAdminMessages;
   const { form } = translations;
-  const { title, description, responseTime, input, button, hint, footerNote } =
-    form;
+  const { title, responseTime, input, button, hint } = form;
 
   return (
     <AuthStepLayout
       title={title}
-      description={description}
       maxWidth="2xl"
       ghostComponents={<SetReferrerPathEffect referrerPath={from} />}
     >
@@ -37,8 +34,6 @@ const ContactAdmin = async ({
         initialEmail={decodedEmail}
         labels={{ input, button, hint }}
       />
-
-      <FooterNote label={footerNote} />
     </AuthStepLayout>
   );
 };

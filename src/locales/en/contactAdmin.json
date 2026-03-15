@@ -2,7 +2,6 @@
   "title": "Contact Admin",
   "form": {
     "title": "Contact Support",
-    "description": "We are always ready to assist you 24/7",
     "responseTime": {
       "title": "Average response time",
       "description": "We will respond within {hours} business hours"
@@ -46,24 +45,18 @@
         "maxFilesExceeded": "Maximum 5 files allowed"
       }
     },
-    "footerNote": "You will receive a confirmation email after submitting the request",
     "errors": {
       "rateLimitExceeded": "Too many requests. Please try again in a few minutes."
     }
   },
   "success": {
-    "title": "Request submitted successfully!",
-    "description": "Thank you for contacting us",
+    "title": "Thank you for contacting us",
     "ticketInfo": {
       "title": "Request code",
       "labelSubject": "Subject:"
     },
     "nextSteps": {
       "title": "What happens next?",
-      "step1": {
-        "title": "Confirmation email",
-        "description": "We have sent a confirmation email to {email}"
-      },
       "step2": {
         "title": "Review request",
         "description": "Our support team will review your request"
@@ -75,16 +68,7 @@
     },
     "importantNotes": {
       "title": "Important notes",
-      "note1": "Please save the request code {ticketNumber}",
-      "note2": "Check your spam folder if you don't see the confirmation email",
-      "note3": "You can reply directly to the email to add more information"
-    },
-    "response": {
-      "withEmail": "We will respond via email: {email}",
-      "withEmailTime": "Expected response time: 24-48 hours",
-      "anonymous": "You submitted without providing an email",
-      "anonymousNote": "We will not be able to contact you back",
-      "anonymousSaveTicket": "Please save the ticket code to track status"
+      "note1": "Please save the request code {ticketNumber}"
     },
     "button": {
       "back": "Go back",

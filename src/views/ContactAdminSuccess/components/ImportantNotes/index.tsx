@@ -19,8 +19,6 @@ const ImportantNotes = ({
       {ticketNumber && (
         <li>{labels.note1.replace("{ticketNumber}", ticketNumber)}</li>
       )}
-      <li>{labels.note2}</li>
-      <li>{labels.note3}</li>
     </ul>
   </FadeSlideUp>
 );

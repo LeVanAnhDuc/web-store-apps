@@ -10,25 +10,16 @@ const ContactAdminSuccess = async () => {
   const messages = await getMessages();
   const translations = messages.contactAdmin as ContactAdminMessages;
   const { success } = translations;
-  const {
-    title,
-    description,
-    ticketInfo,
-    nextSteps,
-    importantNotes,
-    button,
-    response
-  } = success;
+  const { title, ticketInfo, nextSteps, importantNotes, button } = success;
 
   return (
-    <AuthStepLayout title={title} description={description} maxWidth="2xl">
+    <AuthStepLayout title={title} maxWidth="2xl">
       <SuccessMain
         labels={{
           ticketInfo,
           nextSteps,
           importantNotes,
-          button,
-          response
+          button
         }}
       />
     </AuthStepLayout>
