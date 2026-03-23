@@ -3,11 +3,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 // others
 import { cn } from "@/libs/utils";
 
-const AvatarUser = ({ className }: { className?: string }) => (
+interface AvatarUserProps {
+  src?: string | null;
+  fallback: string;
+  className?: string;
+}
+
+const AvatarUser = ({ src, fallback, className }: AvatarUserProps) => (
   <Avatar className={cn("ring-border size-9 cursor-pointer ring-2", className)}>
-    <AvatarImage src="" alt="User Avatar" />
+    <AvatarImage src={src ?? ""} alt="User Avatar" />
     <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
-      DC
+      {fallback}
     </AvatarFallback>
   </Avatar>
 );

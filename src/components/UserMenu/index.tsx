@@ -1,3 +1,5 @@
+"use client";
+
 // components
 import {
   DropdownMenu,
@@ -10,23 +12,43 @@ import CustomButton from "../CustomButton";
 import UserInfoHeader from "./mains/UserInfoHeader";
 import MenuItems from "./mains/MenuItems";
 import SignOutItem from "./mains/SignoutItem";
+// hooks
+import useUserInfo from "@/hooks/useUserInfo";
 
-const UserMenu = () => (
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>
-      <CustomButton variant={"ghost"} className="size-9 rounded-full">
-        <AvatarUser />
-      </CustomButton>
-    </DropdownMenuTrigger>
+const UserMenu = () => {
+  const userInfo = useUserInfo();
+  const isLoggedIn = userInfo !== null;
 
-    <DropdownMenuContent className="w-72 rounded-xl p-2" align="end">
-      <UserInfoHeader />
-      <DropdownMenuSeparator />
-      <MenuItems />
-      <DropdownMenuSeparator />
-      <SignOutItem />
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <CustomButton variant={"ghost"} className="size-9 rounded-full">
+          <AvatarUser
+            src={userInfo?.avatar}
+            fallback={userInfo?.initials ?? "?"}
+          />
+        </CustomButton>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-72 rounded-xl p-2" align="end">
+        {isLoggedIn ? (
+          <>
+            <UserInfoHeader
+              fullName={userInfo.fullName}
+              email={userInfo.email}
+              avatar={userInfo.avatar}
+              initials={userInfo.initials}
+            />
+            <DropdownMenuSeparator />
+            <MenuItems showProfile={true} />
+            <DropdownMenuSeparator />
+            <SignOutItem />
+          </>
+        ) : (
+          <MenuItems showProfile={false} />
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
 
 export default UserMenu;
