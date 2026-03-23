@@ -6,6 +6,15 @@ import type { Locale } from "next-intl";
 import CONSTANTS from "@/constants";
 import { defaultLocale, locales } from "@/i18n/config";
 
+export const getInitials = (fullName: string): string =>
+  fullName
+    .split(" ")
+    .map((word) => word[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
 export const getDateOfBirthBounds = () => {
   const { MIN_AGE, MAX_AGE } = CONSTANTS.SIGNUP.AGE_VALIDATION;
   const today = new Date();

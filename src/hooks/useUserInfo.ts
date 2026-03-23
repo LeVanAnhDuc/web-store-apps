@@ -2,6 +2,8 @@
 import { jwtDecode } from "jwt-decode";
 // stores
 import { useAuthStore } from "@/stores";
+// others
+import { getInitials } from "@/utils";
 
 interface DecodedIdToken {
   userId: string;
@@ -18,15 +20,6 @@ export interface UserInfo {
   avatar?: string | null;
   initials: string;
 }
-
-const getInitials = (fullName: string): string =>
-  fullName
-    .split(" ")
-    .map((word) => word[0])
-    .filter(Boolean)
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
 
 const useUserInfo = (): UserInfo | null => {
   const idToken = useAuthStore((state) => state.tokens?.idToken);
