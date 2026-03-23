@@ -65,6 +65,19 @@
       "invalid": "Họ tên chứa ký tự không hợp lệ",
       "invalidHint": "Ký tự cho phép: chữ cái (mọi ngôn ngữ), khoảng trắng, dấu gạch ngang (-), dấu nháy đơn ('), dấu chấm (.)"
     },
+    "phone": {
+      "required": "Số điện thoại không được để trống",
+      "maxLength": "Số điện thoại quá dài",
+      "invalid": "Định dạng số điện thoại không hợp lệ"
+    },
+    "address": {
+      "maxLength": "Địa chỉ không được vượt quá 500 ký tự",
+      "invalid": "Địa chỉ chứa ký tự không hợp lệ"
+    },
+    "dateOfBirth": {
+      "required": "Ngày sinh không được để trống",
+      "invalid": "Ngày sinh phải là ngày trong quá khứ và không quá 100 năm"
+    },
     "gender": {
       "required": "Vui lòng chọn giới tính",
       "invalid": "Giới tính không hợp lệ"

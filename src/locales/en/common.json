@@ -65,6 +65,19 @@
       "invalid": "Full name contains invalid characters",
       "invalidHint": "Allowed: letters (any language), spaces, hyphens (-), apostrophes ('), periods (.)"
     },
+    "phone": {
+      "required": "Phone number cannot be empty",
+      "maxLength": "Phone number is too long",
+      "invalid": "Invalid phone number format"
+    },
+    "address": {
+      "maxLength": "Address must not exceed 500 characters",
+      "invalid": "Address contains invalid characters"
+    },
+    "dateOfBirth": {
+      "required": "Date of birth is required",
+      "invalid": "Date must be in the past and within 100 years"
+    },
     "gender": {
       "required": "Please select gender",
       "invalid": "Invalid gender"
