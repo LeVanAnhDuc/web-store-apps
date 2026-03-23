@@ -18,6 +18,23 @@ export const emailSchema = z
 
 export const genderSchema = z.enum(GENDER_VALUES, { message: "invalid" });
 
+export const profileDateOfBirthSchema = z
+  .string()
+  .min(1, { message: "required" })
+  .refine(
+    (value) => {
+      const date = new Date(value);
+      const today = new Date();
+      const minDate = new Date(
+        today.getFullYear() - 100,
+        today.getMonth(),
+        today.getDate()
+      );
+      return date >= minDate && date <= today;
+    },
+    { message: "invalid" }
+  );
+
 export const birthdaySchema = z
   .string()
   .min(1, { message: "required" })
