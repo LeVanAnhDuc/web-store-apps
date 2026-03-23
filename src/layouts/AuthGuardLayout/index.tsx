@@ -2,27 +2,32 @@
 
 // libs
 import { useEffect } from "react";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 // types
 import type { ReactNode } from "react";
 // stores
 import { useAuthStore } from "@/stores";
 // others
 import CONSTANTS from "@/constants";
+import { isTokenExpired, saveCallbackUrl } from "@/utils";
 
 const { LOGIN } = CONSTANTS.ROUTES;
 
 const AuthGuardLayout = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const tokens = useAuthStore((state) => state.tokens);
 
+  const shouldRedirect = !tokens || isTokenExpired(tokens.accessToken);
+
   useEffect(() => {
-    if (!tokens) {
+    if (shouldRedirect) {
+      saveCallbackUrl(pathname);
       router.replace(LOGIN);
     }
-  }, [tokens, router]);
+  }, [shouldRedirect, router, pathname]);
 
-  if (!tokens) return null;
+  if (shouldRedirect) return null;
 
   return <>{children}</>;
 };

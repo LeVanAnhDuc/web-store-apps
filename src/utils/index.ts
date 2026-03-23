@@ -6,6 +6,8 @@ import type { Locale } from "next-intl";
 import CONSTANTS from "@/constants";
 import { defaultLocale, locales } from "@/i18n/config";
 
+const { CALLBACK_URL } = CONSTANTS.STORAGE_KEYS;
+
 export const getInitials = (fullName: string): string =>
   fullName
     .split(" ")
@@ -74,3 +76,24 @@ export const parseDownloads = (downloads: string): number => {
   if (downloads.includes("M")) return num * 1000000;
   return num;
 };
+
+export function isTokenExpired(token: string): boolean {
+  try {
+    const payload = JSON.parse(
+      atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))
+    );
+    return typeof payload.exp === "number" && payload.exp * 1000 < Date.now();
+  } catch {
+    return true;
+  }
+}
+
+export function saveCallbackUrl(url: string) {
+  sessionStorage.setItem(CALLBACK_URL, url);
+}
+
+export function popCallbackUrl(): string | null {
+  const url = sessionStorage.getItem(CALLBACK_URL);
+  if (url) sessionStorage.removeItem(CALLBACK_URL);
+  return url;
+}

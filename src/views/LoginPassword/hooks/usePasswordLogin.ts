@@ -4,16 +4,13 @@
 import { useMutation } from "@tanstack/react-query";
 // requests
 import { loginWithPassword } from "@/requests/login";
+// hooks
+import { usePostLoginRedirect } from "@/hooks";
 // stores
 import { useAuthStore } from "@/stores";
-// others
-import { useRouter } from "@/i18n/navigation";
-import CONSTANTS from "@/constants";
-
-const { HOME } = CONSTANTS.ROUTES;
 
 export const usePasswordLogin = () => {
-  const router = useRouter();
+  const redirectAfterLogin = usePostLoginRedirect();
   const setTokens = useAuthStore((state) => state.setTokens);
 
   const { mutate: login, isPending } = useMutation({
@@ -21,7 +18,7 @@ export const usePasswordLogin = () => {
       loginWithPassword(email, password),
     onSuccess: (tokens) => {
       setTokens(tokens);
-      router.push(HOME);
+      redirectAfterLogin();
     }
   });
 

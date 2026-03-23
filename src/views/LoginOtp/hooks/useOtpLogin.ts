@@ -5,15 +5,13 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 // requests
 import { sendLoginOtp, verifyLoginOtp } from "@/requests/login";
+// hooks
+import { useCountdown, usePostLoginRedirect } from "@/hooks";
 // stores
 import { useAuthStore } from "@/stores";
-// hooks
-import { useCountdown } from "@/hooks";
 // others
-import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
-const { HOME } = CONSTANTS.ROUTES;
 const { RESEND_COUNTDOWN } = CONSTANTS.LOGIN;
 
 export const useOtpLogin = ({
@@ -25,7 +23,7 @@ export const useOtpLogin = ({
   onVerifyError: () => void;
   resendSuccessMessage: string;
 }) => {
-  const router = useRouter();
+  const redirectAfterLogin = usePostLoginRedirect();
   const setTokens = useAuthStore((state) => state.setTokens);
   const {
     seconds: countdown,
@@ -45,7 +43,7 @@ export const useOtpLogin = ({
     mutationFn: (otp: string) => verifyLoginOtp(email, otp),
     onSuccess: (tokens) => {
       setTokens(tokens);
-      router.push(HOME);
+      redirectAfterLogin();
     },
     onError: onVerifyError
   });
