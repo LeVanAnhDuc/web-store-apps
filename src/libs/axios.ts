@@ -18,26 +18,6 @@ const handleLogout = () => {
   window.location.href = `/${currentLocale}${CONSTANTS.ROUTES.LOGIN}`;
 };
 
-let isRefreshing = false;
-let failedQueue: Array<{
-  resolve: (value?: unknown) => void;
-  reject: (reason?: unknown) => void;
-}> = [];
-
-const processQueue = (
-  error: AxiosError | null,
-  token: string | null = null
-) => {
-  failedQueue.forEach((prom) => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
-  });
-  failedQueue = [];
-};
-
 // ============================================
 // AXIOS INSTANCE
 // ============================================
@@ -64,77 +44,20 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & {
-      _retry?: boolean;
-    };
+    const originalRequest = error.config as InternalAxiosRequestConfig;
 
     // ============================================
-    // HANDLE 401 - AUTO REFRESH TOKEN (SILENT)
-    // Only runs for authenticated requests (has Authorization header).
+    // HANDLE 401 — LOGOUT IMMEDIATELY
+    // Only for authenticated requests (has Authorization header).
     // Unauthenticated requests (login, signup) return 401 for wrong credentials
     // and should be handled by the caller, not intercepted here.
     // ============================================
     if (
       error.response?.status === 401 &&
-      originalRequest &&
-      !originalRequest._retry &&
-      originalRequest.headers?.Authorization
+      originalRequest?.headers?.Authorization
     ) {
-      // Queue subsequent requests while refreshing
-      if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          failedQueue.push({ resolve, reject });
-        })
-          .then((token) => {
-            if (originalRequest.headers) {
-              originalRequest.headers.Authorization = `Bearer ${token}`;
-            }
-            return axiosInstance(originalRequest);
-          })
-          .catch((err) => Promise.reject(err));
-      }
-
-      originalRequest._retry = true;
-      isRefreshing = true;
-
-      try {
-        const response = await axiosInstance.post<
-          ResponsePattern<{
-            accessToken: string;
-            refreshToken: string;
-            idToken: string;
-            expiresIn: number;
-          }>
-        >("/auth/refresh");
-
-        const { accessToken, refreshToken, idToken, expiresIn } =
-          response.data.data;
-
-        useAuthStore.getState().setTokens({
-          accessToken,
-          refreshToken,
-          idToken,
-          expiresIn
-        });
-
-        if (originalRequest.headers)
-          originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-
-        // Process queued requests
-        processQueue(null, accessToken);
-        isRefreshing = false;
-
-        // Retry original request
-        return axiosInstance(originalRequest);
-      } catch (refreshError) {
-        processQueue(refreshError as AxiosError, null);
-        isRefreshing = false;
-        await confirmErrorToast(
-          "Unable to refresh session. Please login again."
-        );
-        handleLogout();
-        return Promise.reject(refreshError);
-      }
+      handleLogout();
+      return Promise.reject(error);
     }
 
     // ============================================

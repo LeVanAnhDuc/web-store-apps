@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useRouter, usePathname } from "@/i18n/navigation";
 // types
 import type { ReactNode } from "react";
+// ghosts
+import TokenRefresher from "@/ghosts/TokenRefresher";
 // stores
 import { useAuthStore } from "@/stores";
 // others
@@ -29,7 +31,12 @@ const AuthGuardLayout = ({ children }: { children: ReactNode }) => {
 
   if (shouldRedirect) return null;
 
-  return <>{children}</>;
+  return (
+    <>
+      <TokenRefresher />
+      {children}
+    </>
+  );
 };
 
 export default AuthGuardLayout;
