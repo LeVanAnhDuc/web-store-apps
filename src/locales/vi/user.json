@@ -37,7 +37,8 @@
     },
     "toast": {
       "updateSuccess": "Cập nhật hồ sơ thành công",
-      "avatarSuccess": "Tải ảnh đại diện thành công"
+      "avatarSuccess": "Tải ảnh đại diện thành công",
+      "avatarError": "Tải ảnh đại diện thất bại. Vui lòng thử lại."
     },
     "validation": {
       "fullName": {
@@ -61,6 +62,10 @@
       },
       "gender": {
         "invalid": "Vui lòng chọn giới tính hợp lệ"
+      },
+      "avatar": {
+        "type": "Định dạng file không được hỗ trợ. Sử dụng JPG, PNG, WEBP, GIF hoặc AVIF.",
+        "size": "Kích thước file vượt quá giới hạn 10MB."
       }
     }
   },

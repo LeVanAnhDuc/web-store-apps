@@ -37,7 +37,8 @@
     },
     "toast": {
       "updateSuccess": "Profile updated successfully",
-      "avatarSuccess": "Avatar uploaded successfully"
+      "avatarSuccess": "Avatar uploaded successfully",
+      "avatarError": "Failed to upload avatar. Please try again."
     },
     "validation": {
       "fullName": {
@@ -61,6 +62,10 @@
       },
       "gender": {
         "invalid": "Please select a valid gender"
+      },
+      "avatar": {
+        "type": "File type not supported. Use JPG, PNG, WEBP, GIF, or AVIF.",
+        "size": "File size exceeds the 10MB limit."
       }
     }
   },
