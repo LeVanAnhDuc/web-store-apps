@@ -1,0 +1,71 @@
+{
+  "profile": {
+    "title": "Hồ Sơ Của Tôi",
+    "fields": {
+      "fullName": "Họ và tên",
+      "phone": "Số điện thoại",
+      "address": "Địa chỉ",
+      "dateOfBirth": "Ngày sinh",
+      "gender": "Giới tính",
+      "email": "Email",
+      "createdAt": "Thành viên từ",
+      "avatar": "Ảnh đại diện"
+    },
+    "placeholders": {
+      "fullName": "Nhập họ và tên",
+      "phone": "Nhập số điện thoại",
+      "address": "Nhập địa chỉ",
+      "dateOfBirth": "Chọn ngày sinh",
+      "gender": "Chọn giới tính"
+    },
+    "gender": {
+      "male": "Nam",
+      "female": "Nữ",
+      "other": "Khác",
+      "prefer_not_to_say": "Không muốn tiết lộ"
+    },
+    "button": {
+      "edit": "Chỉnh sửa",
+      "save": "Lưu thay đổi",
+      "saving": "Đang lưu...",
+      "cancel": "Hủy",
+      "uploadAvatar": "Tải ảnh lên",
+      "changeAvatar": "Đổi ảnh"
+    },
+    "avatar": {
+      "hint": "Tối đa 10MB · JPG, PNG, WEBP, GIF, AVIF"
+    },
+    "toast": {
+      "updateSuccess": "Cập nhật hồ sơ thành công",
+      "avatarSuccess": "Tải ảnh đại diện thành công"
+    },
+    "validation": {
+      "fullName": {
+        "required": "Họ và tên không được để trống",
+        "minLength": "Họ và tên phải có ít nhất 2 ký tự",
+        "maxLength": "Họ và tên không được vượt quá 100 ký tự",
+        "invalid": "Họ và tên chứa ký tự không hợp lệ"
+      },
+      "phone": {
+        "required": "Số điện thoại không được để trống",
+        "maxLength": "Số điện thoại quá dài",
+        "invalid": "Định dạng số điện thoại không hợp lệ"
+      },
+      "address": {
+        "maxLength": "Địa chỉ không được vượt quá 500 ký tự",
+        "invalid": "Địa chỉ chứa ký tự không hợp lệ"
+      },
+      "dateOfBirth": {
+        "required": "Ngày sinh không được để trống",
+        "invalid": "Ngày sinh phải là ngày trong quá khứ và không quá 100 năm"
+      },
+      "gender": {
+        "invalid": "Vui lòng chọn giới tính hợp lệ"
+      }
+    }
+  },
+  "publicProfile": {
+    "title": "Hồ Sơ Người Dùng",
+    "notFound": "Không tìm thấy người dùng"
+  }
+}
