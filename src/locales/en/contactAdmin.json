@@ -138,7 +138,8 @@
       "attachments": {
         "empty": "No attachments",
         "download": "Download",
-        "preview": "Preview"
+        "preview": "Preview",
+        "closePreview": "Close preview"
       }
     }
   },

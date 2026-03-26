@@ -83,12 +83,14 @@ const ForgotPasswordResetForm = ({
           name={NEW_PASSWORD}
           label={labelNewPassword}
           placeholder={placeholderNewPassword}
+          autoComplete="new-password"
           disabled={isDisabled}
         />
         <PasswordInput
           name={CONFIRM_PASSWORD}
           label={labelConfirmPassword}
           placeholder={placeholderConfirmPassword}
+          autoComplete="new-password"
           disabled={isDisabled}
         />
         <PasswordRequirements labels={requirements} />

@@ -46,6 +46,7 @@ const EmailInput = ({
         <CustomInput
           {...field}
           type="email"
+          autoComplete="email"
           placeholder="email@example.com"
           disabled={disabled}
         />

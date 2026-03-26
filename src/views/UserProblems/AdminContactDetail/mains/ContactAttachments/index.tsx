@@ -82,27 +82,32 @@ const ContactAttachments = ({ id }: { id: string }) => {
       </div>
 
       {previewUrl && (
-        <div
-          className="bg-background/80 fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+        <button
+          type="button"
+          aria-label={t("closePreview")}
+          className="bg-background/80 fixed inset-0 z-50 flex w-full cursor-default items-center justify-center p-4 backdrop-blur-sm"
           onClick={() => setPreviewUrl(null)}
         >
-          <div className="relative max-h-[90vh] max-w-[90vw]">
+          <div
+            className="relative max-h-[90vh] max-w-[90vw]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <CustomButton
               variant="outline"
               size="sm"
+              aria-label={t("closePreview")}
               className="absolute -top-10 right-0"
               onClick={() => setPreviewUrl(null)}
             >
-              <X className="size-4" />
+              <X className="size-4" aria-hidden="true" />
             </CustomButton>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={previewUrl}
               alt="Preview"
               className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
             />
           </div>
-        </div>
+        </button>
       )}
     </div>
   );

@@ -3,7 +3,10 @@
   "description": "Explore our curated collection of apps designed to boost your productivity and creativity",
   "header": {
     "appName": "AppStore",
-    "searchPlaceholder": "Search apps..."
+    "searchPlaceholder": "Search apps...",
+    "menuToggleLabel": "Toggle navigation menu",
+    "searchLabel": "Open search",
+    "notificationsLabel": "Notifications"
   },
   "welcome": {
     "greeting": "Welcome back!",

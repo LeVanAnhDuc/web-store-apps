@@ -86,6 +86,7 @@ const InfoStepForm = ({
           name={PASSWORD}
           label={labelPassword}
           placeholder={placeholderPassword}
+          autoComplete="new-password"
           disabled={isPending}
           required
         />
@@ -93,6 +94,7 @@ const InfoStepForm = ({
           name={PASSWORD_CONFIRM}
           label={labelPasswordConfirm}
           placeholder={placeholderPasswordConfirm}
+          autoComplete="new-password"
           disabled={isPending}
           required
         />

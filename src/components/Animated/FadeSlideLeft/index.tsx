@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 // types
 import type { ReactNode } from "react";
 // others
@@ -19,16 +19,20 @@ const FadeSlideLeft = ({
   duration?: number;
   x?: number;
   className?: string;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, x }}
-    animate={{ opacity: 1, x: 0 }}
-    exit={{ opacity: 0, x }}
-    transition={{ duration, delay }}
-    className={cn(className)}
-  >
-    {children}
-  </motion.div>
-);
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? false : { opacity: 0, x }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={shouldReduceMotion ? undefined : { opacity: 0, x }}
+      transition={shouldReduceMotion ? { duration: 0 } : { duration, delay }}
+      className={cn(className)}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export default FadeSlideLeft;

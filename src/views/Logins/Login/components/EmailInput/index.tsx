@@ -37,6 +37,7 @@ const EmailInput = ({
             <CustomInput
               {...field}
               type="email"
+              autoComplete="email"
               placeholder="example@gmail.com"
               aria-invalid={fieldState.invalid}
               disabled={disabled}

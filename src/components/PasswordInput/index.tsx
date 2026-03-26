@@ -17,12 +17,14 @@ const PasswordInput = ({
   name,
   label,
   placeholder,
+  autoComplete,
   disabled = false,
   required = false
 }: {
   name: string;
   label: string;
   placeholder?: string;
+  autoComplete?: string;
   disabled?: boolean;
   required?: boolean;
 }) => {
@@ -44,6 +46,7 @@ const PasswordInput = ({
               <CustomInput
                 {...field}
                 type={showPassword ? "text" : "password"}
+                autoComplete={autoComplete}
                 placeholder={placeholder}
                 aria-invalid={fieldState.invalid}
                 disabled={disabled}

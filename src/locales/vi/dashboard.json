@@ -3,7 +3,10 @@
   "description": "Khám phá bộ sưu tập ứng dụng được tuyển chọn để nâng cao năng suất và sáng tạo của bạn",
   "header": {
     "appName": "Kho ứng dụng",
-    "searchPlaceholder": "Tìm kiếm ứng dụng..."
+    "searchPlaceholder": "Tìm kiếm ứng dụng...",
+    "menuToggleLabel": "Hiện/ẩn menu điều hướng",
+    "searchLabel": "Mở tìm kiếm",
+    "notificationsLabel": "Thông báo"
   },
   "welcome": {
     "greeting": "Chào mừng trở lại!",

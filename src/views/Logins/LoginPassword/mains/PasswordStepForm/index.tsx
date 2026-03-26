@@ -48,6 +48,7 @@ const PasswordStepForm = ({
           name={PASSWORD}
           label={labelEnterPassword}
           placeholder={placeholderPassword}
+          autoComplete="current-password"
           disabled={isPending}
         />
         <div className="flex items-center justify-between">

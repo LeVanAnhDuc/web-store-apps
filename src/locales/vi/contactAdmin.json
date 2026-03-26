@@ -138,7 +138,8 @@
       "attachments": {
         "empty": "Không có tệp đính kèm",
         "download": "Tải xuống",
-        "preview": "Xem trước"
+        "preview": "Xem trước",
+        "closePreview": "Đóng xem trước"
       }
     }
   },

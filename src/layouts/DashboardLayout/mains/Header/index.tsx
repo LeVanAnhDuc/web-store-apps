@@ -28,13 +28,14 @@ const Header = ({
         <CustomButton
           variant="ghost"
           size="icon"
+          aria-label={t("menuToggleLabel")}
           className="lg:hidden"
           onClick={onMobileMenuToggle}
         >
           {isMobileMenuOpen ? (
-            <X className="size-5" />
+            <X className="size-5" aria-hidden="true" />
           ) : (
-            <Menu className="size-5" />
+            <Menu className="size-5" aria-hidden="true" />
           )}
         </CustomButton>
 
@@ -62,13 +63,19 @@ const Header = ({
         <CustomButton
           variant="ghost"
           size="icon"
+          aria-label={t("searchLabel")}
           className="relative md:hidden"
         >
-          <Search className="size-5" />
+          <Search className="size-5" aria-hidden="true" />
         </CustomButton>
 
-        <CustomButton variant="ghost" size="icon" className="relative">
-          <Bell className="size-5" />
+        <CustomButton
+          variant="ghost"
+          size="icon"
+          aria-label={t("notificationsLabel")}
+          className="relative"
+        >
+          <Bell className="size-5" aria-hidden="true" />
           <Badge className="absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full p-0 text-xs">
             3
           </Badge>
