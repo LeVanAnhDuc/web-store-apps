@@ -14,7 +14,7 @@ const SubmitButton = ({
     type="submit"
     loading={isSubmitting}
     fullWidth
-    className="bg-primary hover:bg-primary/90 h-12 transition-all duration-200 hover:shadow-lg"
+    className="bg-primary hover:bg-primary/90 h-12 transition-[color,background-color,box-shadow] duration-200 hover:shadow-lg"
   >
     {isSubmitting ? labels.submitting : labels.submit}
   </CustomButton>

@@ -196,7 +196,7 @@ export default function AnimatedBackground() {
       <div className="absolute inset-0 bg-gray-50 dark:bg-gray-950" />
       <div
         ref={spotlightRef}
-        className="pointer-events-none absolute h-[900px] w-[900px]"
+        className="pointer-events-none absolute size-[900px]"
         style={{ top: 0, left: 0 }}
       >
         <div

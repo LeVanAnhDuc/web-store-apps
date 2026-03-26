@@ -35,7 +35,7 @@ const Sidebar = ({
 
       <aside
         className={cn(
-          "bg-card border-border fixed top-0 left-0 z-50 h-screen border-r transition-all duration-300 lg:relative lg:z-40",
+          "bg-card border-border fixed top-0 left-0 z-50 h-screen border-r transition-[width,transform] duration-300 lg:relative lg:z-40",
           isCollapsed ? "lg:w-16" : "lg:w-64",
           isMobileOpen
             ? "w-64 translate-x-0"

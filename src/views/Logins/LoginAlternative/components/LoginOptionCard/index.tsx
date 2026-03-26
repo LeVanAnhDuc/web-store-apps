@@ -29,7 +29,7 @@ const LoginOptionCard = ({
       href={href}
       className={cn(
         "group flex w-full items-center gap-4 rounded-xl border-2",
-        "border-border p-4 transition-all duration-200",
+        "border-border p-4 transition-colors duration-200",
         "hover:border-primary hover:bg-primary/5"
       )}
     >

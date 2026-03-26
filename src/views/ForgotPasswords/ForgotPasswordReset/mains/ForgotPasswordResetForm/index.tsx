@@ -99,7 +99,7 @@ const ForgotPasswordResetForm = ({
           fullWidth
           loading={isResetting}
           disabled={isDisabled}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 rounded-lg transition-all duration-200 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 h-12 rounded-lg transition-[color,background-color,box-shadow] duration-200 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
         >
           {reset}
         </CustomButton>

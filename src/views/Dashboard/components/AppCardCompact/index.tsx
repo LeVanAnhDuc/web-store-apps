@@ -10,7 +10,7 @@ const AppCardCompact = ({ app }: { app: App }) => {
   const Icon = app.icon;
 
   return (
-    <Card className="group hover:border-primary/50 cursor-pointer transition-all hover:shadow-md">
+    <Card className="group hover:border-primary/50 cursor-pointer transition-[border-color,box-shadow] hover:shadow-md">
       <CardContent className="p-4">
         <div className="flex items-center gap-3">
           <div
