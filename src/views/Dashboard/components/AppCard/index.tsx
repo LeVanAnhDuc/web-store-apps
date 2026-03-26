@@ -13,7 +13,7 @@ const AppCard = ({ app }: { app: App }) => {
   const Icon = app.icon;
 
   return (
-    <Card className="group hover:border-primary/50 relative overflow-hidden transition-[border-color,box-shadow] hover:shadow-lg">
+    <Card className="group hover:border-primary/50 relative overflow-hidden transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:shadow-lg">
       {app.featured && (
         <div className="bg-primary text-primary-foreground absolute top-2 right-2 flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium">
           <Sparkles className="size-3" />

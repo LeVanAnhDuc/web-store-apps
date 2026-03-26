@@ -28,14 +28,14 @@ const Sidebar = ({
     <>
       {isMobileOpen && (
         <div
-          className="bg-background/80 fixed inset-0 z-40 backdrop-blur-sm lg:hidden"
+          className="bg-background/80 fixed inset-0 z-29 backdrop-blur-sm lg:hidden"
           onClick={onMobileClose}
         />
       )}
 
       <aside
         className={cn(
-          "bg-card border-border fixed top-0 left-0 z-50 h-screen border-r transition-[width,transform] duration-300 lg:relative lg:z-40",
+          "bg-card border-border fixed top-0 left-0 z-30 h-screen border-r transition-[width,transform] duration-300 lg:relative",
           isCollapsed ? "lg:w-16" : "lg:w-64",
           isMobileOpen
             ? "w-64 translate-x-0"

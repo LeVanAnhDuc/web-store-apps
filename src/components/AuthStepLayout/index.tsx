@@ -34,7 +34,7 @@ const AuthStepLayout = ({
         {(title || description) && (
           <FadeIn delay={0.2} y={10}>
             {title && (
-              <h1 className="text-foreground text-center text-2xl font-medium">
+              <h1 className="text-foreground text-center font-medium">
                 {title}
               </h1>
             )}
