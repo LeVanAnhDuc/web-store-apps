@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 // types
 import type { Locale } from "@/i18n/config";
 // views
-import AdminContact from "@/views/AdminContacts/AdminContact";
+import AdminContact from "@/views/UserProblems/AdminContact";
 
 export async function generateMetadata({
   params
