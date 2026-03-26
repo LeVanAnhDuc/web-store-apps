@@ -11,6 +11,7 @@ import type {
 } from "@/types/LoginHistory";
 // components
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import CustomButton from "@/components/CustomButton";
 // requests
 import { getAdminLoginHistory } from "@/requests/loginHistory";
@@ -62,9 +63,9 @@ const AdminLoginHistoryTable = () => {
   if (isLoading) {
     return (
       <div className="bg-card rounded-xl border p-6">
-        <div className="space-y-3">
+        <div className="flex flex-col gap-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="bg-muted h-10 animate-pulse rounded-lg" />
+            <Skeleton key={i} className="h-10 rounded-lg" />
           ))}
         </div>
       </div>
