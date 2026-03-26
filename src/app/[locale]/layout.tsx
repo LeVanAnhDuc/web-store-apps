@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 // types
 import type { ReactNode } from "react";
+import type { Metadata, Viewport } from "next";
 import type { Locale } from "@/i18n/config";
 // components
 import { Toaster } from "@/components/ui/sonner";
@@ -16,17 +17,30 @@ import "./globals.css";
 export const generateStaticParams = () =>
   routing.locales.map((locale) => ({ locale }));
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#ffffff"
+};
+
 export async function generateMetadata({
   params
 }: {
   params: Promise<{ locale: Locale }>;
-}) {
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "common" });
 
   return {
-    title: t("app.name"),
-    description: t("app.description")
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+    ),
+    title: {
+      default: t("app.name"),
+      template: `%s — ${t("app.name")}`
+    },
+    description: t("app.description"),
+    robots: { index: true, follow: true }
   };
 }
 

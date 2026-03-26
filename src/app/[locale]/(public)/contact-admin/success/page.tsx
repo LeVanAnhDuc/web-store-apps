@@ -14,7 +14,8 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "contactAdmin" });
 
   return {
-    title: t("success.title")
+    title: t("success.title"),
+    robots: { index: false, follow: false }
   };
 }
 
