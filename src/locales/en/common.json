@@ -26,6 +26,7 @@
     "privacy": "Privacy",
     "terms": "Terms"
   },
+  "skipToContent": "Skip to main content",
   "validation": {
     "email": {
       "required": "Please enter email",

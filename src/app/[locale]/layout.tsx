@@ -43,9 +43,23 @@ export default async function RootLayout({
     notFound();
   }
 
+  const t = await getTranslations({ locale, namespace: "common" });
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>
+        <a
+          href="#main-content"
+          className="focus:bg-background focus:text-foreground sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[200] focus:rounded focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-md"
+        >
+          {t("skipToContent")}
+        </a>
+        <div
+          aria-live="polite"
+          aria-atomic="true"
+          className="sr-only"
+          id="announcer"
+        />
         <AppProvider>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
           <Toaster />

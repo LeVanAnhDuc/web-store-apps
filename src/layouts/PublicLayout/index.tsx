@@ -9,7 +9,11 @@ const PublicLayout = ({ children }: { children: ReactNode }) => (
   <>
     <AnimatedBackground />
     <Header />
-    <main className="auth-background flex min-h-screen flex-col items-center justify-center p-4 pt-20">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="auth-background flex min-h-screen flex-col items-center justify-center p-4 pt-20"
+    >
       {children}
       <AuthFooter />
     </main>

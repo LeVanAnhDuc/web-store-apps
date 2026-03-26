@@ -26,6 +26,7 @@
     "privacy": "Bảo mật",
     "terms": "Điều khoản"
   },
+  "skipToContent": "Chuyển đến nội dung chính",
   "validation": {
     "email": {
       "required": "Vui lòng nhập email",
