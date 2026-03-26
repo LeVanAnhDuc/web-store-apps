@@ -6,6 +6,8 @@ import { LogOut } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+// hooks
+import { useAnnounce } from "@/hooks";
 // stores
 import { useAuthStore } from "@/stores";
 // i18n
@@ -18,13 +20,16 @@ const { LOGIN } = CONSTANTS.ROUTES;
 const SignOutItem = () => {
   const router = useRouter();
   const t = useTranslations("common");
+  const { announce } = useAnnounce();
   const logout = useAuthStore((state) => state.logout);
   const [isPending, setIsPending] = useState(false);
 
   const handleLogout = async () => {
     setIsPending(true);
+    announce(t("userMenu.signingOut"));
     try {
       await logout();
+      announce(t("userMenu.signedOut"));
     } finally {
       setIsPending(false);
       router.push(LOGIN);

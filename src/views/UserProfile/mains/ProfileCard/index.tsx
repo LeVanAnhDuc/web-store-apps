@@ -5,6 +5,8 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+// hooks
+import { useAnnounce } from "@/hooks";
 import { format } from "date-fns";
 import { vi as viLocale, enUS } from "date-fns/locale";
 import { useLocale, useTranslations } from "next-intl";
@@ -50,6 +52,8 @@ import { cn } from "@/libs/utils";
 const ProfileCard = () => {
   const [isEditing, setIsEditing] = useState(false);
   const t = useTranslations("user.profile");
+  const tAnnounce = useTranslations("user.profile.announce");
+  const { announce } = useAnnounce();
   const locale = useLocale();
   const dateLocale = locale === "vi" ? viLocale : enUS;
   const queryClient = useQueryClient();
@@ -65,7 +69,11 @@ const ProfileCard = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: (data: UpdateProfileData) => updateMyProfile(data),
+    onMutate: () => {
+      announce(tAnnounce("updating"));
+    },
     onSuccess: (updated: MyProfileResponse) => {
+      announce(tAnnounce("updated"));
       queryClient.setQueryData(["myProfile"], updated);
       toast.success(t("toast.updateSuccess"));
       setIsEditing(false);
@@ -89,6 +97,7 @@ const ProfileCard = () => {
         : undefined,
       gender: profile.gender ?? undefined
     });
+    announce(tAnnounce("editMode"));
     setIsEditing(true);
   };
 
@@ -300,7 +309,10 @@ const ProfileCard = () => {
               <CustomButton
                 type="button"
                 variant="outline"
-                onClick={() => setIsEditing(false)}
+                onClick={() => {
+                  announce(tAnnounce("viewMode"));
+                  setIsEditing(false);
+                }}
                 disabled={isPending}
               >
                 {t("button.cancel")}

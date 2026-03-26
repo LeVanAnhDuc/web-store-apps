@@ -5,6 +5,8 @@ import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
+// hooks
+import { useAnnounce } from "@/hooks";
 // components
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -16,6 +18,8 @@ import CONSTANTS from "@/constants";
 
 const AvatarUpload = () => {
   const t = useTranslations("user.profile");
+  const tAnnounce = useTranslations("user.profile.announce");
+  const { announce } = useAnnounce();
   const queryClient = useQueryClient();
   const inputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -27,7 +31,11 @@ const AvatarUpload = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: uploadAvatar,
+    onMutate: () => {
+      announce(tAnnounce("uploading"));
+    },
     onSuccess: () => {
+      announce(tAnnounce("uploadSuccess"));
       void queryClient.invalidateQueries({ queryKey: ["myProfile"] });
       toast.success(t("toast.avatarSuccess"));
       setPreviewUrl((prev) => {
@@ -36,6 +44,7 @@ const AvatarUpload = () => {
       });
     },
     onError: () => {
+      announce(tAnnounce("uploadError"));
       toast.error(t("toast.avatarError"));
       setPreviewUrl((prev) => {
         if (prev) URL.revokeObjectURL(prev);

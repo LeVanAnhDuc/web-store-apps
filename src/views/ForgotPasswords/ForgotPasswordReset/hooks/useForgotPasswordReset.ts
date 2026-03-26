@@ -4,11 +4,14 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 // requests
 import {
   verifyForgotPasswordMagicLink,
   forgotPasswordReset
 } from "@/requests/forgotPassword";
+// hooks
+import { useAnnounce } from "@/hooks";
 // others
 import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
@@ -27,6 +30,8 @@ export const useForgotPasswordReset = ({
   successMessage: string;
 }) => {
   const router = useRouter();
+  const tAnnounce = useTranslations("forgotPassword.announce");
+  const { announce } = useAnnounce();
   const isMagicLink = method === "magic-link";
 
   // For OTP flow: token is already the resetToken
@@ -38,8 +43,14 @@ export const useForgotPasswordReset = ({
 
   const { mutate: verifyMagicLink, isPending: isVerifying } = useMutation({
     mutationFn: () => verifyForgotPasswordMagicLink(email, token),
+    onMutate: () => {
+      announce(tAnnounce("verifyingLink"));
+    },
     onSuccess: (data) => setResetToken(data.resetToken),
-    onError: () => setVerifyFailed(true)
+    onError: () => {
+      announce(tAnnounce("linkInvalid"));
+      setVerifyFailed(true);
+    }
   });
 
   useEffect(() => {
@@ -51,6 +62,9 @@ export const useForgotPasswordReset = ({
   const { mutate: reset, isPending: isResetting } = useMutation({
     mutationFn: (newPassword: string) =>
       forgotPasswordReset(email, resetToken!, newPassword),
+    onMutate: () => {
+      announce(tAnnounce("resetting"));
+    },
     onSuccess: () => {
       toast.success(successMessage);
       router.push(LOGIN);

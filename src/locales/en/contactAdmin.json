@@ -143,6 +143,25 @@
       }
     }
   },
+  "announce": {
+    "submitting": "Submitting your message...",
+    "success": "Your message has been sent. Ticket number: {ticketNumber}",
+    "rateLimitError": "Too many requests. Please wait before trying again.",
+    "error": "Failed to send message. Please try again.",
+    "filterApplied": "Filters applied.",
+    "filterCleared": "Filters cleared.",
+    "statusUpdating": "Updating status...",
+    "statusUpdated": "Status updated successfully.",
+    "statusError": "Failed to update status.",
+    "categoryUpdating": "Updating category...",
+    "categoryUpdated": "Category updated successfully.",
+    "categoryError": "Failed to update category.",
+    "fileAdded": "File \"{name}\" added.",
+    "fileRemoved": "File \"{name}\" removed.",
+    "fileTooLarge": "File \"{name}\" exceeds the 5MB limit.",
+    "fileTypeError": "File type \"{name}\" is not supported.",
+    "maxFilesError": "Maximum 5 files allowed."
+  },
   "myContacts": {
     "title": "My Requests",
     "description": "View your submitted support requests",

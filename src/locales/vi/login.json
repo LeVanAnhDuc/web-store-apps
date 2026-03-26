@@ -79,5 +79,16 @@
     "forgotPassword": "Quên mật khẩu?",
     "descriptionSignUp": "Chưa có tài khoản",
     "signUp": "Tạo tài khoản"
+  },
+  "announce": {
+    "signingIn": "Đang đăng nhập...",
+    "signedIn": "Đăng nhập thành công.",
+    "sendingCode": "Đang gửi mã OTP...",
+    "codeSent": "Mã OTP đã được gửi đến email của bạn.",
+    "sendingLink": "Đang gửi magic link...",
+    "linkSent": "Magic link đã được gửi đến email của bạn.",
+    "verifying": "Đang xác thực...",
+    "verifyingLink": "Đang xác thực magic link...",
+    "linkInvalid": "Link không hợp lệ hoặc đã hết hạn. Đang chuyển về trang đăng nhập..."
   }
 }

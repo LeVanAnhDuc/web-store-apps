@@ -18,7 +18,20 @@
     "darkMode": "Dark Mode",
     "darkModeDescription": "Toggle theme",
     "lightMode": "Light Mode",
-    "lightModeDescription": "Toggle theme"
+    "lightModeDescription": "Toggle theme",
+    "switchedToDark": "Switched to dark mode.",
+    "switchedToLight": "Switched to light mode.",
+    "signingOut": "Signing out...",
+    "signedOut": "You have been signed out."
+  },
+  "announce": {
+    "sidebarCollapsed": "Sidebar collapsed.",
+    "sidebarExpanded": "Sidebar expanded.",
+    "mobileMenuOpened": "Navigation menu opened.",
+    "mobileMenuClosed": "Navigation menu closed.",
+    "passwordShown": "Password is now visible.",
+    "passwordHidden": "Password is now hidden.",
+    "languageChanged": "Language changed to {language}."
   },
   "or": "or",
   "footer": {

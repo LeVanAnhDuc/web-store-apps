@@ -3,6 +3,7 @@
 // libs
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useTranslations } from "next-intl";
 // components
 import CustomInput from "@/components/CustomInput";
 import FormFieldMessage from "@/components/FormFieldMessage";
@@ -12,6 +13,8 @@ import {
   FormItem,
   FormLabel
 } from "@/components/ui/form";
+// hooks
+import { useAnnounce } from "@/hooks";
 
 const PasswordInput = ({
   name,
@@ -29,8 +32,14 @@ const PasswordInput = ({
   required?: boolean;
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const tAnnounce = useTranslations("common.announce");
+  const { announce } = useAnnounce();
 
-  const handleTogglePasswordVisibility = () => setShowPassword((prev) => !prev);
+  const handleTogglePasswordVisibility = () => {
+    const willShow = !showPassword;
+    announce(tAnnounce(willShow ? "passwordShown" : "passwordHidden"));
+    setShowPassword(willShow);
+  };
 
   return (
     <FormField

@@ -18,7 +18,20 @@
     "darkMode": "Chế độ tối",
     "darkModeDescription": "Chuyển đổi giao diện",
     "lightMode": "Chế độ sáng",
-    "lightModeDescription": "Chuyển đổi giao diện"
+    "lightModeDescription": "Chuyển đổi giao diện",
+    "switchedToDark": "Đã chuyển sang chế độ tối.",
+    "switchedToLight": "Đã chuyển sang chế độ sáng.",
+    "signingOut": "Đang đăng xuất...",
+    "signedOut": "Bạn đã đăng xuất."
+  },
+  "announce": {
+    "sidebarCollapsed": "Đã thu gọn thanh bên.",
+    "sidebarExpanded": "Đã mở rộng thanh bên.",
+    "mobileMenuOpened": "Đã mở menu điều hướng.",
+    "mobileMenuClosed": "Đã đóng menu điều hướng.",
+    "passwordShown": "Mật khẩu đang hiển thị.",
+    "passwordHidden": "Mật khẩu đã được ẩn.",
+    "languageChanged": "Đã đổi ngôn ngữ sang {language}."
   },
   "or": "hoặc",
   "footer": {

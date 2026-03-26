@@ -4,6 +4,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
+// hooks
+import { useAnnounce } from "@/hooks";
 // types
 import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
 // components
@@ -33,6 +35,8 @@ const ContactDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("contactAdmin.admin.detail");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
+  const tAnnounce = useTranslations("contactAdmin.announce");
+  const { announce } = useAnnounce();
   const queryClient = useQueryClient();
 
   const { data: contact, isLoading } = useQuery({
@@ -42,12 +46,17 @@ const ContactDetailCard = ({ id }: { id: string }) => {
 
   const { mutate: changeStatus, isPending: isUpdatingStatus } = useMutation({
     mutationFn: (status: ContactStatus) => updateContactStatus(id, status),
+    onMutate: () => {
+      announce(tAnnounce("statusUpdating"));
+    },
     onSuccess: () => {
+      announce(tAnnounce("statusUpdated"));
       toast.success(t("updateStatus.success"));
       queryClient.invalidateQueries({ queryKey: ["adminContactDetail", id] });
       queryClient.invalidateQueries({ queryKey: ["adminContacts"] });
     },
     onError: () => {
+      announce(tAnnounce("statusError"));
       toast.error(t("updateStatus.error"));
     }
   });
@@ -56,7 +65,11 @@ const ContactDetailCard = ({ id }: { id: string }) => {
     {
       mutationFn: (category: ContactCategory) =>
         updateContactCategory(id, category),
+      onMutate: () => {
+        announce(tAnnounce("categoryUpdating"));
+      },
       onSuccess: () => {
+        announce(tAnnounce("categoryUpdated"));
         toast.success(t("updateCategory.success"));
         queryClient.invalidateQueries({
           queryKey: ["adminContactDetail", id]
@@ -64,6 +77,7 @@ const ContactDetailCard = ({ id }: { id: string }) => {
         queryClient.invalidateQueries({ queryKey: ["adminContacts"] });
       },
       onError: () => {
+        announce(tAnnounce("categoryError"));
         toast.error(t("updateCategory.error"));
       }
     }

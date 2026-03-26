@@ -36,5 +36,13 @@
       "sending": "Đang gửi...",
       "changeEmail": "Thay đổi email"
     }
+  },
+  "announce": {
+    "sendingCode": "Đang gửi mã xác thực...",
+    "codeSent": "Mã xác thực đã được gửi đến email của bạn.",
+    "verifying": "Đang xác thực mã...",
+    "verified": "Email đã xác thực. Vui lòng điền thông tin cá nhân.",
+    "completing": "Đang tạo tài khoản...",
+    "completed": "Tạo tài khoản thành công."
   }
 }

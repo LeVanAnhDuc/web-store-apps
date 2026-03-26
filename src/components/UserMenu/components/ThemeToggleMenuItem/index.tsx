@@ -6,15 +6,25 @@ import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 // components
 import MenuItemBase from "../MenuItemBase";
+// hooks
+import { useAnnounce } from "@/hooks";
 
 const ThemeToggleMenuItem = () => {
   const t = useTranslations("common");
   const { setTheme, theme } = useTheme();
+  const { announce } = useAnnounce();
 
   const isDarkMode = theme === "dark";
 
-  const handleToggleTheme = () =>
-    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  const handleToggleTheme = () => {
+    const next = theme === "light" ? "dark" : "light";
+    setTheme(next);
+    announce(
+      t(
+        next === "dark" ? "userMenu.switchedToDark" : "userMenu.switchedToLight"
+      )
+    );
+  };
 
   return (
     <MenuItemBase

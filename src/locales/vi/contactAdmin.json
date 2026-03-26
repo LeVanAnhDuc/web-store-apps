@@ -143,6 +143,25 @@
       }
     }
   },
+  "announce": {
+    "submitting": "Đang gửi tin nhắn của bạn...",
+    "success": "Tin nhắn của bạn đã được gửi. Mã ticket: {ticketNumber}",
+    "rateLimitError": "Quá nhiều yêu cầu. Vui lòng chờ trước khi thử lại.",
+    "error": "Gửi tin nhắn thất bại. Vui lòng thử lại.",
+    "filterApplied": "Đã áp dụng bộ lọc.",
+    "filterCleared": "Đã xóa bộ lọc.",
+    "statusUpdating": "Đang cập nhật trạng thái...",
+    "statusUpdated": "Cập nhật trạng thái thành công.",
+    "statusError": "Cập nhật trạng thái thất bại.",
+    "categoryUpdating": "Đang cập nhật danh mục...",
+    "categoryUpdated": "Cập nhật danh mục thành công.",
+    "categoryError": "Cập nhật danh mục thất bại.",
+    "fileAdded": "Đã thêm tệp \"{name}\".",
+    "fileRemoved": "Đã xóa tệp \"{name}\".",
+    "fileTooLarge": "Tệp \"{name}\" vượt quá giới hạn 5MB.",
+    "fileTypeError": "Loại tệp \"{name}\" không được hỗ trợ.",
+    "maxFilesError": "Tối đa 5 tệp được phép."
+  },
   "myContacts": {
     "title": "Yêu cầu của tôi",
     "description": "Xem các yêu cầu hỗ trợ bạn đã gửi",

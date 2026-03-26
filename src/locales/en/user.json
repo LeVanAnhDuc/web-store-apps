@@ -40,6 +40,15 @@
       "avatarSuccess": "Avatar uploaded successfully",
       "avatarError": "Failed to upload avatar. Please try again."
     },
+    "announce": {
+      "uploading": "Uploading avatar...",
+      "uploadSuccess": "Avatar uploaded successfully.",
+      "uploadError": "Failed to upload avatar.",
+      "editMode": "Edit mode enabled.",
+      "viewMode": "Changes cancelled.",
+      "updating": "Saving profile...",
+      "updated": "Profile updated successfully."
+    },
     "validation": {
       "fullName": {
         "required": "Full name is required",

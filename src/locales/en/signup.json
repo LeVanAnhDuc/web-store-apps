@@ -36,5 +36,13 @@
       "sending": "Sending...",
       "changeEmail": "Change email"
     }
+  },
+  "announce": {
+    "sendingCode": "Sending verification code...",
+    "codeSent": "Verification code sent to your email.",
+    "verifying": "Verifying code...",
+    "verified": "Email verified. Please fill in your information.",
+    "completing": "Creating your account...",
+    "completed": "Account created successfully."
   }
 }

@@ -40,6 +40,15 @@
       "avatarSuccess": "Tải ảnh đại diện thành công",
       "avatarError": "Tải ảnh đại diện thất bại. Vui lòng thử lại."
     },
+    "announce": {
+      "uploading": "Đang tải ảnh đại diện...",
+      "uploadSuccess": "Tải ảnh đại diện thành công.",
+      "uploadError": "Tải ảnh đại diện thất bại.",
+      "editMode": "Đã bật chế độ chỉnh sửa.",
+      "viewMode": "Đã hủy thay đổi.",
+      "updating": "Đang lưu hồ sơ...",
+      "updated": "Cập nhật hồ sơ thành công."
+    },
     "validation": {
       "fullName": {
         "required": "Họ và tên không được để trống",

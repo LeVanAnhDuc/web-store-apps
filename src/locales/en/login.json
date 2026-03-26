@@ -79,5 +79,16 @@
     "forgotPassword": "Forgot Password?",
     "descriptionSignUp": "Don't have an account",
     "signUp": "Sign up"
+  },
+  "announce": {
+    "signingIn": "Signing in...",
+    "signedIn": "Signed in successfully.",
+    "sendingCode": "Sending OTP code...",
+    "codeSent": "OTP code sent to your email.",
+    "sendingLink": "Sending magic link...",
+    "linkSent": "Magic link sent to your email.",
+    "verifying": "Verifying...",
+    "verifyingLink": "Verifying magic link...",
+    "linkInvalid": "Link is invalid or expired. Redirecting to login..."
   }
 }

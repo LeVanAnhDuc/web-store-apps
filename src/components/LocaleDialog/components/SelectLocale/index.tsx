@@ -10,6 +10,8 @@ import { localeNames, type Locale } from "@/i18n/config";
 // components
 import CustomButton from "@/components/CustomButton";
 import { Spinner } from "@/components/ui/spinner";
+// hooks
+import { useAnnounce } from "@/hooks";
 // others
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
@@ -17,6 +19,8 @@ import { cn } from "@/libs/utils";
 
 const SelectLocale = () => {
   const t = useTranslations("common");
+  const tAnnounce = useTranslations("common.announce");
+  const { announce } = useAnnounce();
   const localActive = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -29,6 +33,9 @@ const SelectLocale = () => {
       return;
 
     setPendingLocale(newLocale);
+    announce(
+      tAnnounce("languageChanged", { language: localeNames[newLocale] })
+    );
 
     const search = searchParams.toString();
     const fullPath = search ? `${pathname}?${search}` : pathname;

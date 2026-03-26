@@ -4,6 +4,8 @@
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+// hooks
+import { useAnnounce } from "@/hooks";
 // components
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,6 +32,8 @@ const AdminContactFilters = () => {
   const t = useTranslations("contactAdmin.admin.list.filters");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
+  const tAnnounce = useTranslations("contactAdmin.announce");
+  const { announce } = useAnnounce();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -57,6 +61,7 @@ const AdminContactFilters = () => {
     if (data.search) params.set("search", data.search);
     if (data.fromDate) params.set("fromDate", data.fromDate);
     if (data.toDate) params.set("toDate", data.toDate);
+    announce(tAnnounce("filterApplied"));
     router.push(`${pathname}?${params.toString()}`);
   };
 
@@ -70,6 +75,7 @@ const AdminContactFilters = () => {
       fromDate: "",
       toDate: ""
     });
+    announce(tAnnounce("filterCleared"));
     router.push(pathname);
   };
 

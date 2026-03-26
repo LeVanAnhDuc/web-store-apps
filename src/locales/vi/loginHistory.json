@@ -61,5 +61,12 @@
   "admin": {
     "title": "Toàn bộ lịch sử đăng nhập",
     "description": "Xem lịch sử đăng nhập của tất cả người dùng"
+  },
+  "announce": {
+    "loading": "Đang tải dữ liệu...",
+    "loaded": "Đã tải {total} kết quả",
+    "navigating": "Đang chuyển đến trang {page}",
+    "filterApplied": "Đã áp dụng bộ lọc.",
+    "filterCleared": "Đã xóa bộ lọc."
   }
 }

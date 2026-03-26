@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import type { AxiosError } from "axios";
 // types
 import type { ContactAdminFormValues } from "@/types/ContactAdmin";
+// hooks
+import { useAnnounce } from "@/hooks";
 // stores
 import { useContactAdminStore } from "@/stores";
 // requests
@@ -21,6 +23,8 @@ export const useContactAdmin = () => {
   const router = useRouter();
   const setSuccessData = useContactAdminStore((state) => state.setSuccessData);
   const t = useTranslations("contactAdmin.form.errors");
+  const tAnnounce = useTranslations("contactAdmin.announce");
+  const { announce } = useAnnounce();
 
   const { mutate: submit, isPending } = useMutation({
     mutationFn: ({
@@ -30,13 +34,20 @@ export const useContactAdmin = () => {
       data: ContactAdminFormValues;
       files?: File[];
     }) => submitContact(data, files),
+    onMutate: () => {
+      announce(tAnnounce("submitting"));
+    },
     onSuccess: (response, { data }) => {
+      announce(tAnnounce("success", { ticketNumber: response.ticketNumber }));
       setSuccessData(data, response.ticketNumber);
       router.push(CONTACT_ADMIN_SUCCESS);
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 429) {
+        announce(tAnnounce("rateLimitError"));
         toast.error(t("rateLimitExceeded"));
+      } else {
+        announce(tAnnounce("error"));
       }
     }
   });

@@ -1,6 +1,7 @@
 "use client";
 
 // libs
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
@@ -11,6 +12,8 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import CustomButton from "@/components/CustomButton";
 import { Link } from "@/i18n/navigation";
+// hooks
+import { useAnnounce } from "@/hooks";
 // requests
 import { getMyContacts } from "@/requests/contactAdmin";
 // dataSources
@@ -26,7 +29,9 @@ const MyContactsTable = () => {
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
   const tPagination = useTranslations("loginHistory.pagination");
+  const tAnnounce = useTranslations("loginHistory.announce");
   const t = useTranslations("contactAdmin.myContacts");
+  const { announce } = useAnnounce();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -39,7 +44,16 @@ const MyContactsTable = () => {
     queryFn: () => getMyContacts(params)
   });
 
+  useEffect(() => {
+    if (isLoading) announce(tAnnounce("loading"));
+  }, [isLoading, announce, tAnnounce]);
+
+  useEffect(() => {
+    if (data) announce(tAnnounce("loaded", { total: data.meta?.total ?? 0 }));
+  }, [data, announce, tAnnounce]);
+
   const handleGoToPage = (newPage: number) => {
+    announce(tAnnounce("navigating", { page: newPage }));
     const next = new URLSearchParams(searchParams.toString());
     next.set("page", String(newPage));
     router.push(`${pathname}?${next.toString()}`);

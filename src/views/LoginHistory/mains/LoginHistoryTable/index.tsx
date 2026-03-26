@@ -1,6 +1,7 @@
 "use client";
 
 // libs
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
@@ -13,6 +14,8 @@ import type {
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import CustomButton from "@/components/CustomButton";
+// hooks
+import { useAnnounce } from "@/hooks";
 // requests
 import { getMyLoginHistory } from "@/requests/loginHistory";
 // others
@@ -23,6 +26,8 @@ const LoginHistoryTable = () => {
   const tStatus = useTranslations("loginHistory.status");
   const tMethod = useTranslations("loginHistory.method");
   const tPagination = useTranslations("loginHistory.pagination");
+  const tAnnounce = useTranslations("loginHistory.announce");
+  const { announce } = useAnnounce();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -52,7 +57,16 @@ const LoginHistoryTable = () => {
     queryFn: () => getMyLoginHistory(params)
   });
 
+  useEffect(() => {
+    if (isLoading) announce(tAnnounce("loading"));
+  }, [isLoading, announce, tAnnounce]);
+
+  useEffect(() => {
+    if (data) announce(tAnnounce("loaded", { total: data.meta?.total ?? 0 }));
+  }, [data, announce, tAnnounce]);
+
   const handleGoToPage = (newPage: number) => {
+    announce(tAnnounce("navigating", { page: newPage }));
     const next = new URLSearchParams(searchParams.toString());
     next.set("page", String(newPage));
     router.push(`${pathname}?${next.toString()}`);

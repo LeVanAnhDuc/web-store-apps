@@ -3,10 +3,11 @@
 // libs
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 // requests
 import { sendLoginMagicLink } from "@/requests/login";
 // hooks
-import { useCountdown } from "@/hooks";
+import { useCountdown, useAnnounce } from "@/hooks";
 // others
 import CONSTANTS from "@/constants";
 
@@ -19,6 +20,8 @@ export const useMagicLinkLogin = ({
   email: string;
   resendSuccessMessage: string;
 }) => {
+  const tAnnounce = useTranslations("login.announce");
+  const { announce } = useAnnounce();
   const {
     seconds: countdown,
     isFinished: canResend,
@@ -27,7 +30,11 @@ export const useMagicLinkLogin = ({
 
   const { mutate: sendMagicLink, isPending: isSending } = useMutation({
     mutationFn: () => sendLoginMagicLink(email),
+    onMutate: () => {
+      announce(tAnnounce("sendingLink"));
+    },
     onSuccess: () => {
+      announce(tAnnounce("linkSent"));
       toast.success(resendSuccessMessage);
       resetCountdown();
     }

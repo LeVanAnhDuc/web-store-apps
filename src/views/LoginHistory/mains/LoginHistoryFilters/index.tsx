@@ -4,6 +4,8 @@
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+// hooks
+import { useAnnounce } from "@/hooks";
 // components
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,6 +31,8 @@ const LoginHistoryFilters = () => {
   const t = useTranslations("loginHistory.filters");
   const tStatus = useTranslations("loginHistory.status");
   const tMethod = useTranslations("loginHistory.method");
+  const tAnnounce = useTranslations("loginHistory.announce");
+  const { announce } = useAnnounce();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -54,6 +58,7 @@ const LoginHistoryFilters = () => {
     if (data.city) params.set("city", data.city);
     if (data.fromDate) params.set("fromDate", data.fromDate);
     if (data.toDate) params.set("toDate", data.toDate);
+    announce(tAnnounce("filterApplied"));
     router.push(`${pathname}?${params.toString()}`);
   };
 
@@ -66,6 +71,7 @@ const LoginHistoryFilters = () => {
       fromDate: "",
       toDate: ""
     });
+    announce(tAnnounce("filterCleared"));
     router.push(pathname);
   };
 

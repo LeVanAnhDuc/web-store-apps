@@ -61,5 +61,12 @@
   "admin": {
     "title": "All Login History",
     "description": "View all users' login activity"
+  },
+  "announce": {
+    "loading": "Loading data...",
+    "loaded": "{total} results loaded",
+    "navigating": "Navigating to page {page}",
+    "filterApplied": "Filters applied.",
+    "filterCleared": "Filters cleared."
   }
 }

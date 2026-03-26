@@ -7,6 +7,8 @@ import { useTranslations } from "next-intl";
 // components
 import { Label } from "@/components/ui/label";
 import CustomButton from "@/components/CustomButton";
+// hooks
+import { useAnnounce } from "@/hooks";
 
 const ALLOWED_TYPES = [
   "image/jpeg",
@@ -29,6 +31,8 @@ const FileUploadInput = ({
   onFilesChange: (files: File[]) => void;
 }) => {
   const t = useTranslations("contactAdmin.form.attachments");
+  const tAnnounce = useTranslations("contactAdmin.announce");
+  const { announce } = useAnnounce();
   const inputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
   const [errors, setErrors] = useState<string[]>([]);
@@ -41,14 +45,17 @@ const FileUploadInput = ({
     Array.from(incoming).forEach((file) => {
       if (files.length + toAdd.length >= MAX_FILES) {
         newErrors.push(t("errors.maxFilesExceeded"));
+        announce(tAnnounce("maxFilesError"));
         return;
       }
       if (!ALLOWED_TYPES.includes(file.type)) {
         newErrors.push(t("errors.typeNotSupported", { name: file.name }));
+        announce(tAnnounce("fileTypeError", { name: file.name }));
         return;
       }
       if (file.size > MAX_SIZE_BYTES) {
         newErrors.push(t("errors.fileTooLarge", { name: file.name }));
+        announce(tAnnounce("fileTooLarge", { name: file.name }));
         return;
       }
       toAdd.push(file);
@@ -56,6 +63,9 @@ const FileUploadInput = ({
 
     setErrors(newErrors);
     if (toAdd.length > 0) {
+      toAdd.forEach((file) =>
+        announce(tAnnounce("fileAdded", { name: file.name }))
+      );
       const updated = [...files, ...toAdd];
       setFiles(updated);
       onFilesChange(updated);
@@ -63,6 +73,7 @@ const FileUploadInput = ({
   };
 
   const removeFile = (index: number) => {
+    announce(tAnnounce("fileRemoved", { name: files[index].name }));
     const updated = files.filter((_, i) => i !== index);
     setFiles(updated);
     onFilesChange(updated);

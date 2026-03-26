@@ -2,19 +2,35 @@
 
 // libs
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 // components
 import Sidebar from "./mains/Sidebar";
 import Header from "./mains/Header";
+// hooks
+import { useAnnounce } from "@/hooks";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const tAnnounce = useTranslations("common.announce");
+  const { announce } = useAnnounce();
+
+  const handleCollapsedChange = (collapsed: boolean) => {
+    announce(tAnnounce(collapsed ? "sidebarCollapsed" : "sidebarExpanded"));
+    setIsSidebarCollapsed(collapsed);
+  };
+
+  const handleMobileMenuToggle = () => {
+    const willOpen = !isMobileMenuOpen;
+    announce(tAnnounce(willOpen ? "mobileMenuOpened" : "mobileMenuClosed"));
+    setIsMobileMenuOpen(willOpen);
+  };
 
   return (
     <div className="bg-background flex h-screen overflow-hidden">
       <Sidebar
         isCollapsed={isSidebarCollapsed}
-        onCollapsedChange={setIsSidebarCollapsed}
+        onCollapsedChange={handleCollapsedChange}
         isMobileOpen={isMobileMenuOpen}
         onMobileClose={() => setIsMobileMenuOpen(false)}
       />
@@ -22,7 +38,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="flex min-w-0 flex-1 flex-col">
         <Header
           isMobileMenuOpen={isMobileMenuOpen}
-          onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          onMobileMenuToggle={handleMobileMenuToggle}
         />
 
         <main
