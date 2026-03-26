@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 // types
 import type { Locale } from "@/i18n/config";
 // components
-import ForgotPasswordOtp from "@/views/ForgotPasswordOtp";
+import ForgotPasswordOtp from "@/views/ForgotPasswords/ForgotPasswordOtp";
 
 export async function generateMetadata({
   params
