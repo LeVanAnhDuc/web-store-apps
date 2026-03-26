@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 // types
 import type { Locale } from "@/i18n/config";
 // components
-import LoginAlternative from "@/views/LoginAlternative";
+import LoginAlternative from "@/views/Logins/LoginAlternative";
 
 export async function generateMetadata({
   params
