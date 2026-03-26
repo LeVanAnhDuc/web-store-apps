@@ -2,6 +2,13 @@
 import { toast } from "sonner";
 // types
 import type { Locale } from "next-intl";
+import type {
+  LoginHistoryStatus,
+  LoginHistoryMethod
+} from "@/types/LoginHistory";
+import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
+// dataSources
+import { CONTACT_CATEGORY_VALUES } from "@/dataSources/ContactAdmin";
 // others
 import CONSTANTS from "@/constants";
 import { defaultLocale, locales } from "@/i18n/config";
@@ -122,3 +129,30 @@ export const parseLocalDate = (iso: string): Date => {
   const [year, month, day] = iso.split("T")[0].split("-").map(Number);
   return new Date(year, month - 1, day);
 };
+
+const LOGIN_HISTORY_STATUSES: LoginHistoryStatus[] = ["success", "failed"];
+const LOGIN_HISTORY_METHODS: LoginHistoryMethod[] = [
+  "password",
+  "otp",
+  "magic-link",
+  "forgot-password"
+];
+const CONTACT_STATUSES: ContactStatus[] = ["new", "processing", "resolved"];
+
+export const isLoginHistoryStatus = (
+  value: string | null
+): value is LoginHistoryStatus =>
+  value !== null && (LOGIN_HISTORY_STATUSES as string[]).includes(value);
+
+export const isLoginHistoryMethod = (
+  value: string | null
+): value is LoginHistoryMethod =>
+  value !== null && (LOGIN_HISTORY_METHODS as string[]).includes(value);
+
+export const isContactStatus = (value: string | null): value is ContactStatus =>
+  value !== null && (CONTACT_STATUSES as string[]).includes(value);
+
+export const isContactCategory = (
+  value: string | null
+): value is ContactCategory =>
+  value !== null && (CONTACT_CATEGORY_VALUES as string[]).includes(value);

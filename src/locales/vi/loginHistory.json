@@ -19,7 +19,9 @@
     "userAgent": "User Agent",
     "timezoneOffset": "Múi giờ",
     "isAnomaly": "Bất thường",
-    "anomalyReasons": "Lý do bất thường"
+    "anomalyReasons": "Lý do bất thường",
+    "anomalyYes": "Có",
+    "anomalyNo": "Không"
   },
   "filters": {
     "title": "Bộ lọc",

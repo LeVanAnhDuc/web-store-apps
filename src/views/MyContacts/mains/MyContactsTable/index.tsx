@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 // types
-import type { MyContactsQuery, ContactStatus } from "@/types/ContactAdmin";
+import type { MyContactsQuery } from "@/types/ContactAdmin";
 // components
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -128,12 +128,10 @@ const MyContactsTable = () => {
                 </td>
                 <td className="px-4 py-3">
                   <Badge
-                    variant={
-                      CONTACT_STATUS_VARIANT[item.status as ContactStatus]
-                    }
+                    variant={CONTACT_STATUS_VARIANT[item.status]}
                     className="text-xs"
                   >
-                    {tStatus(item.status as ContactStatus)}
+                    {tStatus(item.status)}
                   </Badge>
                 </td>
                 <td className="text-muted-foreground px-4 py-3 text-center">

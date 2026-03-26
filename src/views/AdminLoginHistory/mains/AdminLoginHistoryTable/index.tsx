@@ -7,8 +7,8 @@ import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 // types
 import type {
-  LoginHistoryAdminItem,
-  AdminLoginHistoryQueryParams
+  AdminLoginHistoryQueryParams,
+  LoginHistoryMethod
 } from "@/types/LoginHistory";
 // components
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +19,11 @@ import { useAnnounce } from "@/hooks";
 // requests
 import { getAdminLoginHistory } from "@/requests/loginHistory";
 // others
-import { formatDateTimeShort } from "@/utils";
+import {
+  formatDateTimeShort,
+  isLoginHistoryStatus,
+  isLoginHistoryMethod
+} from "@/utils";
 
 const AdminLoginHistoryTable = () => {
   const tTable = useTranslations("loginHistory.table");
@@ -32,26 +36,27 @@ const AdminLoginHistoryTable = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const statusParam = searchParams.get("status");
+  const methodParam = searchParams.get("method");
+  const countryParam = searchParams.get("country");
+  const cityParam = searchParams.get("city");
+  const fromDateParam = searchParams.get("fromDate");
+  const toDateParam = searchParams.get("toDate");
+  const userIdParam = searchParams.get("userId");
+  const ipParam = searchParams.get("ip");
+
   const page = Number(searchParams.get("page") ?? 1);
   const params: AdminLoginHistoryQueryParams = {
     page,
     limit: 20,
-    ...(searchParams.get("status") && {
-      status: searchParams.get("status") as LoginHistoryAdminItem["status"]
-    }),
-    ...(searchParams.get("method") && {
-      method: searchParams.get("method") as LoginHistoryAdminItem["method"]
-    }),
-    ...(searchParams.get("country") && {
-      country: searchParams.get("country")!
-    }),
-    ...(searchParams.get("city") && { city: searchParams.get("city")! }),
-    ...(searchParams.get("fromDate") && {
-      fromDate: searchParams.get("fromDate")!
-    }),
-    ...(searchParams.get("toDate") && { toDate: searchParams.get("toDate")! }),
-    ...(searchParams.get("userId") && { userId: searchParams.get("userId")! }),
-    ...(searchParams.get("ip") && { ip: searchParams.get("ip")! })
+    ...(isLoginHistoryStatus(statusParam) && { status: statusParam }),
+    ...(isLoginHistoryMethod(methodParam) && { method: methodParam }),
+    ...(countryParam && { country: countryParam }),
+    ...(cityParam && { city: cityParam }),
+    ...(fromDateParam && { fromDate: fromDateParam }),
+    ...(toDateParam && { toDate: toDateParam }),
+    ...(userIdParam && { userId: userIdParam }),
+    ...(ipParam && { ip: ipParam })
   };
 
   const { data, isLoading } = useQuery({
@@ -79,7 +84,7 @@ const AdminLoginHistoryTable = () => {
       <div className="bg-card rounded-xl border p-6">
         <div className="flex flex-col gap-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-10 rounded-lg" />
+            <Skeleton key={`skeleton-${i}`} className="h-10 rounded-lg" />
           ))}
         </div>
       </div>
@@ -148,7 +153,7 @@ const AdminLoginHistoryTable = () => {
                   </td>
                   <td className="px-4 py-3">{item.usernameAttempted}</td>
                   <td className="px-4 py-3">
-                    {tMethod(item.method as Parameters<typeof tMethod>[0])}
+                    {tMethod(item.method as LoginHistoryMethod)}
                   </td>
                   <td className="px-4 py-3">
                     <Badge
@@ -177,10 +182,12 @@ const AdminLoginHistoryTable = () => {
                   <td className="px-4 py-3">
                     {item.isAnomaly ? (
                       <Badge variant="destructive" className="text-xs">
-                        Yes
+                        {tTable("anomalyYes")}
                       </Badge>
                     ) : (
-                      <span className="text-muted-foreground text-xs">No</span>
+                      <span className="text-muted-foreground text-xs">
+                        {tTable("anomalyNo")}
+                      </span>
                     )}
                   </td>
                   <td className="text-muted-foreground px-4 py-3 text-xs">
@@ -192,7 +199,6 @@ const AdminLoginHistoryTable = () => {
           </tbody>
         </table>
       </div>
-
       {meta && meta.totalPages > 1 && (
         <div className="flex items-center justify-between border-t px-4 py-3">
           <p className="text-muted-foreground text-sm">

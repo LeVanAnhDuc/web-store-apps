@@ -4,8 +4,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import type { AxiosError } from "axios";
 // types
+import type { AxiosError } from "axios";
 import type { ContactAdminFormValues } from "@/types/ContactAdmin";
 // hooks
 import { useAnnounce } from "@/hooks";

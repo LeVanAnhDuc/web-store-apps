@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 // types
-import type { AdminContactQuery, ContactStatus } from "@/types/ContactAdmin";
+import type { AdminContactQuery } from "@/types/ContactAdmin";
 // components
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -19,7 +19,7 @@ import { getAdminContact } from "@/requests/contactAdmin";
 import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
 // others
 import CONSTANTS from "@/constants";
-import { formatDateShort } from "@/utils";
+import { formatDateShort, isContactStatus, isContactCategory } from "@/utils";
 
 const { ADMIN_CONTACTS } = CONSTANTS.ROUTES;
 
@@ -34,25 +34,25 @@ const AdminContactTable = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const statusParam = searchParams.get("status");
+  const categoryParam = searchParams.get("category");
+  const emailParam = searchParams.get("email");
+  const ticketNumberParam = searchParams.get("ticketNumber");
+  const searchParam = searchParams.get("search");
+  const fromDateParam = searchParams.get("fromDate");
+  const toDateParam = searchParams.get("toDate");
+
   const page = Number(searchParams.get("page") ?? 1);
   const params: AdminContactQuery = {
     page,
     limit: 20,
-    ...(searchParams.get("status") && {
-      status: searchParams.get("status") as ContactStatus
-    }),
-    ...(searchParams.get("category") && {
-      category: searchParams.get("category") as AdminContactQuery["category"]
-    }),
-    ...(searchParams.get("email") && { email: searchParams.get("email")! }),
-    ...(searchParams.get("ticketNumber") && {
-      ticketNumber: searchParams.get("ticketNumber")!
-    }),
-    ...(searchParams.get("search") && { search: searchParams.get("search")! }),
-    ...(searchParams.get("fromDate") && {
-      fromDate: searchParams.get("fromDate")!
-    }),
-    ...(searchParams.get("toDate") && { toDate: searchParams.get("toDate")! })
+    ...(isContactStatus(statusParam) && { status: statusParam }),
+    ...(isContactCategory(categoryParam) && { category: categoryParam }),
+    ...(emailParam && { email: emailParam }),
+    ...(ticketNumberParam && { ticketNumber: ticketNumberParam }),
+    ...(searchParam && { search: searchParam }),
+    ...(fromDateParam && { fromDate: fromDateParam }),
+    ...(toDateParam && { toDate: toDateParam })
   };
 
   const { data, isLoading } = useQuery({
@@ -140,7 +140,7 @@ const AdminContactTable = () => {
                     {item.ticketNumber}
                   </td>
                   <td className="text-muted-foreground px-4 py-3">
-                    {item.email || "—"}
+                    {item.email ?? "—"}
                   </td>
                   <td className="max-w-[200px] truncate px-4 py-3">
                     {item.subject}

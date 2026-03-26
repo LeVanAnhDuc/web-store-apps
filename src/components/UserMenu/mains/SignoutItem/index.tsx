@@ -10,9 +10,8 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useAnnounce } from "@/hooks";
 // stores
 import { useAuthStore } from "@/stores";
-// i18n
-import { useRouter } from "@/i18n/navigation";
 // others
+import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
 const { LOGIN } = CONSTANTS.ROUTES;

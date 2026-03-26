@@ -7,8 +7,8 @@ import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 // types
 import type {
-  LoginHistoryItem,
-  LoginHistoryQueryParams
+  LoginHistoryQueryParams,
+  LoginHistoryMethod
 } from "@/types/LoginHistory";
 // components
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +19,11 @@ import { useAnnounce } from "@/hooks";
 // requests
 import { getMyLoginHistory } from "@/requests/loginHistory";
 // others
-import { formatDateTimeShort } from "@/utils";
+import {
+  formatDateTimeShort,
+  isLoginHistoryStatus,
+  isLoginHistoryMethod
+} from "@/utils";
 
 const LoginHistoryTable = () => {
   const tTable = useTranslations("loginHistory.table");
@@ -32,24 +36,23 @@ const LoginHistoryTable = () => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const statusParam = searchParams.get("status");
+  const methodParam = searchParams.get("method");
+  const countryParam = searchParams.get("country");
+  const cityParam = searchParams.get("city");
+  const fromDateParam = searchParams.get("fromDate");
+  const toDateParam = searchParams.get("toDate");
+
   const page = Number(searchParams.get("page") ?? 1);
   const params: LoginHistoryQueryParams = {
     page,
     limit: 20,
-    ...(searchParams.get("status") && {
-      status: searchParams.get("status") as LoginHistoryItem["status"]
-    }),
-    ...(searchParams.get("method") && {
-      method: searchParams.get("method") as LoginHistoryItem["method"]
-    }),
-    ...(searchParams.get("country") && {
-      country: searchParams.get("country")!
-    }),
-    ...(searchParams.get("city") && { city: searchParams.get("city")! }),
-    ...(searchParams.get("fromDate") && {
-      fromDate: searchParams.get("fromDate")!
-    }),
-    ...(searchParams.get("toDate") && { toDate: searchParams.get("toDate")! })
+    ...(isLoginHistoryStatus(statusParam) && { status: statusParam }),
+    ...(isLoginHistoryMethod(methodParam) && { method: methodParam }),
+    ...(countryParam && { country: countryParam }),
+    ...(cityParam && { city: cityParam }),
+    ...(fromDateParam && { fromDate: fromDateParam }),
+    ...(toDateParam && { toDate: toDateParam })
   };
 
   const { data, isLoading } = useQuery({
@@ -77,7 +80,7 @@ const LoginHistoryTable = () => {
       <div className="bg-card rounded-xl border p-6">
         <div className="flex flex-col gap-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-10 rounded-lg" />
+            <Skeleton key={`skeleton-${i}`} className="h-10 rounded-lg" />
           ))}
         </div>
       </div>
@@ -133,7 +136,7 @@ const LoginHistoryTable = () => {
                   className="hover:bg-muted/50 border-b last:border-0"
                 >
                   <td className="px-4 py-3">
-                    {tMethod(item.method as Parameters<typeof tMethod>[0])}
+                    {tMethod(item.method as LoginHistoryMethod)}
                   </td>
                   <td className="px-4 py-3">
                     <Badge
@@ -168,7 +171,6 @@ const LoginHistoryTable = () => {
           </tbody>
         </table>
       </div>
-
       {meta && meta.totalPages > 1 && (
         <div className="flex items-center justify-between border-t px-4 py-3">
           <p className="text-muted-foreground text-sm">

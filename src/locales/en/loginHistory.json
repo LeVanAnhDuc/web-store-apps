@@ -19,7 +19,9 @@
     "userAgent": "User Agent",
     "timezoneOffset": "Timezone",
     "isAnomaly": "Anomaly",
-    "anomalyReasons": "Anomaly Reasons"
+    "anomalyReasons": "Anomaly Reasons",
+    "anomalyYes": "Yes",
+    "anomalyNo": "No"
   },
   "filters": {
     "title": "Filters",
