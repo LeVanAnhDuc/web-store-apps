@@ -56,6 +56,8 @@ const ContactAttachments = ({ id }: { id: string }) => {
                   <img
                     src={att.previewUrl}
                     alt={att.originalName}
+                    width={200}
+                    height={80}
                     className="mb-2 h-20 w-full rounded object-cover"
                   />
                 </button>
@@ -101,9 +103,12 @@ const ContactAttachments = ({ id }: { id: string }) => {
             >
               <X className="size-4" aria-hidden="true" />
             </CustomButton>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={previewUrl}
               alt="Preview"
+              width={1920}
+              height={1080}
               className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
             />
           </div>

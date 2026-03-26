@@ -131,10 +131,11 @@ const FileUploadInput = ({
               className="bg-muted/50 flex items-center gap-3 rounded-lg px-3 py-2"
             >
               {isImage(file) ? (
-                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={URL.createObjectURL(file)}
                   alt={file.name}
+                  width={40}
+                  height={40}
                   className="size-10 rounded object-cover"
                 />
               ) : (

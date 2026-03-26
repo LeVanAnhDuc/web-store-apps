@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 // types
 import type { ReactNode } from "react";
 // others
@@ -23,14 +23,14 @@ const FadeIn = ({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       initial={shouldReduceMotion ? false : { opacity: 0, y }}
       animate={{ opacity: 1, y: 0 }}
       transition={shouldReduceMotion ? { duration: 0 } : { duration, delay }}
       className={cn(className)}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 

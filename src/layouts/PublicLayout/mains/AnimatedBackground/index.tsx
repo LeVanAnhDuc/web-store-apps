@@ -167,9 +167,10 @@ export default function AnimatedBackground() {
       const y = centerY + scale * (window.innerHeight * 0.35);
 
       // Direct DOM manipulation — zero React re-renders
+      // Use transform (composite only) instead of left/top (layout-triggering)
+      // translate(x - 450px, y - 450px) replicates the old left/top + -translate-x/y-1/2 centering
       if (spotlightRef.current) {
-        spotlightRef.current.style.left = `${x}px`;
-        spotlightRef.current.style.top = `${y}px`;
+        spotlightRef.current.style.transform = `translate(calc(${x}px - 450px), calc(${y}px - 450px))`;
       }
       if (maskLayerRef.current) {
         const mask = `radial-gradient(circle 525px at ${x}px ${y}px, white 0%, transparent 100%)`;
@@ -195,8 +196,8 @@ export default function AnimatedBackground() {
       <div className="absolute inset-0 bg-gray-50 dark:bg-gray-950" />
       <div
         ref={spotlightRef}
-        className="pointer-events-none absolute h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2"
-        style={{ left: 0, top: 0 }}
+        className="pointer-events-none absolute h-[900px] w-[900px]"
+        style={{ top: 0, left: 0 }}
       >
         <div
           className="h-full w-full rounded-full blur-[150px]"

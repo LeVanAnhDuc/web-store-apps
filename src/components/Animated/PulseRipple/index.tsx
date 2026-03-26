@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 // others
 import { cn } from "@/libs/utils";
 
@@ -26,7 +26,7 @@ const PulseRipple = ({
 
   return (
     <>
-      <motion.div
+      <m.div
         className={cn("absolute rounded-full", size, color, className)}
         animate={{
           scale: [1, 1.3, 1],
@@ -38,7 +38,7 @@ const PulseRipple = ({
           ease: "easeInOut"
         }}
       />
-      <motion.div
+      <m.div
         className={cn("absolute rounded-full", size, color, className)}
         animate={{
           scale: [1, 1.5, 1],

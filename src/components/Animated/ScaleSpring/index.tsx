@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 // types
 import type { ReactNode } from "react";
 // others
@@ -23,7 +23,7 @@ const ScaleSpring = ({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       initial={shouldReduceMotion ? false : { scale: 0 }}
       animate={{ scale: 1 }}
       transition={
@@ -34,7 +34,7 @@ const ScaleSpring = ({
       className={cn(className)}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 

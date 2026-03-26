@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 // types
 import type { ReactNode } from "react";
 // others
@@ -23,7 +23,7 @@ const FadeScale = ({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       initial={shouldReduceMotion ? false : { opacity: 0, scale }}
       animate={{ opacity: 1, scale: 1 }}
       exit={shouldReduceMotion ? undefined : { opacity: 0, scale }}
@@ -31,7 +31,7 @@ const FadeScale = ({
       className={cn(className)}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 };
 
