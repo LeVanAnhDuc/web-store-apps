@@ -44,18 +44,8 @@ import { updateProfileFormProps } from "@/forms/UpdateProfile";
 import { getMyProfile, updateMyProfile } from "@/requests/user";
 // others
 import { GENDER_VALUES } from "@/constants/pages/signup";
-import { getInitials } from "@/utils";
+import { getInitials, formatDateLong, parseLocalDate } from "@/utils";
 import { cn } from "@/libs/utils";
-
-const formatDate = (iso: string | null) =>
-  iso
-    ? new Date(iso).toLocaleDateString(undefined, { dateStyle: "long" })
-    : null;
-
-const parseLocalDate = (iso: string): Date => {
-  const [year, month, day] = iso.split("T")[0].split("-").map(Number);
-  return new Date(year, month - 1, day);
-};
 
 const ProfileCard = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -129,18 +119,18 @@ const ProfileCard = () => {
     { label: t("fields.address"), value: profile.address },
     {
       label: t("fields.dateOfBirth"),
-      value: formatDate(profile.dateOfBirth)
+      value: formatDateLong(profile.dateOfBirth)
     },
     {
       label: t("fields.gender"),
       value: profile.gender ? t(`gender.${profile.gender}`) : null
     },
-    { label: t("fields.createdAt"), value: formatDate(profile.createdAt) }
+    { label: t("fields.createdAt"), value: formatDateLong(profile.createdAt) }
   ];
 
   const readOnlyFields = [
     { label: t("fields.email"), value: profile.email },
-    { label: t("fields.createdAt"), value: formatDate(profile.createdAt) }
+    { label: t("fields.createdAt"), value: formatDateLong(profile.createdAt) }
   ];
 
   return (

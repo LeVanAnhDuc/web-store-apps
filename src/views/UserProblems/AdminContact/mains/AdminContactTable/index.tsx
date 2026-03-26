@@ -11,22 +11,13 @@ import { Badge } from "@/components/ui/badge";
 import CustomButton from "@/components/CustomButton";
 // requests
 import { getAdminContact } from "@/requests/contactAdmin";
+// dataSources
+import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
 // others
 import CONSTANTS from "@/constants";
+import { formatDateShort } from "@/utils";
 
 const { ADMIN_CONTACTS } = CONSTANTS.ROUTES;
-
-const statusVariant: Record<
-  ContactStatus,
-  "default" | "secondary" | "outline"
-> = {
-  new: "default",
-  processing: "secondary",
-  resolved: "outline"
-};
-
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString(undefined, { dateStyle: "short" });
 
 const AdminContactTable = () => {
   const tTable = useTranslations("contactAdmin.admin.list.table");
@@ -74,7 +65,10 @@ const AdminContactTable = () => {
       <div className="bg-card rounded-xl border p-6">
         <div className="space-y-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="bg-muted h-10 animate-pulse rounded-lg" />
+            <div
+              key={`skeleton-${i}`}
+              className="bg-muted h-10 animate-pulse rounded-lg"
+            />
           ))}
         </div>
       </div>
@@ -144,7 +138,7 @@ const AdminContactTable = () => {
                   </td>
                   <td className="px-4 py-3">
                     <Badge
-                      variant={statusVariant[item.status]}
+                      variant={CONTACT_STATUS_VARIANT[item.status]}
                       className="text-xs"
                     >
                       {tStatus(item.status)}
@@ -154,7 +148,7 @@ const AdminContactTable = () => {
                     {item.attachmentCount > 0 ? item.attachmentCount : "—"}
                   </td>
                   <td className="text-muted-foreground px-4 py-3 text-xs">
-                    {formatDate(item.createdAt)}
+                    {formatDateShort(item.createdAt)}
                   </td>
                   <td className="px-4 py-3">
                     <CustomButton
@@ -173,7 +167,6 @@ const AdminContactTable = () => {
           </tbody>
         </table>
       </div>
-
       {meta && meta.totalPages > 1 && (
         <div className="flex items-center justify-between border-t px-4 py-3">
           <p className="text-muted-foreground text-sm">

@@ -14,12 +14,8 @@ import { Badge } from "@/components/ui/badge";
 import CustomButton from "@/components/CustomButton";
 // requests
 import { getMyLoginHistory } from "@/requests/loginHistory";
-
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleString(undefined, {
-    dateStyle: "short",
-    timeStyle: "short"
-  });
+// others
+import { formatDateTimeShort } from "@/utils";
 
 const LoginHistoryTable = () => {
   const tTable = useTranslations("loginHistory.table");
@@ -149,7 +145,7 @@ const LoginHistoryTable = () => {
                     {item.browser}
                   </td>
                   <td className="text-muted-foreground px-4 py-3 text-xs">
-                    {formatDate(item.createdAt)}
+                    {formatDateTimeShort(item.createdAt)}
                   </td>
                 </tr>
               ))

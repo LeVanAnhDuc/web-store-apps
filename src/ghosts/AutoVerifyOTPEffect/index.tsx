@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+// libs
+import { useEffect, useRef } from "react";
 
 const AutoVerifyOtpEffect = ({
   otpValue,
@@ -11,11 +12,14 @@ const AutoVerifyOtpEffect = ({
   otpLength: number;
   onVerify: () => void;
 }) => {
+  const onVerifyRef = useRef(onVerify);
+  onVerifyRef.current = onVerify;
+
   useEffect(() => {
     if (otpValue.length === otpLength) {
-      onVerify();
+      onVerifyRef.current();
     }
-  }, [otpValue]);
+  }, [otpValue, otpLength]);
 
   return null;
 };

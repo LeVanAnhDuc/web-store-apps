@@ -36,7 +36,7 @@ const OtpInputGroup = ({
         <InputOTPGroup>
           {Array.from({ length: OTP_LENGTH }).map((_, index) => (
             <InputOTPSlot
-              key={index}
+              key={`slot-${index}`}
               index={index}
               className="h-14 w-12 text-xl"
             />

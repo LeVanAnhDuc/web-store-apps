@@ -12,16 +12,7 @@ import { Button } from "@/components/ui/button";
 import { getMyProfile, uploadAvatar } from "@/requests/user";
 // others
 import { getInitials } from "@/utils";
-
-const ALLOWED_MIME_TYPES = new Set([
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/gif",
-  "image/avif"
-]);
-
-const MAX_SIZE_BYTES = 10 * 1024 * 1024;
+import CONSTANTS from "@/constants";
 
 const AvatarUpload = () => {
   const t = useTranslations("user.profile");
@@ -59,6 +50,9 @@ const AvatarUpload = () => {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
+
+    const { ALLOWED_MIME_TYPES, MAX_SIZE_BYTES } =
+      CONSTANTS.USER_PROFILE.AVATAR_UPLOAD;
 
     if (!ALLOWED_MIME_TYPES.has(file.type)) {
       toast.error(t("validation.avatar.type"));

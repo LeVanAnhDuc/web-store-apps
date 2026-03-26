@@ -5,31 +5,20 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 // types
-import type { MyContactsQuery } from "@/types/ContactAdmin";
+import type { MyContactsQuery, ContactStatus } from "@/types/ContactAdmin";
 // components
 import { Badge } from "@/components/ui/badge";
 import CustomButton from "@/components/CustomButton";
 import { Link } from "@/i18n/navigation";
 // requests
 import { getMyContacts } from "@/requests/contactAdmin";
+// dataSources
+import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
 // others
 import CONSTANTS from "@/constants";
+import { formatDateShort } from "@/utils";
 
 const { CONTACT_ADMIN } = CONSTANTS.ROUTES;
-
-type ContactStatus = "new" | "processing" | "resolved";
-
-const statusVariant: Record<
-  ContactStatus,
-  "default" | "secondary" | "outline"
-> = {
-  new: "default",
-  processing: "secondary",
-  resolved: "outline"
-};
-
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString(undefined, { dateStyle: "short" });
 
 const MyContactsTable = () => {
   const tTable = useTranslations("contactAdmin.myContacts.table");
@@ -60,7 +49,10 @@ const MyContactsTable = () => {
       <div className="bg-card rounded-xl border p-6">
         <div className="space-y-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="bg-muted h-10 animate-pulse rounded-lg" />
+            <div
+              key={`skeleton-${i}`}
+              className="bg-muted h-10 animate-pulse rounded-lg"
+            />
           ))}
         </div>
       </div>
@@ -124,7 +116,9 @@ const MyContactsTable = () => {
                 </td>
                 <td className="px-4 py-3">
                   <Badge
-                    variant={statusVariant[item.status as ContactStatus]}
+                    variant={
+                      CONTACT_STATUS_VARIANT[item.status as ContactStatus]
+                    }
                     className="text-xs"
                   >
                     {tStatus(item.status as ContactStatus)}
@@ -134,14 +128,13 @@ const MyContactsTable = () => {
                   {item.attachmentCount > 0 ? item.attachmentCount : "—"}
                 </td>
                 <td className="text-muted-foreground px-4 py-3 text-xs">
-                  {formatDate(item.createdAt)}
+                  {formatDateShort(item.createdAt)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
       {meta && meta.totalPages > 1 && (
         <div className="flex items-center justify-between border-t px-4 py-3">
           <p className="text-muted-foreground text-sm">

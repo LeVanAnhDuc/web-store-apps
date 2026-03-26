@@ -97,3 +97,28 @@ export function popCallbackUrl(): string | null {
   if (url) sessionStorage.removeItem(CALLBACK_URL);
   return url;
 }
+
+export const formatDateShort = (iso: string): string =>
+  new Date(iso).toLocaleDateString(undefined, { dateStyle: "short" });
+
+export const formatDateTimeShort = (iso: string): string =>
+  new Date(iso).toLocaleString(undefined, {
+    dateStyle: "short",
+    timeStyle: "short"
+  });
+
+export const formatDateTimeMedium = (iso: string): string =>
+  new Date(iso).toLocaleString(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short"
+  });
+
+export const formatDateLong = (iso: string | null): string | null =>
+  iso
+    ? new Date(iso).toLocaleDateString(undefined, { dateStyle: "long" })
+    : null;
+
+export const parseLocalDate = (iso: string): Date => {
+  const [year, month, day] = iso.split("T")[0].split("-").map(Number);
+  return new Date(year, month - 1, day);
+};

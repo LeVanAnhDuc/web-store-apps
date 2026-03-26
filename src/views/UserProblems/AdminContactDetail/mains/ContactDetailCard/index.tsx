@@ -1,7 +1,6 @@
 "use client";
 
 // libs
-import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
@@ -22,52 +21,24 @@ import {
   updateContactStatus,
   updateContactCategory
 } from "@/requests/contactAdmin";
-
-const statusVariant: Record<
-  ContactStatus,
-  "default" | "secondary" | "outline"
-> = {
-  new: "default",
-  processing: "secondary",
-  resolved: "outline"
-};
-
-const CATEGORY_VALUES: ContactCategory[] = [
-  "account",
-  "technical",
-  "feature",
-  "billing",
-  "security",
-  "other"
-];
-
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleString(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short"
-  });
+// dataSources
+import {
+  CONTACT_STATUS_VARIANT,
+  CONTACT_CATEGORY_VALUES
+} from "@/dataSources/ContactAdmin";
+// others
+import { formatDateTimeMedium } from "@/utils";
 
 const ContactDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("contactAdmin.admin.detail");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
   const queryClient = useQueryClient();
-  const [selectedStatus, setSelectedStatus] = useState<ContactStatus | "">("");
-  const [selectedCategory, setSelectedCategory] = useState<
-    ContactCategory | ""
-  >("");
 
   const { data: contact, isLoading } = useQuery({
     queryKey: ["adminContactDetail", id],
     queryFn: () => getAdminContactDetail(id)
   });
-
-  useEffect(() => {
-    if (contact) {
-      setSelectedStatus(contact.status);
-      setSelectedCategory(contact.category);
-    }
-  }, [contact]);
 
   const { mutate: changeStatus, isPending: isUpdatingStatus } = useMutation({
     mutationFn: (status: ContactStatus) => updateContactStatus(id, status),
@@ -102,7 +73,10 @@ const ContactDetailCard = ({ id }: { id: string }) => {
     return (
       <div className="bg-card space-y-3 rounded-xl border p-6">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="bg-muted h-8 animate-pulse rounded-lg" />
+          <div
+            key={`skeleton-${i}`}
+            className="bg-muted h-8 animate-pulse rounded-lg"
+          />
         ))}
       </div>
     );
@@ -116,20 +90,20 @@ const ContactDetailCard = ({ id }: { id: string }) => {
         <div>
           <p className="font-mono text-lg font-bold">{contact.ticketNumber}</p>
           <p className="text-muted-foreground text-sm">
-            {formatDate(contact.createdAt)}
+            {formatDateTimeMedium(contact.createdAt)}
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <Badge variant={statusVariant[contact.status]} className="text-sm">
+          <Badge
+            variant={CONTACT_STATUS_VARIANT[contact.status]}
+            className="text-sm"
+          >
             {tStatus(contact.status)}
           </Badge>
           <div className="flex items-center gap-2">
             <Select
-              value={selectedStatus}
-              onValueChange={(v) => {
-                setSelectedStatus(v as ContactStatus);
-                changeStatus(v as ContactStatus);
-              }}
+              value={contact.status}
+              onValueChange={(v) => changeStatus(v as ContactStatus)}
               disabled={isUpdatingStatus}
             >
               <SelectTrigger className="h-9 w-[160px]">
@@ -146,7 +120,6 @@ const ContactDetailCard = ({ id }: { id: string }) => {
           </div>
         </div>
       </div>
-
       <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {contact.email && (
           <div>
@@ -170,18 +143,15 @@ const ContactDetailCard = ({ id }: { id: string }) => {
           </dt>
           <dd>
             <Select
-              value={selectedCategory}
-              onValueChange={(v) => {
-                setSelectedCategory(v as ContactCategory);
-                changeCategory(v as ContactCategory);
-              }}
+              value={contact.category}
+              onValueChange={(v) => changeCategory(v as ContactCategory)}
               disabled={isUpdatingCategory}
             >
               <SelectTrigger className="h-8 w-full text-sm">
                 <SelectValue placeholder={t("updateCategory.label")} />
               </SelectTrigger>
               <SelectContent>
-                {CATEGORY_VALUES.map((cat) => (
+                {CONTACT_CATEGORY_VALUES.map((cat) => (
                   <SelectItem key={cat} value={cat}>
                     {tCategory(cat)}
                   </SelectItem>
@@ -200,7 +170,9 @@ const ContactDetailCard = ({ id }: { id: string }) => {
           <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
             {t("fields.updatedAt")}
           </dt>
-          <dd className="mt-1 text-sm">{formatDate(contact.updatedAt)}</dd>
+          <dd className="mt-1 text-sm">
+            {formatDateTimeMedium(contact.updatedAt)}
+          </dd>
         </div>
         <div className="sm:col-span-2">
           <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">

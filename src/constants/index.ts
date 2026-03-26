@@ -5,6 +5,7 @@ import FORGOT_PASSWORD from "./pages/forgotPassword";
 import CONTACT_ADMIN from "./pages/contactAdmin";
 import LOGIN from "./pages/login";
 import SIGNUP from "./pages/signup";
+import USER_PROFILE from "./pages/userProfile";
 
 const CONSTANTS = {
   ROUTES,
@@ -13,7 +14,8 @@ const CONSTANTS = {
   FORGOT_PASSWORD,
   CONTACT_ADMIN,
   LOGIN,
-  SIGNUP
+  SIGNUP,
+  USER_PROFILE
 };
 
 export default CONSTANTS;
