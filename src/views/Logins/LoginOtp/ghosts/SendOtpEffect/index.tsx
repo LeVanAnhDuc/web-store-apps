@@ -13,7 +13,7 @@ const SendOtpEffect = ({ email }: { email: string }) => {
 
   useEffect(() => {
     sendOtp();
-  }, []);
+  }, [sendOtp]);
 
   return null;
 };
