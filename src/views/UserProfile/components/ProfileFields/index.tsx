@@ -1,13 +1,8 @@
-interface ProfileField {
-  label: string;
-  value: string | null;
-}
-
-interface ProfileFieldsProps {
-  fields: ProfileField[];
-}
-
-const ProfileFields = ({ fields }: ProfileFieldsProps) => (
+const ProfileFields = ({
+  fields
+}: {
+  fields: { label: string; value: string | null }[];
+}) => (
   <div className="mt-6 divide-y">
     {fields.map(({ label, value }) => (
       <div key={label} className="flex items-center justify-between py-3">

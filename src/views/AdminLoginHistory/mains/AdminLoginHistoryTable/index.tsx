@@ -53,7 +53,7 @@ const AdminLoginHistoryTable = () => {
     queryFn: () => getAdminLoginHistory(params)
   });
 
-  const goToPage = (newPage: number) => {
+  const handleGoToPage = (newPage: number) => {
     const next = new URLSearchParams(searchParams.toString());
     next.set("page", String(newPage));
     router.push(`${pathname}?${next.toString()}`);
@@ -189,7 +189,7 @@ const AdminLoginHistoryTable = () => {
               variant="outline"
               size="sm"
               disabled={meta.page <= 1}
-              onClick={() => goToPage(meta.page - 1)}
+              onClick={() => handleGoToPage(meta.page - 1)}
             >
               {tPagination("previous")}
             </CustomButton>
@@ -197,7 +197,7 @@ const AdminLoginHistoryTable = () => {
               variant="outline"
               size="sm"
               disabled={meta.page >= meta.totalPages}
-              onClick={() => goToPage(meta.page + 1)}
+              onClick={() => handleGoToPage(meta.page + 1)}
             >
               {tPagination("next")}
             </CustomButton>

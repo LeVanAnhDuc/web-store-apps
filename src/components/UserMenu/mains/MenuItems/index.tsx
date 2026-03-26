@@ -3,11 +3,7 @@ import ProfileMenuItem from "../../components/ProfileMenuItem";
 import SettingsMenuItem from "../../components/SettingsMenuItem";
 import ThemeToggleMenuItem from "../../components/ThemeToggleMenuItem";
 
-interface MenuItemsProps {
-  showProfile: boolean;
-}
-
-const MenuItems = ({ showProfile }: MenuItemsProps) => (
+const MenuItems = ({ showProfile }: { showProfile: boolean }) => (
   <>
     {showProfile ? <ProfileMenuItem /> : null}
     <SettingsMenuItem />

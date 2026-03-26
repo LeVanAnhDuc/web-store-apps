@@ -30,7 +30,7 @@ const PasswordInput = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+  const handleTogglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   return (
     <FormField
@@ -55,7 +55,7 @@ const PasswordInput = ({
               <button
                 type="button"
                 className="absolute top-1/2 right-3 -translate-y-1/2 opacity-50 hover:opacity-50 disabled:opacity-30"
-                onClick={togglePasswordVisibility}
+                onClick={handleTogglePasswordVisibility}
                 onMouseDown={(e) => e.preventDefault()}
                 disabled={disabled}
               >

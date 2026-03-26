@@ -28,15 +28,15 @@ const FacebookIcon = () => (
   </svg>
 );
 
-type SocialAuthenButtonsProps = {
+const SocialAuthenButtons = ({
+  labels
+}: {
   labels: {
     google: string;
     facebook: string;
     comingSoon: string;
   };
-};
-
-const SocialAuthenButtons = ({ labels }: SocialAuthenButtonsProps) => (
+}) => (
   <div className="space-y-5">
     <CustomButton
       type="button"
