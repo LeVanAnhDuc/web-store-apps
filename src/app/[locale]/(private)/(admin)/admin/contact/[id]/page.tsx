@@ -1,5 +1,5 @@
 // views
-import AdminContactDetail from "@/views/AdminContactDetail";
+import AdminContactDetail from "@/views/AdminContacts/AdminContactDetail";
 
 export default async function Page({
   params

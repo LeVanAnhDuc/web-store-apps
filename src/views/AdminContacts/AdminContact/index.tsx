@@ -1,10 +1,10 @@
 // libs
 import { getTranslations } from "next-intl/server";
 // components
-import AdminContactsFilters from "./mains/AdminContactsFilters";
-import AdminContactsTable from "./mains/AdminContactsTable";
+import AdminContactFilters from "./mains/AdminContactFilters";
+import AdminContactTable from "./mains/AdminContactTable";
 
-const AdminContacts = async () => {
+const AdminContact = async () => {
   const t = await getTranslations("contactAdmin.admin.list");
 
   return (
@@ -13,10 +13,10 @@ const AdminContacts = async () => {
         <h1 className="text-foreground text-2xl font-bold">{t("title")}</h1>
         <p className="text-muted-foreground mt-1 text-sm">{t("description")}</p>
       </div>
-      <AdminContactsFilters />
-      <AdminContactsTable />
+      <AdminContactFilters />
+      <AdminContactTable />
     </div>
   );
 };
 
-export default AdminContacts;
+export default AdminContact;

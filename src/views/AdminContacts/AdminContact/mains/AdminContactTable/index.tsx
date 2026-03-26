@@ -5,12 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 // types
-import type { AdminContactsQuery, ContactStatus } from "@/types/ContactAdmin";
+import type { AdminContactQuery, ContactStatus } from "@/types/ContactAdmin";
 // components
 import { Badge } from "@/components/ui/badge";
 import CustomButton from "@/components/CustomButton";
 // requests
-import { getAdminContacts } from "@/requests/contactAdmin";
+import { getAdminContact } from "@/requests/contactAdmin";
 // others
 import CONSTANTS from "@/constants";
 
@@ -28,7 +28,7 @@ const statusVariant: Record<
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString(undefined, { dateStyle: "short" });
 
-const AdminContactsTable = () => {
+const AdminContactTable = () => {
   const tTable = useTranslations("contactAdmin.admin.list.table");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
@@ -38,14 +38,14 @@ const AdminContactsTable = () => {
   const pathname = usePathname();
 
   const page = Number(searchParams.get("page") ?? 1);
-  const params: AdminContactsQuery = {
+  const params: AdminContactQuery = {
     page,
     limit: 20,
     ...(searchParams.get("status") && {
       status: searchParams.get("status") as ContactStatus
     }),
     ...(searchParams.get("category") && {
-      category: searchParams.get("category") as AdminContactsQuery["category"]
+      category: searchParams.get("category") as AdminContactQuery["category"]
     }),
     ...(searchParams.get("email") && { email: searchParams.get("email")! }),
     ...(searchParams.get("ticketNumber") && {
@@ -59,8 +59,8 @@ const AdminContactsTable = () => {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["adminContacts", params],
-    queryFn: () => getAdminContacts(params)
+    queryKey: ["AdminContact", params],
+    queryFn: () => getAdminContact(params)
   });
 
   const goToPage = (newPage: number) => {
@@ -204,4 +204,4 @@ const AdminContactsTable = () => {
   );
 };
 
-export default AdminContactsTable;
+export default AdminContactTable;

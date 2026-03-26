@@ -72,7 +72,7 @@ export interface PaginatedUserContactsResponse {
   meta: ContactMeta;
 }
 
-export interface AdminContactsQuery {
+export interface AdminContactQuery {
   page?: number;
   limit?: number;
   status?: ContactStatus;

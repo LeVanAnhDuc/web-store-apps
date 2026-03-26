@@ -26,7 +26,7 @@ type FilterFormValues = {
   toDate: string;
 };
 
-const AdminContactsFilters = () => {
+const AdminContactFilters = () => {
   const t = useTranslations("contactAdmin.admin.list.filters");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
@@ -190,4 +190,4 @@ const AdminContactsFilters = () => {
   );
 };
 
-export default AdminContactsFilters;
+export default AdminContactFilters;

@@ -1,7 +1,7 @@
 // types
 import type {
   ContactAdminFormValues,
-  AdminContactsQuery,
+  AdminContactQuery,
   MyContactsQuery,
   PaginatedContactsResponse,
   PaginatedUserContactsResponse,
@@ -38,8 +38,8 @@ export const submitContact = async (
 
 // ─── v2.0 ─────────────────────────────────────────────────────────────────────
 
-export const getAdminContacts = async (
-  params?: AdminContactsQuery
+export const getAdminContact = async (
+  params?: AdminContactQuery
 ): Promise<PaginatedContactsResponse> => {
   const response = await axiosInstance.get<
     ResponsePattern<PaginatedContactsResponse>
