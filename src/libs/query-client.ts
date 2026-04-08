@@ -1,10 +1,10 @@
 // libs
 import { QueryClient, QueryCache, MutationCache } from "@tanstack/react-query";
-import { isAxiosError } from "axios";
+import { isAxiosError, isCancel } from "axios";
 // others
-import { errorToast } from "@/utils";
+import { confirmErrorToast, errorToast } from "@/utils";
 
-const getErrorMessage = (error: unknown): string => {
+const getErrorMessage = (error: Error): string => {
   if (isAxiosError<ErrorResponsePattern>(error)) {
     const status = error.response?.status;
     const message = error.response?.data?.error?.message;
@@ -26,21 +26,20 @@ const getErrorMessage = (error: unknown): string => {
   return "An unknown error occurred.";
 };
 
-const queryErrorHandler = (error: unknown): void => {
+const queryErrorHandler = (error: Error): void => {
+  if (isCancel(error)) return;
+
   if (isAxiosError(error)) {
     const status = error.response?.status;
 
-    // SKIP these (already toasted in axios interceptor):
-    // - 401 (auto refresh, silent or toasted on logout)
-    // - Network errors (!error.response)
-    // - Timeout errors (ECONNABORTED)
-    // - 5xx errors
-    if (
-      status === 401 ||
-      !error.response ||
-      error.code === "ECONNABORTED" ||
-      (status && status >= 500 && status < 600)
-    ) {
+    // Already handled by axios interceptor
+    if (!error.response || error.code === "ECONNABORTED") {
+      return;
+    }
+
+    // 5xx — toast once after React Query retries exhausted
+    if (status && status >= 500) {
+      void confirmErrorToast("Server error. Please try again later.");
       return;
     }
   }
@@ -59,9 +58,9 @@ const queryClient = new QueryClient({
   }),
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      gcTime: 1000 * 60 * 30, // 30 minutes
-      refetchOnWindowFocus: false, // Do not refetch on window focus
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 30,
+      refetchOnWindowFocus: false,
       retry: (failureCount, error) => {
         if (isAxiosError(error)) {
           const status = error.response?.status;
@@ -80,9 +79,7 @@ const queryClient = new QueryClient({
         // Retry server errors (5xx) or unknown errors max 2 times
         return failureCount < 2;
       },
-      retryDelay: (attemptIndex) =>
-        // Exponential backoff: 1s, 2s, 4s
-        Math.min(1000 * 2 ** attemptIndex, 30000)
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000) // Exponential backoff: 1s, 2s, 4s
     },
     mutations: {
       retry: false

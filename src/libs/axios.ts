@@ -12,18 +12,24 @@ import CONSTANTS from "@/constants";
 import { useAuthStore } from "@/stores";
 
 const API_TIMEOUT = 30000;
+const SESSION_EXPIRED_CODES: string[] = [
+  CONSTANTS.ERROR_CODES.REFRESH_TOKEN_REQUIRED,
+  CONSTANTS.ERROR_CODES.REFRESH_TOKEN_INVALID
+];
 
 const handleLogout = () => {
+  const { tokens, clearTokens } = useAuthStore.getState();
+
+  if (!tokens) return;
+
+  clearTokens();
+
   const currentLocale = getCurrentLocale();
   window.location.href = `/${currentLocale}${CONSTANTS.ROUTES.LOGIN}`;
 };
 
-// ============================================
-// AXIOS INSTANCE
-// ============================================
-
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: "/api/v1",
+  baseURL: process.env.NEXT_PUBLIC_API_PREFIX,
   timeout: API_TIMEOUT,
   headers: {
     "Content-Type": "application/json"
@@ -46,23 +52,25 @@ axiosInstance.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig;
 
-    // ============================================
-    // HANDLE 401 — LOGOUT IMMEDIATELY
-    // Only for authenticated requests (has Authorization header).
-    // Unauthenticated requests (login, signup) return 401 for wrong credentials
-    // and should be handled by the caller, not intercepted here.
-    // ============================================
-    if (
-      error.response?.status === 401 &&
-      originalRequest?.headers?.Authorization
-    ) {
-      handleLogout();
+    // Session expired
+    if (error.response?.status === 401) {
+      const errorCode = (error.response.data as ErrorResponsePattern)?.error
+        ?.code;
+
+      if (
+        originalRequest?.headers?.Authorization &&
+        SESSION_EXPIRED_CODES.includes(errorCode)
+      ) {
+        handleLogout();
+      }
+
       return Promise.reject(error);
     }
 
-    // ============================================
-    // INFRASTRUCTURE ERRORS (TOAST HERE)
-    // ============================================
+    // Cancelled request — silent reject
+    if (axios.isCancel(error) || error.code === "ERR_CANCELED") {
+      return Promise.reject(error);
+    }
 
     // Network Error (no response from server)
     if (!error.response) {
@@ -77,14 +85,6 @@ axiosInstance.interceptors.response.use(
       await confirmErrorToast("Request timeout. Please try again.");
       return Promise.reject(error);
     }
-
-    // 5XX SERVER ERRORS
-    if (error.response.status >= 500) {
-      await confirmErrorToast("Server error. Please try again later.");
-      return Promise.reject(error);
-    }
-
-    // TODO: handle catch cancel request. return early not show message toast
 
     return Promise.reject(error);
   }
