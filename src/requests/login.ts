@@ -56,3 +56,10 @@ export const verifyLoginMagicLink = async (
   >(END_POINTS.AUTH_LOGIN_MAGIC_LINK_VERIFY, { email, token });
   return response.data.data;
 };
+
+export const refreshToken = async (): Promise<LoginTokenResponse> => {
+  const response = await axiosInstance.post<
+    ResponsePattern<LoginTokenResponse>
+  >(END_POINTS.AUTH_REFRESH);
+  return response.data.data;
+};
