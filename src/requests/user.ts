@@ -7,10 +7,14 @@ import type {
 } from "@/types/User";
 // others
 import axiosInstance from "@/libs/axios";
+import CONSTANTS from "@/constants";
+
+const { END_POINTS } = CONSTANTS;
 
 export const getMyProfile = async (): Promise<MyProfileResponse> => {
-  const response =
-    await axiosInstance.get<ResponsePattern<MyProfileResponse>>("/users/me");
+  const response = await axiosInstance.get<ResponsePattern<MyProfileResponse>>(
+    END_POINTS.USERS_ME
+  );
   return response.data.data;
 };
 
@@ -19,7 +23,7 @@ export const updateMyProfile = async (
 ): Promise<MyProfileResponse> => {
   const response = await axiosInstance.patch<
     ResponsePattern<MyProfileResponse>
-  >("/users/me", data);
+  >(END_POINTS.USERS_ME, data);
   return response.data.data;
 };
 
@@ -31,7 +35,7 @@ export const uploadAvatar = async (
 
   const response = await axiosInstance.post<
     ResponsePattern<UploadAvatarResponse>
-  >("/users/me/avatar", formData, {
+  >(END_POINTS.USERS_ME_AVATAR, formData, {
     headers: { "Content-Type": "multipart/form-data" }
   });
   return response.data.data;
@@ -42,6 +46,6 @@ export const getPublicProfile = async (
 ): Promise<PublicProfileResponse> => {
   const response = await axiosInstance.get<
     ResponsePattern<PublicProfileResponse>
-  >(`/users/${id}`);
+  >(`${END_POINTS.USERS_BY_ID}/${id}`);
   return response.data.data;
 };

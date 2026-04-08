@@ -7,13 +7,16 @@ import type {
 } from "@/types/LoginHistory";
 // others
 import axiosInstance from "@/libs/axios";
+import CONSTANTS from "@/constants";
+
+const { END_POINTS } = CONSTANTS;
 
 export const getMyLoginHistory = async (
   params?: LoginHistoryQueryParams
 ): Promise<PaginatedLoginHistoryResponse> => {
   const response = await axiosInstance.get<
     ResponsePattern<PaginatedLoginHistoryResponse>
-  >("/login-history", { params });
+  >(END_POINTS.LOGIN_HISTORY, { params });
   return response.data.data;
 };
 
@@ -22,6 +25,6 @@ export const getAdminLoginHistory = async (
 ): Promise<PaginatedAdminLoginHistoryResponse> => {
   const response = await axiosInstance.get<
     ResponsePattern<PaginatedAdminLoginHistoryResponse>
-  >("/admin/login-history", { params });
+  >(END_POINTS.ADMIN_LOGIN_HISTORY, { params });
   return response.data.data;
 };

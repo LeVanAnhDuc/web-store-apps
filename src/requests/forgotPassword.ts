@@ -8,12 +8,15 @@ import type {
 } from "@/types/ForgotPassword";
 // others
 import axiosInstance from "@/libs/axios";
+import CONSTANTS from "@/constants";
+
+const { END_POINTS } = CONSTANTS;
 
 export const sendForgotPasswordOtp = async (
   email: string
 ): Promise<SendOtpResponse> => {
   const response = await axiosInstance.post<ResponsePattern<SendOtpResponse>>(
-    "/auth/forgot-password/otp/send",
+    END_POINTS.AUTH_FORGOT_PASSWORD_OTP_SEND,
     { email }
   );
   return response.data.data;
@@ -24,7 +27,7 @@ export const verifyForgotPasswordOtp = async (
   otp: string
 ): Promise<VerifyOtpResponse> => {
   const response = await axiosInstance.post<ResponsePattern<VerifyOtpResponse>>(
-    "/auth/forgot-password/otp/verify",
+    END_POINTS.AUTH_FORGOT_PASSWORD_OTP_VERIFY,
     { email, otp }
   );
   return response.data.data;
@@ -35,7 +38,7 @@ export const sendForgotPasswordMagicLink = async (
 ): Promise<SendMagicLinkResponse> => {
   const response = await axiosInstance.post<
     ResponsePattern<SendMagicLinkResponse>
-  >("/auth/forgot-password/magic-link/send", { email });
+  >(END_POINTS.AUTH_FORGOT_PASSWORD_MAGIC_LINK_SEND, { email });
   return response.data.data;
 };
 
@@ -45,7 +48,7 @@ export const verifyForgotPasswordMagicLink = async (
 ): Promise<VerifyMagicLinkResponse> => {
   const response = await axiosInstance.post<
     ResponsePattern<VerifyMagicLinkResponse>
-  >("/auth/forgot-password/magic-link/verify", { email, token });
+  >(END_POINTS.AUTH_FORGOT_PASSWORD_MAGIC_LINK_VERIFY, { email, token });
   return response.data.data;
 };
 
@@ -56,6 +59,6 @@ export const forgotPasswordReset = async (
 ): Promise<ResetPasswordResponse> => {
   const response = await axiosInstance.post<
     ResponsePattern<ResetPasswordResponse>
-  >("/auth/forgot-password/reset", { email, resetToken, newPassword });
+  >(END_POINTS.AUTH_FORGOT_PASSWORD_RESET, { email, resetToken, newPassword });
   return response.data.data;
 };

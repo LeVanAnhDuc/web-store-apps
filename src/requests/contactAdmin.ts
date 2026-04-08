@@ -11,6 +11,9 @@ import type {
 } from "@/types/ContactAdmin";
 // others
 import axiosInstance from "@/libs/axios";
+import CONSTANTS from "@/constants";
+
+const { END_POINTS } = CONSTANTS;
 
 type SubmitContactResponse = {
   ticketNumber: string;
@@ -29,7 +32,7 @@ export const submitContact = async (
 
   const response = await axiosInstance.post<
     ResponsePattern<SubmitContactResponse>
-  >("/contact/submit", formData, {
+  >(END_POINTS.CONTACT_SUBMIT, formData, {
     headers: { "Content-Type": "multipart/form-data" }
   });
 
@@ -43,7 +46,7 @@ export const getAdminContact = async (
 ): Promise<PaginatedContactsResponse> => {
   const response = await axiosInstance.get<
     ResponsePattern<PaginatedContactsResponse>
-  >("/admin/contacts", { params });
+  >(END_POINTS.ADMIN_CONTACTS, { params });
   return response.data.data;
 };
 
@@ -51,7 +54,7 @@ export const getAdminContactDetail = async (
   id: string
 ): Promise<ContactDetailItem> => {
   const response = await axiosInstance.get<ResponsePattern<ContactDetailItem>>(
-    `/admin/contacts/${id}`
+    `${END_POINTS.ADMIN_CONTACTS}/${id}`
   );
   return response.data.data;
 };
@@ -60,14 +63,18 @@ export const updateContactStatus = async (
   id: string,
   status: ContactStatus
 ): Promise<void> => {
-  await axiosInstance.patch(`/admin/contacts/${id}/status`, { status });
+  await axiosInstance.patch(`${END_POINTS.ADMIN_CONTACTS}/${id}/status`, {
+    status
+  });
 };
 
 export const updateContactCategory = async (
   id: string,
   category: ContactCategory
 ): Promise<void> => {
-  await axiosInstance.patch(`/admin/contacts/${id}/category`, { category });
+  await axiosInstance.patch(`${END_POINTS.ADMIN_CONTACTS}/${id}/category`, {
+    category
+  });
 };
 
 export const getMyContacts = async (
@@ -75,6 +82,6 @@ export const getMyContacts = async (
 ): Promise<PaginatedUserContactsResponse> => {
   const response = await axiosInstance.get<
     ResponsePattern<PaginatedUserContactsResponse>
-  >("/auth/contacts/me", { params });
+  >(END_POINTS.AUTH_CONTACTS_ME, { params });
   return response.data.data;
 };

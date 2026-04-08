@@ -6,6 +6,9 @@ import type {
 } from "@/types/Login";
 // others
 import axiosInstance from "@/libs/axios";
+import CONSTANTS from "@/constants";
+
+const { END_POINTS } = CONSTANTS;
 
 export const loginWithPassword = async (
   email: string,
@@ -13,13 +16,13 @@ export const loginWithPassword = async (
 ): Promise<LoginTokenResponse> => {
   const response = await axiosInstance.post<
     ResponsePattern<LoginTokenResponse>
-  >("/auth/login", { email, password });
+  >(END_POINTS.AUTH_LOGIN, { email, password });
   return response.data.data;
 };
 
 export const sendLoginOtp = async (email: string): Promise<SendOtpResponse> => {
   const response = await axiosInstance.post<ResponsePattern<SendOtpResponse>>(
-    "/auth/login/otp/send",
+    END_POINTS.AUTH_LOGIN_OTP_SEND,
     { email }
   );
   return response.data.data;
@@ -31,7 +34,7 @@ export const verifyLoginOtp = async (
 ): Promise<LoginTokenResponse> => {
   const response = await axiosInstance.post<
     ResponsePattern<LoginTokenResponse>
-  >("/auth/login/otp/verify", { email, otp });
+  >(END_POINTS.AUTH_LOGIN_OTP_VERIFY, { email, otp });
   return response.data.data;
 };
 
@@ -40,7 +43,7 @@ export const sendLoginMagicLink = async (
 ): Promise<SendMagicLinkResponse> => {
   const response = await axiosInstance.post<
     ResponsePattern<SendMagicLinkResponse>
-  >("/auth/login/magic-link/send", { email });
+  >(END_POINTS.AUTH_LOGIN_MAGIC_LINK_SEND, { email });
   return response.data.data;
 };
 
@@ -50,6 +53,6 @@ export const verifyLoginMagicLink = async (
 ): Promise<LoginTokenResponse> => {
   const response = await axiosInstance.post<
     ResponsePattern<LoginTokenResponse>
-  >("/auth/login/magic-link/verify", { email, token });
+  >(END_POINTS.AUTH_LOGIN_MAGIC_LINK_VERIFY, { email, token });
   return response.data.data;
 };
