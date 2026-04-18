@@ -54,8 +54,7 @@ axiosInstance.interceptors.response.use(
 
     // Session expired
     if (error.response?.status === 401) {
-      const errorCode = (error.response.data as ErrorResponsePattern)?.error
-        ?.code;
+      const errorCode = (error.response.data as ErrorResponsePattern)?.code;
 
       if (
         originalRequest?.headers?.Authorization &&

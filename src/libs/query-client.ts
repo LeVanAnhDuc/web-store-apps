@@ -7,7 +7,7 @@ import { confirmErrorToast, errorToast } from "@/utils";
 const getErrorMessage = (error: Error): string => {
   if (isAxiosError<ErrorResponsePattern>(error)) {
     const status = error.response?.status;
-    const message = error.response?.data?.error?.message;
+    const message = error.response?.data?.message;
 
     const errorMapping: Record<number, string> = {
       400: message || "Bad request. Please check your input.",

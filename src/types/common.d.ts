@@ -5,19 +5,18 @@ interface ResponsePattern<T> {
   reasonStatusCode: string;
 }
 
-interface FieldError {
+interface ValidationErrorItem {
   field: string;
+  reason: string;
   message: string;
 }
 
 interface ErrorResponsePattern {
+  code: string;
+  message: string;
   timestamp: string;
-  route: string;
-  error: {
-    code: string;
-    message: string;
-    fields?: FieldError[];
-  };
+  path: string;
+  errors?: ValidationErrorItem[];
 }
 
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
