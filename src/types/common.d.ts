@@ -1,8 +1,22 @@
+interface PaginationMeta {
+  page: number;
+  pageSize: number;
+  totalItems: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
+}
+
+interface ResponseMeta {
+  pagination?: PaginationMeta;
+}
+
 interface ResponsePattern<T> {
-  data: T;
+  timestamp: string;
+  path: string;
   message: string;
-  status: number;
-  reasonStatusCode: string;
+  data: T;
+  meta?: ResponseMeta;
 }
 
 interface ValidationErrorItem {
