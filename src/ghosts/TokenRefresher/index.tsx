@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useAuthStore } from "@/stores";
 // requests
 import { refreshToken } from "@/requests/login";
+// others
+import { getTokenExpSeconds } from "@/utils";
 
 const REFRESH_BUFFER_SECONDS = 60;
 const CHECK_INTERVAL_MS = 30_000;
@@ -19,9 +21,11 @@ const TokenRefresher = () => {
       const currentTokens = useAuthStore.getState().tokens;
       if (!currentTokens?.accessToken) return null;
 
+      const expSeconds = getTokenExpSeconds(currentTokens.accessToken);
+      if (!expSeconds) return null;
+
       const nowSeconds = Date.now() / 1000;
-      if (currentTokens.expiresIn - nowSeconds >= REFRESH_BUFFER_SECONDS)
-        return null;
+      if (expSeconds - nowSeconds >= REFRESH_BUFFER_SECONDS) return null;
 
       const data = await refreshToken();
       useAuthStore.getState().setTokens(data);
