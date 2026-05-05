@@ -47,6 +47,7 @@
       "instruction": "Vui lòng nhập mã 6 chữ số được gửi đến email của bạn",
       "verifying": "Đang xác thực...",
       "resendSuccess": "Mã OTP đã được gửi lại!",
+      "sendError": "Không thể gửi mã OTP. Vui lòng thử lại.",
       "button": {
         "resend": "Gửi lại mã OTP",
         "resendIn": "Gửi lại sau {seconds}s",
@@ -56,17 +57,20 @@
     },
     "magicLink": {
       "title": "Kiểm tra email của bạn",
+      "titleVerifying": "Đang xác thực magic link...",
       "subtitle": "Đăng nhập qua magic link gửi đến email của bạn",
       "description": "Chúng tôi đã gửi magic link đến",
       "instruction": {
         "check": "Vui lòng kiểm tra hộp thư của bạn",
-        "detail": "Nhấp vào link trong email để đăng nhập ngay lập tức. Link này sẽ hết hạn sau 10 phút."
+        "detail": "Nhấp vào link trong email để đăng nhập ngay lập tức. Link này sẽ hết hạn sau {minutes} phút."
       },
       "hint": {
         "title": "Không thấy email?",
         "description": "Hãy kiểm tra thư mục spam hoặc thư rác"
       },
       "resendSuccess": "Magic link đã được gửi lại!",
+      "sendError": "Không thể gửi magic link. Vui lòng thử lại.",
+      "linkInvalid": "Magic link không hợp lệ hoặc đã hết hạn.",
       "button": {
         "resend": "Gửi lại magic link",
         "resendIn": "Gửi lại sau {seconds}s",
@@ -85,8 +89,10 @@
     "signedIn": "Đăng nhập thành công.",
     "sendingCode": "Đang gửi mã OTP...",
     "codeSent": "Mã OTP đã được gửi đến email của bạn.",
+    "codeSendError": "Không thể gửi mã OTP.",
     "sendingLink": "Đang gửi magic link...",
     "linkSent": "Magic link đã được gửi đến email của bạn.",
+    "linkSendError": "Không thể gửi magic link.",
     "verifying": "Đang xác thực...",
     "verifyingLink": "Đang xác thực magic link...",
     "linkInvalid": "Link không hợp lệ hoặc đã hết hạn. Đang chuyển về trang đăng nhập..."

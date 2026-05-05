@@ -5,12 +5,16 @@ import { redirect } from "next/navigation";
 import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import AlternativeOptions from "./mains/AlternativeOptions";
-import LoginOptionsInfo from "./components/LoginOptionsInfo";
+import LoginOptionMagicLink from "./mains/LoginOptionMagicLink";
+import LoginOptionOtp from "./mains/LoginOptionOtp";
+import LoginOptionPassword from "./mains/LoginOptionPassword";
+import LoginOptionContactAdmin from "./mains/LoginOptionContactAdmin";
+import LoginOptionsInfo from "./mains/LoginOptionsInfo";
 // others
 import CONSTANTS from "@/constants";
 
 const { LOGIN, LOGIN_ALTERNATIVE } = CONSTANTS.ROUTES;
+const ANIMATION_DELAY_STEP = 0.1;
 
 const LoginAlternative = async ({
   searchParams
@@ -28,14 +32,39 @@ const LoginAlternative = async ({
   const messages = await getMessages();
   const translations = messages.login as LoginMessages;
   const { form } = translations;
+  const { magicLink, otp, password, contactAdmin } = form.alternative;
 
   return (
     <AuthStepLayout title={form.titleChooseMethod} email={decodedEmail}>
-      <AlternativeOptions
-        email={decodedEmail}
-        currentPath={currentPath}
-        translations={translations}
-      />
+      <div className="space-y-5">
+        <LoginOptionMagicLink
+          email={decodedEmail}
+          title={magicLink.title}
+          description={magicLink.description}
+          errorMessage={form.magicLink.sendError}
+          delay={0}
+        />
+        <LoginOptionOtp
+          email={decodedEmail}
+          title={otp.title}
+          description={otp.description}
+          errorMessage={form.otp.sendError}
+          delay={ANIMATION_DELAY_STEP}
+        />
+        <LoginOptionPassword
+          email={decodedEmail}
+          title={password.title}
+          description={password.description}
+          delay={ANIMATION_DELAY_STEP * 2}
+        />
+        <LoginOptionContactAdmin
+          email={decodedEmail}
+          currentPath={currentPath}
+          title={contactAdmin.title}
+          description={contactAdmin.description}
+          delay={ANIMATION_DELAY_STEP * 3}
+        />
+      </div>
       <LoginOptionsInfo label={form.descriptionChooseMethod} />
     </AuthStepLayout>
   );

@@ -5,11 +5,16 @@ import { redirect } from "next/navigation";
 import type { ForgotPasswordMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
-import OptionsForm from "./mains/OptionsForm";
+import RecoveryOptionOtp from "./mains/RecoveryOptionOtp";
+import RecoveryOptionMagicLink from "./mains/RecoveryOptionMagicLink";
+import RecoveryOptionTwoFactor from "./mains/RecoveryOptionTwoFactor";
+import RecoveryOptionContactAdmin from "./mains/RecoveryOptionContactAdmin";
 // others
+import { Link } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
 const { LOGIN, FORGOT_PASSWORD } = CONSTANTS.ROUTES;
+const ANIMATION_DELAY_STEP = 0.1;
 
 const ForgotPassword = async ({
   searchParams
@@ -26,14 +31,52 @@ const ForgotPassword = async ({
 
   const messages = await getMessages();
   const translations = messages.forgotPassword as ForgotPasswordMessages;
+  const { description, otp, magicLink, twoFactor, contactAdmin, changeEmail } =
+    translations.form.options;
+  const { unavailable } = translations.badge;
+  const { otp: otpMessages, magicLink: magicLinkMessages } = translations.form;
 
   return (
     <AuthStepLayout email={decodedEmail}>
-      <OptionsForm
-        email={decodedEmail}
-        currentPath={currentPath}
-        translations={translations}
-      />
+      <div className="space-y-5">
+        <p className="text-muted-foreground text-center">{description}</p>
+        <RecoveryOptionOtp
+          email={decodedEmail}
+          title={otp.title}
+          description={otp.description}
+          errorMessage={otpMessages.sendError}
+          delay={0}
+        />
+        <RecoveryOptionMagicLink
+          email={decodedEmail}
+          title={magicLink.title}
+          description={magicLink.description}
+          errorMessage={magicLinkMessages.sendError}
+          delay={ANIMATION_DELAY_STEP}
+        />
+        <RecoveryOptionTwoFactor
+          title={twoFactor.title}
+          descriptionEnabled={twoFactor.descriptionEnabled}
+          descriptionDisabled={twoFactor.descriptionDisabled}
+          unavailableLabel={unavailable}
+          delay={ANIMATION_DELAY_STEP * 2}
+        />
+        <RecoveryOptionContactAdmin
+          email={decodedEmail}
+          currentPath={currentPath}
+          title={contactAdmin.title}
+          description={contactAdmin.description}
+          delay={ANIMATION_DELAY_STEP * 3}
+        />
+        <div className="text-center">
+          <Link
+            href={LOGIN}
+            className="text-primary text-sm transition-colors duration-200 hover:underline"
+          >
+            {changeEmail}
+          </Link>
+        </div>
+      </div>
     </AuthStepLayout>
   );
 };

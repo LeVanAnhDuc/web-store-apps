@@ -6,8 +6,6 @@ import type { ForgotPasswordMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import OtpStepForm from "./mains/OtpStepForm";
-// ghosts
-import SendOtpEffect from "./ghosts/SendOtpEffect";
 // others
 import CONSTANTS from "@/constants";
 
@@ -41,7 +39,6 @@ const ForgotPasswordOtp = async ({
         tryOtherHref={tryOtherHref}
         translations={translations}
       />
-      <SendOtpEffect email={decodedEmail} />
     </AuthStepLayout>
   );
 };

@@ -6,8 +6,6 @@ import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import OtpStepForm from "./mains/OtpStepForm";
-// ghosts
-import SendOtpEffect from "./ghosts/SendOtpEffect";
 // others
 import CONSTANTS from "@/constants";
 
@@ -44,7 +42,6 @@ const LoginOtp = async ({
         tryOtherHref={tryOtherHref}
         translations={translations}
       />
-      <SendOtpEffect email={decodedEmail} />
     </AuthStepLayout>
   );
 };

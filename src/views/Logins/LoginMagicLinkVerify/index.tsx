@@ -1,5 +1,8 @@
 // libs
+import { getMessages } from "next-intl/server";
 import { redirect } from "next/navigation";
+// types
+import type { LoginMessages } from "@/types/libs";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import { Spinner } from "@/components/ui/spinner";
@@ -23,8 +26,12 @@ const LoginMagicLinkVerify = async ({
 
   const decodedEmail = decodeURIComponent(email);
 
+  const messages = await getMessages();
+  const translations = messages.login as LoginMessages;
+  const { titleVerifying } = translations.form.magicLink;
+
   return (
-    <AuthStepLayout title="Verifying magic link..." email={decodedEmail}>
+    <AuthStepLayout title={titleVerifying} email={decodedEmail}>
       <div className="flex justify-center py-4">
         <Spinner className="size-8" />
       </div>

@@ -47,6 +47,7 @@
       "instruction": "Please enter the 6-digit code sent to your email",
       "verifying": "Verifying...",
       "resendSuccess": "OTP code has been resent!",
+      "sendError": "Failed to send OTP code. Please try again.",
       "button": {
         "resend": "Resend OTP code",
         "resendIn": "Resend in {seconds}s",
@@ -56,17 +57,20 @@
     },
     "magicLink": {
       "title": "Check your email",
+      "titleVerifying": "Verifying magic link...",
       "subtitle": "Sign in with a magic link sent to your email",
       "description": "We have sent a magic link to",
       "instruction": {
         "check": "Please check your inbox",
-        "detail": "Click the link in the email to sign in instantly. This link will expire in 10 minutes."
+        "detail": "Click the link in the email to sign in instantly. This link will expire in {minutes} minutes."
       },
       "hint": {
         "title": "Can't find the email?",
         "description": "Check your spam or junk folder"
       },
       "resendSuccess": "Magic link has been resent!",
+      "sendError": "Failed to send magic link. Please try again.",
+      "linkInvalid": "Magic link is invalid or expired.",
       "button": {
         "resend": "Resend magic link",
         "resendIn": "Resend in {seconds}s",
@@ -85,8 +89,10 @@
     "signedIn": "Signed in successfully.",
     "sendingCode": "Sending OTP code...",
     "codeSent": "OTP code sent to your email.",
+    "codeSendError": "Failed to send OTP code.",
     "sendingLink": "Sending magic link...",
     "linkSent": "Magic link sent to your email.",
+    "linkSendError": "Failed to send magic link.",
     "verifying": "Verifying...",
     "verifyingLink": "Verifying magic link...",
     "linkInvalid": "Link is invalid or expired. Redirecting to login..."

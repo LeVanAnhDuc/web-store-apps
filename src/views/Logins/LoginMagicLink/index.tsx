@@ -7,8 +7,6 @@ import type { LoginMessages } from "@/types/libs";
 import AuthStepLayout from "@/components/AuthStepLayout";
 import MagicLinkForm from "./mains/MagicLinkForm";
 import MagicLinkInstructions from "./components/MagicLinkInstructions";
-// ghosts
-import SendMagicLinkEffect from "./ghosts/SendMagicLinkEffect";
 // others
 import CONSTANTS from "@/constants";
 
@@ -35,13 +33,14 @@ const LoginMagicLink = async ({
 
   return (
     <AuthStepLayout description={magicLink.subtitle} email={decodedEmail}>
-      <MagicLinkInstructions translations={translations} />
+      <MagicLinkInstructions
+        minutes={CONSTANTS.LOGIN.MAGIC_LINK_EXPIRY_MINUTES}
+      />
       <MagicLinkForm
         email={decodedEmail}
         tryOtherHref={tryOtherHref}
         translations={translations}
       />
-      <SendMagicLinkEffect email={decodedEmail} />
     </AuthStepLayout>
   );
 };

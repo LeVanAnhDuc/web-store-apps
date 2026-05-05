@@ -1,19 +1,17 @@
 "use client";
 
 // libs
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 // types
 import type { DependencyList, EffectCallback } from "react";
+// hooks
+import useFirstMountState from "./useFirstMountState";
 
 const useUpdateEffect = (callback: EffectCallback, deps?: DependencyList) => {
-  const isFirstMount = useRef(true);
+  const isFirstMount = useFirstMountState();
 
   useEffect(() => {
-    if (isFirstMount.current) {
-      isFirstMount.current = false;
-      return;
-    }
-
+    if (isFirstMount) return;
     return callback();
   }, deps);
 };
