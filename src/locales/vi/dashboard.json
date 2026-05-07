@@ -24,8 +24,11 @@
   "sidebar": {
     "nav": {
       "home": "Trang chủ",
-      "recent": "Gần đây",
-      "history": "Lịch sử"
+      "discover": "Khám phá",
+      "apps": "Ứng dụng",
+      "loginHistory": "Lịch sử đăng nhập",
+      "favorites": "Yêu thích",
+      "recentlyUsed": "Sử dụng gần đây"
     },
     "starredApps": "Ứng dụng yêu thích",
     "categories": "Danh mục",

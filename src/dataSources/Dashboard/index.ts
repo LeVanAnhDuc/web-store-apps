@@ -11,8 +11,11 @@ import {
   ShoppingCart,
   Home,
   Wrench,
-  BarChart3,
-  Calendar
+  Compass,
+  LayoutGrid,
+  History,
+  Star,
+  Clock
 } from "lucide-react";
 
 export interface App {
@@ -60,8 +63,11 @@ export const CATEGORY_ICONS: Record<AppCategory, LucideIcon> = {
 
 export const NAV_ITEMS = [
   { key: "home", icon: Home },
-  { key: "recent", icon: Calendar },
-  { key: "history", icon: BarChart3 }
+  { key: "discover", icon: Compass },
+  { key: "apps", icon: LayoutGrid },
+  { key: "loginHistory", icon: History },
+  { key: "favorites", icon: Star },
+  { key: "recentlyUsed", icon: Clock }
 ] as const;
 
 export type NavKey = (typeof NAV_ITEMS)[number]["key"];

@@ -24,8 +24,11 @@
   "sidebar": {
     "nav": {
       "home": "Home",
-      "recent": "Recent",
-      "history": "History"
+      "discover": "Discover",
+      "apps": "Apps",
+      "loginHistory": "Login History",
+      "favorites": "Favorites",
+      "recentlyUsed": "Recently Used"
     },
     "starredApps": "Starred Apps",
     "categories": "Categories",
