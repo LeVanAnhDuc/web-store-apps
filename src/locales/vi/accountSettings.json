@@ -1,0 +1,67 @@
+{
+  "breadcrumb": {
+    "settings": "Cài đặt",
+    "current": "Cài đặt tài khoản"
+  },
+  "title": "Cài đặt tài khoản",
+  "description": "Quản lý bảo mật tài khoản và phiên đăng nhập",
+  "changePassword": {
+    "title": "Đổi mật khẩu",
+    "description": "Cập nhật mật khẩu dùng để đăng nhập vào tài khoản",
+    "fields": {
+      "currentPassword": "Mật khẩu hiện tại",
+      "newPassword": "Mật khẩu mới",
+      "confirmPassword": "Xác nhận mật khẩu mới"
+    },
+    "placeholders": {
+      "currentPassword": "Nhập mật khẩu hiện tại",
+      "newPassword": "Nhập mật khẩu mới",
+      "confirmPassword": "Nhập lại mật khẩu mới"
+    },
+    "buttons": {
+      "cancel": "Hủy",
+      "save": "Cập nhật mật khẩu"
+    },
+    "toast": {
+      "success": "Đã cập nhật mật khẩu thành công",
+      "error": "Không thể cập nhật mật khẩu"
+    },
+    "announce": {
+      "saving": "Đang cập nhật mật khẩu...",
+      "saved": "Đã cập nhật mật khẩu."
+    }
+  },
+  "twoFactor": {
+    "title": "Xác thực hai yếu tố",
+    "description": "Thêm lớp bảo mật cho tài khoản của bạn",
+    "subtitle": "Xác thực hai yếu tố đang {state}",
+    "stateOn": "bật",
+    "stateOff": "tắt",
+    "hint": "Sau khi bật, bạn sẽ phải nhập mã xác minh từ ứng dụng xác thực.",
+    "toggleLabel": "Xác thực hai yếu tố",
+    "announce": {
+      "enabled": "Đã bật xác thực hai yếu tố.",
+      "disabled": "Đã tắt xác thực hai yếu tố."
+    }
+  },
+  "sessions": {
+    "title": "Phiên đang hoạt động",
+    "description": "Các thiết bị đang đăng nhập vào tài khoản",
+    "active": "Đang hoạt động",
+    "buttons": {
+      "revoke": "Thu hồi"
+    },
+    "announce": {
+      "revoked": "Đã thu hồi phiên."
+    }
+  },
+  "dangerZone": {
+    "title": "Vùng nguy hiểm",
+    "description": "Các hành động không thể hoàn tác và mang tính phá hủy",
+    "deactivate": {
+      "title": "Vô hiệu hóa tài khoản",
+      "description": "Tạm thời vô hiệu hóa tài khoản. Bạn có thể kích hoạt lại bằng cách đăng nhập.",
+      "button": "Vô hiệu hóa"
+    }
+  }
+}

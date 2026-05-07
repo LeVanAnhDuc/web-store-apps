@@ -1,0 +1,67 @@
+{
+  "breadcrumb": {
+    "settings": "Settings",
+    "current": "Account Settings"
+  },
+  "title": "Account Settings",
+  "description": "Manage your account security and sessions",
+  "changePassword": {
+    "title": "Change Password",
+    "description": "Update the password used to sign in to your account",
+    "fields": {
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password"
+    },
+    "placeholders": {
+      "currentPassword": "Enter current password",
+      "newPassword": "Enter new password",
+      "confirmPassword": "Re-enter new password"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Update Password"
+    },
+    "toast": {
+      "success": "Password updated successfully",
+      "error": "Failed to update password"
+    },
+    "announce": {
+      "saving": "Updating password...",
+      "saved": "Password updated."
+    }
+  },
+  "twoFactor": {
+    "title": "Two-Factor Authentication",
+    "description": "Add an extra layer of security to your account",
+    "subtitle": "2FA is currently {state}",
+    "stateOn": "enabled",
+    "stateOff": "disabled",
+    "hint": "Once enabled, you will be asked for a verification code from your authenticator app.",
+    "toggleLabel": "Two-factor authentication",
+    "announce": {
+      "enabled": "Two-factor authentication enabled.",
+      "disabled": "Two-factor authentication disabled."
+    }
+  },
+  "sessions": {
+    "title": "Active Sessions",
+    "description": "Devices currently signed in to your account",
+    "active": "Active",
+    "buttons": {
+      "revoke": "Revoke"
+    },
+    "announce": {
+      "revoked": "Session revoked."
+    }
+  },
+  "dangerZone": {
+    "title": "Danger Zone",
+    "description": "Irreversible and destructive actions",
+    "deactivate": {
+      "title": "Deactivate Account",
+      "description": "Temporarily disable your account. You can reactivate by signing in again.",
+      "button": "Deactivate"
+    }
+  }
+}
