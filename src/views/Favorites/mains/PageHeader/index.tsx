@@ -1,6 +1,8 @@
 // libs
 import { Bookmark } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+// components
+import { Badge } from "@/components/ui/badge";
 // others
 import { FAVORITE_APPS_MOCK } from "@/mocks/Favorites";
 
@@ -14,12 +16,13 @@ const PageHeader = async () => {
         </h1>
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
-      <div className="flex items-center gap-1.5 rounded-full bg-indigo-50 px-4 py-2 text-indigo-600">
+      <Badge
+        variant="secondary"
+        className="rounded-full border-0 bg-indigo-50 px-4 py-2 text-xs font-semibold text-indigo-600"
+      >
         <Bookmark className="size-3.5" aria-hidden="true" />
-        <span className="text-xs font-semibold">
-          {t("savedBadge", { count: FAVORITE_APPS_MOCK.length })}
-        </span>
-      </div>
+        {t("savedBadge", { count: FAVORITE_APPS_MOCK.length })}
+      </Badge>
     </div>
   );
 };

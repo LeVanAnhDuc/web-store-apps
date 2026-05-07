@@ -1,5 +1,7 @@
 // types
 import type { ReactNode } from "react";
+// components
+import { Button } from "@/components/ui/button";
 // others
 import { cn } from "@/libs/utils";
 
@@ -16,11 +18,13 @@ const QuickAccessCard = ({
   gradient: string;
   lastOpenedLabel: string;
 }) => (
-  <button
+  <Button
     type="button"
+    variant="ghost"
+    size="default"
     aria-label={`${name}, ${lastOpenedLabel.replace("{time}", lastOpened)}`}
     className={cn(
-      "focus-visible:ring-ring flex h-[140px] cursor-pointer flex-col items-start gap-2.5 rounded-2xl p-5 text-left transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:outline-none",
+      "flex h-[140px] cursor-pointer flex-col items-start justify-start gap-2.5 rounded-2xl p-5 text-left whitespace-normal transition-opacity hover:opacity-90",
       gradient
     )}
   >
@@ -38,7 +42,7 @@ const QuickAccessCard = ({
     <span className="text-[11px] text-white/80" aria-hidden="true">
       {lastOpenedLabel.replace("{time}", lastOpened)}
     </span>
-  </button>
+  </Button>
 );
 
 export default QuickAccessCard;

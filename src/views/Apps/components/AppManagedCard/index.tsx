@@ -5,6 +5,7 @@ import type { LucideIcon } from "lucide-react";
 import type { AppStatus } from "@/mocks/Apps";
 // components
 import CustomButton from "@/components/CustomButton";
+import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 // others
 import { cn } from "@/libs/utils";
@@ -76,16 +77,17 @@ const AppManagedCard = ({
       <p className="text-muted-foreground line-clamp-2 text-[13px] leading-relaxed">
         {description}
       </p>
-      <span
+      <Badge
+        variant="secondary"
         className={cn(
-          "w-fit rounded-full px-2.5 py-0.5 text-[11px] font-semibold",
+          "rounded-full border-0 px-2.5 py-0.5 text-[11px] font-semibold",
           status === "published"
             ? "bg-green-100 text-green-600"
             : "bg-amber-100 text-amber-600"
         )}
       >
         {statusLabel}
-      </span>
+      </Badge>
     </div>
     <div className="border-border border-t" aria-hidden="true" />
     <div className="flex items-center justify-between px-5 py-3">

@@ -1,5 +1,7 @@
 // types
 import type { ReactNode } from "react";
+// components
+import { Badge } from "@/components/ui/badge";
 // others
 import { cn } from "@/libs/utils";
 
@@ -40,15 +42,16 @@ const StatCard = ({
     <span className="text-muted-foreground text-sm" aria-hidden="true">
       {label}
     </span>
-    <span
+    <Badge
+      variant="secondary"
       className={cn(
-        "w-fit rounded-full px-2 py-1 text-xs font-medium",
+        "w-fit rounded-full border-0 px-2 py-1 text-xs font-medium",
         badgeBg,
         badgeText
       )}
     >
       {badge}
-    </span>
+    </Badge>
   </div>
 );
 

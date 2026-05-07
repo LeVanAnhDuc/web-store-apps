@@ -8,6 +8,7 @@ import type { RecentApp, RecentGroupKey } from "@/mocks/RecentlyUsed";
 // components
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
+import { Badge } from "@/components/ui/badge";
 import RecentAppRow from "../../components/RecentAppRow";
 // hooks
 import useAnnounce from "@/hooks/useAnnounce";
@@ -110,9 +111,12 @@ const HistoryList = () => {
               >
                 {t(`groups.${group.key}`)}
               </h2>
-              <span className="bg-muted text-muted-foreground rounded-full px-2.5 py-0.5 text-[11px] font-semibold">
+              <Badge
+                variant="secondary"
+                className="bg-muted text-muted-foreground rounded-full border-0 px-2.5 py-0.5 text-[11px] font-semibold"
+              >
                 {t("groupCount", { count: group.apps.length })}
-              </span>
+              </Badge>
             </div>
             <ul className="flex flex-col gap-3">
               {group.apps.map((app) => (

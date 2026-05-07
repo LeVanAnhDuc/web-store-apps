@@ -17,6 +17,8 @@ import {
   Star,
   Clock
 } from "lucide-react";
+// others
+import CONSTANTS from "@/constants";
 
 export interface App {
   id: string;
@@ -62,12 +64,12 @@ export const CATEGORY_ICONS: Record<AppCategory, LucideIcon> = {
 };
 
 export const NAV_ITEMS = [
-  { key: "home", icon: Home, href: "/" },
-  { key: "discover", icon: Compass, href: "/discover" },
-  { key: "apps", icon: LayoutGrid, href: "/apps" },
-  { key: "loginHistory", icon: History, href: "/login-history" },
-  { key: "favorites", icon: Star, href: "/favorites" },
-  { key: "recentlyUsed", icon: Clock, href: "/recently-used" }
+  { key: "home", icon: Home, href: CONSTANTS.ROUTES.HOME },
+  { key: "discover", icon: Compass, href: CONSTANTS.ROUTES.DISCOVER },
+  { key: "apps", icon: LayoutGrid, href: CONSTANTS.ROUTES.APPS },
+  { key: "loginHistory", icon: History, href: CONSTANTS.ROUTES.LOGIN_HISTORY },
+  { key: "favorites", icon: Star, href: CONSTANTS.ROUTES.FAVORITES },
+  { key: "recentlyUsed", icon: Clock, href: CONSTANTS.ROUTES.RECENTLY_USED }
 ] as const;
 
 export type NavKey = (typeof NAV_ITEMS)[number]["key"];

@@ -3,6 +3,7 @@ import { BookOpen, ExternalLink } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 // components
 import CustomButton from "@/components/CustomButton";
+import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 
 const HeroSection = async () => {
@@ -13,9 +14,12 @@ const HeroSection = async () => {
       aria-labelledby="discover-hero-title"
     >
       <div className="flex flex-col gap-3.5">
-        <span className="w-fit rounded-full bg-white/20 px-3 py-1.5 text-[11px] font-bold tracking-widest text-white">
+        <Badge
+          variant="secondary"
+          className="w-fit rounded-full border-0 bg-white/20 px-3 py-1.5 text-[11px] font-bold tracking-widest text-white"
+        >
           {t("badge")}
-        </span>
+        </Badge>
         <h2
           id="discover-hero-title"
           className="text-3xl leading-tight font-extrabold"
