@@ -1,0 +1,31 @@
+{
+  "title": "Favorites",
+  "description": "Your bookmarked apps, always one click away.",
+  "savedBadge": "{count} saved",
+  "search": {
+    "placeholder": "Search favorites..."
+  },
+  "categories": {
+    "all": "All",
+    "productivity": "Productivity",
+    "entertainment": "Entertainment",
+    "developer": "Developer",
+    "lifestyle": "Lifestyle"
+  },
+  "sort": {
+    "label": "Sort: {value}",
+    "recent": "Recent",
+    "name": "Name",
+    "rating": "Rating"
+  },
+  "card": {
+    "open": "Open",
+    "reviews": "{count} reviews",
+    "remove": "Remove from favorites"
+  },
+  "announce": {
+    "categoryChanged": "Filtered favorites by {category}.",
+    "sortChanged": "Sorted by {sort}.",
+    "removed": "{name} removed from favorites."
+  }
+}

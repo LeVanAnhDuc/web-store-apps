@@ -1,0 +1,31 @@
+{
+  "title": "Yêu thích",
+  "description": "Các ứng dụng đã lưu, chỉ một cú nhấp.",
+  "savedBadge": "Đã lưu {count}",
+  "search": {
+    "placeholder": "Tìm trong yêu thích..."
+  },
+  "categories": {
+    "all": "Tất cả",
+    "productivity": "Năng suất",
+    "entertainment": "Giải trí",
+    "developer": "Lập trình",
+    "lifestyle": "Đời sống"
+  },
+  "sort": {
+    "label": "Sắp xếp: {value}",
+    "recent": "Gần đây",
+    "name": "Tên",
+    "rating": "Đánh giá"
+  },
+  "card": {
+    "open": "Mở",
+    "reviews": "{count} đánh giá",
+    "remove": "Xóa khỏi yêu thích"
+  },
+  "announce": {
+    "categoryChanged": "Đã lọc yêu thích theo {category}.",
+    "sortChanged": "Đã sắp xếp theo {sort}.",
+    "removed": "Đã xóa {name} khỏi yêu thích."
+  }
+}
