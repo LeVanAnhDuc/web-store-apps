@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 // types
 import type { App } from "@/dataSources/Dashboard";
+import type { AppNotification } from "@/types/Notification";
 
 export const APPS_DATA: App[] = [
   {
@@ -270,5 +271,54 @@ export const APPS_DATA: App[] = [
     colorClass: "text-muted-foreground",
     gradientClass: "from-muted to-muted/60",
     tags: ["system", "tools", "optimize"]
+  }
+];
+
+export const NOTIFICATIONS_MOCK: AppNotification[] = [
+  {
+    id: "1",
+    type: "comment",
+    avatar: {
+      kind: "initials",
+      initials: "JD",
+      gradientFrom: "#3B82F6",
+      gradientTo: "#8B5CF6"
+    },
+    title: "John Doe",
+    description: 'Commented on your post: "Great work on the new design!"',
+    time: "2 min ago",
+    isRead: false
+  },
+  {
+    id: "2",
+    type: "invite",
+    avatar: {
+      kind: "initials",
+      initials: "SM",
+      gradientFrom: "#10B981",
+      gradientTo: "#059669"
+    },
+    title: "Sarah Miller",
+    description: 'Invited you to collaborate on "Project Alpha"',
+    time: "15 min ago",
+    isRead: false
+  },
+  {
+    id: "3",
+    type: "system",
+    avatar: { kind: "system", bgColor: "#f5f5f5" },
+    title: "Task Completed",
+    description: 'Your export "Q4 Report" is ready to download',
+    time: "1 hour ago",
+    isRead: true
+  },
+  {
+    id: "4",
+    type: "alert",
+    avatar: { kind: "system", bgColor: "#FEF2F2" },
+    title: "Security Alert",
+    description: "New login detected from Chrome on Windows",
+    time: "2 hours ago",
+    isRead: false
   }
 ];

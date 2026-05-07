@@ -34,6 +34,14 @@
     "categories": "Categories",
     "allApps": "All Apps"
   },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all as read",
+    "all": "All",
+    "unread": "Unread",
+    "mentions": "Mentions",
+    "viewAll": "View all notifications"
+  },
   "sort": {
     "featured": "Featured",
     "rating": "Rating",

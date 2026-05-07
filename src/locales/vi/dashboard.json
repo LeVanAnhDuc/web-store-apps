@@ -34,6 +34,14 @@
     "categories": "Danh mục",
     "allApps": "Tất cả ứng dụng"
   },
+  "notifications": {
+    "title": "Thông báo",
+    "markAllRead": "Đánh dấu tất cả đã đọc",
+    "all": "Tất cả",
+    "unread": "Chưa đọc",
+    "mentions": "Đề cập",
+    "viewAll": "Xem tất cả thông báo"
+  },
   "sort": {
     "featured": "Nổi bật",
     "rating": "Đánh giá",
