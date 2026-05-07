@@ -1,0 +1,33 @@
+{
+  "title": "Discover Web Apps",
+  "description": "Browse all web apps you've built — blog, ecommerce, calendar, and more.",
+  "hero": {
+    "badge": "FEATURED APP",
+    "name": "My Personal Blog 2.0",
+    "description": "A modern Markdown-based blog with newsletter, comments, and dark mode support.",
+    "cta": "Open App"
+  },
+  "categories": {
+    "all": "All",
+    "productivity": "Productivity",
+    "entertainment": "Entertainment",
+    "education": "Education",
+    "tools": "Tools",
+    "lifestyle": "Lifestyle",
+    "developer": "Developer"
+  },
+  "featured": {
+    "title": "Featured Apps",
+    "seeAll": "See all"
+  },
+  "myApps": {
+    "title": "Apps",
+    "seeAll": "See all"
+  },
+  "card": {
+    "open": "Open"
+  },
+  "announce": {
+    "categoryChanged": "Filtered by {category}."
+  }
+}

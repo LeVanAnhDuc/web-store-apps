@@ -1,0 +1,33 @@
+{
+  "title": "Khám phá Web Apps",
+  "description": "Duyệt tất cả ứng dụng web bạn đã xây — blog, thương mại, lịch và nhiều hơn nữa.",
+  "hero": {
+    "badge": "ỨNG DỤNG NỔI BẬT",
+    "name": "Blog cá nhân 2.0",
+    "description": "Blog hiện đại dựa trên Markdown với newsletter, bình luận và chế độ tối.",
+    "cta": "Mở ứng dụng"
+  },
+  "categories": {
+    "all": "Tất cả",
+    "productivity": "Năng suất",
+    "entertainment": "Giải trí",
+    "education": "Giáo dục",
+    "tools": "Công cụ",
+    "lifestyle": "Đời sống",
+    "developer": "Lập trình"
+  },
+  "featured": {
+    "title": "Ứng dụng nổi bật",
+    "seeAll": "Xem tất cả"
+  },
+  "myApps": {
+    "title": "Ứng dụng",
+    "seeAll": "Xem tất cả"
+  },
+  "card": {
+    "open": "Mở"
+  },
+  "announce": {
+    "categoryChanged": "Đã lọc theo {category}."
+  }
+}
