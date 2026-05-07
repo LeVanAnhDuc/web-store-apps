@@ -50,8 +50,8 @@ export const FEATURED_APPS_MOCK: DiscoverApp[] = [
     description: "Markdown blog with newsletter, comments and dark mode.",
     rating: 4.8,
     icon: FileText,
-    iconColor: "text-indigo-500",
-    iconBg: "bg-indigo-50"
+    iconColor: "text-primary",
+    iconBg: "bg-primary/10"
   },
   {
     id: "f2",
@@ -60,8 +60,8 @@ export const FEATURED_APPS_MOCK: DiscoverApp[] = [
     description: "A lightweight storefront with cart and Stripe checkout.",
     rating: 4.6,
     icon: ShoppingCart,
-    iconColor: "text-amber-500",
-    iconBg: "bg-amber-50"
+    iconColor: "text-warning-foreground",
+    iconBg: "bg-warning/20"
   },
   {
     id: "f3",
@@ -70,8 +70,8 @@ export const FEATURED_APPS_MOCK: DiscoverApp[] = [
     description: "Beautiful calendar with events, reminders and sharing.",
     rating: 4.9,
     icon: Calendar,
-    iconColor: "text-emerald-600",
-    iconBg: "bg-emerald-50"
+    iconColor: "text-success",
+    iconBg: "bg-success/10"
   },
   {
     id: "f4",
@@ -80,8 +80,8 @@ export const FEATURED_APPS_MOCK: DiscoverApp[] = [
     description: "Stream and discover playlists from your favorite artists.",
     rating: 4.7,
     icon: Music,
-    iconColor: "text-violet-500",
-    iconBg: "bg-violet-50"
+    iconColor: "text-cream-foreground",
+    iconBg: "bg-cream"
   }
 ];
 
@@ -93,8 +93,8 @@ export const MY_APPS_MOCK: DiscoverApp[] = [
     description: "Kanban-style task manager with team collaboration.",
     rating: 4.5,
     icon: SquareCheckBig,
-    iconColor: "text-blue-600",
-    iconBg: "bg-blue-50"
+    iconColor: "text-info",
+    iconBg: "bg-info/10"
   },
   {
     id: "m2",
@@ -103,8 +103,8 @@ export const MY_APPS_MOCK: DiscoverApp[] = [
     description: "Save, organize and share your favorite cooking recipes.",
     rating: 4.4,
     icon: ChefHat,
-    iconColor: "text-red-500",
-    iconBg: "bg-red-50"
+    iconColor: "text-destructive",
+    iconBg: "bg-destructive/10"
   },
   {
     id: "m3",
@@ -113,8 +113,8 @@ export const MY_APPS_MOCK: DiscoverApp[] = [
     description: "Online courses, quizzes and progress tracking platform.",
     rating: 4.7,
     icon: GraduationCap,
-    iconColor: "text-green-600",
-    iconBg: "bg-green-50"
+    iconColor: "text-success",
+    iconBg: "bg-success/10"
   },
   {
     id: "m4",
@@ -123,7 +123,7 @@ export const MY_APPS_MOCK: DiscoverApp[] = [
     description: "Snippet manager, API tester and JSON formatter in one.",
     rating: 4.6,
     icon: Wrench,
-    iconColor: "text-cyan-600",
-    iconBg: "bg-cyan-50"
+    iconColor: "text-info",
+    iconBg: "bg-info/10"
   }
 ];

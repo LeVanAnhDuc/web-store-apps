@@ -36,28 +36,28 @@ export const QUICK_ACCESS_MOCK: QuickAccessItem[] = [
     name: "Personal Blog",
     lastOpened: "12 min ago",
     icon: FileText,
-    gradient: "bg-gradient-to-br from-indigo-500 to-indigo-400"
+    gradient: "bg-gradient-to-br from-primary to-primary/60"
   },
   {
     id: "2",
     name: "DevTools",
     lastOpened: "3 hrs ago",
     icon: Wrench,
-    gradient: "bg-gradient-to-br from-cyan-500 to-cyan-400"
+    gradient: "bg-gradient-to-br from-info to-info/60"
   },
   {
     id: "3",
     name: "Mini Shop",
     lastOpened: "5 hrs ago",
     icon: ShoppingCart,
-    gradient: "bg-gradient-to-br from-amber-500 to-amber-400"
+    gradient: "bg-gradient-to-br from-warning to-warning/60"
   },
   {
     id: "4",
     name: "Calendar Pro",
     lastOpened: "1 day ago",
     icon: Calendar,
-    gradient: "bg-gradient-to-br from-green-600 to-green-400"
+    gradient: "bg-gradient-to-br from-success to-success/60"
   }
 ];
 
@@ -68,8 +68,8 @@ export const RECOMMENDED_APPS_MOCK: RecommendedApp[] = [
     category: "Entertainment",
     rating: 4.7,
     icon: Music,
-    iconColor: "text-violet-500",
-    gradient: "bg-gradient-to-br from-purple-100 to-indigo-100"
+    iconColor: "text-cream-foreground",
+    gradient: "bg-gradient-to-br from-cream to-cream/60"
   },
   {
     id: "2",
@@ -77,8 +77,8 @@ export const RECOMMENDED_APPS_MOCK: RecommendedApp[] = [
     category: "Education",
     rating: 4.8,
     icon: GraduationCap,
-    iconColor: "text-green-600",
-    gradient: "bg-gradient-to-br from-green-100 to-cyan-100"
+    iconColor: "text-success",
+    gradient: "bg-gradient-to-br from-success/20 to-success/5"
   },
   {
     id: "3",
@@ -86,8 +86,8 @@ export const RECOMMENDED_APPS_MOCK: RecommendedApp[] = [
     category: "Lifestyle",
     rating: 4.5,
     icon: ChefHat,
-    iconColor: "text-red-600",
-    gradient: "bg-gradient-to-br from-red-100 to-amber-100"
+    iconColor: "text-destructive",
+    gradient: "bg-gradient-to-br from-destructive/20 to-warning/10"
   },
   {
     id: "4",
@@ -95,7 +95,7 @@ export const RECOMMENDED_APPS_MOCK: RecommendedApp[] = [
     category: "Productivity",
     rating: 4.6,
     icon: SquareCheckBig,
-    iconColor: "text-blue-600",
-    gradient: "bg-gradient-to-br from-blue-100 to-indigo-100"
+    iconColor: "text-info",
+    gradient: "bg-gradient-to-br from-info/20 to-info/5"
   }
 ];

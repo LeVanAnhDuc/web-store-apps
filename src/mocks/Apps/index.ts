@@ -39,8 +39,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     description:
       "Markdown blog with newsletter, comments and dark mode support.",
     icon: FileText,
-    iconColor: "text-indigo-500",
-    iconBg: "bg-indigo-50",
+    iconColor: "text-primary",
+    iconBg: "bg-primary/10",
     status: "published",
     views: "4.2K",
     date: "May 2, 2026"
@@ -52,8 +52,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     description:
       "A lightweight storefront with cart and Stripe checkout integration.",
     icon: ShoppingCart,
-    iconColor: "text-amber-500",
-    iconBg: "bg-amber-50",
+    iconColor: "text-warning-foreground",
+    iconBg: "bg-warning/20",
     status: "published",
     views: "8.9K",
     date: "Apr 18, 2026"
@@ -65,8 +65,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     description:
       "Beautiful calendar with events, reminders and sharing capabilities.",
     icon: Calendar,
-    iconColor: "text-emerald-600",
-    iconBg: "bg-emerald-50",
+    iconColor: "text-success",
+    iconBg: "bg-success/10",
     status: "draft",
     views: "1.1K",
     date: "May 5, 2026"
@@ -77,8 +77,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     category: "Entertainment",
     description: "Stream and discover playlists from your favorite artists.",
     icon: Music,
-    iconColor: "text-violet-500",
-    iconBg: "bg-violet-50",
+    iconColor: "text-cream-foreground",
+    iconBg: "bg-cream",
     status: "published",
     views: "3.7K",
     date: "Apr 15, 2026"
@@ -89,8 +89,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     category: "Productivity",
     description: "Kanban-style task manager with team collaboration features.",
     icon: SquareCheckBig,
-    iconColor: "text-blue-600",
-    iconBg: "bg-blue-50",
+    iconColor: "text-info",
+    iconBg: "bg-info/10",
     status: "published",
     views: "3.4K",
     date: "Apr 24, 2026"
@@ -101,8 +101,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     category: "Lifestyle",
     description: "Save, organize and share your favorite cooking recipes.",
     icon: ChefHat,
-    iconColor: "text-red-500",
-    iconBg: "bg-red-50",
+    iconColor: "text-destructive",
+    iconBg: "bg-destructive/10",
     status: "draft",
     views: "1.8K",
     date: "May 1, 2026"
@@ -113,8 +113,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     category: "Education",
     description: "Online courses, quizzes and progress tracking platform.",
     icon: GraduationCap,
-    iconColor: "text-green-600",
-    iconBg: "bg-green-50",
+    iconColor: "text-success",
+    iconBg: "bg-success/10",
     status: "published",
     views: "5.1K",
     date: "Feb 14, 2026"
@@ -125,8 +125,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     category: "Developer",
     description: "Snippet manager, API tester and JSON formatter in one.",
     icon: Wrench,
-    iconColor: "text-cyan-600",
-    iconBg: "bg-cyan-50",
+    iconColor: "text-info",
+    iconBg: "bg-info/10",
     status: "published",
     views: "2.6K",
     date: "Jan 30, 2026"
@@ -137,8 +137,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     category: "Lifestyle",
     description: "Beautiful photo gallery with albums, tags and sharing.",
     icon: ImageIcon,
-    iconColor: "text-purple-500",
-    iconBg: "bg-purple-50",
+    iconColor: "text-cream-foreground",
+    iconBg: "bg-cream",
     status: "published",
     views: "1.9K",
     date: "May 4, 2026"
@@ -149,8 +149,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     category: "Education",
     description: "Track books, share reviews and join reading challenges.",
     icon: BookOpen,
-    iconColor: "text-orange-500",
-    iconBg: "bg-orange-50",
+    iconColor: "text-warning-foreground",
+    iconBg: "bg-warning/20",
     status: "draft",
     views: "920",
     date: "Apr 8, 2026"
@@ -161,8 +161,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     category: "Career",
     description: "Showcase your projects, skills and experience to recruiters.",
     icon: Briefcase,
-    iconColor: "text-slate-600",
-    iconBg: "bg-slate-100",
+    iconColor: "text-muted-foreground",
+    iconBg: "bg-muted",
     status: "published",
     views: "2.4K",
     date: "Mar 20, 2026"
@@ -173,8 +173,8 @@ export const MANAGED_APPS_MOCK: ManagedApp[] = [
     category: "Creativity",
     description: "Lightweight photo editor with filters and one-click presets.",
     icon: Camera,
-    iconColor: "text-pink-500",
-    iconBg: "bg-pink-50",
+    iconColor: "text-destructive",
+    iconBg: "bg-destructive/10",
     status: "draft",
     views: "1.3K",
     date: "Apr 30, 2026"

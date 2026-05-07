@@ -27,10 +27,10 @@ export interface RecentApp {
 }
 
 export const RECENT_GROUP_DOTS: Record<RecentGroupKey, string> = {
-  today: "bg-green-500",
-  yesterday: "bg-amber-500",
-  thisWeek: "bg-slate-400",
-  earlier: "bg-slate-300"
+  today: "bg-success",
+  yesterday: "bg-warning",
+  thisWeek: "bg-muted-foreground",
+  earlier: "bg-muted-foreground/60"
 };
 
 export const RECENT_APPS_MOCK: RecentApp[] = [
@@ -41,8 +41,8 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "today",
     time: "12 minutes ago",
     icon: FileText,
-    iconColor: "text-indigo-500",
-    iconBg: "bg-indigo-50"
+    iconColor: "text-primary",
+    iconBg: "bg-primary/10"
   },
   {
     id: "ru2",
@@ -51,8 +51,8 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "today",
     time: "2 hours ago",
     icon: ShoppingBag,
-    iconColor: "text-amber-500",
-    iconBg: "bg-amber-50"
+    iconColor: "text-warning-foreground",
+    iconBg: "bg-warning/20"
   },
   {
     id: "ru3",
@@ -61,8 +61,8 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "today",
     time: "5 hours ago",
     icon: Code,
-    iconColor: "text-cyan-600",
-    iconBg: "bg-cyan-50"
+    iconColor: "text-info",
+    iconBg: "bg-info/10"
   },
   {
     id: "ru4",
@@ -71,8 +71,8 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "yesterday",
     time: "1 day ago",
     icon: CalendarDays,
-    iconColor: "text-green-600",
-    iconBg: "bg-green-50"
+    iconColor: "text-success",
+    iconBg: "bg-success/10"
   },
   {
     id: "ru5",
@@ -81,8 +81,8 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "yesterday",
     time: "1 day ago",
     icon: SquareCheckBig,
-    iconColor: "text-blue-600",
-    iconBg: "bg-blue-50"
+    iconColor: "text-info",
+    iconBg: "bg-info/10"
   },
   {
     id: "ru6",
@@ -91,8 +91,8 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "thisWeek",
     time: "3 days ago",
     icon: Music,
-    iconColor: "text-pink-600",
-    iconBg: "bg-pink-50"
+    iconColor: "text-destructive",
+    iconBg: "bg-destructive/10"
   },
   {
     id: "ru7",
@@ -101,8 +101,8 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "thisWeek",
     time: "4 days ago",
     icon: ChefHat,
-    iconColor: "text-red-500",
-    iconBg: "bg-red-50"
+    iconColor: "text-destructive",
+    iconBg: "bg-destructive/10"
   },
   {
     id: "ru8",
@@ -111,8 +111,8 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "thisWeek",
     time: "6 days ago",
     icon: GraduationCap,
-    iconColor: "text-indigo-600",
-    iconBg: "bg-indigo-50"
+    iconColor: "text-primary",
+    iconBg: "bg-primary/10"
   },
   {
     id: "ru9",
@@ -121,8 +121,8 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "earlier",
     time: "2 weeks ago",
     icon: ImageIcon,
-    iconColor: "text-purple-600",
-    iconBg: "bg-purple-50"
+    iconColor: "text-cream-foreground",
+    iconBg: "bg-cream"
   },
   {
     id: "ru10",
@@ -131,7 +131,7 @@ export const RECENT_APPS_MOCK: RecentApp[] = [
     group: "earlier",
     time: "3 weeks ago",
     icon: ShoppingBag,
-    iconColor: "text-amber-500",
-    iconBg: "bg-amber-50"
+    iconColor: "text-warning-foreground",
+    iconBg: "bg-warning/20"
   }
 ];

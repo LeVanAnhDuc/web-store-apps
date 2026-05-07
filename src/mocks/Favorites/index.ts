@@ -44,7 +44,7 @@ export const FAVORITE_APPS_MOCK: FavoriteApp[] = [
     rating: 4.7,
     reviews: "2.8K",
     icon: FileText,
-    iconBg: "bg-indigo-500"
+    iconBg: "bg-primary"
   },
   {
     id: "fv2",
@@ -54,7 +54,7 @@ export const FAVORITE_APPS_MOCK: FavoriteApp[] = [
     rating: 3.9,
     reviews: "1.2K",
     icon: ShoppingCart,
-    iconBg: "bg-emerald-500"
+    iconBg: "bg-success"
   },
   {
     id: "fv3",
@@ -64,7 +64,7 @@ export const FAVORITE_APPS_MOCK: FavoriteApp[] = [
     rating: 4.7,
     reviews: "2.1K",
     icon: Calendar,
-    iconBg: "bg-emerald-600"
+    iconBg: "bg-info"
   },
   {
     id: "fv4",
@@ -74,7 +74,7 @@ export const FAVORITE_APPS_MOCK: FavoriteApp[] = [
     rating: 4.5,
     reviews: "3.4K",
     icon: Music,
-    iconBg: "bg-pink-500"
+    iconBg: "bg-destructive"
   },
   {
     id: "fv5",
@@ -84,7 +84,7 @@ export const FAVORITE_APPS_MOCK: FavoriteApp[] = [
     rating: 4.5,
     reviews: "2.9K",
     icon: SquareCheckBig,
-    iconBg: "bg-blue-600"
+    iconBg: "bg-info/80"
   },
   {
     id: "fv6",
@@ -94,6 +94,6 @@ export const FAVORITE_APPS_MOCK: FavoriteApp[] = [
     rating: 4.1,
     reviews: "1.6K",
     icon: Wrench,
-    iconBg: "bg-slate-500"
+    iconBg: "bg-muted-foreground"
   }
 ];
