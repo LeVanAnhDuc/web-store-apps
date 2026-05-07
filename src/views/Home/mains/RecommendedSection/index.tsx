@@ -12,13 +12,21 @@ const RecommendedSection = async () => {
   const t = await getTranslations("home.recommended");
   const tCTA = await getTranslations("home.exploreCTA");
   return (
-    <section className="flex flex-col gap-4">
+    <section
+      className="flex flex-col gap-4"
+      aria-labelledby="recommended-title"
+    >
       <div className="flex items-center justify-between">
-        <h2 className="text-foreground text-lg font-bold">{t("title")}</h2>
+        <h2
+          id="recommended-title"
+          className="text-foreground text-lg font-bold"
+        >
+          {t("title")}
+        </h2>
         <CustomButton
           size="sm"
           variant="ghost"
-          iconRight={<ArrowRight className="size-3.5" />}
+          iconRight={<ArrowRight className="size-3.5" aria-hidden="true" />}
         >
           {t("seeAll")}
         </CustomButton>
@@ -32,7 +40,12 @@ const RecommendedSection = async () => {
               name={app.name}
               category={app.category}
               rating={app.rating}
-              icon={<Icon className={`size-10 ${app.iconColor}`} />}
+              icon={
+                <Icon
+                  className={`size-10 ${app.iconColor}`}
+                  aria-hidden="true"
+                />
+              }
               gradient={app.gradient}
               installLabel={t("install")}
               freeLabel={t("free")}
@@ -42,7 +55,10 @@ const RecommendedSection = async () => {
       </div>
       <Card className="mt-2 flex items-center justify-between gap-4 rounded-2xl border-0 bg-gradient-to-br from-slate-900 to-slate-800 p-7 text-white">
         <div className="flex items-center gap-4">
-          <div className="flex size-12 items-center justify-center rounded-xl bg-white/10">
+          <div
+            className="flex size-12 items-center justify-center rounded-xl bg-white/10"
+            aria-hidden="true"
+          >
             <Compass className="size-6 text-white" />
           </div>
           <div className="flex flex-col gap-0.5">
@@ -53,7 +69,7 @@ const RecommendedSection = async () => {
         <CustomButton
           size="sm"
           className="bg-white text-slate-900 hover:bg-white/90"
-          iconRight={<ArrowRight className="size-3.5" />}
+          iconRight={<ArrowRight className="size-3.5" aria-hidden="true" />}
         >
           {tCTA("cta")}
         </CustomButton>

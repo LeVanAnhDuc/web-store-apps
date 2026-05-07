@@ -17,6 +17,8 @@ const LoginStatCard = ({
   tone: "neutral" | "success" | "danger" | "info";
 }) => (
   <Card
+    role="group"
+    aria-label={`${label}: ${value}`}
     className={cn(
       "flex flex-row items-center gap-4 rounded-xl p-5",
       tone === "neutral" && "border-border bg-card",
@@ -33,10 +35,11 @@ const LoginStatCard = ({
         tone === "danger" && "bg-red-100 text-red-600",
         tone === "info" && "bg-blue-100 text-blue-600"
       )}
+      aria-hidden="true"
     >
       <Icon className="size-5" />
     </div>
-    <div className="flex flex-col gap-0.5">
+    <div className="flex flex-col gap-0.5" aria-hidden="true">
       <span
         className={cn(
           "text-2xl font-bold",

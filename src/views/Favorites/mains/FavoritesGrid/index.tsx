@@ -62,16 +62,21 @@ const FavoritesGrid = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center gap-3">
-        <div className="border-border bg-background flex h-10 w-72 items-center gap-2 rounded-lg border px-3">
-          <Search className="text-muted-foreground size-4" />
+        <label className="border-border bg-background flex h-10 w-72 items-center gap-2 rounded-lg border px-3">
+          <span className="sr-only">{t("search.placeholder")}</span>
+          <Search className="text-muted-foreground size-4" aria-hidden="true" />
           <CustomInput
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={t("search.placeholder")}
             className="h-9 border-0 bg-transparent px-1 shadow-none focus-visible:ring-0"
           />
-        </div>
-        <div className="flex flex-wrap gap-2">
+        </label>
+        <div
+          className="flex flex-wrap gap-2"
+          role="group"
+          aria-label={t("categories.all")}
+        >
           {FAVORITE_CATEGORIES.map((key) => {
             const isActive = category === key;
             return (
@@ -79,6 +84,7 @@ const FavoritesGrid = () => {
                 key={key}
                 size="sm"
                 onClick={() => handleCategory(key)}
+                aria-pressed={isActive}
                 className={cn(
                   "rounded-full border px-4 py-2 text-[13px] font-medium",
                   isActive
@@ -97,8 +103,12 @@ const FavoritesGrid = () => {
               <CustomButton
                 size="default"
                 variant="outline"
-                iconLeft={<ArrowUpDown className="size-3.5" />}
-                iconRight={<ChevronDown className="size-3.5" />}
+                iconLeft={
+                  <ArrowUpDown className="size-3.5" aria-hidden="true" />
+                }
+                iconRight={
+                  <ChevronDown className="size-3.5" aria-hidden="true" />
+                }
                 className="h-10"
               >
                 {t("sort.label", { value: t(`sort.${sort}`) })}

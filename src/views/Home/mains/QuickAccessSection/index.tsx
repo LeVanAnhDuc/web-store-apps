@@ -8,10 +8,18 @@ import { QUICK_ACCESS_MOCK } from "@/mocks/Home";
 const QuickAccessSection = async () => {
   const t = await getTranslations("home.quickAccess");
   return (
-    <section className="flex flex-col gap-4">
+    <section
+      className="flex flex-col gap-4"
+      aria-labelledby="quick-access-title"
+    >
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-foreground text-lg font-bold">{t("title")}</h2>
+          <h2
+            id="quick-access-title"
+            className="text-foreground text-lg font-bold"
+          >
+            {t("title")}
+          </h2>
           <p className="text-muted-foreground text-sm">{t("subtitle")}</p>
         </div>
       </div>
@@ -23,7 +31,7 @@ const QuickAccessSection = async () => {
               key={item.id}
               name={item.name}
               lastOpened={item.lastOpened}
-              icon={<Icon className="size-5 text-white" />}
+              icon={<Icon className="size-5 text-white" aria-hidden="true" />}
               gradient={item.gradient}
               lastOpenedLabel={t("lastOpened")}
             />

@@ -20,17 +20,26 @@ const StatCard = ({
   badgeBg: string;
   badgeText: string;
 }) => (
-  <div className="bg-card border-border flex flex-col gap-3 rounded-2xl border p-5">
+  <div
+    className="bg-card border-border flex flex-col gap-3 rounded-2xl border p-5"
+    role="group"
+    aria-label={`${label}: ${value}`}
+  >
     <div
       className={cn(
         "flex size-11 items-center justify-center rounded-xl",
         iconBg
       )}
+      aria-hidden="true"
     >
       {icon}
     </div>
-    <span className="text-foreground text-3xl font-bold">{value}</span>
-    <span className="text-muted-foreground text-sm">{label}</span>
+    <span className="text-foreground text-3xl font-bold" aria-hidden="true">
+      {value}
+    </span>
+    <span className="text-muted-foreground text-sm" aria-hidden="true">
+      {label}
+    </span>
     <span
       className={cn(
         "w-fit rounded-full px-2 py-1 text-xs font-medium",

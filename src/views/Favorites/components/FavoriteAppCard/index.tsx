@@ -31,7 +31,10 @@ const FavoriteAppCard = ({
   removeLabel: string;
   onRemove: () => void;
 }) => (
-  <Card className="flex flex-col overflow-hidden rounded-xl border p-0">
+  <Card
+    className="flex flex-col overflow-hidden rounded-xl border p-0"
+    aria-labelledby={`fav-${name}-title`}
+  >
     <div className="flex flex-col gap-3 p-5">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
@@ -40,40 +43,55 @@ const FavoriteAppCard = ({
               "flex size-12 items-center justify-center rounded-lg",
               iconBg
             )}
+            aria-hidden="true"
           >
             <Icon className="size-6 text-white" />
           </div>
           <div className="flex flex-col gap-0.5">
-            <span className="text-foreground text-[15px] font-semibold">
+            <h3
+              id={`fav-${name}-title`}
+              className="text-foreground text-[15px] font-semibold"
+            >
               {name}
-            </span>
+            </h3>
             <span className="text-muted-foreground text-xs">{category}</span>
           </div>
         </div>
         <CustomButton
           size="icon-sm"
           variant="ghost"
-          aria-label={removeLabel}
+          aria-label={`${removeLabel}: ${name}`}
+          aria-pressed="true"
           onClick={onRemove}
           className="text-red-500 hover:bg-red-50 hover:text-red-600"
         >
-          <Heart className="size-5 fill-red-500" />
+          <Heart className="size-5 fill-red-500" aria-hidden="true" />
         </CustomButton>
       </div>
       <p className="text-muted-foreground text-[13px]">{description}</p>
     </div>
-    <div className="border-border border-t" />
+    <div className="border-border border-t" aria-hidden="true" />
     <div className="flex items-center justify-between px-5 py-3">
       <div className="flex items-center gap-2 text-xs">
         <div className="flex items-center gap-1">
-          <Star className="size-3.5 fill-amber-400 text-amber-400" />
-          <span className="text-foreground font-semibold">{rating}</span>
+          <Star
+            className="size-3.5 fill-amber-400 text-amber-400"
+            aria-hidden="true"
+          />
+          <span className="text-foreground font-semibold">
+            <span className="sr-only">Rating: </span>
+            {rating}
+          </span>
         </div>
-        <span className="text-muted-foreground">· {reviewsLabel}</span>
+        <span aria-hidden="true" className="text-muted-foreground">
+          ·
+        </span>
+        <span className="text-muted-foreground">{reviewsLabel}</span>
       </div>
       <CustomButton
         size="sm"
         className="bg-indigo-600 text-white hover:bg-indigo-700"
+        aria-label={`${openLabel} ${name}`}
       >
         {openLabel}
       </CustomButton>

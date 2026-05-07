@@ -36,7 +36,10 @@ const AppManagedCard = ({
   openLabel: string;
   menuLabel: string;
 }) => (
-  <Card className="flex flex-col overflow-hidden rounded-2xl border p-0">
+  <Card
+    className="flex flex-col overflow-hidden rounded-2xl border p-0"
+    aria-labelledby={`apps-${name}-title`}
+  >
     <div className="flex flex-col gap-3.5 p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
@@ -45,13 +48,17 @@ const AppManagedCard = ({
               "flex size-12 shrink-0 items-center justify-center rounded-xl",
               iconBg
             )}
+            aria-hidden="true"
           >
             <Icon className={cn("size-6", iconColor)} />
           </div>
           <div className="flex min-w-0 flex-col gap-0.5">
-            <span className="text-foreground truncate text-[15px] font-bold">
+            <h3
+              id={`apps-${name}-title`}
+              className="text-foreground truncate text-[15px] font-bold"
+            >
               {name}
-            </span>
+            </h3>
             <span className="text-muted-foreground text-xs font-medium">
               {category}
             </span>
@@ -60,10 +67,10 @@ const AppManagedCard = ({
         <CustomButton
           size="icon-sm"
           variant="ghost"
-          aria-label={menuLabel}
+          aria-label={`${menuLabel} for ${name}`}
           className="text-muted-foreground -m-1 size-8"
         >
-          <EllipsisVertical className="size-4" />
+          <EllipsisVertical className="size-4" aria-hidden="true" />
         </CustomButton>
       </div>
       <p className="text-muted-foreground line-clamp-2 text-[13px] leading-relaxed">
@@ -80,22 +87,29 @@ const AppManagedCard = ({
         {statusLabel}
       </span>
     </div>
-    <div className="border-border border-t" />
+    <div className="border-border border-t" aria-hidden="true" />
     <div className="flex items-center justify-between px-5 py-3">
       <div className="text-muted-foreground flex items-center gap-3 text-xs">
         <div className="flex items-center gap-1">
-          <Eye className="size-3.5" />
-          <span className="font-medium">{views}</span>
+          <Eye className="size-3.5" aria-hidden="true" />
+          <span className="font-medium">
+            <span className="sr-only">Views: </span>
+            {views}
+          </span>
         </div>
         <div className="flex items-center gap-1">
-          <Calendar className="size-3.5" />
-          <span className="font-medium">{date}</span>
+          <Calendar className="size-3.5" aria-hidden="true" />
+          <span className="font-medium">
+            <span className="sr-only">Updated: </span>
+            {date}
+          </span>
         </div>
       </div>
       <CustomButton
         size="sm"
         className="bg-slate-900 text-white hover:bg-slate-800"
-        iconRight={<ArrowUpRight className="size-3" />}
+        iconRight={<ArrowUpRight className="size-3" aria-hidden="true" />}
+        aria-label={`${openLabel} ${name}`}
       >
         {openLabel}
       </CustomButton>

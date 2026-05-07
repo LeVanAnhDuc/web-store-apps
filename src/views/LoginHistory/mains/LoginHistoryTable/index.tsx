@@ -107,33 +107,58 @@ const LoginHistoryTable = () => {
   return (
     <div className="bg-card flex flex-col overflow-hidden rounded-xl border">
       <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-4">
-        <h2 className="text-foreground text-base font-semibold">
+        <h2
+          id="login-history-table-title"
+          className="text-foreground text-base font-semibold"
+        >
           {tHeader("title")}
         </h2>
-        <span className="text-muted-foreground text-xs">
+        <span className="text-muted-foreground text-xs" aria-live="polite">
           {tHeader("summary", { start, end, total })}
         </span>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+        <table
+          className="w-full text-sm"
+          aria-labelledby="login-history-table-title"
+        >
+          <caption className="sr-only">{tHeader("title")}</caption>
           <thead>
             <tr className="bg-muted/50 border-y">
-              <th className="text-muted-foreground px-4 py-3 text-left text-xs font-semibold tracking-wide uppercase">
+              <th
+                scope="col"
+                className="text-muted-foreground px-4 py-3 text-left text-xs font-semibold tracking-wide uppercase"
+              >
                 {tTable("createdAt")}
               </th>
-              <th className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase">
+              <th
+                scope="col"
+                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
+              >
                 {tTable("method")}
               </th>
-              <th className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase">
+              <th
+                scope="col"
+                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
+              >
                 {tTable("status")}
               </th>
-              <th className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase">
+              <th
+                scope="col"
+                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
+              >
                 {tTable("deviceType")}
               </th>
-              <th className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase">
+              <th
+                scope="col"
+                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
+              >
                 {tTable("ip")}
               </th>
-              <th className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase">
+              <th
+                scope="col"
+                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
+              >
                 {tTable("country")}
               </th>
             </tr>
@@ -177,6 +202,7 @@ const LoginHistoryTable = () => {
                             ? "bg-green-600"
                             : "bg-red-600"
                         )}
+                        aria-hidden="true"
                       />
                       <span
                         className={cn(
@@ -210,7 +236,10 @@ const LoginHistoryTable = () => {
         </table>
       </div>
       {meta && totalPages > 1 && (
-        <div className="bg-muted/30 flex flex-wrap items-center justify-between gap-2 border-t px-5 py-3">
+        <nav
+          className="bg-muted/30 flex flex-wrap items-center justify-between gap-2 border-t px-5 py-3"
+          aria-label="Login history pagination"
+        >
           <span className="text-muted-foreground text-xs font-medium">
             Page {page} of {totalPages}
           </span>
@@ -220,15 +249,16 @@ const LoginHistoryTable = () => {
               variant="outline"
               disabled={page <= 1}
               onClick={() => handleGoToPage(page - 1)}
-              aria-label="Previous"
+              aria-label="Previous page"
             >
-              <ChevronLeft className="size-4" />
+              <ChevronLeft className="size-4" aria-hidden="true" />
             </CustomButton>
             {pageNumbers.map((num, idx) =>
               num === "dots" ? (
                 <span
                   key={`dots-${idx}`}
                   className="text-muted-foreground px-1 text-xs"
+                  aria-hidden="true"
                 >
                   …
                 </span>
@@ -237,6 +267,8 @@ const LoginHistoryTable = () => {
                   key={num}
                   size="icon-sm"
                   onClick={() => handleGoToPage(num)}
+                  aria-label={`Page ${num}`}
+                  aria-current={num === page ? "page" : undefined}
                   className={cn(
                     num === page
                       ? "bg-indigo-600 text-white hover:bg-indigo-700"
@@ -252,12 +284,12 @@ const LoginHistoryTable = () => {
               variant="outline"
               disabled={page >= totalPages}
               onClick={() => handleGoToPage(page + 1)}
-              aria-label="Next"
+              aria-label="Next page"
             >
-              <ChevronRight className="size-4" />
+              <ChevronRight className="size-4" aria-hidden="true" />
             </CustomButton>
           </div>
-        </div>
+        </nav>
       )}
     </div>
   );

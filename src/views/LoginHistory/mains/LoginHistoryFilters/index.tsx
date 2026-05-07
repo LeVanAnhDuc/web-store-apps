@@ -53,13 +53,18 @@ const LoginHistoryFilters = () => {
         ? tStatus("failed")
         : tToolbar("allStatus");
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div
+      className="flex flex-wrap items-center gap-3"
+      role="toolbar"
+      aria-label={t("title")}
+    >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <CustomButton
             size="default"
             variant="outline"
-            iconRight={<ChevronDown className="size-3.5" />}
+            aria-label={`${tFilter("method")}: ${methodLabel}`}
+            iconRight={<ChevronDown className="size-3.5" aria-hidden="true" />}
             className="h-10"
           >
             {methodLabel}
@@ -90,7 +95,8 @@ const LoginHistoryFilters = () => {
           <CustomButton
             size="default"
             variant="outline"
-            iconRight={<ChevronDown className="size-3.5" />}
+            aria-label={`${tFilter("status")}: ${statusLabel}`}
+            iconRight={<ChevronDown className="size-3.5" aria-hidden="true" />}
             className="h-10"
           >
             {statusLabel}
@@ -111,23 +117,23 @@ const LoginHistoryFilters = () => {
       <CustomButton
         size="default"
         variant="outline"
-        iconLeft={<Calendar className="size-3.5" />}
-        iconRight={<ChevronDown className="size-3.5" />}
+        iconLeft={<Calendar className="size-3.5" aria-hidden="true" />}
+        iconRight={<ChevronDown className="size-3.5" aria-hidden="true" />}
         className="h-10"
       >
         {tToolbar("last30days")}
       </CustomButton>
-      <div className="border-border bg-background ml-auto flex h-10 w-56 items-center gap-2 rounded-lg border px-3">
-        <Search className="text-muted-foreground size-4" />
+      <label className="border-border bg-background ml-auto flex h-10 w-56 items-center gap-2 rounded-lg border px-3">
+        <span className="sr-only">{tToolbar("search")}</span>
+        <Search className="text-muted-foreground size-4" aria-hidden="true" />
         <CustomInput
           placeholder={tToolbar("search")}
-          aria-label={t("title")}
           className="h-9 border-0 bg-transparent px-1 shadow-none focus-visible:ring-0"
         />
-      </div>
+      </label>
       <CustomButton
         size="default"
-        iconLeft={<Download className="size-3.5" />}
+        iconLeft={<Download className="size-3.5" aria-hidden="true" />}
         className="h-10 bg-slate-900 text-white hover:bg-slate-800"
       >
         {tToolbar("export")}

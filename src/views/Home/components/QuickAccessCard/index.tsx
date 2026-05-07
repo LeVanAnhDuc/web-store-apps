@@ -16,22 +16,29 @@ const QuickAccessCard = ({
   gradient: string;
   lastOpenedLabel: string;
 }) => (
-  <div
+  <button
+    type="button"
+    aria-label={`${name}, ${lastOpenedLabel.replace("{time}", lastOpened)}`}
     className={cn(
-      "flex h-[140px] cursor-pointer flex-col gap-2.5 rounded-2xl p-5 transition-opacity hover:opacity-90",
+      "focus-visible:ring-ring flex h-[140px] cursor-pointer flex-col items-start gap-2.5 rounded-2xl p-5 text-left transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:outline-none",
       gradient
     )}
   >
     <div className="flex items-center justify-between">
-      <div className="flex size-10 items-center justify-center rounded-xl bg-white/15">
+      <div
+        className="flex size-10 items-center justify-center rounded-xl bg-white/15"
+        aria-hidden="true"
+      >
         {icon}
       </div>
     </div>
-    <span className="text-base font-bold text-white">{name}</span>
-    <span className="text-[11px] text-white/80">
+    <span className="text-base font-bold text-white" aria-hidden="true">
+      {name}
+    </span>
+    <span className="text-[11px] text-white/80" aria-hidden="true">
       {lastOpenedLabel.replace("{time}", lastOpened)}
     </span>
-  </div>
+  </button>
 );
 
 export default QuickAccessCard;

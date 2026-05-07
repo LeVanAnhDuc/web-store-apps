@@ -34,7 +34,11 @@ const AppsBrowser = () => {
   const myApps = filterApps(MY_APPS_MOCK);
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-wrap gap-2.5">
+      <div
+        className="flex flex-wrap gap-2.5"
+        role="group"
+        aria-label={t("categories.all")}
+      >
         {DISCOVER_CATEGORIES.map((key) => {
           const isActive = active === key;
           return (
@@ -42,6 +46,7 @@ const AppsBrowser = () => {
               key={key}
               size="sm"
               onClick={() => handleSelect(key)}
+              aria-pressed={isActive}
               className={cn(
                 "rounded-full border px-4 py-2 text-[13px] font-semibold",
                 isActive
@@ -54,15 +59,21 @@ const AppsBrowser = () => {
           );
         })}
       </div>
-      <section className="flex flex-col gap-4">
+      <section
+        className="flex flex-col gap-4"
+        aria-labelledby="discover-featured-title"
+      >
         <div className="flex items-center justify-between">
-          <h2 className="text-foreground text-xl font-bold">
+          <h2
+            id="discover-featured-title"
+            className="text-foreground text-xl font-bold"
+          >
             {t("featured.title")}
           </h2>
           <CustomButton
             size="sm"
             variant="ghost"
-            iconRight={<ArrowRight className="size-3.5" />}
+            iconRight={<ArrowRight className="size-3.5" aria-hidden="true" />}
           >
             {t("featured.seeAll")}
           </CustomButton>
@@ -83,15 +94,21 @@ const AppsBrowser = () => {
           ))}
         </div>
       </section>
-      <section className="flex flex-col gap-4">
+      <section
+        className="flex flex-col gap-4"
+        aria-labelledby="discover-myapps-title"
+      >
         <div className="flex items-center justify-between">
-          <h2 className="text-foreground text-xl font-bold">
+          <h2
+            id="discover-myapps-title"
+            className="text-foreground text-xl font-bold"
+          >
             {t("myApps.title")}
           </h2>
           <CustomButton
             size="sm"
             variant="ghost"
-            iconRight={<ArrowRight className="size-3.5" />}
+            iconRight={<ArrowRight className="size-3.5" aria-hidden="true" />}
           >
             {t("myApps.seeAll")}
           </CustomButton>

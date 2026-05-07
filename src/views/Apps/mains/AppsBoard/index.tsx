@@ -58,28 +58,37 @@ const AppsBoard = () => {
     <div className="flex flex-col gap-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="border-border bg-background relative flex h-10 w-72 items-center rounded-lg border px-3">
-            <Search className="text-muted-foreground size-4" />
+          <label className="border-border bg-background relative flex h-10 w-72 items-center rounded-lg border px-3">
+            <span className="sr-only">{t("search.placeholder")}</span>
+            <Search
+              className="text-muted-foreground size-4"
+              aria-hidden="true"
+            />
             <CustomInput
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder={t("search.placeholder")}
               className="h-9 border-0 bg-transparent px-2 shadow-none focus-visible:ring-0"
             />
-          </div>
+          </label>
           <CustomButton
             size="default"
             variant="outline"
-            iconLeft={<Filter className="size-4" />}
+            iconLeft={<Filter className="size-4" aria-hidden="true" />}
             className="h-10"
           >
             {t("search.filter")}
           </CustomButton>
         </div>
-        <div className="flex items-center gap-1.5">
+        <div
+          className="flex items-center gap-1.5"
+          role="group"
+          aria-label={t("view.grid")}
+        >
           <CustomButton
             size="icon"
             aria-label={t("view.grid")}
+            aria-pressed={view === "grid"}
             onClick={() => handleViewChange("grid")}
             className={cn(
               "size-10",
@@ -88,11 +97,12 @@ const AppsBoard = () => {
                 : "border-border bg-background hover:bg-muted text-muted-foreground border"
             )}
           >
-            <LayoutGrid className="size-4" />
+            <LayoutGrid className="size-4" aria-hidden="true" />
           </CustomButton>
           <CustomButton
             size="icon"
             aria-label={t("view.list")}
+            aria-pressed={view === "list"}
             onClick={() => handleViewChange("list")}
             className={cn(
               "size-10",
@@ -101,7 +111,7 @@ const AppsBoard = () => {
                 : "border-border bg-background hover:bg-muted text-muted-foreground border"
             )}
           >
-            <List className="size-4" />
+            <List className="size-4" aria-hidden="true" />
           </CustomButton>
         </div>
       </div>
@@ -131,7 +141,10 @@ const AppsBoard = () => {
           />
         ))}
       </div>
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <nav
+        className="flex flex-wrap items-center justify-between gap-3"
+        aria-label={t("pagination.next")}
+      >
         <span className="text-muted-foreground text-sm font-medium">
           {t("pagination.summary", {
             shown: paged.length,
@@ -146,7 +159,7 @@ const AppsBoard = () => {
             onClick={() => handlePageChange(safePage - 1)}
             disabled={safePage <= 1}
           >
-            <ChevronLeft className="size-4" />
+            <ChevronLeft className="size-4" aria-hidden="true" />
           </CustomButton>
           {Array.from({ length: totalPages }).map((_, idx) => {
             const num = idx + 1;
@@ -156,6 +169,8 @@ const AppsBoard = () => {
                 key={num}
                 size="icon-sm"
                 onClick={() => handlePageChange(num)}
+                aria-label={`Page ${num}`}
+                aria-current={isActive ? "page" : undefined}
                 className={cn(
                   isActive
                     ? "bg-slate-900 text-white hover:bg-slate-800"
@@ -173,10 +188,10 @@ const AppsBoard = () => {
             onClick={() => handlePageChange(safePage + 1)}
             disabled={safePage >= totalPages}
           >
-            <ChevronRight className="size-4" />
+            <ChevronRight className="size-4" aria-hidden="true" />
           </CustomButton>
         </div>
-      </div>
+      </nav>
     </div>
   );
 };

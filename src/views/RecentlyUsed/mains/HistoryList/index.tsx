@@ -65,19 +65,23 @@ const HistoryList = () => {
           <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
         <div className="flex items-center gap-2.5">
-          <div className="border-border bg-background flex h-10 w-64 items-center gap-2 rounded-lg border px-3">
-            <Search className="text-muted-foreground size-4" />
+          <label className="border-border bg-background flex h-10 w-64 items-center gap-2 rounded-lg border px-3">
+            <span className="sr-only">{t("search.placeholder")}</span>
+            <Search
+              className="text-muted-foreground size-4"
+              aria-hidden="true"
+            />
             <CustomInput
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder={t("search.placeholder")}
               className="h-9 border-0 bg-transparent px-1 shadow-none focus-visible:ring-0"
             />
-          </div>
+          </label>
           <CustomButton
             size="default"
             variant="outline"
-            iconLeft={<Trash2 className="size-3.5" />}
+            iconLeft={<Trash2 className="size-3.5" aria-hidden="true" />}
             onClick={handleClear}
             className="border-border h-10 text-red-500 hover:text-red-600"
           >
@@ -87,35 +91,44 @@ const HistoryList = () => {
       </div>
       <div className="flex flex-col gap-7">
         {grouped.map((group) => (
-          <section key={group.key} className="flex flex-col gap-3">
+          <section
+            key={group.key}
+            className="flex flex-col gap-3"
+            aria-labelledby={`recent-group-${group.key}`}
+          >
             <div className="flex items-center gap-2.5">
               <span
                 className={cn(
                   "size-2 rounded-full",
                   RECENT_GROUP_DOTS[group.key]
                 )}
+                aria-hidden="true"
               />
-              <h2 className="text-foreground text-base font-bold">
+              <h2
+                id={`recent-group-${group.key}`}
+                className="text-foreground text-base font-bold"
+              >
                 {t(`groups.${group.key}`)}
               </h2>
               <span className="bg-muted text-muted-foreground rounded-full px-2.5 py-0.5 text-[11px] font-semibold">
                 {t("groupCount", { count: group.apps.length })}
               </span>
             </div>
-            <div className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-3">
               {group.apps.map((app) => (
-                <RecentAppRow
-                  key={app.id}
-                  name={app.name}
-                  category={app.category}
-                  time={app.time}
-                  icon={app.icon}
-                  iconColor={app.iconColor}
-                  iconBg={app.iconBg}
-                  openLabel={t("card.open")}
-                />
+                <li key={app.id}>
+                  <RecentAppRow
+                    name={app.name}
+                    category={app.category}
+                    time={app.time}
+                    icon={app.icon}
+                    iconColor={app.iconColor}
+                    iconBg={app.iconBg}
+                    openLabel={t("card.open")}
+                  />
+                </li>
               ))}
-            </div>
+            </ul>
           </section>
         ))}
       </div>
