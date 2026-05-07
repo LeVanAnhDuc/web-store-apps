@@ -40,23 +40,23 @@ const GreetingSection = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <Card className="flex items-center justify-between gap-6 rounded-2xl border bg-gradient-to-b from-white to-indigo-50 p-8">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-foreground text-3xl font-bold">
+      <Card className="flex flex-row items-center justify-between gap-6 rounded-2xl border bg-gradient-to-b from-white to-indigo-50 p-8 md:p-10">
+        <div className="flex flex-col gap-3">
+          <h1 className="text-foreground text-3xl font-bold md:text-4xl">
             {greeting}, Anh Duc <span aria-hidden="true">👋</span>
           </h1>
           <p className="text-muted-foreground text-sm font-medium">
             {t("greeting.date")}
           </p>
-          <p className="text-foreground/70 text-base">
+          <p className="text-foreground/70 max-w-xl text-base">
             {t("greeting.subtitle", { count: 3 })}
           </p>
         </div>
         <div
-          className="hidden size-24 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-300 to-indigo-600 lg:flex"
+          className="hidden size-32 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-br from-indigo-300 to-indigo-600 lg:flex xl:size-40"
           aria-hidden="true"
         >
-          <LayoutGrid className="size-10 text-white" />
+          <LayoutGrid className="size-14 text-white xl:size-20" />
         </div>
       </Card>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
