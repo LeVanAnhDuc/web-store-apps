@@ -1,0 +1,44 @@
+{
+  "title": "Thông báo",
+  "description": "Cập nhật, cảnh báo và hoạt động của cửa hàng",
+  "actions": {
+    "markAllRead": "Đánh dấu tất cả đã đọc",
+    "loadMore": "Tải thêm thông báo"
+  },
+  "tabs": {
+    "unread": "Chưa đọc",
+    "read": "Đã đọc"
+  },
+  "groups": {
+    "today": "Hôm nay",
+    "yesterday": "Hôm qua",
+    "earlier": "Trước đó"
+  },
+  "items": {
+    "newOrder": {
+      "title": "Có đơn hàng mới",
+      "description": "John Doe vừa đặt một đơn hàng trị giá $129.00"
+    },
+    "flashSale": {
+      "title": "Cảnh báo Flash Sale",
+      "description": "Giảm 30% có thời hạn trên tất cả sản phẩm hot. Kết thúc sau 3 giờ."
+    },
+    "profileUpdated": {
+      "title": "Đã cập nhật hồ sơ",
+      "description": "Thông tin hồ sơ của bạn đã được cập nhật thành công."
+    },
+    "paymentConfirmed": {
+      "title": "Đã xác nhận thanh toán",
+      "description": "Khoản thanh toán $89.00 cho đơn hàng #2240 đã được xác nhận."
+    },
+    "newFollower": {
+      "title": "Người theo dõi mới",
+      "description": "Maria Anderson đã bắt đầu theo dõi cửa hàng của bạn."
+    }
+  },
+  "announce": {
+    "tabChanged": "Đang hiển thị thông báo {tab}.",
+    "markedAllRead": "Đã đánh dấu tất cả thông báo là đã đọc.",
+    "loadingMore": "Đang tải thêm thông báo..."
+  }
+}
