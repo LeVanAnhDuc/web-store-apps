@@ -1,0 +1,17 @@
+{
+  "sidebar": {
+    "navigation": "Điều hướng",
+    "toggle": "Đổi điều hướng",
+    "menuLabel": "Menu",
+    "settingsLabel": "Cài đặt"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "profile": "Hồ sơ",
+    "accountSettings": "Cài đặt tài khoản",
+    "billing": "Thanh toán",
+    "team": "Nhóm",
+    "notifications": "Thông báo",
+    "security": "Bảo mật"
+  }
+}

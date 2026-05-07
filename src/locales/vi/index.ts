@@ -12,6 +12,8 @@ import favorites from "./favorites.json";
 import recentlyUsed from "./recentlyUsed.json";
 import loginHistory from "./loginHistory.json";
 import user from "./user.json";
+import settings from "./settings.json";
+import profile from "./profile.json";
 
 const messages = {
   common,
@@ -27,7 +29,9 @@ const messages = {
   favorites,
   recentlyUsed,
   loginHistory,
-  user
+  user,
+  settings,
+  profile
 };
 
 export default messages;

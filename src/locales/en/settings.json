@@ -1,0 +1,17 @@
+{
+  "sidebar": {
+    "navigation": "Navigation",
+    "toggle": "Toggle navigation",
+    "menuLabel": "Menu",
+    "settingsLabel": "Settings"
+  },
+  "nav": {
+    "home": "Home",
+    "profile": "Profile",
+    "accountSettings": "Account Settings",
+    "billing": "Billing",
+    "team": "Team",
+    "notifications": "Notifications",
+    "security": "Security"
+  }
+}

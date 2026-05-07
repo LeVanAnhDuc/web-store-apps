@@ -1,0 +1,107 @@
+{
+  "breadcrumb": {
+    "settings": "Cài đặt",
+    "current": "Hồ sơ"
+  },
+  "title": "Hồ sơ",
+  "description": "Quản lý thông tin cá nhân và tùy chọn của bạn",
+  "card": {
+    "edit": "Chỉnh sửa hồ sơ",
+    "stats": {
+      "apps": "{count} Ứng dụng",
+      "teams": "{count} Nhóm",
+      "plan": "Gói {plan}"
+    }
+  },
+  "personalInfo": {
+    "title": "Thông tin cá nhân",
+    "description": "Cập nhật thông tin cá nhân của bạn",
+    "fields": {
+      "firstName": "Họ",
+      "lastName": "Tên",
+      "email": "Email",
+      "phone": "Số điện thoại",
+      "username": "Tên người dùng",
+      "bio": "Giới thiệu"
+    },
+    "placeholders": {
+      "firstName": "Nhập họ",
+      "lastName": "Nhập tên",
+      "email": "name@example.com",
+      "phone": "+84 90 000 0000",
+      "username": "@biet-danh",
+      "bio": "Lập trình viên full-stack đam mê xây dựng ứng dụng web tuyệt vời."
+    },
+    "buttons": {
+      "cancel": "Hủy",
+      "save": "Lưu thay đổi"
+    },
+    "toast": {
+      "success": "Cập nhật hồ sơ thành công",
+      "error": "Không thể cập nhật hồ sơ"
+    },
+    "announce": {
+      "saving": "Đang lưu hồ sơ...",
+      "saved": "Đã lưu hồ sơ."
+    }
+  },
+  "connectedAccounts": {
+    "title": "Tài khoản liên kết",
+    "description": "Quản lý các tài khoản và phương thức đăng nhập đã liên kết",
+    "providers": {
+      "google": {
+        "name": "Google",
+        "email": "anhducle@gmail.com"
+      },
+      "github": {
+        "name": "GitHub",
+        "email": "@anhducle"
+      },
+      "twitter": {
+        "name": "Twitter / X",
+        "email": "Chưa liên kết"
+      }
+    },
+    "connected": "Đã liên kết",
+    "buttons": {
+      "connect": "Liên kết",
+      "disconnect": "Ngắt liên kết"
+    },
+    "announce": {
+      "connecting": "Đang liên kết tài khoản...",
+      "connected": "Đã liên kết tài khoản.",
+      "disconnected": "Đã ngắt liên kết tài khoản."
+    }
+  },
+  "notificationPreferences": {
+    "title": "Tùy chọn thông báo",
+    "description": "Chọn cách bạn muốn nhận thông báo",
+    "items": {
+      "email": {
+        "title": "Thông báo qua Email",
+        "description": "Nhận cập nhật và hoạt động trong hộp thư của bạn"
+      },
+      "push": {
+        "title": "Thông báo đẩy",
+        "description": "Cảnh báo trình duyệt và máy tính cho các sự kiện quan trọng"
+      },
+      "marketing": {
+        "title": "Email tiếp thị",
+        "description": "Tin tức sản phẩm, mẹo và ưu đãi quảng cáo"
+      }
+    },
+    "announce": {
+      "enabled": "Đã bật {name}.",
+      "disabled": "Đã tắt {name}."
+    }
+  },
+  "dangerZone": {
+    "title": "Vùng nguy hiểm",
+    "description": "Các hành động không thể hoàn tác và mang tính phá hủy",
+    "delete": {
+      "title": "Xóa tài khoản",
+      "description": "Xóa vĩnh viễn tài khoản và toàn bộ dữ liệu liên quan. Không thể hoàn tác.",
+      "button": "Xóa tài khoản"
+    }
+  }
+}
