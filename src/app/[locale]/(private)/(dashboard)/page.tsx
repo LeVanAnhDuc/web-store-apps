@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 // types
 import type { Locale } from "@/i18n/config";
 // components
-import Dashboard from "@/views/Dashboard";
+import Home from "@/views/Home";
 
 export async function generateMetadata({
   params
@@ -11,12 +11,11 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "dashboard" });
-
+  const t = await getTranslations({ locale, namespace: "home" });
   return {
     title: t("title"),
     description: t("description")
   };
 }
 
-export default Dashboard;
+export default Home;

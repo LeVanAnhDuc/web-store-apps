@@ -5,6 +5,7 @@ import forgotPassword from "./forgotPassword.json";
 import forgotPasswordReset from "./forgotPasswordReset.json";
 import contactAdmin from "./contactAdmin.json";
 import dashboard from "./dashboard.json";
+import home from "./home.json";
 import loginHistory from "./loginHistory.json";
 import user from "./user.json";
 
@@ -16,6 +17,7 @@ const messages = {
   forgotPasswordReset,
   contactAdmin,
   dashboard,
+  home,
   loginHistory,
   user
 };

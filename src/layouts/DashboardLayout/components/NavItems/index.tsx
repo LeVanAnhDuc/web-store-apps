@@ -5,7 +5,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 // components
-import CustomButton from "@/components/CustomButton";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -15,9 +15,8 @@ import {
 // dataSources
 import { NAV_ITEMS } from "@/dataSources/Dashboard";
 // others
+import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/libs/utils";
-
-const SIDEBAR_TRANSITION_MS = 300;
 
 const NavItems = ({
   showExpandedContent
@@ -25,16 +24,14 @@ const NavItems = ({
   showExpandedContent: boolean;
 }) => {
   const t = useTranslations("dashboard.sidebar.nav");
+  const pathname = usePathname();
   const [delayedExpanded, setDelayedExpanded] = useState(showExpandedContent);
 
   useEffect(() => {
     if (showExpandedContent) {
       setDelayedExpanded(true);
     } else {
-      const timer = setTimeout(
-        () => setDelayedExpanded(false),
-        SIDEBAR_TRANSITION_MS
-      );
+      const timer = setTimeout(() => setDelayedExpanded(false), 300);
       return () => clearTimeout(timer);
     }
   }, [showExpandedContent]);
@@ -43,6 +40,7 @@ const NavItems = ({
     <nav className="space-y-1">
       {NAV_ITEMS.map((item) => {
         const Icon = item.icon;
+        const isActive = pathname === item.href;
         return (
           <TooltipProvider
             key={`${item.key}-${showExpandedContent}`}
@@ -50,16 +48,19 @@ const NavItems = ({
           >
             <Tooltip>
               <TooltipTrigger asChild>
-                <CustomButton
-                  variant={item.key === "home" ? "secondary" : "ghost"}
+                <Button
+                  asChild
+                  variant={isActive ? "secondary" : "ghost"}
                   className={cn(
                     "w-full justify-start gap-3",
                     !delayedExpanded && "justify-center px-2"
                   )}
                 >
-                  <Icon className="size-4" />
-                  {delayedExpanded && <span>{t(item.key)}</span>}
-                </CustomButton>
+                  <Link href={item.href}>
+                    <Icon className="size-4" />
+                    {delayedExpanded && <span>{t(item.key)}</span>}
+                  </Link>
+                </Button>
               </TooltipTrigger>
               {!showExpandedContent && (
                 <TooltipContent side="right">
