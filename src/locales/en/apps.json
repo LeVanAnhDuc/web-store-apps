@@ -1,0 +1,30 @@
+{
+  "title": "Apps",
+  "description": "Browse and search all your web applications.",
+  "search": {
+    "placeholder": "Search your apps...",
+    "filter": "Filters"
+  },
+  "view": {
+    "grid": "Grid view",
+    "list": "List view"
+  },
+  "card": {
+    "open": "Open",
+    "menu": "More actions"
+  },
+  "status": {
+    "published": "Published",
+    "draft": "Draft"
+  },
+  "pagination": {
+    "summary": "Showing {shown} of {total} apps",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "announce": {
+    "viewModeChanged": "View mode changed to {mode}.",
+    "pageChanged": "Page {page} loaded.",
+    "searchChanged": "{count} apps match the search."
+  }
+}

@@ -7,6 +7,7 @@ import contactAdmin from "./contactAdmin.json";
 import dashboard from "./dashboard.json";
 import home from "./home.json";
 import discover from "./discover.json";
+import apps from "./apps.json";
 import loginHistory from "./loginHistory.json";
 import user from "./user.json";
 
@@ -20,6 +21,7 @@ const messages = {
   dashboard,
   home,
   discover,
+  apps,
   loginHistory,
   user
 };
