@@ -1,5 +1,7 @@
 "use client";
 
+// libs
+import { useTranslations } from "next-intl";
 // components
 import {
   DropdownMenu,
@@ -7,29 +9,39 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import AvatarUser from "./components/AvatarUser";
 import CustomButton from "../CustomButton";
+import AvatarUser from "./components/AvatarUser";
 import UserInfoHeader from "./mains/UserInfoHeader";
-import MenuItems from "./mains/MenuItems";
+import SettingsMenuItems from "./mains/SettingsMenuItems";
+import UtilityMenuItems from "./mains/UtilityMenuItems";
 import SignOutItem from "./mains/SignoutItem";
 // hooks
 import useUserInfo from "@/hooks/useUserInfo";
 
 const UserMenu = () => {
+  const t = useTranslations("common.userMenu");
   const userInfo = useUserInfo();
   const isLoggedIn = userInfo !== null;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <CustomButton variant={"ghost"} className="size-9 rounded-full">
+        <CustomButton
+          variant="ghost"
+          aria-label={t("trigger")}
+          className="size-9 rounded-full p-0"
+        >
           <AvatarUser
             src={userInfo?.avatar}
             fallback={userInfo?.initials ?? "?"}
           />
         </CustomButton>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-72 rounded-xl p-2" align="end">
+      <DropdownMenuContent
+        className="w-60 rounded-xl p-1"
+        align="end"
+        sideOffset={8}
+      >
         {isLoggedIn ? (
           <>
             <UserInfoHeader
@@ -39,12 +51,14 @@ const UserMenu = () => {
               initials={userInfo.initials}
             />
             <DropdownMenuSeparator />
-            <MenuItems showProfile={true} />
+            <SettingsMenuItems />
+            <DropdownMenuSeparator />
+            <UtilityMenuItems />
             <DropdownMenuSeparator />
             <SignOutItem />
           </>
         ) : (
-          <MenuItems showProfile={false} />
+          <UtilityMenuItems />
         )}
       </DropdownMenuContent>
     </DropdownMenu>
