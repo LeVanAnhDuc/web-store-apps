@@ -18,7 +18,7 @@ const PageHeader = async () => {
       </div>
       <Badge
         variant="secondary"
-        className="rounded-full border-0 bg-indigo-50 px-4 py-2 text-xs font-semibold text-indigo-600"
+        className="bg-primary/10 text-primary rounded-full border-0 px-4 py-2 text-xs font-semibold"
       >
         <Bookmark className="size-3.5" aria-hidden="true" />
         {t("savedBadge", { count: FAVORITE_APPS_MOCK.length })}

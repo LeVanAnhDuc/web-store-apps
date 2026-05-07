@@ -47,7 +47,7 @@ const RecentAppRow = ({
       </span>
       <span className="text-muted-foreground text-xs">{category}</span>
     </div>
-    <div className="flex items-center gap-1.5 text-indigo-500">
+    <div className="text-info flex items-center gap-1.5">
       <Timer className="size-3.5" aria-hidden="true" />
       <span className="text-xs font-semibold">
         <span className="sr-only">Last opened: </span>
@@ -56,7 +56,6 @@ const RecentAppRow = ({
     </div>
     <CustomButton
       size="sm"
-      className="bg-slate-900 text-white hover:bg-slate-800"
       iconRight={<ArrowUpRight className="size-3" aria-hidden="true" />}
       aria-label={`${openLabel} ${name}`}
     >

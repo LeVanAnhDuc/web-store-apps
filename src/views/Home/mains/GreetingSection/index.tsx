@@ -40,7 +40,7 @@ const GreetingSection = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <Card className="flex flex-row items-center justify-between gap-6 rounded-2xl border bg-gradient-to-b from-white to-indigo-50 p-8 md:p-10">
+      <Card className="from-card to-primary/5 flex flex-row items-center justify-between gap-6 rounded-2xl border bg-gradient-to-b p-8 md:p-10">
         <div className="flex flex-col gap-3">
           <h1 className="text-foreground text-3xl font-bold md:text-4xl">
             {greeting}, Anh Duc <span aria-hidden="true">👋</span>
@@ -53,54 +53,53 @@ const GreetingSection = () => {
           </p>
         </div>
         <div
-          className="hidden size-32 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-br from-indigo-300 to-indigo-600 lg:flex xl:size-40"
+          className="from-primary/40 to-primary hidden size-32 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-br lg:flex xl:size-40"
           aria-hidden="true"
         >
-          <LayoutGrid className="size-14 text-white xl:size-20" />
+          <LayoutGrid className="text-primary-foreground size-14 xl:size-20" />
         </div>
       </Card>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatCard
-          icon={
-            <Compass className="size-6 text-indigo-600" aria-hidden="true" />
-          }
-          iconBg="bg-indigo-50"
+          icon={<Compass className="text-primary size-6" aria-hidden="true" />}
+          iconBg="bg-primary/10"
           value="47"
           label={t("stats.totalApps")}
           badge={t("stats.allTime")}
-          badgeBg="bg-indigo-50"
-          badgeText="text-indigo-600"
+          badgeBg="bg-primary/10"
+          badgeText="text-primary"
         />
         <StatCard
-          icon={
-            <Calendar className="size-6 text-blue-600" aria-hidden="true" />
-          }
-          iconBg="bg-blue-50"
+          icon={<Calendar className="text-info size-6" aria-hidden="true" />}
+          iconBg="bg-info/10"
           value="12"
           label={t("stats.appsThisMonth")}
           badge={t("stats.fromLastMonth")}
-          badgeBg="bg-blue-50"
-          badgeText="text-blue-600"
+          badgeBg="bg-info/10"
+          badgeText="text-info"
         />
         <StatCard
-          icon={
-            <Timer className="size-6 text-emerald-600" aria-hidden="true" />
-          }
-          iconBg="bg-emerald-50"
+          icon={<Timer className="text-success size-6" aria-hidden="true" />}
+          iconBg="bg-success/10"
           value="38 hrs"
           label={t("stats.timeSaved")}
           badge={t("stats.hoursThisMonth")}
-          badgeBg="bg-emerald-50"
-          badgeText="text-emerald-600"
+          badgeBg="bg-success/10"
+          badgeText="text-success"
         />
         <StatCard
-          icon={<Zap className="size-6 text-orange-600" aria-hidden="true" />}
-          iconBg="bg-orange-50"
+          icon={
+            <Zap
+              className="text-warning-foreground size-6"
+              aria-hidden="true"
+            />
+          }
+          iconBg="bg-warning/20"
           value="14 days"
           label={t("stats.currentStreak")}
           badge={t("stats.personalBest")}
-          badgeBg="bg-orange-50"
-          badgeText="text-orange-600"
+          badgeBg="bg-warning/20"
+          badgeText="text-warning-foreground"
         />
       </div>
       <Card
@@ -120,10 +119,7 @@ const GreetingSection = () => {
             </p>
           </div>
           <div className="bg-muted flex items-center gap-1.5 rounded-lg px-2.5 py-2">
-            <div
-              className="size-2 rounded-sm bg-indigo-600"
-              aria-hidden="true"
-            />
+            <div className="bg-primary size-2 rounded-sm" aria-hidden="true" />
             <span className="text-muted-foreground text-xs">
               {t("weeklyActivity.legend")}
             </span>
@@ -144,8 +140,8 @@ const GreetingSection = () => {
                 <div
                   className={
                     d.active
-                      ? "w-full rounded-lg bg-indigo-600"
-                      : "w-full rounded-lg bg-indigo-100"
+                      ? "bg-primary w-full rounded-lg"
+                      : "bg-primary/15 w-full rounded-lg"
                   }
                   style={{ height: `${(d.value / MAX_BAR) * 120}px` }}
                 />
@@ -160,27 +156,27 @@ const GreetingSection = () => {
           ))}
         </ul>
       </Card>
-      <Card className="flex items-center justify-between gap-4 rounded-2xl border border-amber-300 bg-gradient-to-r from-amber-50 to-amber-50/50 p-4">
+      <Card className="border-warning/50 from-warning/15 to-warning/5 flex items-center justify-between gap-4 rounded-2xl border bg-gradient-to-r p-4">
         <div className="flex items-center gap-3.5">
           <div
-            className="flex size-11 items-center justify-center rounded-xl bg-amber-500/15"
+            className="bg-warning/25 flex size-11 items-center justify-center rounded-xl"
             aria-hidden="true"
           >
-            <Zap className="size-6 text-amber-500" />
+            <Zap className="text-warning-foreground size-6" />
           </div>
           <div className="flex flex-col gap-0.5">
-            <p className="text-sm font-bold text-amber-900">
+            <p className="text-warning-foreground text-sm font-bold">
               <span aria-hidden="true">🔥 </span>
               {t("achievement.title")}
             </p>
-            <p className="text-xs text-amber-700">
+            <p className="text-warning-foreground/80 text-xs">
               {t("achievement.subtitle")}
             </p>
           </div>
         </div>
         <CustomButton
           size="sm"
-          className="shrink-0 bg-amber-500 text-white hover:bg-amber-600"
+          className="bg-warning text-warning-foreground hover:bg-warning/90 shrink-0"
           iconLeft={<Trophy className="size-3.5" aria-hidden="true" />}
         >
           {t("achievement.cta")}

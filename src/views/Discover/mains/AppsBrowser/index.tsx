@@ -50,8 +50,8 @@ const AppsBrowser = () => {
               className={cn(
                 "rounded-full border px-4 py-2 text-[13px] font-semibold",
                 isActive
-                  ? "border-slate-900 bg-slate-900 text-white hover:bg-slate-800"
-                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-white"
+                  ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+                  : "border-border bg-background text-muted-foreground hover:bg-muted"
               )}
             >
               {t(`categories.${key}`)}

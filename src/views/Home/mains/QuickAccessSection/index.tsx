@@ -31,7 +31,12 @@ const QuickAccessSection = async () => {
               key={item.id}
               name={item.name}
               lastOpened={item.lastOpened}
-              icon={<Icon className="size-5 text-white" aria-hidden="true" />}
+              icon={
+                <Icon
+                  className="text-primary-foreground size-5"
+                  aria-hidden="true"
+                />
+              }
               gradient={item.gradient}
               lastOpenedLabel={t("lastOpened")}
             />

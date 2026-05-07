@@ -48,10 +48,7 @@ const RecommendedAppCard = ({
       <span className="text-muted-foreground text-xs">{category}</span>
     </div>
     <div className="flex items-center gap-1">
-      <Star
-        className="size-3.5 fill-amber-400 text-amber-400"
-        aria-hidden="true"
-      />
+      <Star className="fill-warning text-warning size-3.5" aria-hidden="true" />
       <span className="text-foreground text-xs font-semibold">
         <span className="sr-only">Rating: </span>
         {rating}

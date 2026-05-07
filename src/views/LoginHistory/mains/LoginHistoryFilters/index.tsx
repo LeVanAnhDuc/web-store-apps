@@ -134,7 +134,7 @@ const LoginHistoryFilters = () => {
       <CustomButton
         size="default"
         iconLeft={<Download className="size-3.5" aria-hidden="true" />}
-        className="h-10 bg-slate-900 text-white hover:bg-slate-800"
+        className="h-10"
       >
         {tToolbar("export")}
       </CustomButton>

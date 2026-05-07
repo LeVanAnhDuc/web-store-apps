@@ -30,16 +30,19 @@ const QuickAccessCard = ({
   >
     <div className="flex items-center justify-between">
       <div
-        className="flex size-10 items-center justify-center rounded-xl bg-white/15"
+        className="bg-primary-foreground/15 flex size-10 items-center justify-center rounded-xl"
         aria-hidden="true"
       >
         {icon}
       </div>
     </div>
-    <span className="text-base font-bold text-white" aria-hidden="true">
+    <span
+      className="text-primary-foreground text-base font-bold"
+      aria-hidden="true"
+    >
       {name}
     </span>
-    <span className="text-[11px] text-white/80" aria-hidden="true">
+    <span className="text-primary-foreground/80 text-[11px]" aria-hidden="true">
       {lastOpenedLabel.replace("{time}", lastOpened)}
     </span>
   </Button>

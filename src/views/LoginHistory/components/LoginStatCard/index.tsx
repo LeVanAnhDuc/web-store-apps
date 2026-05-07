@@ -22,18 +22,18 @@ const LoginStatCard = ({
     className={cn(
       "flex flex-row items-center gap-4 rounded-xl p-5",
       tone === "neutral" && "border-border bg-card",
-      tone === "success" && "border-green-200 bg-green-50",
-      tone === "danger" && "border-red-200 bg-red-50",
-      tone === "info" && "border-blue-200 bg-blue-50"
+      tone === "success" && "border-success/30 bg-success/10",
+      tone === "danger" && "border-destructive/30 bg-destructive/10",
+      tone === "info" && "border-info/30 bg-info/10"
     )}
   >
     <div
       className={cn(
         "flex size-11 items-center justify-center rounded-xl",
-        tone === "neutral" && "bg-slate-100 text-slate-500",
-        tone === "success" && "bg-green-100 text-green-600",
-        tone === "danger" && "bg-red-100 text-red-600",
-        tone === "info" && "bg-blue-100 text-blue-600"
+        tone === "neutral" && "bg-muted text-muted-foreground",
+        tone === "success" && "bg-success/15 text-success",
+        tone === "danger" && "bg-destructive/15 text-destructive",
+        tone === "info" && "bg-info/15 text-info"
       )}
       aria-hidden="true"
     >
@@ -44,9 +44,9 @@ const LoginStatCard = ({
         className={cn(
           "text-2xl font-bold",
           tone === "neutral" && "text-foreground",
-          tone === "success" && "text-green-700",
-          tone === "danger" && "text-red-700",
-          tone === "info" && "text-blue-800"
+          tone === "success" && "text-success",
+          tone === "danger" && "text-destructive",
+          tone === "info" && "text-info"
         )}
       >
         {value}
@@ -55,9 +55,9 @@ const LoginStatCard = ({
         className={cn(
           "text-xs font-medium",
           tone === "neutral" && "text-muted-foreground",
-          tone === "success" && "text-green-600",
-          tone === "danger" && "text-red-600",
-          tone === "info" && "text-blue-600"
+          tone === "success" && "text-success",
+          tone === "danger" && "text-destructive",
+          tone === "info" && "text-info"
         )}
       >
         {label}

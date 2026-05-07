@@ -93,7 +93,7 @@ const AppsBoard = () => {
             className={cn(
               "size-10",
               view === "grid"
-                ? "bg-slate-900 text-white hover:bg-slate-800"
+                ? "bg-primary text-primary-foreground hover:bg-primary/90"
                 : "border-border bg-background hover:bg-muted text-muted-foreground border"
             )}
           >
@@ -107,7 +107,7 @@ const AppsBoard = () => {
             className={cn(
               "size-10",
               view === "list"
-                ? "bg-slate-900 text-white hover:bg-slate-800"
+                ? "bg-primary text-primary-foreground hover:bg-primary/90"
                 : "border-border bg-background hover:bg-muted text-muted-foreground border"
             )}
           >
@@ -173,7 +173,7 @@ const AppsBoard = () => {
                 aria-current={isActive ? "page" : undefined}
                 className={cn(
                   isActive
-                    ? "bg-slate-900 text-white hover:bg-slate-800"
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
                     : "border-border bg-background hover:bg-muted text-foreground border"
                 )}
               >

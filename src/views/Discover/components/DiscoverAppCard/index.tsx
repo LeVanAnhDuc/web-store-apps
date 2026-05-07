@@ -59,7 +59,7 @@ const DiscoverAppCard = ({
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-1">
         <Star
-          className="size-3.5 fill-amber-400 text-amber-400"
+          className="fill-warning text-warning size-3.5"
           aria-hidden="true"
         />
         <span className="text-foreground text-xs font-semibold">
@@ -69,7 +69,6 @@ const DiscoverAppCard = ({
       </div>
       <CustomButton
         size="sm"
-        className="bg-slate-900 text-white hover:bg-slate-800"
         iconRight={<ArrowUpRight className="size-3" aria-hidden="true" />}
         aria-label={`${openLabel} ${name}`}
       >

@@ -53,22 +53,24 @@ const RecommendedSection = async () => {
           );
         })}
       </div>
-      <Card className="mt-2 flex items-center justify-between gap-4 rounded-2xl border-0 bg-gradient-to-br from-slate-900 to-slate-800 p-7 text-white">
+      <Card className="from-primary to-primary/90 text-primary-foreground mt-2 flex items-center justify-between gap-4 rounded-2xl border-0 bg-gradient-to-br p-7">
         <div className="flex items-center gap-4">
           <div
-            className="flex size-12 items-center justify-center rounded-xl bg-white/10"
+            className="bg-primary-foreground/10 flex size-12 items-center justify-center rounded-xl"
             aria-hidden="true"
           >
-            <Compass className="size-6 text-white" />
+            <Compass className="text-primary-foreground size-6" />
           </div>
           <div className="flex flex-col gap-0.5">
             <p className="text-base font-semibold">{tCTA("title")}</p>
-            <p className="text-xs text-white/70">{tCTA("subtitle")}</p>
+            <p className="text-primary-foreground/70 text-xs">
+              {tCTA("subtitle")}
+            </p>
           </div>
         </div>
         <CustomButton
           size="sm"
-          className="bg-white text-slate-900 hover:bg-white/90"
+          className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
           iconRight={<ArrowRight className="size-3.5" aria-hidden="true" />}
         >
           {tCTA("cta")}

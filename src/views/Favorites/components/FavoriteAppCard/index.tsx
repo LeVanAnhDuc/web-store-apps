@@ -45,7 +45,7 @@ const FavoriteAppCard = ({
             )}
             aria-hidden="true"
           >
-            <Icon className="size-6 text-white" />
+            <Icon className="text-primary-foreground size-6" />
           </div>
           <div className="flex flex-col gap-0.5">
             <h3
@@ -63,9 +63,9 @@ const FavoriteAppCard = ({
           aria-label={`${removeLabel}: ${name}`}
           aria-pressed="true"
           onClick={onRemove}
-          className="text-red-500 hover:bg-red-50 hover:text-red-600"
+          className="text-destructive hover:bg-destructive/10 hover:text-destructive"
         >
-          <Heart className="size-5 fill-red-500" aria-hidden="true" />
+          <Heart className="fill-destructive size-5" aria-hidden="true" />
         </CustomButton>
       </div>
       <p className="text-muted-foreground text-[13px]">{description}</p>
@@ -75,7 +75,7 @@ const FavoriteAppCard = ({
       <div className="flex items-center gap-2 text-xs">
         <div className="flex items-center gap-1">
           <Star
-            className="size-3.5 fill-amber-400 text-amber-400"
+            className="fill-warning text-warning size-3.5"
             aria-hidden="true"
           />
           <span className="text-foreground font-semibold">
@@ -88,11 +88,7 @@ const FavoriteAppCard = ({
         </span>
         <span className="text-muted-foreground">{reviewsLabel}</span>
       </div>
-      <CustomButton
-        size="sm"
-        className="bg-indigo-600 text-white hover:bg-indigo-700"
-        aria-label={`${openLabel} ${name}`}
-      >
+      <CustomButton size="sm" aria-label={`${openLabel} ${name}`}>
         {openLabel}
       </CustomButton>
     </div>

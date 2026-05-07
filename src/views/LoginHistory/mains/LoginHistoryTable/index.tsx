@@ -99,10 +99,10 @@ const LoginHistoryTable = () => {
     return result;
   })();
   const methodColor: Record<LoginHistoryMethod, string> = {
-    password: "text-indigo-600",
-    otp: "text-amber-600",
-    "magic-link": "text-purple-600",
-    "forgot-password": "text-slate-600"
+    password: "text-foreground",
+    otp: "text-warning-foreground",
+    "magic-link": "text-info",
+    "forgot-password": "text-muted-foreground"
   };
   return (
     <div className="bg-card flex flex-col overflow-hidden rounded-xl border">
@@ -199,8 +199,8 @@ const LoginHistoryTable = () => {
                         className={cn(
                           "size-1.5 rounded-full",
                           item.status === "success"
-                            ? "bg-green-600"
-                            : "bg-red-600"
+                            ? "bg-success"
+                            : "bg-destructive"
                         )}
                         aria-hidden="true"
                       />
@@ -208,8 +208,8 @@ const LoginHistoryTable = () => {
                         className={cn(
                           "font-medium",
                           item.status === "success"
-                            ? "text-green-600"
-                            : "text-red-600"
+                            ? "text-success"
+                            : "text-destructive"
                         )}
                       >
                         {tStatus(item.status)}
@@ -271,7 +271,7 @@ const LoginHistoryTable = () => {
                   aria-current={num === page ? "page" : undefined}
                   className={cn(
                     num === page
-                      ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
                       : "border-border bg-background hover:bg-muted text-foreground border"
                   )}
                 >

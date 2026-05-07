@@ -82,8 +82,8 @@ const AppManagedCard = ({
         className={cn(
           "rounded-full border-0 px-2.5 py-0.5 text-[11px] font-semibold",
           status === "published"
-            ? "bg-green-100 text-green-600"
-            : "bg-amber-100 text-amber-600"
+            ? "bg-success/15 text-success"
+            : "bg-warning/20 text-warning-foreground"
         )}
       >
         {statusLabel}
@@ -109,7 +109,6 @@ const AppManagedCard = ({
       </div>
       <CustomButton
         size="sm"
-        className="bg-slate-900 text-white hover:bg-slate-800"
         iconRight={<ArrowUpRight className="size-3" aria-hidden="true" />}
         aria-label={`${openLabel} ${name}`}
       >

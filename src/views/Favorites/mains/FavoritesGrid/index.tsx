@@ -88,8 +88,8 @@ const FavoritesGrid = () => {
                 className={cn(
                   "rounded-full border px-4 py-2 text-[13px] font-medium",
                   isActive
-                    ? "border-indigo-600 bg-indigo-600 text-white hover:bg-indigo-700"
-                    : "border-slate-200 bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90"
+                    : "border-border bg-muted text-muted-foreground hover:bg-muted/70"
                 )}
               >
                 {t(`categories.${key}`)}
