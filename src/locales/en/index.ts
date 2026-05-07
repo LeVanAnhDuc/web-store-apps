@@ -9,6 +9,7 @@ import home from "./home.json";
 import discover from "./discover.json";
 import apps from "./apps.json";
 import favorites from "./favorites.json";
+import recentlyUsed from "./recentlyUsed.json";
 import loginHistory from "./loginHistory.json";
 import user from "./user.json";
 
@@ -24,6 +25,7 @@ const messages = {
   discover,
   apps,
   favorites,
+  recentlyUsed,
   loginHistory,
   user
 };
