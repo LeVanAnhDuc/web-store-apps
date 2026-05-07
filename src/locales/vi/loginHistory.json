@@ -1,6 +1,24 @@
 {
   "title": "Lịch sử đăng nhập",
-  "description": "Xem hoạt động đăng nhập gần đây của bạn",
+  "description": "Theo dõi truy cập tài khoản và sự kiện bảo mật",
+  "stats": {
+    "totalLogins": "Tổng lượt đăng nhập",
+    "successful": "Thành công",
+    "failed": "Thất bại",
+    "activeSessions": "Phiên hoạt động"
+  },
+  "toolbar": {
+    "allMethods": "Tất cả phương thức",
+    "allStatus": "Tất cả trạng thái",
+    "last30days": "30 ngày qua",
+    "search": "Tìm log...",
+    "export": "Xuất"
+  },
+  "tableHeader": {
+    "title": "Hoạt động đăng nhập gần đây",
+    "summary": "Hiển thị {start}–{end} trên {total} bản ghi"
+  },
+  "tableEmpty": "Không có lịch sử đăng nhập",
   "table": {
     "method": "Phương thức",
     "status": "Trạng thái",

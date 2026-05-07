@@ -1,6 +1,24 @@
 {
   "title": "Login History",
-  "description": "View your recent login activity",
+  "description": "Monitor your account access and security events",
+  "stats": {
+    "totalLogins": "Total Logins",
+    "successful": "Successful",
+    "failed": "Failed",
+    "activeSessions": "Active Sessions"
+  },
+  "toolbar": {
+    "allMethods": "All Methods",
+    "allStatus": "All Status",
+    "last30days": "Last 30 days",
+    "search": "Search logs...",
+    "export": "Export"
+  },
+  "tableHeader": {
+    "title": "Recent Login Activity",
+    "summary": "Showing {start}–{end} of {total} records"
+  },
+  "tableEmpty": "No login history found",
   "table": {
     "method": "Method",
     "status": "Status",

@@ -1,174 +1,138 @@
 "use client";
-
 // libs
-import { useForm } from "react-hook-form";
+import { Calendar, ChevronDown, Download, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+// components
+import CustomButton from "@/components/CustomButton";
+import CustomInput from "@/components/CustomInput";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 // hooks
 import { useAnnounce } from "@/hooks";
-// components
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
-import CustomButton from "@/components/CustomButton";
-
-type FilterFormValues = {
-  status: string;
-  method: string;
-  country: string;
-  city: string;
-  fromDate: string;
-  toDate: string;
-};
 
 const LoginHistoryFilters = () => {
-  const t = useTranslations("loginHistory.filters");
+  const t = useTranslations("loginHistory");
+  const tToolbar = useTranslations("loginHistory.toolbar");
   const tStatus = useTranslations("loginHistory.status");
   const tMethod = useTranslations("loginHistory.method");
+  const tFilter = useTranslations("loginHistory.filters");
   const tAnnounce = useTranslations("loginHistory.announce");
   const { announce } = useAnnounce();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  const { register, handleSubmit, reset, setValue, watch } =
-    useForm<FilterFormValues>({
-      defaultValues: {
-        status: searchParams.get("status") ?? "",
-        method: searchParams.get("method") ?? "",
-        country: searchParams.get("country") ?? "",
-        city: searchParams.get("city") ?? "",
-        fromDate: searchParams.get("fromDate") ?? "",
-        toDate: searchParams.get("toDate") ?? ""
-      }
-    });
-
-  const onSubmit = (data: FilterFormValues) => {
-    const params = new URLSearchParams();
-    params.set("page", "1");
-    if (data.status) params.set("status", data.status);
-    if (data.method) params.set("method", data.method);
-    if (data.country) params.set("country", data.country);
-    if (data.city) params.set("city", data.city);
-    if (data.fromDate) params.set("fromDate", data.fromDate);
-    if (data.toDate) params.set("toDate", data.toDate);
+  const status = searchParams.get("status") ?? "";
+  const method = searchParams.get("method") ?? "";
+  const updateParam = (key: string, value: string) => {
+    const next = new URLSearchParams(searchParams.toString());
+    if (value) next.set(key, value);
+    else next.delete(key);
+    next.set("page", "1");
     announce(tAnnounce("filterApplied"));
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${next.toString()}`);
   };
-
-  const onClear = () => {
-    reset({
-      status: "",
-      method: "",
-      country: "",
-      city: "",
-      fromDate: "",
-      toDate: ""
-    });
-    announce(tAnnounce("filterCleared"));
-    router.push(pathname);
-  };
-
+  const methodLabel =
+    method === "password"
+      ? tMethod("password")
+      : method === "otp"
+        ? tMethod("otp")
+        : method === "magic-link"
+          ? tMethod("magic-link")
+          : method === "forgot-password"
+            ? tMethod("forgot-password")
+            : tToolbar("allMethods");
+  const statusLabel =
+    status === "success"
+      ? tStatus("success")
+      : status === "failed"
+        ? tStatus("failed")
+        : tToolbar("allStatus");
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="bg-card rounded-xl border p-4"
-    >
-      <p className="text-foreground mb-4 text-sm font-semibold">{t("title")}</p>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("status")}</Label>
-          <Select
-            value={watch("status")}
-            onValueChange={(v) => setValue("status", v)}
+    <div className="flex flex-wrap items-center gap-3">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <CustomButton
+            size="default"
+            variant="outline"
+            iconRight={<ChevronDown className="size-3.5" />}
+            className="h-10"
           >
-            <SelectTrigger className="h-9">
-              <SelectValue placeholder={t("all")} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">{t("all")}</SelectItem>
-              <SelectItem value="success">{tStatus("success")}</SelectItem>
-              <SelectItem value="failed">{tStatus("failed")}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("method")}</Label>
-          <Select
-            value={watch("method")}
-            onValueChange={(v) => setValue("method", v)}
+            {methodLabel}
+          </CustomButton>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          <DropdownMenuItem onClick={() => updateParam("method", "")}>
+            {tFilter("all")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => updateParam("method", "password")}>
+            {tMethod("password")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => updateParam("method", "otp")}>
+            {tMethod("otp")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => updateParam("method", "magic-link")}>
+            {tMethod("magic-link")}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => updateParam("method", "forgot-password")}
           >
-            <SelectTrigger className="h-9">
-              <SelectValue placeholder={t("all")} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">{t("all")}</SelectItem>
-              <SelectItem value="password">{tMethod("password")}</SelectItem>
-              <SelectItem value="otp">{tMethod("otp")}</SelectItem>
-              <SelectItem value="magic-link">
-                {tMethod("magic-link")}
-              </SelectItem>
-              <SelectItem value="forgot-password">
-                {tMethod("forgot-password")}
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">
-            {t("country")}
-          </Label>
-          <Input
-            {...register("country")}
-            className="h-9"
-            placeholder={t("country")}
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("city")}</Label>
-          <Input
-            {...register("city")}
-            className="h-9"
-            placeholder={t("city")}
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">
-            {t("fromDate")}
-          </Label>
-          <Input {...register("fromDate")} type="date" className="h-9" />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("toDate")}</Label>
-          <Input {...register("toDate")} type="date" className="h-9" />
-        </div>
+            {tMethod("forgot-password")}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <CustomButton
+            size="default"
+            variant="outline"
+            iconRight={<ChevronDown className="size-3.5" />}
+            className="h-10"
+          >
+            {statusLabel}
+          </CustomButton>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          <DropdownMenuItem onClick={() => updateParam("status", "")}>
+            {tFilter("all")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => updateParam("status", "success")}>
+            {tStatus("success")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => updateParam("status", "failed")}>
+            {tStatus("failed")}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <CustomButton
+        size="default"
+        variant="outline"
+        iconLeft={<Calendar className="size-3.5" />}
+        iconRight={<ChevronDown className="size-3.5" />}
+        className="h-10"
+      >
+        {tToolbar("last30days")}
+      </CustomButton>
+      <div className="border-border bg-background ml-auto flex h-10 w-56 items-center gap-2 rounded-lg border px-3">
+        <Search className="text-muted-foreground size-4" />
+        <CustomInput
+          placeholder={tToolbar("search")}
+          aria-label={t("title")}
+          className="h-9 border-0 bg-transparent px-1 shadow-none focus-visible:ring-0"
+        />
       </div>
-
-      <div className="mt-4 flex justify-end gap-2">
-        <CustomButton
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={onClear}
-        >
-          {t("clear")}
-        </CustomButton>
-        <CustomButton type="submit" size="sm">
-          {t("apply")}
-        </CustomButton>
-      </div>
-    </form>
+      <CustomButton
+        size="default"
+        iconLeft={<Download className="size-3.5" />}
+        className="h-10 bg-slate-900 text-white hover:bg-slate-800"
+      >
+        {tToolbar("export")}
+      </CustomButton>
+    </div>
   );
 };
 
