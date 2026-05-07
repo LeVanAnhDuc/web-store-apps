@@ -1,0 +1,56 @@
+{
+  "breadcrumb": {
+    "settings": "Settings",
+    "current": "Team"
+  },
+  "title": "Team",
+  "description": "Manage your team members and their roles",
+  "members": {
+    "title": "Team Members",
+    "description": "{count} of {limit} members",
+    "buttons": {
+      "invite": "Invite Member",
+      "remove": "Remove"
+    },
+    "roles": {
+      "owner": "Owner",
+      "admin": "Admin",
+      "member": "Member"
+    },
+    "announce": {
+      "removed": "Member removed.",
+      "invited": "Invitation sent."
+    }
+  },
+  "pending": {
+    "title": "Pending Invitations",
+    "description": "{count} invitations sent",
+    "status": "Pending",
+    "buttons": {
+      "revoke": "Revoke"
+    },
+    "sentAt": "Sent {date}",
+    "announce": {
+      "revoked": "Invitation revoked."
+    }
+  },
+  "roles": {
+    "title": "Roles & Permissions",
+    "description": "Understand what each role can do",
+    "you": "You",
+    "items": {
+      "owner": {
+        "title": "Owner",
+        "description": "Full access to billing, team, settings, and team management"
+      },
+      "admin": {
+        "title": "Admin",
+        "description": "Can manage members, invitations, and most settings"
+      },
+      "member": {
+        "title": "Member",
+        "description": "Can view team content and collaborate on shared resources"
+      }
+    }
+  }
+}

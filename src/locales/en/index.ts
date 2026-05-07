@@ -18,6 +18,7 @@ import accountSettings from "./accountSettings.json";
 import security from "./security.json";
 import notifications from "./notifications.json";
 import billing from "./billing.json";
+import team from "./team.json";
 
 const messages = {
   common,
@@ -39,7 +40,8 @@ const messages = {
   accountSettings,
   security,
   notifications,
-  billing
+  billing,
+  team
 };
 
 export default messages;
