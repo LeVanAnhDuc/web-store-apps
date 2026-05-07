@@ -1,0 +1,36 @@
+{
+  "breadcrumb": {
+    "settings": "Settings",
+    "current": "Security"
+  },
+  "title": "Security",
+  "description": "Monitor your account security and manage API access",
+  "loginActivity": {
+    "title": "Recent Login Activity",
+    "description": "Review devices and locations that recently signed in",
+    "viewAll": "View all"
+  },
+  "apiKeys": {
+    "title": "API Keys",
+    "description": "Manage API keys for programmatic access",
+    "buttons": {
+      "generate": "Generate Key",
+      "copy": "Copy",
+      "revoke": "Revoke"
+    },
+    "preview": "Created {date} · Last used {lastUsed}",
+    "announce": {
+      "copied": "API key copied to clipboard.",
+      "revoked": "API key revoked."
+    }
+  },
+  "dangerZone": {
+    "title": "Danger Zone",
+    "description": "Irreversible and destructive actions",
+    "delete": {
+      "title": "Delete Account",
+      "description": "Permanently remove your account and all associated data. This cannot be undone.",
+      "button": "Delete Account"
+    }
+  }
+}

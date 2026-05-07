@@ -15,6 +15,7 @@ import user from "./user.json";
 import settings from "./settings.json";
 import profile from "./profile.json";
 import accountSettings from "./accountSettings.json";
+import security from "./security.json";
 
 const messages = {
   common,
@@ -33,7 +34,8 @@ const messages = {
   user,
   settings,
   profile,
-  accountSettings
+  accountSettings,
+  security
 };
 
 export default messages;
