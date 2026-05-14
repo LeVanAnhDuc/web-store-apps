@@ -17,16 +17,24 @@
       "lastName": "Tên",
       "email": "Email",
       "phone": "Số điện thoại",
-      "username": "Tên người dùng",
-      "bio": "Giới thiệu"
+      "address": "Địa chỉ",
+      "dateOfBirth": "Ngày sinh",
+      "gender": "Giới tính"
     },
     "placeholders": {
       "firstName": "Nhập họ",
       "lastName": "Nhập tên",
       "email": "name@example.com",
       "phone": "+84 90 000 0000",
-      "username": "@biet-danh",
-      "bio": "Lập trình viên full-stack đam mê xây dựng ứng dụng web tuyệt vời."
+      "address": "Nhập địa chỉ của bạn",
+      "dateOfBirth": "Chọn ngày sinh",
+      "gender": "Chọn giới tính"
+    },
+    "genderOptions": {
+      "male": "Nam",
+      "female": "Nữ",
+      "other": "Khác",
+      "prefer_not_to_say": "Không muốn tiết lộ"
     },
     "buttons": {
       "cancel": "Hủy",

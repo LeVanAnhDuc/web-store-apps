@@ -17,16 +17,24 @@
       "lastName": "Last Name",
       "email": "Email",
       "phone": "Phone",
-      "username": "Username",
-      "bio": "Bio"
+      "address": "Address",
+      "dateOfBirth": "Date of Birth",
+      "gender": "Gender"
     },
     "placeholders": {
       "firstName": "Enter your first name",
       "lastName": "Enter your last name",
       "email": "name@example.com",
       "phone": "+1 (555) 000-0000",
-      "username": "@your-handle",
-      "bio": "Full-stack developer passionate about building great web applications."
+      "address": "Enter your address",
+      "dateOfBirth": "Select date of birth",
+      "gender": "Select gender"
+    },
+    "genderOptions": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "prefer_not_to_say": "Prefer not to say"
     },
     "buttons": {
       "cancel": "Cancel",

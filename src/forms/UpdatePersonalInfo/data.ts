@@ -5,6 +5,7 @@ export const initialUpdatePersonalInfoData: UpdatePersonalInfoFormValues = {
   firstName: "",
   lastName: "",
   phone: "",
-  username: "",
-  bio: ""
+  address: "",
+  dateOfBirth: "",
+  gender: ""
 };

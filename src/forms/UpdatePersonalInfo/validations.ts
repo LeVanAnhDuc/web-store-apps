@@ -2,7 +2,8 @@
 import * as z from "zod";
 
 const SAFE_PHONE_PATTERN = /^[\d\s()+-]+$/;
-const SAFE_USERNAME_PATTERN = /^@?[a-zA-Z0-9_-]+$/;
+const SAFE_ADDRESS_PATTERN = /^[\p{L}\p{N}\s,.\-'/#]+$/u;
+const GENDER_VALUES = ["male", "female", "other", "prefer_not_to_say"] as const;
 
 export const updatePersonalInfoValidation = z.object({
   firstName: z
@@ -19,15 +20,29 @@ export const updatePersonalInfoValidation = z.object({
     .regex(SAFE_PHONE_PATTERN, { message: "invalid" })
     .optional()
     .or(z.literal("")),
-  username: z
+  address: z
     .string()
-    .max(30, { message: "maxLength" })
-    .regex(SAFE_USERNAME_PATTERN, { message: "invalid" })
+    .max(500, { message: "maxLength" })
+    .regex(SAFE_ADDRESS_PATTERN, { message: "invalid" })
     .optional()
     .or(z.literal("")),
-  bio: z
+  dateOfBirth: z
     .string()
-    .max(280, { message: "maxLength" })
+    .refine(
+      (val) => {
+        if (!val) return true;
+        const date = new Date(val);
+        const now = new Date();
+        const hundredYearsAgo = new Date();
+        hundredYearsAgo.setFullYear(now.getFullYear() - 100);
+        return date <= now && date >= hundredYearsAgo;
+      },
+      { message: "invalid" }
+    )
+    .optional()
+    .or(z.literal("")),
+  gender: z
+    .enum(GENDER_VALUES, { message: "invalid" })
     .optional()
     .or(z.literal(""))
 });
