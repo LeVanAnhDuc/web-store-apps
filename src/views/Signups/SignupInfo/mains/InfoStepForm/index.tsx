@@ -7,9 +7,9 @@ import type { SignupInfoFormValues } from "@/types/Signup";
 import type { SignupMessages } from "@/types/libs";
 // components
 import PasswordInput from "@/components/PasswordInput";
-import CustomDateInput from "@/components/CustomDateInput";
 import FullNameInput from "../../components/FullNameInput";
 import GenderSelect from "../../components/GenderSelect";
+import BirthdayInput from "../../components/BirthdayInput";
 import SubmitButton from "../../components/SubmitButton";
 // forms
 import { signupInfoFormProps } from "@/forms/Signup";
@@ -77,8 +77,7 @@ const InfoStepForm = ({
           genderLabels={gender}
           disabled={isPending}
         />
-        <CustomDateInput
-          name={BIRTHDAY}
+        <BirthdayInput
           label={labelBirthday}
           placeholder={placeholderBirthday}
           disabled={isPending}

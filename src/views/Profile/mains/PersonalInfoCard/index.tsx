@@ -17,12 +17,12 @@ import { Card } from "@/components/ui/card";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
-import CustomDateInput from "@/components/CustomDateInput";
 import FirstNameField from "@/views/Profile/components/FirstNameField";
 import LastNameField from "@/views/Profile/components/LastNameField";
 import PhoneField from "@/views/Profile/components/PhoneField";
 import AddressField from "@/views/Profile/components/AddressField";
 import GenderField from "@/views/Profile/components/GenderField";
+import DateOfBirthField from "@/views/Profile/components/DateOfBirthField";
 // ghosts
 import ProfileFormSyncEffect from "@/views/Profile/ghosts/ProfileFormSyncEffect";
 // hooks
@@ -123,12 +123,7 @@ const PersonalInfoCard = () => {
           </div>
           <AddressField control={methods.control} isPending={isPending} />
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <CustomDateInput
-              name="dateOfBirth"
-              label={t("fields.dateOfBirth")}
-              placeholder={t("placeholders.dateOfBirth")}
-              disabled={isPending}
-            />
+            <DateOfBirthField control={methods.control} isPending={isPending} />
             <GenderField control={methods.control} isPending={isPending} />
           </div>
           <div className="border-border flex justify-end gap-3 border-t pt-5">
