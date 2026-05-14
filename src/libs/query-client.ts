@@ -3,6 +3,11 @@ import { QueryClient, QueryCache, MutationCache } from "@tanstack/react-query";
 import { isAxiosError, isCancel } from "axios";
 // others
 import { confirmErrorToast, errorToast } from "@/utils";
+import CONSTANTS from "@/constants";
+
+const SILENT_ERROR_CODES: string[] = [
+  CONSTANTS.ERROR_CODES.REFRESH_TOKEN_REQUIRED
+];
 
 const getErrorMessage = (error: Error): string => {
   if (isAxiosError<ErrorResponsePattern>(error)) {
@@ -29,11 +34,17 @@ const getErrorMessage = (error: Error): string => {
 const queryErrorHandler = (error: Error): void => {
   if (isCancel(error)) return;
 
-  if (isAxiosError(error)) {
+  if (isAxiosError<ErrorResponsePattern>(error)) {
     const status = error.response?.status;
+    const code = error.response?.data?.code;
 
     // Already handled by axios interceptor
     if (!error.response || error.code === "ECONNABORTED") {
+      return;
+    }
+
+    // Silent codes — skip toast (handled silently elsewhere, e.g. session bootstrap)
+    if (code && SILENT_ERROR_CODES.includes(code)) {
       return;
     }
 
