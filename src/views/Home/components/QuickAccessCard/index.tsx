@@ -7,22 +7,20 @@ import { cn } from "@/libs/utils";
 
 const QuickAccessCard = ({
   name,
-  lastOpened,
   icon,
   gradient,
-  lastOpenedLabel
+  lastOpenedText
 }: {
   name: string;
-  lastOpened: string;
   icon: ReactNode;
   gradient: string;
-  lastOpenedLabel: string;
+  lastOpenedText: string;
 }) => (
   <Button
     type="button"
     variant="ghost"
     size="default"
-    aria-label={`${name}, ${lastOpenedLabel.replace("{time}", lastOpened)}`}
+    aria-label={`${name}, ${lastOpenedText}`}
     className={cn(
       "flex h-[140px] cursor-pointer flex-col items-start justify-start gap-2.5 rounded-2xl p-5 text-left whitespace-normal transition-opacity hover:opacity-90",
       gradient
@@ -43,7 +41,7 @@ const QuickAccessCard = ({
       {name}
     </span>
     <span className="text-primary-foreground/80 text-[11px]" aria-hidden="true">
-      {lastOpenedLabel.replace("{time}", lastOpened)}
+      {lastOpenedText}
     </span>
   </Button>
 );

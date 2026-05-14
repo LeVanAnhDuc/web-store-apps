@@ -7,7 +7,7 @@ import { toast } from "sonner";
 // hooks
 import { useAnnounce } from "@/hooks";
 // types
-import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
+import type { ContactStatus } from "@/types/ContactAdmin";
 // components
 import { Badge } from "@/components/ui/badge";
 import {
@@ -20,14 +20,10 @@ import {
 // requests
 import {
   getAdminContactDetail,
-  updateContactStatus,
-  updateContactCategory
+  updateContactStatus
 } from "@/requests/contactAdmin";
 // dataSources
-import {
-  CONTACT_STATUS_VARIANT,
-  CONTACT_CATEGORY_VALUES
-} from "@/dataSources/ContactAdmin";
+import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
 // others
 import { formatDateTimeMedium } from "@/utils";
 
@@ -60,28 +56,6 @@ const ContactDetailCard = ({ id }: { id: string }) => {
       toast.error(t("updateStatus.error"));
     }
   });
-
-  const { mutate: changeCategory, isPending: isUpdatingCategory } = useMutation(
-    {
-      mutationFn: (category: ContactCategory) =>
-        updateContactCategory(id, category),
-      onMutate: () => {
-        announce(tAnnounce("categoryUpdating"));
-      },
-      onSuccess: () => {
-        announce(tAnnounce("categoryUpdated"));
-        toast.success(t("updateCategory.success"));
-        queryClient.invalidateQueries({
-          queryKey: ["adminContactDetail", id]
-        });
-        queryClient.invalidateQueries({ queryKey: ["adminContacts"] });
-      },
-      onError: () => {
-        announce(tAnnounce("categoryError"));
-        toast.error(t("updateCategory.error"));
-      }
-    }
-  );
 
   if (isLoading) {
     return (
@@ -155,24 +129,7 @@ const ContactDetailCard = ({ id }: { id: string }) => {
           <dt className="text-muted-foreground mb-1 text-xs font-medium tracking-wide uppercase">
             {t("fields.category")}
           </dt>
-          <dd>
-            <Select
-              value={contact.category}
-              onValueChange={(v) => changeCategory(v as ContactCategory)}
-              disabled={isUpdatingCategory}
-            >
-              <SelectTrigger className="h-8 w-full text-sm">
-                <SelectValue placeholder={t("updateCategory.label")} />
-              </SelectTrigger>
-              <SelectContent>
-                {CONTACT_CATEGORY_VALUES.map((cat) => (
-                  <SelectItem key={cat} value={cat}>
-                    {tCategory(cat)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </dd>
+          <dd className="mt-1 text-sm">{tCategory(contact.category)}</dd>
         </div>
         <div>
           <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">

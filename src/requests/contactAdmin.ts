@@ -2,12 +2,9 @@
 import type {
   ContactAdminFormValues,
   AdminContactQuery,
-  MyContactsQuery,
   PaginatedContactsResponse,
-  PaginatedUserContactsResponse,
   ContactDetailItem,
-  ContactStatus,
-  ContactCategory
+  ContactStatus
 } from "@/types/ContactAdmin";
 // others
 import axiosInstance from "@/libs/axios";
@@ -66,22 +63,4 @@ export const updateContactStatus = async (
   await axiosInstance.patch(`${END_POINTS.ADMIN_CONTACTS}/${id}/status`, {
     status
   });
-};
-
-export const updateContactCategory = async (
-  id: string,
-  category: ContactCategory
-): Promise<void> => {
-  await axiosInstance.patch(`${END_POINTS.ADMIN_CONTACTS}/${id}/category`, {
-    category
-  });
-};
-
-export const getMyContacts = async (
-  params?: MyContactsQuery
-): Promise<PaginatedUserContactsResponse> => {
-  const response = await axiosInstance.get<
-    ResponsePattern<PaginatedUserContactsResponse>
-  >(END_POINTS.AUTH_CONTACTS_ME, { params });
-  return response.data.data;
 };

@@ -6,7 +6,7 @@ const END_POINTS = {
   AUTH_LOGIN_MAGIC_LINK_SEND: "/auth/login/magic-link/send",
   AUTH_LOGIN_MAGIC_LINK_VERIFY: "/auth/login/magic-link/verify",
   AUTH_LOGOUT: "/auth/logout",
-  AUTH_REFRESH: "/auth/refresh",
+  AUTH_REFRESH: "/auth/token/refresh",
 
   // Signup
   AUTH_SIGNUP_SEND_OTP: "/auth/signup/send-otp",
@@ -31,7 +31,6 @@ const END_POINTS = {
   // Contact
   CONTACT_SUBMIT: "/contact/submit",
   ADMIN_CONTACTS: "/admin/contacts",
-  AUTH_CONTACTS_ME: "/auth/contacts/me",
 
   // Login History
   LOGIN_HISTORY: "/login-history",
