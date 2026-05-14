@@ -27,7 +27,7 @@ import { useFieldProps } from "@/hooks";
 // others
 import { getDateOfBirthBounds, parseLocalDate } from "@/utils";
 
-const BirthdayInput = ({
+const CustomDateInput = ({
   name,
   label,
   placeholder,
@@ -166,4 +166,4 @@ const BirthdayInput = ({
   );
 };
 
-export default BirthdayInput;
+export default CustomDateInput;

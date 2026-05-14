@@ -17,7 +17,7 @@ import { Card } from "@/components/ui/card";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
-import BirthdayInput from "@/components/BirthdayInput";
+import CustomDateInput from "@/components/CustomDateInput";
 import FirstNameField from "@/views/Profile/components/FirstNameField";
 import LastNameField from "@/views/Profile/components/LastNameField";
 import PhoneField from "@/views/Profile/components/PhoneField";
@@ -123,7 +123,7 @@ const PersonalInfoCard = () => {
           </div>
           <AddressField control={methods.control} isPending={isPending} />
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <BirthdayInput
+            <CustomDateInput
               name="dateOfBirth"
               label={t("fields.dateOfBirth")}
               placeholder={t("placeholders.dateOfBirth")}
