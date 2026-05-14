@@ -1,8 +1,4 @@
 {
-  "breadcrumb": {
-    "settings": "Cài đặt",
-    "current": "Bảo mật"
-  },
   "title": "Bảo mật",
   "description": "Theo dõi bảo mật tài khoản và quản lý quyền truy cập API",
   "loginActivity": {

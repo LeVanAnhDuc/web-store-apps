@@ -1,8 +1,4 @@
 {
-  "breadcrumb": {
-    "settings": "Settings",
-    "current": "Team"
-  },
   "title": "Team",
   "description": "Manage your team members and their roles",
   "members": {

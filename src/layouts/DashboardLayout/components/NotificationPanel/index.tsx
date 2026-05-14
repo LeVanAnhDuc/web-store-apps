@@ -9,15 +9,27 @@ import CustomButton from "@/components/CustomButton";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+// hooks
+import { useAnnounce } from "@/hooks";
 // others
 import { NOTIFICATIONS_MOCK } from "@/mocks/Dashboard";
 import { cn } from "@/libs/utils";
+import { useRouter } from "@/i18n/navigation";
+import CONSTANTS from "@/constants";
 
 type Tab = "all" | "unread" | "mentions";
 
-const NotificationPanel = () => {
+const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
+  const router = useRouter();
   const t = useTranslations("dashboard.notifications");
+  const { announce } = useAnnounce();
   const [activeTab, setActiveTab] = useState<Tab>("all");
+
+  const handleViewAll = () => {
+    announce(t("viewAllAnnounce"));
+    onNavigate?.();
+    router.push(CONSTANTS.ROUTES.NOTIFICATIONS);
+  };
 
   const unreadCount = NOTIFICATIONS_MOCK.filter((n) => !n.isRead).length;
 
@@ -124,7 +136,12 @@ const NotificationPanel = () => {
       </ScrollArea>
       <Separator />
       <div className="flex justify-center px-4 py-3">
-        <CustomButton variant="ghost" size="sm" className="text-sm font-medium">
+        <CustomButton
+          variant="ghost"
+          size="sm"
+          className="text-sm font-medium"
+          onClick={handleViewAll}
+        >
           {t("viewAll")}
         </CustomButton>
       </div>

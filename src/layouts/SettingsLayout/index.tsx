@@ -29,7 +29,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
           tabIndex={-1}
           className="flex-1 overflow-y-auto"
         >
-          <div className="mx-auto max-w-5xl">{children}</div>
+          <div className="space-y-6">{children}</div>
         </main>
       </div>
     </div>

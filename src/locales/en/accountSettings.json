@@ -1,8 +1,4 @@
 {
-  "breadcrumb": {
-    "settings": "Settings",
-    "current": "Account Settings"
-  },
   "title": "Account Settings",
   "description": "Manage your account security and sessions",
   "changePassword": {

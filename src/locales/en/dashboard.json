@@ -40,7 +40,8 @@
     "all": "All",
     "unread": "Unread",
     "mentions": "Mentions",
-    "viewAll": "View all notifications"
+    "viewAll": "View all notifications",
+    "viewAllAnnounce": "Navigating to all notifications."
   },
   "sort": {
     "featured": "Featured",

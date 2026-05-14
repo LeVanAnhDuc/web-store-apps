@@ -1,8 +1,4 @@
 {
-  "breadcrumb": {
-    "settings": "Cài đặt",
-    "current": "Nhóm"
-  },
   "title": "Nhóm",
   "description": "Quản lý thành viên nhóm và vai trò",
   "members": {

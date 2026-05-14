@@ -21,7 +21,7 @@ const Notifications = () => {
   };
 
   return (
-    <div className="bg-card -mx-4 -my-4 flex min-h-[calc(100vh-4rem)] flex-col lg:-mx-6 lg:-my-6">
+    <div className="flex flex-col gap-6">
       <PageHeader onMarkAllRead={handleMarkAllRead} />
       <NotificationList itemsOverride={items} />
     </div>

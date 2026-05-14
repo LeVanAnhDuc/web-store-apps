@@ -1,15 +1,7 @@
 // types
 import type { LucideIcon } from "lucide-react";
 // libs
-import {
-  Bell,
-  CreditCard,
-  Home,
-  Settings,
-  Shield,
-  User,
-  Users
-} from "lucide-react";
+import { CreditCard, Home, Settings, Shield, User, Users } from "lucide-react";
 // others
 import CONSTANTS from "@/constants";
 
@@ -21,7 +13,6 @@ export type SettingsGroupKey =
   | "accountSettings"
   | "billing"
   | "team"
-  | "notifications"
   | "security";
 
 export interface SettingsNavItem<K extends string> {
@@ -39,6 +30,5 @@ export const SETTINGS_GROUP_ITEMS: readonly SettingsNavItem<SettingsGroupKey>[] 
     { key: "accountSettings", icon: Settings, href: ROUTES.ACCOUNT_SETTINGS },
     { key: "billing", icon: CreditCard, href: ROUTES.BILLING },
     { key: "team", icon: Users, href: ROUTES.TEAM },
-    { key: "notifications", icon: Bell, href: ROUTES.NOTIFICATIONS },
     { key: "security", icon: Shield, href: ROUTES.SECURITY }
   ] as const;

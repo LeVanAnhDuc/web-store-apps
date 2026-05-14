@@ -1,8 +1,4 @@
 {
-  "breadcrumb": {
-    "settings": "Settings",
-    "current": "Security"
-  },
   "title": "Security",
   "description": "Monitor your account security and manage API access",
   "loginActivity": {

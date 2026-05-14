@@ -1,8 +1,4 @@
 {
-  "breadcrumb": {
-    "settings": "Cài đặt",
-    "current": "Cài đặt tài khoản"
-  },
   "title": "Cài đặt tài khoản",
   "description": "Quản lý bảo mật tài khoản và phiên đăng nhập",
   "changePassword": {

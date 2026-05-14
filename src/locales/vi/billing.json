@@ -1,8 +1,4 @@
 {
-  "breadcrumb": {
-    "settings": "Cài đặt",
-    "current": "Thanh toán"
-  },
   "title": "Thanh toán",
   "description": "Quản lý gói đăng ký, phương thức thanh toán và hóa đơn",
   "currentPlan": {

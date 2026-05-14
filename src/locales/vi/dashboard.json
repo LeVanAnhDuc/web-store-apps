@@ -40,7 +40,8 @@
     "all": "Tất cả",
     "unread": "Chưa đọc",
     "mentions": "Đề cập",
-    "viewAll": "Xem tất cả thông báo"
+    "viewAll": "Xem tất cả thông báo",
+    "viewAllAnnounce": "Đang chuyển đến trang tất cả thông báo."
   },
   "sort": {
     "featured": "Nổi bật",
