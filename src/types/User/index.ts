@@ -30,3 +30,10 @@ export type UpdateProfileData = {
 export type UploadAvatarResponse = {
   avatarUrl: string;
 };
+
+export interface DecodedIdToken {
+  sub: string;
+  name: string;
+  email: string;
+  picture?: string | null;
+}
