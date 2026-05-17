@@ -6,7 +6,8 @@ import type { LoginTokenResponse } from "@/types/Login";
 import { logoutUser } from "@/requests/logout";
 
 const initialState: AuthState = {
-  tokens: null
+  tokens: null,
+  hasBootstrapped: false
 };
 
 const createAuthSlice: StateCreator<AuthStore> = (set) => ({
@@ -15,6 +16,8 @@ const createAuthSlice: StateCreator<AuthStore> = (set) => ({
   setTokens: (tokens: LoginTokenResponse) => set({ tokens }),
 
   clearTokens: () => set({ tokens: null }),
+
+  setHasBootstrapped: (value: boolean) => set({ hasBootstrapped: value }),
 
   logout: async () => {
     try {

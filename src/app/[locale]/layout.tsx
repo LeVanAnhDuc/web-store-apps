@@ -8,6 +8,7 @@ import type { Metadata, Viewport } from "next";
 import type { Locale } from "@/i18n/config";
 // components
 import { Toaster } from "@/components/ui/sonner";
+import SessionGate from "@/layouts/SessionGate";
 // contexts
 import AppProvider from "@/contexts/AppProvider";
 // others
@@ -75,7 +76,9 @@ export default async function RootLayout({
           id="announcer"
         />
         <AppProvider>
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          <NextIntlClientProvider>
+            <SessionGate>{children}</SessionGate>
+          </NextIntlClientProvider>
           <Toaster />
         </AppProvider>
       </body>
