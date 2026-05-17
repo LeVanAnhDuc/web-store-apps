@@ -17,6 +17,7 @@ import { Card } from "@/components/ui/card";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
+import CustomTooltip from "@/components/CustomTooltip";
 import FirstNameField from "@/views/Profile/components/FirstNameField";
 import LastNameField from "@/views/Profile/components/LastNameField";
 import PhoneField from "@/views/Profile/components/PhoneField";
@@ -69,6 +70,18 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
     methods.reset(mapProfileToFormValues(profile));
   };
 
+  const isDirty = methods.formState.isDirty;
+  const cancelDisabledReason = isPending
+    ? t("tooltips.saving")
+    : !isDirty
+      ? t("tooltips.noChangesToCancel")
+      : null;
+  const saveDisabledReason = isPending
+    ? t("tooltips.saving")
+    : !isDirty
+      ? t("tooltips.noChangesToSave")
+      : null;
+
   return (
     <Card
       className="rounded-2xl border p-0"
@@ -112,21 +125,25 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
             <GenderField control={methods.control} isPending={isPending} />
           </div>
           <div className="border-border flex justify-end gap-3 border-t pt-5">
-            <CustomButton
-              type="button"
-              variant="outline"
-              onClick={handleCancel}
-              disabled={isPending || !methods.formState.isDirty}
-            >
-              {t("buttons.cancel")}
-            </CustomButton>
-            <CustomButton
-              type="submit"
-              loading={isPending}
-              disabled={!methods.formState.isDirty || isPending}
-            >
-              {t("buttons.save")}
-            </CustomButton>
+            <CustomTooltip content={cancelDisabledReason}>
+              <CustomButton
+                type="button"
+                variant="outline"
+                onClick={handleCancel}
+                disabled={isPending || !isDirty}
+              >
+                {t("buttons.cancel")}
+              </CustomButton>
+            </CustomTooltip>
+            <CustomTooltip content={saveDisabledReason}>
+              <CustomButton
+                type="submit"
+                loading={isPending}
+                disabled={!isDirty || isPending}
+              >
+                {t("buttons.save")}
+              </CustomButton>
+            </CustomTooltip>
           </div>
         </form>
       </FormProvider>

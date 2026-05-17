@@ -40,6 +40,11 @@
       "cancel": "Hủy",
       "save": "Lưu thay đổi"
     },
+    "tooltips": {
+      "saving": "Đang lưu...",
+      "noChangesToCancel": "Chưa có thay đổi để hủy",
+      "noChangesToSave": "Chưa có thay đổi để lưu"
+    },
     "toast": {
       "success": "Cập nhật hồ sơ thành công",
       "error": "Không thể cập nhật hồ sơ"

@@ -40,6 +40,11 @@
       "cancel": "Cancel",
       "save": "Save Changes"
     },
+    "tooltips": {
+      "saving": "Saving in progress...",
+      "noChangesToCancel": "No changes to discard",
+      "noChangesToSave": "No changes to save"
+    },
     "toast": {
       "success": "Profile updated successfully",
       "error": "Failed to update profile"
