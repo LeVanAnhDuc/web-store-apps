@@ -7,6 +7,8 @@ import type {
   LoginHistoryMethod
 } from "@/types/LoginHistory";
 import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
+import type { MyProfileResponse } from "@/types/User";
+import type { UpdatePersonalInfoFormValues } from "@/forms/UpdatePersonalInfo/validations";
 // dataSources
 import { CONTACT_CATEGORY_VALUES } from "@/dataSources/ContactAdmin";
 // others
@@ -167,3 +169,19 @@ export const isContactCategory = (
   value: string | null
 ): value is ContactCategory =>
   value !== null && (CONTACT_CATEGORY_VALUES as string[]).includes(value);
+
+export const mapProfileToFormValues = (
+  profile: MyProfileResponse
+): UpdatePersonalInfoFormValues => {
+  const [firstName, ...rest] = profile.fullName.split(" ");
+  return {
+    firstName: firstName ?? "",
+    lastName: rest.join(" "),
+    phone: profile.phone ?? "",
+    address: profile.address ?? "",
+    dateOfBirth: profile.dateOfBirth
+      ? profile.dateOfBirth.substring(0, 10)
+      : "",
+    gender: profile.gender ?? ""
+  };
+};
