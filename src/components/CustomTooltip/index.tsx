@@ -14,19 +14,21 @@ const CustomTooltip = ({
   content,
   children,
   side,
-  delayDuration = 150
+  delayDuration = 150,
+  asChild
 }: {
   content: ReactNode;
   children: ReactNode;
   side?: "top" | "right" | "bottom" | "left";
   delayDuration?: number;
+  asChild?: boolean;
 }) => {
   if (!content) return <>{children}</>;
   return (
     <TooltipProvider delayDuration={delayDuration}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <span className="inline-flex">{children}</span>
+          {asChild ? children : <span className="inline-flex">{children}</span>}
         </TooltipTrigger>
         <TooltipContent side={side}>
           <p>{content}</p>

@@ -31,6 +31,11 @@
     "switchedToDark": "Switched to dark mode.",
     "switchedToSystem": "Switched to system theme."
   },
+  "sidebar": {
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "closeMobile": "Close navigation menu"
+  },
   "announce": {
     "sidebarCollapsed": "Sidebar collapsed.",
     "sidebarExpanded": "Sidebar expanded.",

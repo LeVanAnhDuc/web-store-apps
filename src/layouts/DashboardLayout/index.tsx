@@ -13,6 +13,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const tAnnounce = useTranslations("common.announce");
+  const tSidebar = useTranslations("common.sidebar");
   const { announce } = useAnnounce();
 
   const handleCollapsedChange = (collapsed: boolean) => {
@@ -20,10 +21,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     setIsSidebarCollapsed(collapsed);
   };
 
-  const handleMobileMenuToggle = () => {
-    const willOpen = !isMobileMenuOpen;
-    announce(tAnnounce(willOpen ? "mobileMenuOpened" : "mobileMenuClosed"));
-    setIsMobileMenuOpen(willOpen);
+  const handleMobileOpenChange = (open: boolean) => {
+    announce(tAnnounce(open ? "mobileMenuOpened" : "mobileMenuClosed"));
+    setIsMobileMenuOpen(open);
   };
 
   return (
@@ -32,15 +32,17 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         isCollapsed={isSidebarCollapsed}
         onCollapsedChange={handleCollapsedChange}
         isMobileOpen={isMobileMenuOpen}
-        onMobileClose={() => setIsMobileMenuOpen(false)}
+        onMobileOpenChange={handleMobileOpenChange}
+        collapseToggleAriaLabel={tSidebar(
+          isSidebarCollapsed ? "expand" : "collapse"
+        )}
+        mobileCloseAriaLabel={tSidebar("closeMobile")}
       />
-
       <div className="flex min-w-0 flex-1 flex-col">
         <Header
           isMobileMenuOpen={isMobileMenuOpen}
-          onMobileMenuToggle={handleMobileMenuToggle}
+          onMobileMenuToggle={() => handleMobileOpenChange(!isMobileMenuOpen)}
         />
-
         <main
           id="main-content"
           tabIndex={-1}

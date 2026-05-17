@@ -1,80 +1,62 @@
 "use client";
 
 // libs
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 // components
-import CustomButton from "@/components/CustomButton";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import NavItems from "../../components/NavItems";
+import * as SidebarUI from "@/components/Sidebar";
 import StarredApps from "../../components/StarredApps";
 import Categories from "../../components/Categories";
-// others
-import { cn } from "@/libs/utils";
+// dataSources
+import { NAV_ITEMS } from "@/dataSources/Dashboard";
 
 const Sidebar = ({
   isCollapsed,
   onCollapsedChange,
   isMobileOpen,
-  onMobileClose
+  onMobileOpenChange,
+  collapseToggleAriaLabel,
+  mobileCloseAriaLabel
 }: {
   isCollapsed: boolean;
   onCollapsedChange: (collapsed: boolean) => void;
   isMobileOpen: boolean;
-  onMobileClose: () => void;
+  onMobileOpenChange: (open: boolean) => void;
+  collapseToggleAriaLabel: string;
+  mobileCloseAriaLabel: string;
 }) => {
+  const tNav = useTranslations("dashboard.sidebar.nav");
   const showExpandedContent = isMobileOpen || !isCollapsed;
-
   return (
-    <>
-      {isMobileOpen && (
-        <div
-          className="bg-background/80 fixed inset-0 z-29 backdrop-blur-sm lg:hidden"
-          onClick={onMobileClose}
-        />
-      )}
-
-      <aside
-        className={cn(
-          "bg-card border-border fixed top-0 left-0 z-30 h-screen border-r transition-[width,transform] duration-300 lg:relative",
-          isCollapsed ? "lg:w-16" : "lg:w-64",
-          isMobileOpen
-            ? "w-64 translate-x-0"
-            : "-translate-x-full lg:translate-x-0"
-        )}
-      >
-        <CustomButton
-          variant="outline"
-          size="icon"
-          className="bg-card hover:bg-accent absolute top-[69px] -right-3 z-10 hidden size-6 rounded-full shadow-md lg:flex"
-          onClick={() => onCollapsedChange(!isCollapsed)}
-        >
-          {isCollapsed ? (
-            <ChevronRight className="size-3" />
-          ) : (
-            <ChevronLeft className="size-3" />
+    <SidebarUI.Root
+      isCollapsed={isCollapsed}
+      onCollapsedChange={onCollapsedChange}
+      isMobileOpen={isMobileOpen}
+      onMobileOpenChange={onMobileOpenChange}
+    >
+      <SidebarUI.MobileBackdrop />
+      <SidebarUI.Aside>
+        <SidebarUI.CollapseToggle aria-label={collapseToggleAriaLabel} />
+        <SidebarUI.MobileCloseHeader aria-label={mobileCloseAriaLabel} />
+        <SidebarUI.Content>
+          <SidebarUI.Nav>
+            {NAV_ITEMS.map((item) => (
+              <SidebarUI.NavItem
+                key={item.key}
+                icon={item.icon}
+                label={tNav(item.key)}
+                href={item.href}
+              />
+            ))}
+          </SidebarUI.Nav>
+          {showExpandedContent && (
+            <>
+              <StarredApps />
+              <Categories />
+            </>
           )}
-        </CustomButton>
-
-        <div className="flex h-full flex-col">
-          <div className="flex h-16 items-center justify-end px-4 lg:hidden">
-            <CustomButton variant="ghost" size="icon" onClick={onMobileClose}>
-              <X className="size-4" />
-            </CustomButton>
-          </div>
-
-          <ScrollArea className="flex-1 px-3 py-4">
-            <NavItems showExpandedContent={showExpandedContent} />
-
-            {showExpandedContent && (
-              <>
-                <StarredApps />
-                <Categories />
-              </>
-            )}
-          </ScrollArea>
-        </div>
-      </aside>
-    </>
+        </SidebarUI.Content>
+      </SidebarUI.Aside>
+    </SidebarUI.Root>
   );
 };
 

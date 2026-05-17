@@ -1,7 +1,5 @@
 {
   "sidebar": {
-    "navigation": "Navigation",
-    "toggle": "Toggle navigation",
     "menuLabel": "Menu",
     "settingsLabel": "Settings"
   },

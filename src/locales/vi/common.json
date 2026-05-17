@@ -31,6 +31,11 @@
     "switchedToDark": "Đã chuyển sang chế độ tối.",
     "switchedToSystem": "Đã chuyển sang giao diện theo hệ thống."
   },
+  "sidebar": {
+    "collapse": "Thu gọn thanh bên",
+    "expand": "Mở rộng thanh bên",
+    "closeMobile": "Đóng menu điều hướng"
+  },
   "announce": {
     "sidebarCollapsed": "Đã thu gọn thanh bên.",
     "sidebarExpanded": "Đã mở rộng thanh bên.",

@@ -5,6 +5,7 @@ import useFirstMountState from "./useFirstMountState";
 import useCountdown from "./useCountdown";
 import usePostLoginRedirect from "./usePostLoginRedirect";
 import useAnnounce from "./useAnnounce";
+import useDelayedFlag from "./useDelayedFlag";
 
 export {
   useFieldProps,
@@ -13,5 +14,6 @@ export {
   useFirstMountState,
   useCountdown,
   usePostLoginRedirect,
-  useAnnounce
+  useAnnounce,
+  useDelayedFlag
 };
