@@ -1,6 +1,6 @@
 "use client";
+
 // libs
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
@@ -12,7 +12,16 @@ import type {
 } from "@/types/LoginHistory";
 // components
 import { Skeleton } from "@/components/ui/skeleton";
-import CustomButton from "@/components/CustomButton";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table";
+import CustomPagination from "@/components/CustomPagination";
 // hooks
 import { useAnnounce } from "@/hooks";
 // requests
@@ -86,18 +95,6 @@ const LoginHistoryTable = () => {
   const start = total === 0 ? 0 : (page - 1) * (meta?.limit ?? 10) + 1;
   const end = Math.min(page * (meta?.limit ?? 10), total);
   const totalPages = meta?.totalPages ?? 1;
-  const pageNumbers = (() => {
-    if (totalPages <= 5)
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
-    const result: (number | "dots")[] = [1];
-    if (page > 3) result.push("dots");
-    const middleStart = Math.max(2, page - 1);
-    const middleEnd = Math.min(totalPages - 1, page + 1);
-    for (let i = middleStart; i <= middleEnd; i += 1) result.push(i);
-    if (page < totalPages - 2) result.push("dots");
-    result.push(totalPages);
-    return result;
-  })();
   const methodColor: Record<LoginHistoryMethod, string> = {
     password: "text-foreground",
     otp: "text-warning-foreground",
@@ -117,179 +114,88 @@ const LoginHistoryTable = () => {
           {tHeader("summary", { start, end, total })}
         </span>
       </div>
-      <div className="overflow-x-auto">
-        <table
-          className="w-full text-sm"
-          aria-labelledby="login-history-table-title"
-        >
-          <caption className="sr-only">{tHeader("title")}</caption>
-          <thead>
-            <tr className="bg-muted/50 border-y">
-              <th
-                scope="col"
-                className="text-muted-foreground px-4 py-3 text-left text-xs font-semibold tracking-wide uppercase"
+      <Table aria-labelledby="login-history-table-title">
+        <TableCaption className="sr-only">{tHeader("title")}</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>{tTable("createdAt")}</TableHead>
+            <TableHead>{tTable("method")}</TableHead>
+            <TableHead>{tTable("status")}</TableHead>
+            <TableHead>{tTable("deviceType")}</TableHead>
+            <TableHead>{tTable("ip")}</TableHead>
+            <TableHead>{tTable("country")}</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {items.length === 0 ? (
+            <TableRow>
+              <TableCell
+                colSpan={6}
+                className="text-muted-foreground py-12 text-center"
               >
-                {tTable("createdAt")}
-              </th>
-              <th
-                scope="col"
-                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
-              >
-                {tTable("method")}
-              </th>
-              <th
-                scope="col"
-                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
-              >
-                {tTable("status")}
-              </th>
-              <th
-                scope="col"
-                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
-              >
-                {tTable("deviceType")}
-              </th>
-              <th
-                scope="col"
-                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
-              >
-                {tTable("ip")}
-              </th>
-              <th
-                scope="col"
-                className="text-muted-foreground px-3 py-3 text-left text-xs font-semibold tracking-wide uppercase"
-              >
-                {tTable("country")}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.length === 0 ? (
-              <tr>
-                <td
-                  colSpan={6}
-                  className="text-muted-foreground py-12 text-center"
+                {tEmpty("tableEmpty")}
+              </TableCell>
+            </TableRow>
+          ) : (
+            items.map((item) => (
+              <TableRow key={item._id}>
+                <TableCell className="font-medium">
+                  {formatDateTimeShort(item.createdAt)}
+                </TableCell>
+                <TableCell
+                  className={cn("font-medium", methodColor[item.method])}
                 >
-                  {tEmpty("tableEmpty")}
-                </td>
-              </tr>
-            ) : (
-              items.map((item, idx) => (
-                <tr
-                  key={item._id}
-                  className={cn(
-                    "border-b last:border-0",
-                    idx % 2 === 1 && "bg-muted/30"
-                  )}
-                >
-                  <td className="text-foreground px-4 py-3.5 text-xs font-medium">
-                    {formatDateTimeShort(item.createdAt)}
-                  </td>
-                  <td
-                    className={cn(
-                      "px-3 py-3.5 text-xs font-medium",
-                      methodColor[item.method]
-                    )}
-                  >
-                    {tMethod(item.method as LoginHistoryMethod)}
-                  </td>
-                  <td className="px-3 py-3.5 text-xs">
-                    <span className="inline-flex items-center gap-1.5">
-                      <span
-                        className={cn(
-                          "size-1.5 rounded-full",
-                          item.status === "success"
-                            ? "bg-success"
-                            : "bg-destructive"
-                        )}
-                        aria-hidden="true"
-                      />
-                      <span
-                        className={cn(
-                          "font-medium",
-                          item.status === "success"
-                            ? "text-success"
-                            : "text-destructive"
-                        )}
-                      >
-                        {tStatus(item.status)}
-                      </span>
+                  {tMethod(item.method as LoginHistoryMethod)}
+                </TableCell>
+                <TableCell>
+                  <span className="inline-flex items-center gap-1.5">
+                    <span
+                      className={cn(
+                        "size-1.5 rounded-full",
+                        item.status === "success"
+                          ? "bg-success"
+                          : "bg-destructive"
+                      )}
+                      aria-hidden="true"
+                    />
+                    <span
+                      className={cn(
+                        "font-medium",
+                        item.status === "success"
+                          ? "text-success"
+                          : "text-destructive"
+                      )}
+                    >
+                      {tStatus(item.status)}
                     </span>
-                  </td>
-                  <td className="text-foreground px-3 py-3.5 text-xs">
-                    {item.deviceType !== "UNKNOWN"
-                      ? `${item.deviceType} · ${item.browser}`
-                      : item.browser}
-                  </td>
-                  <td className="text-muted-foreground px-3 py-3.5 font-mono text-xs">
-                    {item.ip}
-                  </td>
-                  <td className="text-foreground px-3 py-3.5 text-xs">
-                    {item.city !== "UNKNOWN"
-                      ? `${item.city}, ${item.country}`
-                      : item.country}
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+                  </span>
+                </TableCell>
+                <TableCell>
+                  {item.deviceType !== "UNKNOWN"
+                    ? `${item.deviceType} · ${item.browser}`
+                    : item.browser}
+                </TableCell>
+                <TableCell className="text-muted-foreground font-mono">
+                  {item.ip}
+                </TableCell>
+                <TableCell>
+                  {item.city !== "UNKNOWN"
+                    ? `${item.city}, ${item.country}`
+                    : item.country}
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
       {meta && totalPages > 1 && (
-        <nav
-          className="bg-muted/30 flex flex-wrap items-center justify-between gap-2 border-t px-5 py-3"
-          aria-label="Login history pagination"
-        >
-          <span className="text-muted-foreground text-xs font-medium">
-            Page {page} of {totalPages}
-          </span>
-          <div className="flex items-center gap-1">
-            <CustomButton
-              size="icon-sm"
-              variant="outline"
-              disabled={page <= 1}
-              onClick={() => handleGoToPage(page - 1)}
-              aria-label="Previous page"
-            >
-              <ChevronLeft className="size-4" aria-hidden="true" />
-            </CustomButton>
-            {pageNumbers.map((num, idx) =>
-              num === "dots" ? (
-                <span
-                  key={`dots-${idx}`}
-                  className="text-muted-foreground px-1 text-xs"
-                  aria-hidden="true"
-                >
-                  …
-                </span>
-              ) : (
-                <CustomButton
-                  key={num}
-                  size="icon-sm"
-                  onClick={() => handleGoToPage(num)}
-                  aria-label={`Page ${num}`}
-                  aria-current={num === page ? "page" : undefined}
-                  className={cn(
-                    num === page
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                      : "border-border bg-background hover:bg-muted text-foreground border"
-                  )}
-                >
-                  {num}
-                </CustomButton>
-              )
-            )}
-            <CustomButton
-              size="icon-sm"
-              variant="outline"
-              disabled={page >= totalPages}
-              onClick={() => handleGoToPage(page + 1)}
-              aria-label="Next page"
-            >
-              <ChevronRight className="size-4" aria-hidden="true" />
-            </CustomButton>
-          </div>
-        </nav>
+        <div className="bg-muted/30 border-t px-5 py-3">
+          <CustomPagination
+            page={page}
+            totalPages={totalPages}
+            onPageChange={handleGoToPage}
+          />
+        </div>
       )}
     </div>
   );

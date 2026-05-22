@@ -4,7 +4,8 @@ import { toast } from "sonner";
 import type { Locale } from "next-intl";
 import type {
   LoginHistoryStatus,
-  LoginHistoryMethod
+  LoginHistoryMethod,
+  DateRangePreset
 } from "@/types/LoginHistory";
 import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
 import type { MyProfileResponse } from "@/types/User";
@@ -142,6 +143,35 @@ export const parseLocalDate = (iso: string): Date => {
   const [year, month, day] = iso.split("T")[0].split("-").map(Number);
   return new Date(year, month - 1, day);
 };
+
+export const formatYmdLocal = (date: Date): string => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+};
+
+export const computeDateRange = (
+  preset: DateRangePreset
+): { fromDate: string | null; toDate: string | null } => {
+  if (preset === "all") return { fromDate: null, toDate: null };
+  const today = new Date();
+  const toDate = formatYmdLocal(today);
+  if (preset === "today") return { fromDate: toDate, toDate };
+  const days = preset === "7d" ? 7 : preset === "30d" ? 30 : 90;
+  const from = new Date(today);
+  from.setDate(from.getDate() - (days - 1));
+  return { fromDate: formatYmdLocal(from), toDate };
+};
+
+export const isDateRangePreset = (
+  value: string | null
+): value is DateRangePreset =>
+  value === "today" ||
+  value === "7d" ||
+  value === "30d" ||
+  value === "90d" ||
+  value === "all";
 
 const LOGIN_HISTORY_STATUSES: LoginHistoryStatus[] = ["success", "failed"];
 const LOGIN_HISTORY_METHODS: LoginHistoryMethod[] = [

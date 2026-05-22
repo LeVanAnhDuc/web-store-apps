@@ -5,6 +5,15 @@ import { Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
 import { Card } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table";
 import CustomButton from "@/components/CustomButton";
 import InvoiceStatusBadge from "../../components/InvoiceStatusBadge";
 // others
@@ -12,7 +21,6 @@ import { INVOICES_MOCK } from "@/mocks/Billing";
 
 const BillingHistoryCard = () => {
   const t = useTranslations("billing.history");
-
   return (
     <Card className="rounded-2xl border p-0" aria-labelledby="history-title">
       <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
@@ -24,61 +32,46 @@ const BillingHistoryCard = () => {
         </h2>
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm">
-          <caption className="sr-only">{t("title")}</caption>
-          <thead>
-            <tr className="bg-muted/40 text-muted-foreground border-border border-b text-[10px] font-semibold tracking-[0.08em] uppercase">
-              <th scope="col" className="px-6 py-3">
-                {t("columns.date")}
-              </th>
-              <th scope="col" className="px-6 py-3">
-                {t("columns.description")}
-              </th>
-              <th scope="col" className="px-6 py-3">
-                {t("columns.amount")}
-              </th>
-              <th scope="col" className="px-6 py-3">
-                {t("columns.status")}
-              </th>
-              <th scope="col" className="px-6 py-3 text-right">
-                <span className="sr-only">{t("columns.action")}</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {INVOICES_MOCK.map((inv) => (
-              <tr
-                key={inv.id}
-                className="border-border border-b last:border-b-0"
-              >
-                <td className="text-foreground px-6 py-4">{inv.date}</td>
-                <td className="text-foreground px-6 py-4">{inv.description}</td>
-                <td className="text-foreground px-6 py-4 font-medium">
-                  {inv.amount}
-                </td>
-                <td className="px-6 py-4">
-                  <InvoiceStatusBadge
-                    status={inv.status}
-                    label={t(`status.${inv.status}`)}
-                  />
-                </td>
-                <td className="px-6 py-4 text-right">
-                  <CustomButton
-                    variant="outline"
-                    size="sm"
-                    iconLeft={
-                      <Download className="size-3.5" aria-hidden="true" />
-                    }
-                  >
-                    {t("buttons.download")}
-                  </CustomButton>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table>
+        <TableCaption className="sr-only">{t("title")}</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>{t("columns.date")}</TableHead>
+            <TableHead>{t("columns.description")}</TableHead>
+            <TableHead>{t("columns.amount")}</TableHead>
+            <TableHead>{t("columns.status")}</TableHead>
+            <TableHead className="text-right">
+              <span className="sr-only">{t("columns.action")}</span>
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {INVOICES_MOCK.map((inv) => (
+            <TableRow key={inv.id}>
+              <TableCell>{inv.date}</TableCell>
+              <TableCell>{inv.description}</TableCell>
+              <TableCell className="font-medium">{inv.amount}</TableCell>
+              <TableCell>
+                <InvoiceStatusBadge
+                  status={inv.status}
+                  label={t(`status.${inv.status}`)}
+                />
+              </TableCell>
+              <TableCell className="text-right">
+                <CustomButton
+                  variant="outline"
+                  size="sm"
+                  iconLeft={
+                    <Download className="size-3.5" aria-hidden="true" />
+                  }
+                >
+                  {t("buttons.download")}
+                </CustomButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </Card>
   );
 };

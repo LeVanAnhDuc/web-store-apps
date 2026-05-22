@@ -3,6 +3,8 @@
 import { Calendar, ChevronDown, Download, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+// types
+import type { DateRangePreset } from "@/types/LoginHistory";
 // components
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
@@ -14,6 +16,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 // hooks
 import { useAnnounce } from "@/hooks";
+// others
+import { computeDateRange, isDateRangePreset } from "@/utils";
 
 const LoginHistoryFilters = () => {
   const t = useTranslations("loginHistory");
@@ -21,6 +25,7 @@ const LoginHistoryFilters = () => {
   const tStatus = useTranslations("loginHistory.status");
   const tMethod = useTranslations("loginHistory.method");
   const tFilter = useTranslations("loginHistory.filters");
+  const tDateRange = useTranslations("loginHistory.dateRange");
   const tAnnounce = useTranslations("loginHistory.announce");
   const { announce } = useAnnounce();
   const router = useRouter();
@@ -28,10 +33,30 @@ const LoginHistoryFilters = () => {
   const searchParams = useSearchParams();
   const status = searchParams.get("status") ?? "";
   const method = searchParams.get("method") ?? "";
+  const dateRangeParam = searchParams.get("dateRange");
+  const dateRange: DateRangePreset = isDateRangePreset(dateRangeParam)
+    ? dateRangeParam
+    : "all";
   const updateParam = (key: string, value: string) => {
     const next = new URLSearchParams(searchParams.toString());
     if (value) next.set(key, value);
     else next.delete(key);
+    next.set("page", "1");
+    announce(tAnnounce("filterApplied"));
+    router.push(`${pathname}?${next.toString()}`);
+  };
+  const applyDateRange = (preset: DateRangePreset) => {
+    const { fromDate, toDate } = computeDateRange(preset);
+    const next = new URLSearchParams(searchParams.toString());
+    if (preset === "all") {
+      next.delete("dateRange");
+      next.delete("fromDate");
+      next.delete("toDate");
+    } else {
+      next.set("dateRange", preset);
+      if (fromDate) next.set("fromDate", fromDate);
+      if (toDate) next.set("toDate", toDate);
+    }
     next.set("page", "1");
     announce(tAnnounce("filterApplied"));
     router.push(`${pathname}?${next.toString()}`);
@@ -52,6 +77,7 @@ const LoginHistoryFilters = () => {
       : status === "failed"
         ? tStatus("failed")
         : tToolbar("allStatus");
+  const dateRangeLabel = tDateRange(dateRange);
   return (
     <div
       className="flex flex-wrap items-center gap-3"
@@ -114,15 +140,37 @@ const LoginHistoryFilters = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <CustomButton
-        size="default"
-        variant="outline"
-        iconLeft={<Calendar className="size-3.5" aria-hidden="true" />}
-        iconRight={<ChevronDown className="size-3.5" aria-hidden="true" />}
-        className="h-10"
-      >
-        {tToolbar("last30days")}
-      </CustomButton>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <CustomButton
+            size="default"
+            variant="outline"
+            aria-label={`${tFilter("fromDate")} - ${tFilter("toDate")}: ${dateRangeLabel}`}
+            iconLeft={<Calendar className="size-3.5" aria-hidden="true" />}
+            iconRight={<ChevronDown className="size-3.5" aria-hidden="true" />}
+            className="h-10"
+          >
+            {dateRangeLabel}
+          </CustomButton>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start">
+          <DropdownMenuItem onClick={() => applyDateRange("today")}>
+            {tDateRange("today")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => applyDateRange("7d")}>
+            {tDateRange("7d")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => applyDateRange("30d")}>
+            {tDateRange("30d")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => applyDateRange("90d")}>
+            {tDateRange("90d")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => applyDateRange("all")}>
+            {tDateRange("all")}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       <label className="border-border bg-background ml-auto flex h-10 w-56 items-center gap-2 rounded-lg border px-3">
         <span className="sr-only">{tToolbar("search")}</span>
         <Search className="text-muted-foreground size-4" aria-hidden="true" />

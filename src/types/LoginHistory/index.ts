@@ -4,8 +4,14 @@ export type LoginHistoryMethod =
   | "otp"
   | "magic-link"
   | "forgot-password";
-type DeviceType = "DESKTOP" | "MOBILE" | "TABLET" | "UNKNOWN";
+export type LoginHistoryDeviceType =
+  | "DESKTOP"
+  | "MOBILE"
+  | "TABLET"
+  | "UNKNOWN";
+type DeviceType = LoginHistoryDeviceType;
 type ClientType = "WEB" | "MOBILE_IOS" | "MOBILE_ANDROID";
+export type DateRangePreset = "today" | "7d" | "30d" | "90d" | "all";
 
 export interface LoginHistoryItem {
   _id: string;
@@ -76,4 +82,16 @@ export interface AdminLoginHistoryQueryParams
     | "country"
     | "ip"
     | "usernameAttempted";
+}
+
+export interface LoginHistoryStats {
+  total: number;
+  successful: number;
+  failed: number;
+  byMethod: Record<LoginHistoryMethod, number>;
+  byDevice: Record<LoginHistoryDeviceType, number>;
+  range: {
+    from: string;
+    to: string;
+  };
 }

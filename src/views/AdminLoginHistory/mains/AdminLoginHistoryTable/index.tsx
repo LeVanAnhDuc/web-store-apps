@@ -13,7 +13,15 @@ import type {
 // components
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import CustomButton from "@/components/CustomButton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table";
+import CustomPagination from "@/components/CustomPagination";
 // hooks
 import { useAnnounce } from "@/hooks";
 // requests
@@ -35,7 +43,6 @@ const AdminLoginHistoryTable = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-
   const statusParam = searchParams.get("status");
   const methodParam = searchParams.get("method");
   const countryParam = searchParams.get("country");
@@ -44,7 +51,6 @@ const AdminLoginHistoryTable = () => {
   const toDateParam = searchParams.get("toDate");
   const userIdParam = searchParams.get("userId");
   const ipParam = searchParams.get("ip");
-
   const page = Number(searchParams.get("page") ?? 1);
   const params: AdminLoginHistoryQueryParams = {
     page,
@@ -58,27 +64,22 @@ const AdminLoginHistoryTable = () => {
     ...(userIdParam && { userId: userIdParam }),
     ...(ipParam && { ip: ipParam })
   };
-
   const { data, isLoading } = useQuery({
     queryKey: ["adminLoginHistory", params],
     queryFn: () => getAdminLoginHistory(params)
   });
-
   useEffect(() => {
     if (isLoading) announce(tAnnounce("loading"));
   }, [isLoading, announce, tAnnounce]);
-
   useEffect(() => {
     if (data) announce(tAnnounce("loaded", { total: data.meta?.total ?? 0 }));
   }, [data, announce, tAnnounce]);
-
   const handleGoToPage = (newPage: number) => {
     announce(tAnnounce("navigating", { page: newPage }));
     const next = new URLSearchParams(searchParams.toString());
     next.set("page", String(newPage));
     router.push(`${pathname}?${next.toString()}`);
   };
-
   if (isLoading) {
     return (
       <div className="bg-card rounded-xl border p-6">
@@ -90,139 +91,99 @@ const AdminLoginHistoryTable = () => {
       </div>
     );
   }
-
   const items = data?.items ?? [];
   const meta = data?.meta;
-
   return (
     <div className="bg-card rounded-xl border">
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b">
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("userId")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("usernameAttempted")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("method")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("status")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("ip")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("country")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("deviceType")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("browser")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("isAnomaly")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("createdAt")}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.length === 0 ? (
-              <tr>
-                <td
-                  colSpan={10}
-                  className="text-muted-foreground py-12 text-center"
-                >
-                  {tTable("empty")}
-                </td>
-              </tr>
-            ) : (
-              items.map((item) => (
-                <tr
-                  key={item._id}
-                  className="hover:bg-muted/50 border-b last:border-0"
-                >
-                  <td className="text-muted-foreground px-4 py-3 font-mono text-xs">
-                    {item.userId ?? "—"}
-                  </td>
-                  <td className="px-4 py-3">{item.usernameAttempted}</td>
-                  <td className="px-4 py-3">
-                    {tMethod(item.method as LoginHistoryMethod)}
-                  </td>
-                  <td className="px-4 py-3">
-                    <Badge
-                      variant={
-                        item.status === "success" ? "default" : "destructive"
-                      }
-                      className="text-xs"
-                    >
-                      {tStatus(item.status)}
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>{tTable("userId")}</TableHead>
+            <TableHead>{tTable("usernameAttempted")}</TableHead>
+            <TableHead>{tTable("method")}</TableHead>
+            <TableHead>{tTable("status")}</TableHead>
+            <TableHead>{tTable("ip")}</TableHead>
+            <TableHead>{tTable("country")}</TableHead>
+            <TableHead>{tTable("deviceType")}</TableHead>
+            <TableHead>{tTable("browser")}</TableHead>
+            <TableHead>{tTable("isAnomaly")}</TableHead>
+            <TableHead>{tTable("createdAt")}</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {items.length === 0 ? (
+            <TableRow>
+              <TableCell
+                colSpan={10}
+                className="text-muted-foreground py-12 text-center"
+              >
+                {tTable("empty")}
+              </TableCell>
+            </TableRow>
+          ) : (
+            items.map((item) => (
+              <TableRow key={item._id}>
+                <TableCell className="text-muted-foreground font-mono text-xs">
+                  {item.userId ?? "—"}
+                </TableCell>
+                <TableCell>{item.usernameAttempted}</TableCell>
+                <TableCell>
+                  {tMethod(item.method as LoginHistoryMethod)}
+                </TableCell>
+                <TableCell>
+                  <Badge
+                    variant={
+                      item.status === "success" ? "default" : "destructive"
+                    }
+                    className="text-xs"
+                  >
+                    {tStatus(item.status)}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-muted-foreground font-mono text-xs">
+                  {item.ip}
+                </TableCell>
+                <TableCell>
+                  {item.city !== "UNKNOWN"
+                    ? `${item.city}, ${item.country}`
+                    : item.country}
+                </TableCell>
+                <TableCell className="text-muted-foreground">
+                  {item.deviceType}
+                </TableCell>
+                <TableCell className="text-muted-foreground">
+                  {item.browser}
+                </TableCell>
+                <TableCell>
+                  {item.isAnomaly ? (
+                    <Badge variant="destructive" className="text-xs">
+                      {tTable("anomalyYes")}
                     </Badge>
-                  </td>
-                  <td className="text-muted-foreground px-4 py-3 font-mono text-xs">
-                    {item.ip}
-                  </td>
-                  <td className="px-4 py-3">
-                    {item.city !== "UNKNOWN"
-                      ? `${item.city}, ${item.country}`
-                      : item.country}
-                  </td>
-                  <td className="text-muted-foreground px-4 py-3">
-                    {item.deviceType}
-                  </td>
-                  <td className="text-muted-foreground px-4 py-3">
-                    {item.browser}
-                  </td>
-                  <td className="px-4 py-3">
-                    {item.isAnomaly ? (
-                      <Badge variant="destructive" className="text-xs">
-                        {tTable("anomalyYes")}
-                      </Badge>
-                    ) : (
-                      <span className="text-muted-foreground text-xs">
-                        {tTable("anomalyNo")}
-                      </span>
-                    )}
-                  </td>
-                  <td className="text-muted-foreground px-4 py-3 text-xs">
-                    {formatDateTimeShort(item.createdAt)}
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+                  ) : (
+                    <span className="text-muted-foreground text-xs">
+                      {tTable("anomalyNo")}
+                    </span>
+                  )}
+                </TableCell>
+                <TableCell className="text-muted-foreground text-xs">
+                  {formatDateTimeShort(item.createdAt)}
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
       {meta && meta.totalPages > 1 && (
-        <div className="flex items-center justify-between border-t px-4 py-3">
+        <div className="flex items-center justify-between gap-2 border-t px-4 py-3">
           <p className="text-muted-foreground text-sm">
             {tPagination("page")} {meta.page} {tPagination("of")}{" "}
             {meta.totalPages} · {meta.total} {tPagination("results")}
           </p>
-          <div className="flex gap-2">
-            <CustomButton
-              variant="outline"
-              size="sm"
-              disabled={meta.page <= 1}
-              onClick={() => handleGoToPage(meta.page - 1)}
-            >
-              {tPagination("previous")}
-            </CustomButton>
-            <CustomButton
-              variant="outline"
-              size="sm"
-              disabled={meta.page >= meta.totalPages}
-              onClick={() => handleGoToPage(meta.page + 1)}
-            >
-              {tPagination("next")}
-            </CustomButton>
-          </div>
+          <CustomPagination
+            page={meta.page}
+            totalPages={meta.totalPages}
+            onPageChange={handleGoToPage}
+          />
         </div>
       )}
     </div>

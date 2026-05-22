@@ -4,15 +4,20 @@
   "stats": {
     "totalLogins": "Tổng lượt đăng nhập",
     "successful": "Thành công",
-    "failed": "Thất bại",
-    "activeSessions": "Phiên hoạt động"
+    "failed": "Thất bại"
   },
   "toolbar": {
     "allMethods": "Tất cả phương thức",
     "allStatus": "Tất cả trạng thái",
-    "last30days": "30 ngày qua",
     "search": "Tìm log...",
     "export": "Xuất"
+  },
+  "dateRange": {
+    "today": "Hôm nay",
+    "7d": "7 ngày qua",
+    "30d": "30 ngày qua",
+    "90d": "90 ngày qua",
+    "all": "Toàn bộ"
   },
   "tableHeader": {
     "title": "Hoạt động đăng nhập gần đây",
@@ -85,6 +90,7 @@
   "announce": {
     "loading": "Đang tải dữ liệu...",
     "loaded": "Đã tải {total} kết quả",
+    "statsLoaded": "Đã tải thống kê: {total} lượt đăng nhập",
     "navigating": "Đang chuyển đến trang {page}",
     "filterApplied": "Đã áp dụng bộ lọc.",
     "filterCleared": "Đã xóa bộ lọc."

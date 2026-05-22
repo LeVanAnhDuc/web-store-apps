@@ -10,7 +10,16 @@ import type { AdminContactQuery } from "@/types/ContactAdmin";
 // components
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table";
 import CustomButton from "@/components/CustomButton";
+import CustomPagination from "@/components/CustomPagination";
 // hooks
 import { useAnnounce } from "@/hooks";
 // requests
@@ -33,7 +42,6 @@ const AdminContactTable = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-
   const statusParam = searchParams.get("status");
   const categoryParam = searchParams.get("category");
   const emailParam = searchParams.get("email");
@@ -41,7 +49,6 @@ const AdminContactTable = () => {
   const searchParam = searchParams.get("search");
   const fromDateParam = searchParams.get("fromDate");
   const toDateParam = searchParams.get("toDate");
-
   const page = Number(searchParams.get("page") ?? 1);
   const params: AdminContactQuery = {
     page,
@@ -54,27 +61,22 @@ const AdminContactTable = () => {
     ...(fromDateParam && { fromDate: fromDateParam }),
     ...(toDateParam && { toDate: toDateParam })
   };
-
   const { data, isLoading } = useQuery({
     queryKey: ["AdminContact", params],
     queryFn: () => getAdminContact(params)
   });
-
   useEffect(() => {
     if (isLoading) announce(tAnnounce("loading"));
   }, [isLoading, announce, tAnnounce]);
-
   useEffect(() => {
     if (data) announce(tAnnounce("loaded", { total: data.meta?.total ?? 0 }));
   }, [data, announce, tAnnounce]);
-
   const handleGoToPage = (newPage: number) => {
     announce(tAnnounce("navigating", { page: newPage }));
     const next = new URLSearchParams(searchParams.toString());
     next.set("page", String(newPage));
     router.push(`${pathname}?${next.toString()}`);
   };
-
   if (isLoading) {
     return (
       <div className="bg-card rounded-xl border p-6">
@@ -86,123 +88,87 @@ const AdminContactTable = () => {
       </div>
     );
   }
-
   const items = data?.items ?? [];
   const meta = data?.meta;
-
   return (
     <div className="bg-card rounded-xl border">
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b">
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("ticketNumber")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("email")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("subject")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("category")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("status")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("attachments")}
-              </th>
-              <th className="text-muted-foreground px-4 py-3 text-left font-medium">
-                {tTable("createdAt")}
-              </th>
-              <th className="px-4 py-3" />
-            </tr>
-          </thead>
-          <tbody>
-            {items.length === 0 ? (
-              <tr>
-                <td
-                  colSpan={8}
-                  className="text-muted-foreground py-12 text-center"
-                >
-                  {tTable("empty")}
-                </td>
-              </tr>
-            ) : (
-              items.map((item) => (
-                <tr
-                  key={item._id}
-                  className="hover:bg-muted/50 border-b last:border-0"
-                >
-                  <td className="px-4 py-3 font-mono text-xs font-medium">
-                    {item.ticketNumber}
-                  </td>
-                  <td className="text-muted-foreground px-4 py-3">
-                    {item.email ?? "—"}
-                  </td>
-                  <td className="max-w-[200px] truncate px-4 py-3">
-                    {item.subject}
-                  </td>
-                  <td className="text-muted-foreground px-4 py-3">
-                    {tCategory(item.category)}
-                  </td>
-                  <td className="px-4 py-3">
-                    <Badge
-                      variant={CONTACT_STATUS_VARIANT[item.status]}
-                      className="text-xs"
-                    >
-                      {tStatus(item.status)}
-                    </Badge>
-                  </td>
-                  <td className="text-muted-foreground px-4 py-3 text-center">
-                    {item.attachmentCount > 0 ? item.attachmentCount : "—"}
-                  </td>
-                  <td className="text-muted-foreground px-4 py-3 text-xs">
-                    {formatDateShort(item.createdAt)}
-                  </td>
-                  <td className="px-4 py-3">
-                    <CustomButton
-                      variant="outline"
-                      size="sm"
-                      onClick={() =>
-                        router.push(`${ADMIN_CONTACTS}/${item._id}`)
-                      }
-                    >
-                      {tTable("viewDetail")}
-                    </CustomButton>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>{tTable("ticketNumber")}</TableHead>
+            <TableHead>{tTable("email")}</TableHead>
+            <TableHead>{tTable("subject")}</TableHead>
+            <TableHead>{tTable("category")}</TableHead>
+            <TableHead>{tTable("status")}</TableHead>
+            <TableHead>{tTable("attachments")}</TableHead>
+            <TableHead>{tTable("createdAt")}</TableHead>
+            <TableHead />
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {items.length === 0 ? (
+            <TableRow>
+              <TableCell
+                colSpan={8}
+                className="text-muted-foreground py-12 text-center"
+              >
+                {tTable("empty")}
+              </TableCell>
+            </TableRow>
+          ) : (
+            items.map((item) => (
+              <TableRow key={item._id}>
+                <TableCell className="font-mono text-xs font-medium">
+                  {item.ticketNumber}
+                </TableCell>
+                <TableCell className="text-muted-foreground">
+                  {item.email ?? "—"}
+                </TableCell>
+                <TableCell className="max-w-[200px] truncate">
+                  {item.subject}
+                </TableCell>
+                <TableCell className="text-muted-foreground">
+                  {tCategory(item.category)}
+                </TableCell>
+                <TableCell>
+                  <Badge
+                    variant={CONTACT_STATUS_VARIANT[item.status]}
+                    className="text-xs"
+                  >
+                    {tStatus(item.status)}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-muted-foreground text-center">
+                  {item.attachmentCount > 0 ? item.attachmentCount : "—"}
+                </TableCell>
+                <TableCell className="text-muted-foreground text-xs">
+                  {formatDateShort(item.createdAt)}
+                </TableCell>
+                <TableCell>
+                  <CustomButton
+                    variant="outline"
+                    size="sm"
+                    onClick={() => router.push(`${ADMIN_CONTACTS}/${item._id}`)}
+                  >
+                    {tTable("viewDetail")}
+                  </CustomButton>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
       {meta && meta.totalPages > 1 && (
-        <div className="flex items-center justify-between border-t px-4 py-3">
+        <div className="flex items-center justify-between gap-2 border-t px-4 py-3">
           <p className="text-muted-foreground text-sm">
             {tPagination("page")} {meta.page} {tPagination("of")}{" "}
             {meta.totalPages} · {meta.total} {tPagination("results")}
           </p>
-          <div className="flex gap-2">
-            <CustomButton
-              variant="outline"
-              size="sm"
-              disabled={meta.page <= 1}
-              onClick={() => handleGoToPage(meta.page - 1)}
-            >
-              {tPagination("previous")}
-            </CustomButton>
-            <CustomButton
-              variant="outline"
-              size="sm"
-              disabled={meta.page >= meta.totalPages}
-              onClick={() => handleGoToPage(meta.page + 1)}
-            >
-              {tPagination("next")}
-            </CustomButton>
-          </div>
+          <CustomPagination
+            page={meta.page}
+            totalPages={meta.totalPages}
+            onPageChange={handleGoToPage}
+          />
         </div>
       )}
     </div>

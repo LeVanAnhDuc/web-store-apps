@@ -4,15 +4,20 @@
   "stats": {
     "totalLogins": "Total Logins",
     "successful": "Successful",
-    "failed": "Failed",
-    "activeSessions": "Active Sessions"
+    "failed": "Failed"
   },
   "toolbar": {
     "allMethods": "All Methods",
     "allStatus": "All Status",
-    "last30days": "Last 30 days",
     "search": "Search logs...",
     "export": "Export"
+  },
+  "dateRange": {
+    "today": "Today",
+    "7d": "Last 7 days",
+    "30d": "Last 30 days",
+    "90d": "Last 90 days",
+    "all": "All time"
   },
   "tableHeader": {
     "title": "Recent Login Activity",
@@ -85,6 +90,7 @@
   "announce": {
     "loading": "Loading data...",
     "loaded": "{total} results loaded",
+    "statsLoaded": "Stats loaded: {total} logins",
     "navigating": "Navigating to page {page}",
     "filterApplied": "Filters applied.",
     "filterCleared": "Filters cleared."
