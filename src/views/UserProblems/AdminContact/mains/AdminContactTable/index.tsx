@@ -38,6 +38,7 @@ const AdminContactTable = () => {
   const tTable = useTranslations("contactAdmin.admin.list.table");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
+  const tFilters = useTranslations("contactAdmin.admin.list.filters");
   const tPagination = useTranslations("loginHistory.pagination");
   const tAnnounce = useTranslations("loginHistory.announce");
   const { announce } = useAnnounce();
@@ -72,6 +73,12 @@ const AdminContactTable = () => {
     const next = new URLSearchParams(searchParams.toString());
     next.set("page", String(newPage));
     router.push(`${pathname}?${next.toString()}`);
+  };
+  const hasActiveFilters = Array.from(searchParams.keys()).some(
+    (key) => key !== "page"
+  );
+  const handleClearFilters = () => {
+    router.push(pathname);
   };
   if (isLoading) {
     return (
@@ -109,11 +116,21 @@ const AdminContactTable = () => {
           <TableBody>
             {items.length === 0 ? (
               <TableRow>
-                <TableCell
-                  colSpan={8}
-                  className="text-muted-foreground py-12 text-center"
-                >
-                  {tTable("empty")}
+                <TableCell colSpan={8} className="py-12 text-center">
+                  <div className="flex flex-col items-center gap-3">
+                    <p className="text-muted-foreground text-sm">
+                      {tTable("empty")}
+                    </p>
+                    {hasActiveFilters && (
+                      <CustomButton
+                        variant="outline"
+                        size="sm"
+                        onClick={handleClearFilters}
+                      >
+                        {tFilters("clear")}
+                      </CustomButton>
+                    )}
+                  </div>
                 </TableCell>
               </TableRow>
             ) : (

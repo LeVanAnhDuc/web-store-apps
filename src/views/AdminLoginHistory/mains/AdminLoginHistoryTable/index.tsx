@@ -20,6 +20,7 @@ import {
   TableRow
 } from "@/components/ui/table";
 import CustomBadge from "@/components/CustomBadge";
+import CustomButton from "@/components/CustomButton";
 import CustomPagination from "@/components/CustomPagination";
 // ghosts
 import TableLoadingAnnouncer from "../../ghosts/TableLoadingAnnouncer";
@@ -40,6 +41,7 @@ const AdminLoginHistoryTable = () => {
   const tMethod = useTranslations("loginHistory.method");
   const tPagination = useTranslations("loginHistory.pagination");
   const tAnnounce = useTranslations("loginHistory.announce");
+  const tFilters = useTranslations("loginHistory.filters");
   const { announce } = useAnnounce();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -74,6 +76,12 @@ const AdminLoginHistoryTable = () => {
     const next = new URLSearchParams(searchParams.toString());
     next.set("page", String(newPage));
     router.push(`${pathname}?${next.toString()}`);
+  };
+  const hasActiveFilters = Array.from(searchParams.keys()).some(
+    (key) => key !== "page"
+  );
+  const handleClearFilters = () => {
+    router.push(pathname);
   };
   if (isLoading) {
     return (
@@ -113,11 +121,21 @@ const AdminLoginHistoryTable = () => {
           <TableBody>
             {items.length === 0 ? (
               <TableRow>
-                <TableCell
-                  colSpan={10}
-                  className="text-muted-foreground py-12 text-center"
-                >
-                  {tTable("empty")}
+                <TableCell colSpan={10} className="py-12 text-center">
+                  <div className="flex flex-col items-center gap-3">
+                    <p className="text-muted-foreground text-sm">
+                      {tTable("empty")}
+                    </p>
+                    {hasActiveFilters && (
+                      <CustomButton
+                        variant="outline"
+                        size="sm"
+                        onClick={handleClearFilters}
+                      >
+                        {tFilters("clear")}
+                      </CustomButton>
+                    )}
+                  </div>
                 </TableCell>
               </TableRow>
             ) : (

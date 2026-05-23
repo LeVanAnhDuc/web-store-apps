@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { FileText, Download } from "lucide-react";
 // components
+import { Button } from "@/components/ui/button";
 import CustomButton from "@/components/CustomButton";
 import {
   Dialog,
@@ -78,14 +79,21 @@ const ContactAttachments = ({ id }: { id: string }) => {
               <p className="text-muted-foreground text-xs">
                 {(att.size / 1024).toFixed(0)} KB
               </p>
-              <a
-                href={att.previewUrl ?? undefined}
-                download={att.originalName}
-                className="text-primary mt-2 flex items-center gap-1 text-xs hover:underline"
+              <Button
+                asChild
+                variant="link"
+                size="sm"
+                className="mt-2 h-auto justify-start p-0 text-xs"
               >
-                <Download className="size-3" />
-                {t("download")}
-              </a>
+                <a
+                  href={att.previewUrl ?? undefined}
+                  download={att.originalName}
+                  aria-label={`${t("download")}: ${att.originalName}`}
+                >
+                  <Download className="size-3" aria-hidden="true" />
+                  {t("download")}
+                </a>
+              </Button>
             </div>
           );
         })}
