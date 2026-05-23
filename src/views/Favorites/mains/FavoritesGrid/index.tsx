@@ -1,13 +1,13 @@
 "use client";
 // libs
-import { ArrowUpDown, ChevronDown, Search } from "lucide-react";
+import { ArrowUpDown, ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 // types
 import type { FavoriteCategoryKey } from "@/mocks/Favorites";
 // components
 import CustomButton from "@/components/CustomButton";
-import CustomInput from "@/components/CustomInput";
+import SearchInput from "@/components/SearchInput";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -62,16 +62,13 @@ const FavoritesGrid = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center gap-3">
-        <label className="border-border bg-background flex h-10 w-72 items-center gap-2 rounded-lg border px-3">
-          <span className="sr-only">{t("search.placeholder")}</span>
-          <Search className="text-muted-foreground size-4" aria-hidden="true" />
-          <CustomInput
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder={t("search.placeholder")}
-            className="h-9 border-0 bg-transparent px-1 shadow-none focus-visible:ring-0"
-          />
-        </label>
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder={t("search.placeholder")}
+          ariaLabel={t("search.placeholder")}
+          className="w-72"
+        />
         <div
           className="flex flex-wrap gap-2"
           role="group"

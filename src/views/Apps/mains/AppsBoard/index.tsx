@@ -5,14 +5,13 @@ import {
   ChevronRight,
   Filter,
   LayoutGrid,
-  List,
-  Search
+  List
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
-import CustomInput from "@/components/CustomInput";
+import SearchInput from "@/components/SearchInput";
 import AppManagedCard from "../../components/AppManagedCard";
 // hooks
 import useAnnounce from "@/hooks/useAnnounce";
@@ -58,19 +57,13 @@ const AppsBoard = () => {
     <div className="flex flex-col gap-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <label className="border-border bg-background relative flex h-10 w-72 items-center rounded-lg border px-3">
-            <span className="sr-only">{t("search.placeholder")}</span>
-            <Search
-              className="text-muted-foreground size-4"
-              aria-hidden="true"
-            />
-            <CustomInput
-              value={search}
-              onChange={(e) => handleSearch(e.target.value)}
-              placeholder={t("search.placeholder")}
-              className="h-9 border-0 bg-transparent px-2 shadow-none focus-visible:ring-0"
-            />
-          </label>
+          <SearchInput
+            value={search}
+            onChange={handleSearch}
+            placeholder={t("search.placeholder")}
+            ariaLabel={t("search.placeholder")}
+            className="w-72"
+          />
           <CustomButton
             size="default"
             variant="outline"

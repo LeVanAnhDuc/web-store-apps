@@ -2,13 +2,12 @@
 
 // libs
 import { useState } from "react";
-import { Search, Bell, Menu, X } from "lucide-react";
+import { Bell, Menu, Search, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
-import CustomInput from "@/components/CustomInput";
+import SearchInput from "@/components/SearchInput";
 import UserMenu from "@/components/UserMenu";
-import LocaleDialog from "@/components/LocaleDialog";
 import Logo from "@/components/Logo";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -64,17 +63,13 @@ const Header = ({
           </span>
         </div>
       </div>
-      <div className="mx-4 hidden max-w-md flex-1 md:block">
-        <div className="relative">
-          <Search className="text-muted-foreground absolute top-1/2 left-3 size-4 -translate-y-1/2" />
-          <CustomInput
-            placeholder={t("searchPlaceholder")}
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="h-10 pl-10"
-          />
-        </div>
-      </div>
+      <SearchInput
+        value={searchValue}
+        onChange={setSearchValue}
+        placeholder={t("searchPlaceholder")}
+        ariaLabel={t("searchLabel")}
+        className="mx-4 hidden max-w-md flex-1 md:block"
+      />
       <div className="flex items-center gap-2">
         <CustomButton
           variant="ghost"
@@ -104,7 +99,6 @@ const Header = ({
             <NotificationPanel onNavigate={() => setNotifOpen(false)} />
           </PopoverContent>
         </Popover>
-        <LocaleDialog />
         <UserMenu />
       </div>
     </header>

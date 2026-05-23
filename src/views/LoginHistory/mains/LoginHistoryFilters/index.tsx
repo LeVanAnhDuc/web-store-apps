@@ -1,13 +1,13 @@
 "use client";
 // libs
-import { Calendar, ChevronDown, Download, Search } from "lucide-react";
+import { Calendar, ChevronDown, Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 // types
 import type { DateRangePreset } from "@/types/LoginHistory";
 // components
 import CustomButton from "@/components/CustomButton";
-import CustomInput from "@/components/CustomInput";
+import SearchInput from "@/components/SearchInput";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -171,14 +171,11 @@ const LoginHistoryFilters = () => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <label className="border-border bg-background ml-auto flex h-10 w-56 items-center gap-2 rounded-lg border px-3">
-        <span className="sr-only">{tToolbar("search")}</span>
-        <Search className="text-muted-foreground size-4" aria-hidden="true" />
-        <CustomInput
-          placeholder={tToolbar("search")}
-          className="h-9 border-0 bg-transparent px-1 shadow-none focus-visible:ring-0"
-        />
-      </label>
+      <SearchInput
+        placeholder={tToolbar("search")}
+        ariaLabel={tToolbar("search")}
+        className="ml-auto w-56"
+      />
       <CustomButton
         size="default"
         iconLeft={<Download className="size-3.5" aria-hidden="true" />}
