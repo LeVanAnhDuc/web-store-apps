@@ -27,26 +27,26 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="bg-background flex h-screen overflow-hidden">
-      <Sidebar
-        isCollapsed={isSidebarCollapsed}
-        onCollapsedChange={handleCollapsedChange}
-        isMobileOpen={isMobileMenuOpen}
-        onMobileOpenChange={handleMobileOpenChange}
-        collapseToggleAriaLabel={tSidebar(
-          isSidebarCollapsed ? "expand" : "collapse"
-        )}
-        mobileCloseAriaLabel={tSidebar("closeMobile")}
+    <div className="bg-background flex h-screen flex-col overflow-hidden">
+      <Header
+        isMobileMenuOpen={isMobileMenuOpen}
+        onMobileMenuToggle={() => handleMobileOpenChange(!isMobileMenuOpen)}
       />
-      <div className="flex min-w-0 flex-1 flex-col">
-        <Header
-          isMobileMenuOpen={isMobileMenuOpen}
-          onMobileMenuToggle={() => handleMobileOpenChange(!isMobileMenuOpen)}
+      <div className="flex min-h-0 flex-1">
+        <Sidebar
+          isCollapsed={isSidebarCollapsed}
+          onCollapsedChange={handleCollapsedChange}
+          isMobileOpen={isMobileMenuOpen}
+          onMobileOpenChange={handleMobileOpenChange}
+          collapseToggleAriaLabel={tSidebar(
+            isSidebarCollapsed ? "expand" : "collapse"
+          )}
+          mobileCloseAriaLabel={tSidebar("closeMobile")}
         />
         <main
           id="main-content"
           tabIndex={-1}
-          className="flex-1 overflow-y-auto p-4 lg:p-6"
+          className="min-w-0 flex-1 overflow-y-auto p-4 lg:p-6"
         >
           {children}
         </main>

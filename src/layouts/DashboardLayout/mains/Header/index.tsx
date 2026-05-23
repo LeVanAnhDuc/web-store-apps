@@ -56,7 +56,7 @@ const Header = ({
             <Menu className="size-5" aria-hidden="true" />
           )}
         </CustomButton>
-        <div className="hidden items-center gap-2 lg:flex">
+        <div className="flex items-center gap-2">
           <Logo />
           <span className="text-foreground text-lg font-semibold">
             {t("appName")}

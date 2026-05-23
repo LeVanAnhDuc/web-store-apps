@@ -8,10 +8,11 @@ import { useSidebarContext } from "../../context";
 
 const Aside = ({ children }: { children: ReactNode }) => {
   const { isCollapsed, isMobileOpen } = useSidebarContext();
+
   return (
     <aside
       className={cn(
-        "bg-card border-border fixed top-0 left-0 z-30 flex h-screen flex-col border-r transition-[width,transform] duration-300 lg:relative",
+        "bg-card border-border fixed top-0 left-0 z-30 flex h-screen flex-col border-r transition-[width,transform] duration-300 lg:relative lg:h-full",
         isCollapsed ? "lg:w-16" : "lg:w-64",
         isMobileOpen
           ? "w-64 translate-x-0"
