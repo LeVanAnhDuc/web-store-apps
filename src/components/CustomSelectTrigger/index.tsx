@@ -5,11 +5,9 @@ import { SelectTrigger } from "@/components/ui/select";
 // others
 import { cn } from "@/libs/utils";
 
-type CustomSelectTriggerProps = React.ComponentProps<typeof SelectTrigger>;
-
 const CustomSelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectTrigger>,
-  CustomSelectTriggerProps
+  React.ComponentProps<typeof SelectTrigger>
 >(({ className, children, ...props }, ref) => (
   <SelectTrigger ref={ref} className={cn("!h-12 w-full", className)} {...props}>
     {children}

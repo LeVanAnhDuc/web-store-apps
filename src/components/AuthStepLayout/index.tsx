@@ -6,9 +6,7 @@ import { FadeSlideUp, FadeIn } from "@/components/Animated";
 // others
 import { cn } from "@/libs/utils";
 
-type MaxWidth = "md" | "2xl";
-
-const MAX_WIDTH_CLASSES: Record<MaxWidth, string> = {
+const MAX_WIDTH_CLASSES: Record<"md" | "2xl", string> = {
   md: "max-w-md",
   "2xl": "max-w-2xl"
 };
@@ -24,7 +22,7 @@ const AuthStepLayout = ({
   title?: string;
   description?: string;
   email?: string;
-  maxWidth?: MaxWidth;
+  maxWidth?: "md" | "2xl";
   children: ReactNode;
   ghostComponents?: ReactNode;
 }) => (
@@ -43,13 +41,10 @@ const AuthStepLayout = ({
             )}
           </FadeIn>
         )}
-
         {email && <EmailBadge email={email} />}
-
         {children}
       </div>
     </FadeSlideUp>
-
     {ghostComponents}
   </main>
 );

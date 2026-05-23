@@ -23,12 +23,13 @@ import FormFieldMessage from "@/components/FormFieldMessage";
 // dataSources
 import { GENDER_VALUES } from "@/dataSources/Profile";
 
-type Props = {
+const GenderField = ({
+  control,
+  isPending
+}: {
   control: Control<UpdatePersonalInfoFormValues>;
   isPending: boolean;
-};
-
-const GenderField = ({ control, isPending }: Props) => {
+}) => {
   const t = useTranslations("profile.personalInfo");
   const tGender = useTranslations("profile.personalInfo.genderOptions");
 

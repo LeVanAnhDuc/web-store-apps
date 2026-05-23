@@ -12,27 +12,8 @@ import {
   PaginationNext,
   PaginationPrevious
 } from "@/components/ui/pagination";
-
-type Props = {
-  page: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-  showPageNumbers?: boolean;
-  className?: string;
-};
-
-const buildPageNumbers = (page: number, totalPages: number) => {
-  if (totalPages <= 5)
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  const result: (number | "dots")[] = [1];
-  if (page > 3) result.push("dots");
-  const middleStart = Math.max(2, page - 1);
-  const middleEnd = Math.min(totalPages - 1, page + 1);
-  for (let i = middleStart; i <= middleEnd; i += 1) result.push(i);
-  if (page < totalPages - 2) result.push("dots");
-  result.push(totalPages);
-  return result;
-};
+// others
+import { buildPaginationPageNumbers } from "@/utils";
 
 const CustomPagination = ({
   page,
@@ -40,9 +21,15 @@ const CustomPagination = ({
   onPageChange,
   showPageNumbers = true,
   className
-}: Props) => {
+}: {
+  page: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  showPageNumbers?: boolean;
+  className?: string;
+}) => {
   const pageNumbers = useMemo(
-    () => buildPageNumbers(page, totalPages),
+    () => buildPaginationPageNumbers(page, totalPages),
     [page, totalPages]
   );
   const disabledPrev = page <= 1;

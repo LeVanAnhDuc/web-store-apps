@@ -104,7 +104,7 @@ interface IconPosition {
   y: number;
 }
 
-export default function AnimatedBackground() {
+const AnimatedBackground = () => {
   const { resolvedTheme } = useTheme();
   const [positions, setPositions] = useState<IconPosition[]>([]);
   const [mounted, setMounted] = useState(false);
@@ -263,4 +263,6 @@ export default function AnimatedBackground() {
       />
     </div>
   );
-}
+};
+
+export default AnimatedBackground;

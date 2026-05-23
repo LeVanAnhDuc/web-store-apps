@@ -4,8 +4,8 @@
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-// hooks
-import { useAnnounce } from "@/hooks";
+// types
+import type { AdminLoginHistoryFilterFormValues } from "@/types/LoginHistory";
 // components
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,17 +17,8 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import CustomButton from "@/components/CustomButton";
-
-type AdminFilterFormValues = {
-  status: string;
-  method: string;
-  country: string;
-  city: string;
-  fromDate: string;
-  toDate: string;
-  userId: string;
-  ip: string;
-};
+// hooks
+import { useAnnounce } from "@/hooks";
 
 const AdminLoginHistoryFilters = () => {
   const t = useTranslations("loginHistory.filters");
@@ -40,7 +31,7 @@ const AdminLoginHistoryFilters = () => {
   const searchParams = useSearchParams();
 
   const { register, handleSubmit, reset, setValue, watch } =
-    useForm<AdminFilterFormValues>({
+    useForm<AdminLoginHistoryFilterFormValues>({
       defaultValues: {
         status: searchParams.get("status") ?? "",
         method: searchParams.get("method") ?? "",
@@ -53,7 +44,7 @@ const AdminLoginHistoryFilters = () => {
       }
     });
 
-  const onSubmit = (data: AdminFilterFormValues) => {
+  const onSubmit = (data: AdminLoginHistoryFilterFormValues) => {
     const params = new URLSearchParams();
     params.set("page", "1");
     if (data.status) params.set("status", data.status);

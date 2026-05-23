@@ -3,6 +3,8 @@
 // libs
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+// types
+import type { NotificationListTabValue } from "@/types/Notification";
 // components
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -18,8 +20,6 @@ import {
   type NotificationGroup
 } from "@/mocks/Notifications";
 
-type TabValue = "unread" | "read";
-
 const NotificationList = ({
   itemsOverride
 }: {
@@ -29,7 +29,7 @@ const NotificationList = ({
   const tItems = useTranslations("notifications.items");
   const tGroups = useTranslations("notifications.groups");
   const { announce } = useAnnounce();
-  const [tab, setTab] = useState<TabValue>("unread");
+  const [tab, setTab] = useState<NotificationListTabValue>("unread");
   const items = itemsOverride ?? NOTIFICATIONS_LIST_MOCK;
 
   const filtered = useMemo(
@@ -50,7 +50,7 @@ const NotificationList = ({
   const unreadCount = items.filter((it) => !it.isRead).length;
 
   const handleTabChange = (value: string) => {
-    const next = value as TabValue;
+    const next = value as NotificationListTabValue;
     setTab(next);
     announce(t("announce.tabChanged", { tab: t(`tabs.${next}`) }));
   };

@@ -84,6 +84,17 @@ export interface AdminLoginHistoryQueryParams
     | "usernameAttempted";
 }
 
+export type AdminLoginHistoryFilterFormValues = {
+  status: string;
+  method: string;
+  country: string;
+  city: string;
+  fromDate: string;
+  toDate: string;
+  userId: string;
+  ip: string;
+};
+
 export interface LoginHistoryStats {
   total: number;
   successful: number;

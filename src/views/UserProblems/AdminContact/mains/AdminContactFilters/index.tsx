@@ -4,8 +4,8 @@
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-// hooks
-import { useAnnounce } from "@/hooks";
+// types
+import type { AdminContactFilterFormValues } from "@/types/ContactAdmin";
 // components
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,16 +17,8 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import CustomButton from "@/components/CustomButton";
-
-type FilterFormValues = {
-  status: string;
-  category: string;
-  email: string;
-  ticketNumber: string;
-  search: string;
-  fromDate: string;
-  toDate: string;
-};
+// hooks
+import { useAnnounce } from "@/hooks";
 
 const AdminContactFilters = () => {
   const t = useTranslations("contactAdmin.admin.list.filters");
@@ -39,7 +31,7 @@ const AdminContactFilters = () => {
   const searchParams = useSearchParams();
 
   const { register, handleSubmit, reset, setValue, watch } =
-    useForm<FilterFormValues>({
+    useForm<AdminContactFilterFormValues>({
       defaultValues: {
         status: searchParams.get("status") ?? "",
         category: searchParams.get("category") ?? "",
@@ -51,7 +43,7 @@ const AdminContactFilters = () => {
       }
     });
 
-  const onSubmit = (data: FilterFormValues) => {
+  const onSubmit = (data: AdminContactFilterFormValues) => {
     const params = new URLSearchParams();
     params.set("page", "1");
     if (data.status) params.set("status", data.status);

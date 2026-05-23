@@ -16,6 +16,10 @@ export type NotificationAvatar =
   | NotificationAvatarInitials
   | NotificationAvatarSystem;
 
+export type NotificationListTabValue = "unread" | "read";
+
+export type NotificationPanelTab = "all" | "unread" | "mentions";
+
 export interface AppNotification {
   id: string;
   type: NotificationKind;

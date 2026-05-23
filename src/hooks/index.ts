@@ -6,6 +6,7 @@ import useCountdown from "./useCountdown";
 import usePostLoginRedirect from "./usePostLoginRedirect";
 import useAnnounce from "./useAnnounce";
 import useDelayedFlag from "./useDelayedFlag";
+import useUserInfo from "./useUserInfo";
 
 export {
   useFieldProps,
@@ -15,5 +16,6 @@ export {
   useCountdown,
   usePostLoginRedirect,
   useAnnounce,
-  useDelayedFlag
+  useDelayedFlag,
+  useUserInfo
 };

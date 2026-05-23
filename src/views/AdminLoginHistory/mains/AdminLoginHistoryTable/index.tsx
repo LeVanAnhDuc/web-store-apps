@@ -1,7 +1,6 @@
 "use client";
 
 // libs
-import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
@@ -22,6 +21,8 @@ import {
   TableRow
 } from "@/components/ui/table";
 import CustomPagination from "@/components/CustomPagination";
+// ghosts
+import TableLoadingAnnouncer from "../../ghosts/TableLoadingAnnouncer";
 // hooks
 import { useAnnounce } from "@/hooks";
 // requests
@@ -68,12 +69,6 @@ const AdminLoginHistoryTable = () => {
     queryKey: ["adminLoginHistory", params],
     queryFn: () => getAdminLoginHistory(params)
   });
-  useEffect(() => {
-    if (isLoading) announce(tAnnounce("loading"));
-  }, [isLoading, announce, tAnnounce]);
-  useEffect(() => {
-    if (data) announce(tAnnounce("loaded", { total: data.meta?.total ?? 0 }));
-  }, [data, announce, tAnnounce]);
   const handleGoToPage = (newPage: number) => {
     announce(tAnnounce("navigating", { page: newPage }));
     const next = new URLSearchParams(searchParams.toString());
@@ -82,111 +77,117 @@ const AdminLoginHistoryTable = () => {
   };
   if (isLoading) {
     return (
-      <div className="bg-card rounded-xl border p-6">
-        <div className="flex flex-col gap-3">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={`skeleton-${i}`} className="h-10 rounded-lg" />
-          ))}
+      <>
+        <TableLoadingAnnouncer isLoading={isLoading} />
+        <div className="bg-card rounded-xl border p-6">
+          <div className="flex flex-col gap-3">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={`skeleton-${i}`} className="h-10 rounded-lg" />
+            ))}
+          </div>
         </div>
-      </div>
+      </>
     );
   }
   const items = data?.items ?? [];
   const meta = data?.meta;
   return (
-    <div className="bg-card rounded-xl border">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>{tTable("userId")}</TableHead>
-            <TableHead>{tTable("usernameAttempted")}</TableHead>
-            <TableHead>{tTable("method")}</TableHead>
-            <TableHead>{tTable("status")}</TableHead>
-            <TableHead>{tTable("ip")}</TableHead>
-            <TableHead>{tTable("country")}</TableHead>
-            <TableHead>{tTable("deviceType")}</TableHead>
-            <TableHead>{tTable("browser")}</TableHead>
-            <TableHead>{tTable("isAnomaly")}</TableHead>
-            <TableHead>{tTable("createdAt")}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {items.length === 0 ? (
+    <>
+      <TableLoadingAnnouncer isLoading={isLoading} total={meta?.total} />
+      <div className="bg-card rounded-xl border">
+        <Table>
+          <TableHeader>
             <TableRow>
-              <TableCell
-                colSpan={10}
-                className="text-muted-foreground py-12 text-center"
-              >
-                {tTable("empty")}
-              </TableCell>
+              <TableHead>{tTable("userId")}</TableHead>
+              <TableHead>{tTable("usernameAttempted")}</TableHead>
+              <TableHead>{tTable("method")}</TableHead>
+              <TableHead>{tTable("status")}</TableHead>
+              <TableHead>{tTable("ip")}</TableHead>
+              <TableHead>{tTable("country")}</TableHead>
+              <TableHead>{tTable("deviceType")}</TableHead>
+              <TableHead>{tTable("browser")}</TableHead>
+              <TableHead>{tTable("isAnomaly")}</TableHead>
+              <TableHead>{tTable("createdAt")}</TableHead>
             </TableRow>
-          ) : (
-            items.map((item) => (
-              <TableRow key={item._id}>
-                <TableCell className="text-muted-foreground font-mono text-xs">
-                  {item.userId ?? "—"}
-                </TableCell>
-                <TableCell>{item.usernameAttempted}</TableCell>
-                <TableCell>
-                  {tMethod(item.method as LoginHistoryMethod)}
-                </TableCell>
-                <TableCell>
-                  <Badge
-                    variant={
-                      item.status === "success" ? "default" : "destructive"
-                    }
-                    className="text-xs"
-                  >
-                    {tStatus(item.status)}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-muted-foreground font-mono text-xs">
-                  {item.ip}
-                </TableCell>
-                <TableCell>
-                  {item.city !== "UNKNOWN"
-                    ? `${item.city}, ${item.country}`
-                    : item.country}
-                </TableCell>
-                <TableCell className="text-muted-foreground">
-                  {item.deviceType}
-                </TableCell>
-                <TableCell className="text-muted-foreground">
-                  {item.browser}
-                </TableCell>
-                <TableCell>
-                  {item.isAnomaly ? (
-                    <Badge variant="destructive" className="text-xs">
-                      {tTable("anomalyYes")}
-                    </Badge>
-                  ) : (
-                    <span className="text-muted-foreground text-xs">
-                      {tTable("anomalyNo")}
-                    </span>
-                  )}
-                </TableCell>
-                <TableCell className="text-muted-foreground text-xs">
-                  {formatDateTimeShort(item.createdAt)}
+          </TableHeader>
+          <TableBody>
+            {items.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={10}
+                  className="text-muted-foreground py-12 text-center"
+                >
+                  {tTable("empty")}
                 </TableCell>
               </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
-      {meta && meta.totalPages > 1 && (
-        <div className="flex items-center justify-between gap-2 border-t px-4 py-3">
-          <p className="text-muted-foreground text-sm">
-            {tPagination("page")} {meta.page} {tPagination("of")}{" "}
-            {meta.totalPages} · {meta.total} {tPagination("results")}
-          </p>
-          <CustomPagination
-            page={meta.page}
-            totalPages={meta.totalPages}
-            onPageChange={handleGoToPage}
-          />
-        </div>
-      )}
-    </div>
+            ) : (
+              items.map((item) => (
+                <TableRow key={item._id}>
+                  <TableCell className="text-muted-foreground font-mono text-xs">
+                    {item.userId ?? "—"}
+                  </TableCell>
+                  <TableCell>{item.usernameAttempted}</TableCell>
+                  <TableCell>
+                    {tMethod(item.method as LoginHistoryMethod)}
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      variant={
+                        item.status === "success" ? "default" : "destructive"
+                      }
+                      className="text-xs"
+                    >
+                      {tStatus(item.status)}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-muted-foreground font-mono text-xs">
+                    {item.ip}
+                  </TableCell>
+                  <TableCell>
+                    {item.city !== "UNKNOWN"
+                      ? `${item.city}, ${item.country}`
+                      : item.country}
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {item.deviceType}
+                  </TableCell>
+                  <TableCell className="text-muted-foreground">
+                    {item.browser}
+                  </TableCell>
+                  <TableCell>
+                    {item.isAnomaly ? (
+                      <Badge variant="destructive" className="text-xs">
+                        {tTable("anomalyYes")}
+                      </Badge>
+                    ) : (
+                      <span className="text-muted-foreground text-xs">
+                        {tTable("anomalyNo")}
+                      </span>
+                    )}
+                  </TableCell>
+                  <TableCell className="text-muted-foreground text-xs">
+                    {formatDateTimeShort(item.createdAt)}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+        {meta && meta.totalPages > 1 && (
+          <div className="flex items-center justify-between gap-2 border-t px-4 py-3">
+            <p className="text-muted-foreground text-sm">
+              {tPagination("page")} {meta.page} {tPagination("of")}{" "}
+              {meta.totalPages} · {meta.total} {tPagination("results")}
+            </p>
+            <CustomPagination
+              page={meta.page}
+              totalPages={meta.totalPages}
+              onPageChange={handleGoToPage}
+            />
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

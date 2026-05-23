@@ -4,6 +4,8 @@
 import { useState } from "react";
 import { CircleCheck, CircleAlert } from "lucide-react";
 import { useTranslations } from "next-intl";
+// types
+import type { NotificationPanelTab } from "@/types/Notification";
 // components
 import CustomButton from "@/components/CustomButton";
 import { Badge } from "@/components/ui/badge";
@@ -17,13 +19,11 @@ import { cn } from "@/libs/utils";
 import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
-type Tab = "all" | "unread" | "mentions";
-
 const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
   const router = useRouter();
   const t = useTranslations("dashboard.notifications");
   const { announce } = useAnnounce();
-  const [activeTab, setActiveTab] = useState<Tab>("all");
+  const [activeTab, setActiveTab] = useState<NotificationPanelTab>("all");
 
   const handleViewAll = () => {
     announce(t("viewAllAnnounce"));

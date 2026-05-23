@@ -15,12 +15,13 @@ import {
 import CustomInput from "@/components/CustomInput";
 import FormFieldMessage from "@/components/FormFieldMessage";
 
-type Props = {
+const LastNameField = ({
+  control,
+  isPending
+}: {
   control: Control<UpdatePersonalInfoFormValues>;
   isPending: boolean;
-};
-
-const LastNameField = ({ control, isPending }: Props) => {
+}) => {
   const t = useTranslations("profile.personalInfo");
 
   return (
