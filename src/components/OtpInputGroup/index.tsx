@@ -25,7 +25,7 @@ const OtpInputGroup = ({
   isVerifying?: boolean;
   verifyingLabel?: string;
 }) => (
-  <FadeScale delay={0.3} className="mb-6">
+  <FadeScale delay={0.3}>
     <div className="mb-2 flex justify-center">
       <InputOTP
         maxLength={OTP_LENGTH}

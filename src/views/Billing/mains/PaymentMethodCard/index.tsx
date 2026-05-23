@@ -4,7 +4,13 @@
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from "@/components/ui/card";
 import CustomButton from "@/components/CustomButton";
 import PaymentMethodRow from "../../components/PaymentMethodRow";
 // others
@@ -14,26 +20,26 @@ const PaymentMethodCard = () => {
   const t = useTranslations("billing.paymentMethod");
 
   return (
-    <Card className="rounded-2xl border p-0" aria-labelledby="payment-title">
-      <div className="border-border flex items-center justify-between gap-3 border-b px-6 py-5">
-        <div className="flex flex-col gap-1">
-          <h3
-            id="payment-title"
-            className="text-foreground text-base font-semibold"
-          >
-            {t("title")}
-          </h3>
-          <p className="text-muted-foreground text-sm">{t("description")}</p>
-        </div>
-        <CustomButton
-          variant="outline"
-          size="sm"
-          iconLeft={<Plus className="size-3.5" aria-hidden="true" />}
+    <Card aria-labelledby="payment-title">
+      <CardHeader className="border-b">
+        <h3
+          id="payment-title"
+          className="text-foreground text-base leading-none font-semibold"
         >
-          {t("buttons.add")}
-        </CustomButton>
-      </div>
-      <div className="flex flex-col">
+          {t("title")}
+        </h3>
+        <CardDescription>{t("description")}</CardDescription>
+        <CardAction>
+          <CustomButton
+            variant="outline"
+            size="sm"
+            iconLeft={<Plus className="size-3.5" aria-hidden="true" />}
+          >
+            {t("buttons.add")}
+          </CustomButton>
+        </CardAction>
+      </CardHeader>
+      <CardContent className="px-0">
         {PAYMENT_METHODS_MOCK.map((method) => (
           <PaymentMethodRow
             key={method.id}
@@ -47,7 +53,7 @@ const PaymentMethodCard = () => {
             onEdit={() => {}}
           />
         ))}
-      </div>
+      </CardContent>
     </Card>
   );
 };

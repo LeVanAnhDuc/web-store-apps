@@ -28,7 +28,7 @@ const DiscoverAppCard = ({
   openLabel: string;
 }) => (
   <Card
-    className="flex flex-col gap-3.5 rounded-2xl border p-5"
+    className="flex flex-col gap-3.5 rounded-xl border p-6"
     aria-labelledby={`discover-${name}-title`}
   >
     <div className="flex items-center gap-3">

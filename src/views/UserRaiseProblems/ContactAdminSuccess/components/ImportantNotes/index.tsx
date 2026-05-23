@@ -12,7 +12,7 @@ const ImportantNotes = ({
 }) => (
   <FadeSlideUp
     delay={0.9}
-    className="border-warning/30 bg-warning/10 mb-8 rounded-xl border p-4"
+    className="border-warning/30 bg-warning/10 rounded-xl border p-4"
   >
     <h3 className="text-warning-foreground mb-2 text-sm font-semibold">
       {labels.title}

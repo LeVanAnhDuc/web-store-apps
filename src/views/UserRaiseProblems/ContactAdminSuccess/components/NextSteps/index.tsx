@@ -18,7 +18,7 @@ const NextSteps = ({
   ];
 
   return (
-    <FadeSlideUp delay={0.5} className="mb-8">
+    <FadeSlideUp delay={0.5}>
       <h2 className="text-foreground mb-4 flex items-center gap-2 text-base font-semibold">
         <Clock className="text-info h-5 w-5" aria-hidden="true" />
         {labels.title}

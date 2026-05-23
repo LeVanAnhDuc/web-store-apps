@@ -7,7 +7,7 @@ const MagicLinkInstructions = async ({ minutes }: { minutes: number }) => {
   const t = await getTranslations("login.form.magicLink");
 
   return (
-    <FadeIn delay={0.3} className="mb-6 space-y-5">
+    <FadeIn delay={0.3} className="space-y-5">
       <div className="bg-info/10 rounded-lg p-4">
         <p className="text-foreground text-sm">
           <span className="mb-2 block">{t("instruction.check")}</span>

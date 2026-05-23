@@ -44,23 +44,19 @@ const SuccessMain = ({
   };
 
   return (
-    <>
+    <div className="space-y-8">
       <TicketInfo
         ticketNumber={ticketNumber}
         formData={formData}
         labels={ticketInfo}
       />
-
       <NextSteps labels={nextSteps} />
-
       <ImportantNotes ticketNumber={ticketNumber} labels={importantNotes} />
-
       <FadeSlideUp delay={1}>
         <BackButton label={back} onClick={handleBack} />
       </FadeSlideUp>
-
       <RedirectGuardEffect formData={formData} ticketNumber={ticketNumber} />
-    </>
+    </div>
   );
 };
 

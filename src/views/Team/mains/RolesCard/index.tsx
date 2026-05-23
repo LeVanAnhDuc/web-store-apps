@@ -1,7 +1,12 @@
 // libs
 import { getTranslations } from "next-intl/server";
 // components
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from "@/components/ui/card";
 import RoleDefinitionRow from "../../components/RoleDefinitionRow";
 // others
 import { ROLE_DEFINITIONS_MOCK } from "@/mocks/Team";
@@ -9,17 +14,17 @@ import { ROLE_DEFINITIONS_MOCK } from "@/mocks/Team";
 const RolesCard = async () => {
   const t = await getTranslations("team.roles");
   return (
-    <Card className="rounded-2xl border p-0" aria-labelledby="roles-title">
-      <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
+    <Card aria-labelledby="roles-title">
+      <CardHeader className="border-b">
         <h3
           id="roles-title"
-          className="text-foreground text-base font-semibold"
+          className="text-foreground text-base leading-none font-semibold"
         >
           {t("title")}
         </h3>
-        <p className="text-muted-foreground text-sm">{t("description")}</p>
-      </div>
-      <div className="flex flex-col">
+        <CardDescription>{t("description")}</CardDescription>
+      </CardHeader>
+      <CardContent className="px-0">
         {ROLE_DEFINITIONS_MOCK.map((role) => (
           <RoleDefinitionRow
             key={role.key}
@@ -32,7 +37,7 @@ const RolesCard = async () => {
             youLabel={t("you")}
           />
         ))}
-      </div>
+      </CardContent>
     </Card>
   );
 };

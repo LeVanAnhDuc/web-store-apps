@@ -20,7 +20,7 @@ const TicketInfo = ({
   return (
     <FadeSlideUp
       delay={0.4}
-      className="border-info/30 bg-info/5 mb-8 rounded-xl border-2 p-6"
+      className="border-info/30 bg-info/5 rounded-xl border-2 p-6"
     >
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">

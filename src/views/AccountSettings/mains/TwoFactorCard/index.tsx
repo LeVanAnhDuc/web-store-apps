@@ -4,7 +4,12 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 // components
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 // hooks
 import { useAnnounce } from "@/hooks";
@@ -22,17 +27,17 @@ const TwoFactorCard = () => {
   const stateLabel = enabled ? t("stateOn") : t("stateOff");
 
   return (
-    <Card className="rounded-2xl border p-0" aria-labelledby="two-factor-title">
-      <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
+    <Card aria-labelledby="two-factor-title">
+      <CardHeader className="border-b">
         <h3
           id="two-factor-title"
-          className="text-foreground text-base font-semibold"
+          className="text-foreground text-base leading-none font-semibold"
         >
           {t("title")}
         </h3>
-        <p className="text-muted-foreground text-sm">{t("description")}</p>
-      </div>
-      <div className="flex flex-col gap-3 px-6 py-5">
+        <CardDescription>{t("description")}</CardDescription>
+      </CardHeader>
+      <CardContent>
         <div className="flex items-center justify-between gap-4">
           <div className="min-w-0 flex-1">
             <p className="text-foreground text-sm font-medium">
@@ -46,7 +51,7 @@ const TwoFactorCard = () => {
             aria-label={t("toggleLabel")}
           />
         </div>
-      </div>
+      </CardContent>
     </Card>
   );
 };

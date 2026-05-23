@@ -1,7 +1,12 @@
 // libs
 import { getTranslations } from "next-intl/server";
 // components
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from "@/components/ui/card";
 import UsageStat from "../../components/UsageStat";
 // others
 import { USAGE_STATS_MOCK } from "@/mocks/Billing";
@@ -9,19 +14,19 @@ import { USAGE_STATS_MOCK } from "@/mocks/Billing";
 const UsageCard = async () => {
   const t = await getTranslations("billing.usage");
   return (
-    <Card className="rounded-2xl border p-0" aria-labelledby="usage-title">
-      <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
+    <Card aria-labelledby="usage-title">
+      <CardHeader className="border-b">
         <h3
           id="usage-title"
-          className="text-foreground text-base font-semibold"
+          className="text-foreground text-base leading-none font-semibold"
         >
           {t("title")}
         </h3>
-        <p className="text-muted-foreground text-sm">
+        <CardDescription>
           {t("subtitle", { period: "May 2026", resetDate: "June 1" })}
-        </p>
-      </div>
-      <div className="grid grid-cols-1 gap-6 px-6 py-5 md:grid-cols-3">
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {USAGE_STATS_MOCK.map((stat) => (
           <UsageStat
             key={stat.key}
@@ -30,7 +35,7 @@ const UsageCard = async () => {
             ratio={stat.ratio}
           />
         ))}
-      </div>
+      </CardContent>
     </Card>
   );
 };

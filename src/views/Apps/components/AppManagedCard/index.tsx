@@ -38,10 +38,10 @@ const AppManagedCard = ({
   menuLabel: string;
 }) => (
   <Card
-    className="flex flex-col overflow-hidden rounded-2xl border p-0"
+    className="flex flex-col overflow-hidden rounded-xl border p-0"
     aria-labelledby={`apps-${name}-title`}
   >
-    <div className="flex flex-col gap-3.5 p-5">
+    <div className="flex flex-col gap-3.5 p-6">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div
@@ -90,7 +90,7 @@ const AppManagedCard = ({
       </Badge>
     </div>
     <div className="border-border border-t" aria-hidden="true" />
-    <div className="flex items-center justify-between px-5 py-3">
+    <div className="flex items-center justify-between px-6 py-3">
       <div className="text-muted-foreground flex items-center gap-3 text-xs">
         <div className="flex items-center gap-1">
           <Eye className="size-3.5" aria-hidden="true" />

@@ -3,7 +3,13 @@ import { Check } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 // components
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from "@/components/ui/card";
 import CustomButton from "@/components/CustomButton";
 
 const CurrentPlanCard = async () => {
@@ -11,27 +17,24 @@ const CurrentPlanCard = async () => {
   const features = t.raw("features") as string[];
 
   return (
-    <Card
-      className="rounded-2xl border p-0"
-      aria-labelledby="current-plan-title"
-    >
-      <div className="border-border flex flex-wrap items-start justify-between gap-3 border-b px-6 py-5">
-        <div className="flex flex-col gap-1">
-          <h3
-            id="current-plan-title"
-            className="text-foreground text-base font-semibold"
-          >
-            {t("title")}
-          </h3>
-          <p className="text-muted-foreground text-sm">
-            {t("renewsOn", { date: "June 1, 2026" })}
-          </p>
-        </div>
-        <Badge className="bg-primary text-primary-foreground rounded-full px-3 py-1">
-          {t("badge")}
-        </Badge>
-      </div>
-      <div className="flex flex-col gap-6 px-6 py-5 lg:flex-row lg:items-end lg:justify-between">
+    <Card aria-labelledby="current-plan-title">
+      <CardHeader className="border-b">
+        <h3
+          id="current-plan-title"
+          className="text-foreground text-base leading-none font-semibold"
+        >
+          {t("title")}
+        </h3>
+        <CardDescription>
+          {t("renewsOn", { date: "June 1, 2026" })}
+        </CardDescription>
+        <CardAction>
+          <Badge className="bg-primary text-primary-foreground rounded-full px-3 py-1">
+            {t("badge")}
+          </Badge>
+        </CardAction>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex flex-col gap-3">
           <div className="flex items-baseline gap-1.5">
             <span className="text-foreground text-3xl font-bold">
@@ -62,7 +65,7 @@ const CurrentPlanCard = async () => {
             {t("buttons.cancel")}
           </CustomButton>
         </div>
-      </div>
+      </CardContent>
     </Card>
   );
 };

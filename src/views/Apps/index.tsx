@@ -3,7 +3,7 @@ import PageHeader from "./mains/PageHeader";
 import AppsBoard from "./mains/AppsBoard";
 
 const Apps = () => (
-  <div className="flex flex-col gap-7">
+  <div className="flex flex-col gap-8">
     <PageHeader />
     <AppsBoard />
   </div>

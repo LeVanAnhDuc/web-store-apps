@@ -23,7 +23,7 @@ const StatCard = ({
   badgeText: string;
 }) => (
   <div
-    className="bg-card border-border flex flex-col gap-3 rounded-2xl border p-5"
+    className="bg-card border-border flex flex-col gap-3 rounded-xl border p-6"
     role="group"
     aria-label={`${label}: ${value}`}
   >

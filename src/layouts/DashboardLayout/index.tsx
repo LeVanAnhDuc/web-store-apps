@@ -48,7 +48,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           tabIndex={-1}
           className="flex-1 overflow-y-auto p-4 lg:p-6"
         >
-          <div className="space-y-6">{children}</div>
+          {children}
         </main>
       </div>
     </div>

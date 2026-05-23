@@ -8,7 +8,7 @@ import LoginHistoryTable from "./mains/LoginHistoryTable";
 const LoginHistory = async () => {
   const t = await getTranslations("loginHistory");
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-1.5">
         <h1 className="text-foreground text-3xl font-bold tracking-tight">
           {t("title")}

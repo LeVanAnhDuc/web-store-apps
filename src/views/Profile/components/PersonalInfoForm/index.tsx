@@ -13,7 +13,12 @@ import type {
   UpdateProfileData
 } from "@/types/User";
 // components
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from "@/components/ui/card";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
@@ -83,69 +88,70 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
       : null;
 
   return (
-    <Card
-      className="rounded-2xl border p-0"
-      aria-labelledby="personal-info-title"
-    >
-      <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
+    <Card aria-labelledby="personal-info-title">
+      <CardHeader className="border-b">
         <h3
           id="personal-info-title"
-          className="text-foreground text-base font-semibold"
+          className="text-foreground text-base leading-none font-semibold"
         >
           {t("title")}
         </h3>
-        <p className="text-muted-foreground text-sm">{t("description")}</p>
-      </div>
+        <CardDescription>{t("description")}</CardDescription>
+      </CardHeader>
       <FormProvider {...methods}>
         <ProfileFormSyncEffect profile={profile} />
-        <form
-          onSubmit={methods.handleSubmit(onSubmit)}
-          className="flex flex-col gap-5 px-6 py-6"
-        >
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <FirstNameField control={methods.control} isPending={isPending} />
-            <LastNameField control={methods.control} isPending={isPending} />
-          </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <FormItem>
-              <FormLabel htmlFor="profile-email">{t("fields.email")}</FormLabel>
-              <CustomInput
-                id="profile-email"
-                value={profile.email}
-                readOnly
-                disabled
-                aria-readonly="true"
+        <CardContent>
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-5">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <FirstNameField control={methods.control} isPending={isPending} />
+              <LastNameField control={methods.control} isPending={isPending} />
+            </div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <FormItem>
+                <FormLabel htmlFor="profile-email">
+                  {t("fields.email")}
+                </FormLabel>
+                <CustomInput
+                  id="profile-email"
+                  value={profile.email}
+                  readOnly
+                  disabled
+                  aria-readonly="true"
+                />
+              </FormItem>
+              <PhoneField control={methods.control} isPending={isPending} />
+            </div>
+            <AddressField control={methods.control} isPending={isPending} />
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <DateOfBirthField
+                control={methods.control}
+                isPending={isPending}
               />
-            </FormItem>
-            <PhoneField control={methods.control} isPending={isPending} />
-          </div>
-          <AddressField control={methods.control} isPending={isPending} />
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <DateOfBirthField control={methods.control} isPending={isPending} />
-            <GenderField control={methods.control} isPending={isPending} />
-          </div>
-          <div className="border-border flex justify-end gap-3 border-t pt-5">
-            <CustomTooltip content={cancelDisabledReason}>
-              <CustomButton
-                type="button"
-                variant="outline"
-                onClick={handleCancel}
-                disabled={isPending || !isDirty}
-              >
-                {t("buttons.cancel")}
-              </CustomButton>
-            </CustomTooltip>
-            <CustomTooltip content={saveDisabledReason}>
-              <CustomButton
-                type="submit"
-                loading={isPending}
-                disabled={!isDirty || isPending}
-              >
-                {t("buttons.save")}
-              </CustomButton>
-            </CustomTooltip>
-          </div>
-        </form>
+              <GenderField control={methods.control} isPending={isPending} />
+            </div>
+            <div className="border-border flex justify-end gap-3 border-t pt-5">
+              <CustomTooltip content={cancelDisabledReason}>
+                <CustomButton
+                  type="button"
+                  variant="outline"
+                  onClick={handleCancel}
+                  disabled={isPending || !isDirty}
+                >
+                  {t("buttons.cancel")}
+                </CustomButton>
+              </CustomTooltip>
+              <CustomTooltip content={saveDisabledReason}>
+                <CustomButton
+                  type="submit"
+                  loading={isPending}
+                  disabled={!isDirty || isPending}
+                >
+                  {t("buttons.save")}
+                </CustomButton>
+              </CustomTooltip>
+            </div>
+          </form>
+        </CardContent>
       </FormProvider>
     </Card>
   );

@@ -3,7 +3,12 @@
 // libs
 import { useTranslations } from "next-intl";
 // components
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from "@/components/ui/card";
 import LoginActivityRow from "../../components/LoginActivityRow";
 // others
 import { LOGIN_ACTIVITY_MOCK } from "@/mocks/Security";
@@ -11,20 +16,17 @@ import { LOGIN_ACTIVITY_MOCK } from "@/mocks/Security";
 const LoginActivityCard = () => {
   const t = useTranslations("security.loginActivity");
   return (
-    <Card
-      className="rounded-2xl border p-0"
-      aria-labelledby="login-activity-title"
-    >
-      <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
+    <Card aria-labelledby="login-activity-title">
+      <CardHeader className="border-b">
         <h3
           id="login-activity-title"
-          className="text-foreground text-base font-semibold"
+          className="text-foreground text-base leading-none font-semibold"
         >
           {t("title")}
         </h3>
-        <p className="text-muted-foreground text-sm">{t("description")}</p>
-      </div>
-      <div className="flex flex-col">
+        <CardDescription>{t("description")}</CardDescription>
+      </CardHeader>
+      <CardContent className="px-0">
         {LOGIN_ACTIVITY_MOCK.map((item) => (
           <LoginActivityRow
             key={item.id}
@@ -35,7 +37,7 @@ const LoginActivityCard = () => {
             status={item.status}
           />
         ))}
-      </div>
+      </CardContent>
     </Card>
   );
 };

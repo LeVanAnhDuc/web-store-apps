@@ -1,5 +1,5 @@
 const OtpInstruction = ({ label }: { label: string }) => (
-  <div className="bg-cream mb-6 rounded-lg p-4">
+  <div className="bg-cream rounded-lg p-4">
     <p className="text-cream-foreground text-center text-sm">{label}</p>
   </div>
 );

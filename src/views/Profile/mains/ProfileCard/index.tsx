@@ -20,7 +20,7 @@ const ProfileCard = () => {
 
   return (
     <Card
-      className="overflow-hidden rounded-2xl border p-0"
+      className="gap-0 overflow-hidden py-0"
       aria-labelledby="profile-page-title"
     >
       <div className="from-info to-primary relative h-40 bg-gradient-to-r">
@@ -38,7 +38,7 @@ const ProfileCard = () => {
         <div className="flex items-end gap-5">
           <Avatar className="ring-card size-20 shrink-0 ring-4">
             <AvatarImage src={userInfo.avatar ?? ""} alt={userInfo.fullName} />
-            <AvatarFallback className="from-cream to-primary bg-gradient-to-br text-xl font-bold text-white">
+            <AvatarFallback className="from-cream to-primary text-primary-foreground bg-gradient-to-br text-xl font-bold">
               {userInfo.initials}
             </AvatarFallback>
           </Avatar>

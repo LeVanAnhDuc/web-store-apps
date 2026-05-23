@@ -22,7 +22,7 @@ const QuickAccessCard = ({
     size="default"
     aria-label={`${name}, ${lastOpenedText}`}
     className={cn(
-      "flex h-[140px] cursor-pointer flex-col items-start justify-start gap-2.5 rounded-2xl p-5 text-left whitespace-normal transition-opacity hover:opacity-90",
+      "flex h-[140px] cursor-pointer flex-col items-start justify-start gap-2.5 rounded-xl p-6 text-left whitespace-normal transition-opacity hover:opacity-90",
       gradient
     )}
   >

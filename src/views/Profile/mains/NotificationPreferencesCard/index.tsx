@@ -4,7 +4,12 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 // components
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from "@/components/ui/card";
 import NotificationToggleRow from "../../components/NotificationToggleRow";
 // hooks
 import { useAnnounce } from "@/hooks";
@@ -38,20 +43,17 @@ const NotificationPreferencesCard = () => {
   };
 
   return (
-    <Card
-      className="rounded-2xl border p-0"
-      aria-labelledby="notification-prefs-title"
-    >
-      <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
+    <Card aria-labelledby="notification-prefs-title">
+      <CardHeader className="border-b">
         <h3
           id="notification-prefs-title"
-          className="text-foreground text-base font-semibold"
+          className="text-foreground text-base leading-none font-semibold"
         >
           {t("title")}
         </h3>
-        <p className="text-muted-foreground text-sm">{t("description")}</p>
-      </div>
-      <div className="flex flex-col">
+        <CardDescription>{t("description")}</CardDescription>
+      </CardHeader>
+      <CardContent className="px-0">
         {NOTIFICATION_PREFS_MOCK.map((item) => (
           <NotificationToggleRow
             key={item.key}
@@ -62,7 +64,7 @@ const NotificationPreferencesCard = () => {
             onCheckedChange={handleToggle(item.key)}
           />
         ))}
-      </div>
+      </CardContent>
     </Card>
   );
 };

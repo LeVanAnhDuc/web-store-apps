@@ -26,7 +26,7 @@ const RecommendedAppCard = ({
   freeLabel: string;
 }) => (
   <Card
-    className="flex flex-col gap-4 rounded-2xl border p-5"
+    className="flex flex-col gap-4 rounded-xl border p-6"
     aria-labelledby={`rec-${name}-title`}
   >
     <div

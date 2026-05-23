@@ -17,7 +17,7 @@ const ResponseTimeAlert = ({
   <FadeIn
     delay={0.2}
     y={-10}
-    className="border-info/30 bg-info/10 mb-6 flex items-start gap-3 rounded-xl border p-4"
+    className="border-info/30 bg-info/10 flex items-start gap-3 rounded-xl border p-4"
   >
     <AlertCircle className="text-info mt-0.5 h-5 w-5 shrink-0" />
     <div>

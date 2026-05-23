@@ -35,7 +35,7 @@ const FavoriteAppCard = ({
     className="flex flex-col overflow-hidden rounded-xl border p-0"
     aria-labelledby={`fav-${name}-title`}
   >
-    <div className="flex flex-col gap-3 p-5">
+    <div className="flex flex-col gap-3 p-6">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           <div
@@ -71,7 +71,7 @@ const FavoriteAppCard = ({
       <p className="text-muted-foreground text-sm">{description}</p>
     </div>
     <div className="border-border border-t" aria-hidden="true" />
-    <div className="flex items-center justify-between px-5 py-3">
+    <div className="flex items-center justify-between px-6 py-3">
       <div className="flex items-center gap-2 text-xs">
         <div className="flex items-center gap-1">
           <Star

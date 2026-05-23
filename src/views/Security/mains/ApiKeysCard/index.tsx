@@ -5,7 +5,13 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader
+} from "@/components/ui/card";
 import CustomButton from "@/components/CustomButton";
 import ApiKeyRow from "../../components/ApiKeyRow";
 // hooks
@@ -33,25 +39,25 @@ const ApiKeysCard = () => {
   };
 
   return (
-    <Card className="rounded-2xl border p-0" aria-labelledby="api-keys-title">
-      <div className="border-border flex items-center justify-between gap-3 border-b px-6 py-5">
-        <div className="flex flex-col gap-1">
-          <h3
-            id="api-keys-title"
-            className="text-foreground text-base font-semibold"
-          >
-            {t("title")}
-          </h3>
-          <p className="text-muted-foreground text-sm">{t("description")}</p>
-        </div>
-        <CustomButton
-          size="sm"
-          iconLeft={<Plus className="size-3.5" aria-hidden="true" />}
+    <Card aria-labelledby="api-keys-title">
+      <CardHeader className="border-b">
+        <h3
+          id="api-keys-title"
+          className="text-foreground text-base leading-none font-semibold"
         >
-          {t("buttons.generate")}
-        </CustomButton>
-      </div>
-      <div className="flex flex-col">
+          {t("title")}
+        </h3>
+        <CardDescription>{t("description")}</CardDescription>
+        <CardAction>
+          <CustomButton
+            size="sm"
+            iconLeft={<Plus className="size-3.5" aria-hidden="true" />}
+          >
+            {t("buttons.generate")}
+          </CustomButton>
+        </CardAction>
+      </CardHeader>
+      <CardContent className="px-0">
         {keys.map((item) => (
           <ApiKeyRow
             key={item.id}
@@ -67,7 +73,7 @@ const ApiKeysCard = () => {
             onRevoke={() => handleRevoke(item.id)}
           />
         ))}
-      </div>
+      </CardContent>
     </Card>
   );
 };
