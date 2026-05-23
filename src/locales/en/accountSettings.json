@@ -18,6 +18,9 @@
       "cancel": "Cancel",
       "save": "Update Password"
     },
+    "tooltips": {
+      "noChanges": "No changes to save"
+    },
     "toast": {
       "success": "Password updated successfully",
       "error": "Failed to update password"

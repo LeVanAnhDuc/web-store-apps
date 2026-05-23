@@ -8,15 +8,9 @@ import { toast } from "sonner";
 import type { ChangePasswordFormValues } from "@/forms/ChangePassword/validations";
 // components
 import { Card } from "@/components/ui/card";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel
-} from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
-import CustomInput from "@/components/CustomInput";
-import FormFieldMessage from "@/components/FormFieldMessage";
+import CustomTooltip from "@/components/CustomTooltip";
+import PasswordInput from "@/components/PasswordInput";
 // hooks
 import { useAnnounce } from "@/hooks";
 // forms
@@ -57,72 +51,48 @@ const ChangePasswordCard = () => {
           onSubmit={methods.handleSubmit(onSubmit)}
           className="flex flex-col gap-5 px-6 py-6"
         >
-          <FormField
-            control={methods.control}
+          <PasswordInput
             name="currentPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("fields.currentPassword")}</FormLabel>
-                <FormControl>
-                  <CustomInput
-                    {...field}
-                    type="password"
-                    placeholder={t("placeholders.currentPassword")}
-                    autoComplete="current-password"
-                  />
-                </FormControl>
-                <FormFieldMessage />
-              </FormItem>
-            )}
+            label={t("fields.currentPassword")}
+            placeholder={t("placeholders.currentPassword")}
+            autoComplete="current-password"
           />
-          <FormField
-            control={methods.control}
+          <PasswordInput
             name="newPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("fields.newPassword")}</FormLabel>
-                <FormControl>
-                  <CustomInput
-                    {...field}
-                    type="password"
-                    placeholder={t("placeholders.newPassword")}
-                    autoComplete="new-password"
-                  />
-                </FormControl>
-                <FormFieldMessage />
-              </FormItem>
-            )}
+            label={t("fields.newPassword")}
+            placeholder={t("placeholders.newPassword")}
+            autoComplete="new-password"
           />
-          <FormField
-            control={methods.control}
+          <PasswordInput
             name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("fields.confirmPassword")}</FormLabel>
-                <FormControl>
-                  <CustomInput
-                    {...field}
-                    type="password"
-                    placeholder={t("placeholders.confirmPassword")}
-                    autoComplete="new-password"
-                  />
-                </FormControl>
-                <FormFieldMessage />
-              </FormItem>
-            )}
+            label={t("fields.confirmPassword")}
+            placeholder={t("placeholders.confirmPassword")}
+            autoComplete="new-password"
           />
           <div className="border-border flex justify-end gap-3 border-t pt-5">
-            <CustomButton
-              type="button"
-              variant="outline"
-              onClick={() => methods.reset()}
-              disabled={!methods.formState.isDirty}
+            <CustomTooltip
+              content={
+                !methods.formState.isDirty ? t("tooltips.noChanges") : ""
+              }
             >
-              {t("buttons.cancel")}
-            </CustomButton>
-            <CustomButton type="submit" disabled={!methods.formState.isDirty}>
-              {t("buttons.save")}
-            </CustomButton>
+              <CustomButton
+                type="button"
+                variant="outline"
+                onClick={() => methods.reset()}
+                disabled={!methods.formState.isDirty}
+              >
+                {t("buttons.cancel")}
+              </CustomButton>
+            </CustomTooltip>
+            <CustomTooltip
+              content={
+                !methods.formState.isDirty ? t("tooltips.noChanges") : ""
+              }
+            >
+              <CustomButton type="submit" disabled={!methods.formState.isDirty}>
+                {t("buttons.save")}
+              </CustomButton>
+            </CustomTooltip>
           </div>
         </form>
       </FormProvider>

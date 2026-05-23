@@ -18,6 +18,9 @@
       "cancel": "Hủy",
       "save": "Cập nhật mật khẩu"
     },
+    "tooltips": {
+      "noChanges": "Chưa có thay đổi nào để lưu"
+    },
     "toast": {
       "success": "Đã cập nhật mật khẩu thành công",
       "error": "Không thể cập nhật mật khẩu"
