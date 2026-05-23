@@ -4,23 +4,23 @@ import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
 export const NEXT_STEPS = [
   {
     key: "step2",
-    color: "from-primary to-primary/80",
-    textColor: "text-primary-foreground"
+    bgClass: "bg-primary",
+    textClass: "text-primary-foreground"
   },
   {
     key: "step3",
-    color: "from-success to-success/80",
-    textColor: "text-success-foreground"
+    bgClass: "bg-success",
+    textClass: "text-success-foreground"
   }
 ] as const;
 
 export const CONTACT_STATUS_VARIANT: Record<
   ContactStatus,
-  "default" | "secondary" | "outline"
+  "warning" | "info" | "success"
 > = {
-  new: "default",
-  processing: "secondary",
-  resolved: "outline"
+  new: "warning",
+  processing: "info",
+  resolved: "success"
 };
 
 export const CONTACT_CATEGORY_VALUES: ContactCategory[] = [

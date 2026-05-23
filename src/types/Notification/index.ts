@@ -3,13 +3,12 @@ export type NotificationKind = "comment" | "invite" | "system" | "alert";
 export interface NotificationAvatarInitials {
   kind: "initials";
   initials: string;
-  gradientFrom: string;
-  gradientTo: string;
+  gradientClass: string;
 }
 
 export interface NotificationAvatarSystem {
   kind: "system";
-  bgColor: string;
+  bgClass: string;
 }
 
 export type NotificationAvatar =

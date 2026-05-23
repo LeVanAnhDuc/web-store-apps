@@ -10,7 +10,6 @@ import type {
   LoginHistoryMethod
 } from "@/types/LoginHistory";
 // components
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -20,6 +19,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import CustomBadge from "@/components/CustomBadge";
 import CustomPagination from "@/components/CustomPagination";
 // ghosts
 import TableLoadingAnnouncer from "../../ghosts/TableLoadingAnnouncer";
@@ -131,14 +131,14 @@ const AdminLoginHistoryTable = () => {
                     {tMethod(item.method as LoginHistoryMethod)}
                   </TableCell>
                   <TableCell>
-                    <Badge
+                    <CustomBadge
                       variant={
-                        item.status === "success" ? "default" : "destructive"
+                        item.status === "success" ? "success" : "warning"
                       }
                       className="text-xs"
                     >
                       {tStatus(item.status)}
-                    </Badge>
+                    </CustomBadge>
                   </TableCell>
                   <TableCell className="text-muted-foreground font-mono text-xs">
                     {item.ip}
@@ -156,9 +156,9 @@ const AdminLoginHistoryTable = () => {
                   </TableCell>
                   <TableCell>
                     {item.isAnomaly ? (
-                      <Badge variant="destructive" className="text-xs">
+                      <CustomBadge variant="warning" className="text-xs">
                         {tTable("anomalyYes")}
-                      </Badge>
+                      </CustomBadge>
                     ) : (
                       <span className="text-muted-foreground text-xs">
                         {tTable("anomalyNo")}

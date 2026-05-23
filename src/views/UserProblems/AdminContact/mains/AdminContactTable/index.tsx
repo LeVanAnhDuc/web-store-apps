@@ -7,7 +7,6 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 // types
 import type { AdminContactQuery } from "@/types/ContactAdmin";
 // components
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -17,6 +16,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import CustomBadge from "@/components/CustomBadge";
 import CustomButton from "@/components/CustomButton";
 import CustomPagination from "@/components/CustomPagination";
 // ghosts
@@ -131,12 +131,12 @@ const AdminContactTable = () => {
                     {tCategory(item.category)}
                   </TableCell>
                   <TableCell>
-                    <Badge
+                    <CustomBadge
                       variant={CONTACT_STATUS_VARIANT[item.status]}
                       className="text-xs"
                     >
                       {tStatus(item.status)}
-                    </Badge>
+                    </CustomBadge>
                   </TableCell>
                   <TableCell className="text-muted-foreground text-center">
                     {item.attachmentCount > 0 ? item.attachmentCount : "—"}

@@ -86,34 +86,30 @@ const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
               )}
             >
               {!item.isRead && (
-                <span className="absolute top-1/2 left-1 size-2 -translate-y-1/2 rounded-full bg-blue-500" />
+                <span className="bg-info absolute top-1/2 left-1 size-2 -translate-y-1/2 rounded-full" />
               )}
               {item.avatar.kind === "initials" ? (
                 <div
-                  className="flex size-10 shrink-0 items-center justify-center rounded-full"
-                  style={{
-                    background: `linear-gradient(135deg, ${item.avatar.gradientFrom}, ${item.avatar.gradientTo})`
-                  }}
+                  className={cn(
+                    "flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br",
+                    item.avatar.gradientClass
+                  )}
                 >
-                  <span className="text-sm font-semibold text-white">
+                  <span className="text-primary-foreground text-sm font-semibold">
                     {item.avatar.initials}
                   </span>
                 </div>
               ) : (
                 <div
-                  className="flex size-10 shrink-0 items-center justify-center rounded-full"
-                  style={{ backgroundColor: item.avatar.bgColor }}
+                  className={cn(
+                    "flex size-10 shrink-0 items-center justify-center rounded-full",
+                    item.avatar.bgClass
+                  )}
                 >
                   {item.type === "alert" ? (
-                    <CircleAlert
-                      className="size-5"
-                      style={{ color: "#EF4444" }}
-                    />
+                    <CircleAlert className="text-destructive size-5" />
                   ) : (
-                    <CircleCheck
-                      className="size-5"
-                      style={{ color: "#10B981" }}
-                    />
+                    <CircleCheck className="text-success size-5" />
                   )}
                 </div>
               )}

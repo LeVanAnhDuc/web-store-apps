@@ -103,7 +103,7 @@ const FileUploadInput = ({
         className={`rounded-lg border-2 border-dashed px-4 py-5 text-center transition-colors ${
           isDragging
             ? "border-primary bg-primary/5"
-            : "border-muted-foreground/30 hover:border-muted-foreground/50"
+            : "border-input hover:border-muted-foreground"
         } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
         onClick={() => !disabled && inputRef.current?.click()}
       >
@@ -151,11 +151,7 @@ const FileUploadInput = ({
                 />
               ) : (
                 <div className="bg-muted flex size-10 items-center justify-center rounded">
-                  {file.type === "application/pdf" ? (
-                    <FileText className="text-destructive size-5" />
-                  ) : (
-                    <FileText className="text-primary size-5" />
-                  )}
+                  <FileText className="text-foreground size-5" />
                 </div>
               )}
               <div className="min-w-0 flex-1">

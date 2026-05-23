@@ -193,7 +193,7 @@ const AnimatedBackground = () => {
 
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-gray-50 dark:bg-gray-950" />
+      <div className="bg-background absolute inset-0" />
       <div
         ref={spotlightRef}
         className="pointer-events-none absolute size-[900px]"
