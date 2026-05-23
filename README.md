@@ -1,6 +1,6 @@
-# Apartment App — Client
+# web-app-store-idms — Client
 
-A modern web application for apartment/property management with user authentication, admin dashboard, and multi-language support.
+Next.js 15 frontend for **IDMS (Identity Management System)** — a central Identity Provider combined with a launcher portal for a constellation of satellite web apps. Provides the UI for multi-factor auth flows, the OAuth consent screen, an app dashboard (entitlement-aware), user profile / account settings, and admin operations.
 
 ## Tech Stack
 
@@ -101,7 +101,7 @@ src/
 
 ## Features
 
-### Authentication
+### Authentication (✅ in place)
 
 - Email/password login
 - OTP-based verification
@@ -109,16 +109,31 @@ src/
 - Sign up with email verification
 - Forgot password (OTP or magic link)
 
-### User Dashboard
+### Identity Provider — OAuth 2.0 / OIDC (⏳ MVP-1)
 
-- User profile management
+- Authorization Code + PKCE flow
+- Consent screen for first-time satellite app authorization
+- RP-initiated logout + back-channel logout to satellites
+- ID token carries `locale` claim → cross-app language sync
+
+### App Launcher Dashboard (⏳ MVP-2)
+
+- App tiles filtered by per-user entitlement
+- Favorites and Recently Used tracking
+- SSO into satellite apps without re-authentication
+
+### User Account
+
+- Profile management (avatar, contact info, security settings)
+- Login history (own sessions + device tracking)
 - Personal contact information
-- Login history tracking
 
 ### Admin Panel
 
 - View and manage user contacts
 - Monitor login history across users
+- App registry CRUD + entitlement management (⏳ MVP-2)
+- Force-logout / lock-unlock / reset-password override (⏳ MVP-4)
 
 ### General
 
