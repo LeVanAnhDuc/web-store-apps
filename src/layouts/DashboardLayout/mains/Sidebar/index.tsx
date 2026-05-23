@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 // components
 import * as SidebarUI from "@/components/Sidebar";
 import StarredApps from "../../components/StarredApps";
-import Categories from "../../components/Categories";
 // dataSources
 import { NAV_ITEMS } from "@/dataSources/Dashboard";
 
@@ -48,12 +47,7 @@ const Sidebar = ({
               />
             ))}
           </SidebarUI.Nav>
-          {showExpandedContent && (
-            <>
-              <StarredApps />
-              <Categories />
-            </>
-          )}
+          {showExpandedContent && <StarredApps />}
         </SidebarUI.Content>
       </SidebarUI.Aside>
     </SidebarUI.Root>

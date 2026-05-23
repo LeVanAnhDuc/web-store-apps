@@ -30,9 +30,7 @@
       "favorites": "Yêu thích",
       "recentlyUsed": "Sử dụng gần đây"
     },
-    "starredApps": "Ứng dụng yêu thích",
-    "categories": "Danh mục",
-    "allApps": "Tất cả ứng dụng"
+    "starredApps": "Ứng dụng yêu thích"
   },
   "notifications": {
     "title": "Thông báo",
@@ -48,17 +46,5 @@
     "rating": "Đánh giá",
     "downloads": "Lượt tải",
     "name": "Tên"
-  },
-  "categories": {
-    "productivity": "Năng suất",
-    "creativity": "Sáng tạo",
-    "communication": "Liên lạc",
-    "entertainment": "Giải trí",
-    "health": "Sức khỏe",
-    "education": "Giáo dục",
-    "finance": "Tài chính",
-    "shopping": "Mua sắm",
-    "lifestyle": "Phong cách sống",
-    "utilities": "Tiện ích"
   }
 }

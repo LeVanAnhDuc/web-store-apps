@@ -30,9 +30,7 @@
       "favorites": "Favorites",
       "recentlyUsed": "Recently Used"
     },
-    "starredApps": "Starred Apps",
-    "categories": "Categories",
-    "allApps": "All Apps"
+    "starredApps": "Starred Apps"
   },
   "notifications": {
     "title": "Notifications",
@@ -48,17 +46,5 @@
     "rating": "Rating",
     "downloads": "Downloads",
     "name": "Name"
-  },
-  "categories": {
-    "productivity": "Productivity",
-    "creativity": "Creativity",
-    "communication": "Communication",
-    "entertainment": "Entertainment",
-    "health": "Health",
-    "education": "Education",
-    "finance": "Finance",
-    "shopping": "Shopping",
-    "lifestyle": "Lifestyle",
-    "utilities": "Utilities"
   }
 }
