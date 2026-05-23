@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 // components
 import UserMenuItem from "../../components/UserMenuItem";
 import ThemeSubmenu from "../../components/ThemeSubmenu";
+import LanguageSubmenu from "../../components/LanguageSubmenu";
 // dataSources
 import { UTILITY_MENU_ITEMS } from "@/dataSources/UserMenu";
 
@@ -13,6 +14,7 @@ const UtilityMenuItems = () => {
   return (
     <>
       <ThemeSubmenu />
+      <LanguageSubmenu />
       {UTILITY_MENU_ITEMS.map((item) => {
         const shortcut =
           item.key === "keyboardShortcuts"

@@ -3,11 +3,6 @@
     "name": "App Store",
     "description": "App Store Web Application"
   },
-  "localeDialog": {
-    "languageTab": "Language and Region",
-    "currencyTab": "Currency",
-    "selectLanguage": "Select language and region"
-  },
   "userMenu": {
     "trigger": "Open user menu",
     "profile": "Profile",
@@ -19,6 +14,8 @@
     "themeLight": "Light",
     "themeDark": "Dark",
     "themeSystem": "System",
+    "language": "Language",
+    "languageSubmenuLabel": "Language options",
     "keyboardShortcuts": "Keyboard Shortcuts",
     "keyboardShortcutsHint": "⌘K",
     "helpCenter": "Help Center",

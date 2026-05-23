@@ -1,6 +1,5 @@
 // components
 import Logo from "@/components/Logo";
-import LocaleDialog from "@/components/LocaleDialog";
 import UserMenu from "@/components/UserMenu";
 
 const Header = () => (
@@ -9,10 +8,7 @@ const Header = () => (
       <Logo />
       <span className="text-foreground font-semibold">App Store</span>
     </div>
-    <div className="flex items-center justify-center gap-2">
-      <LocaleDialog />
-      <UserMenu />
-    </div>
+    <UserMenu />
   </header>
 );
 
