@@ -4,9 +4,15 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { FileText, Download, X } from "lucide-react";
+import { FileText, Download } from "lucide-react";
 // components
 import CustomButton from "@/components/CustomButton";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription
+} from "@/components/ui/dialog";
 // requests
 import { getAdminContactDetail } from "@/requests/contactAdmin";
 
@@ -47,9 +53,11 @@ const ContactAttachments = ({ id }: { id: string }) => {
               className="bg-muted/50 group relative rounded-lg border p-3"
             >
               {isImage && att.previewUrl ? (
-                <button
+                <CustomButton
                   type="button"
-                  className="w-full"
+                  variant="ghost"
+                  aria-label={`${t("preview")}: ${att.originalName}`}
+                  className="mb-2 h-20 w-full p-0"
                   onClick={() => setPreviewUrl(att.previewUrl)}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -58,9 +66,9 @@ const ContactAttachments = ({ id }: { id: string }) => {
                     alt={att.originalName}
                     width={200}
                     height={80}
-                    className="mb-2 h-20 w-full rounded object-cover"
+                    className="h-20 w-full rounded object-cover"
                   />
-                </button>
+                </CustomButton>
               ) : (
                 <div className="mb-2 flex h-20 items-center justify-center">
                   <FileText className="text-muted-foreground size-10" />
@@ -83,37 +91,32 @@ const ContactAttachments = ({ id }: { id: string }) => {
         })}
       </div>
 
-      {previewUrl && (
-        <button
-          type="button"
-          aria-label={t("closePreview")}
-          className="bg-background/80 fixed inset-0 z-50 flex w-full cursor-default items-center justify-center p-4 backdrop-blur-sm"
-          onClick={() => setPreviewUrl(null)}
+      <Dialog
+        open={previewUrl !== null}
+        onOpenChange={(open) => !open && setPreviewUrl(null)}
+      >
+        <DialogContent
+          className="max-h-[90vh] w-auto max-w-[90vw] border-0 bg-transparent p-0 shadow-none sm:max-w-[90vw]"
+          showCloseButton
         >
-          <div
-            className="relative max-h-[90vh] max-w-[90vw]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <CustomButton
-              variant="outline"
-              size="sm"
-              aria-label={t("closePreview")}
-              className="absolute -top-10 right-0"
-              onClick={() => setPreviewUrl(null)}
-            >
-              <X className="size-4" aria-hidden="true" />
-            </CustomButton>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+          <DialogTitle className="sr-only">
+            {tFields("attachments")}
+          </DialogTitle>
+          <DialogDescription className="sr-only">
+            {t("closePreview")}
+          </DialogDescription>
+          {previewUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={previewUrl}
-              alt="Preview"
+              alt={tFields("attachments")}
               width={1920}
               height={1080}
               className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
             />
-          </div>
-        </button>
-      )}
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

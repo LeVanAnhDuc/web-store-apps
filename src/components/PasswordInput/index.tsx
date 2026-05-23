@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
+import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import FormFieldMessage from "@/components/FormFieldMessage";
 import {
@@ -33,6 +34,7 @@ const PasswordInput = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const tAnnounce = useTranslations("common.announce");
+  const tToggle = useTranslations("common.passwordInput");
   const { announce } = useAnnounce();
 
   const handleTogglePasswordVisibility = () => {
@@ -61,19 +63,23 @@ const PasswordInput = ({
                 disabled={disabled}
                 className="pr-12"
               />
-              <button
+              <CustomButton
                 type="button"
-                className="absolute top-1/2 right-3 -translate-y-1/2 opacity-50 hover:opacity-50 disabled:opacity-30"
+                variant="ghost"
+                size="icon-sm"
+                aria-label={showPassword ? tToggle("hide") : tToggle("show")}
+                aria-pressed={showPassword}
+                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 size-8 -translate-y-1/2"
                 onClick={handleTogglePasswordVisibility}
                 onMouseDown={(e) => e.preventDefault()}
                 disabled={disabled}
               >
                 {showPassword ? (
-                  <EyeOff className="size-4" />
+                  <EyeOff className="size-4" aria-hidden="true" />
                 ) : (
-                  <Eye className="size-4" />
+                  <Eye className="size-4" aria-hidden="true" />
                 )}
-              </button>
+              </CustomButton>
             </div>
           </FormControl>
           <FormFieldMessage />

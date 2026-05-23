@@ -50,9 +50,9 @@ const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
           </Badge>
           <div className="flex-1" />
           <CustomButton
-            variant="ghost"
+            variant="link"
             size="sm"
-            className="text-muted-foreground h-auto p-0 text-sm font-normal"
+            className="text-muted-foreground h-auto p-0"
           >
             {t("markAllRead")}
           </CustomButton>

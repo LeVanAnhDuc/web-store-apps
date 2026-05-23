@@ -36,6 +36,10 @@
     "expand": "Mở rộng thanh bên",
     "closeMobile": "Đóng menu điều hướng"
   },
+  "passwordInput": {
+    "show": "Hiện mật khẩu",
+    "hide": "Ẩn mật khẩu"
+  },
   "announce": {
     "sidebarCollapsed": "Đã thu gọn thanh bên.",
     "sidebarExpanded": "Đã mở rộng thanh bên.",

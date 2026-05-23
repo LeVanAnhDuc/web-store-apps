@@ -1,6 +1,7 @@
 "use client";
 
 // libs
+import { ChevronRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
@@ -146,8 +147,11 @@ const AdminContactTable = () => {
                   </TableCell>
                   <TableCell>
                     <CustomButton
-                      variant="outline"
+                      variant="ghost"
                       size="sm"
+                      iconRight={
+                        <ChevronRight className="size-4" aria-hidden="true" />
+                      }
                       onClick={() =>
                         router.push(`${ADMIN_CONTACTS}/${item._id}`)
                       }

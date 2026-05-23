@@ -10,12 +10,7 @@ const SubmitButton = ({
   isSubmitting: boolean;
   labels: ContactAdminMessages["form"]["button"];
 }) => (
-  <CustomButton
-    type="submit"
-    loading={isSubmitting}
-    fullWidth
-    className="bg-primary hover:bg-primary/90 h-12 transition-[color,background-color,box-shadow] duration-200 hover:shadow-lg"
-  >
+  <CustomButton type="submit" loading={isSubmitting} fullWidth className="h-12">
     {isSubmitting ? labels.submitting : labels.submit}
   </CustomButton>
 );

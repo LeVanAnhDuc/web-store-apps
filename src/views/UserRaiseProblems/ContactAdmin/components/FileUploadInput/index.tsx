@@ -93,21 +93,24 @@ const FileUploadInput = ({
         <span className="text-muted-foreground text-xs">{t("labelNote")}</span>
       </div>
 
-      <div
+      <label
+        htmlFor="file-upload-input"
         onDragOver={(e) => {
           e.preventDefault();
           if (!disabled) setIsDragging(true);
         }}
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
-        className={`rounded-lg border-2 border-dashed px-4 py-5 text-center transition-colors ${
+        className={`focus-within:border-ring focus-within:ring-ring/50 block rounded-lg border-2 border-dashed px-4 py-5 text-center transition-colors focus-within:ring-[3px] ${
           isDragging
             ? "border-primary bg-primary/5"
             : "border-input hover:border-muted-foreground"
         } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}`}
-        onClick={() => !disabled && inputRef.current?.click()}
       >
-        <Paperclip className="text-muted-foreground mx-auto mb-2 size-5" />
+        <Paperclip
+          className="text-muted-foreground mx-auto mb-2 size-5"
+          aria-hidden="true"
+        />
         <p className="text-muted-foreground text-sm">
           {t("dragDrop")}{" "}
           <span className="text-primary font-medium">{t("browse")}</span>
@@ -115,14 +118,15 @@ const FileUploadInput = ({
         <p className="text-muted-foreground mt-1 text-xs">{t("hint")}</p>
         <input
           ref={inputRef}
+          id="file-upload-input"
           type="file"
           multiple
           accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx"
-          className="hidden"
+          className="sr-only"
           disabled={disabled}
           onChange={(e) => e.target.files && addFiles(e.target.files)}
         />
-      </div>
+      </label>
 
       {errors.length > 0 && (
         <ul className="space-y-0.5">
@@ -163,12 +167,13 @@ const FileUploadInput = ({
               <CustomButton
                 type="button"
                 variant="ghost"
-                size="sm"
+                size="icon-sm"
+                aria-label={`${t("remove")}: ${file.name}`}
                 disabled={disabled}
-                className="text-muted-foreground hover:text-destructive size-7 p-0"
+                className="text-muted-foreground hover:text-destructive size-8"
                 onClick={() => removeFile(i)}
               >
-                <X className="size-4" />
+                <X className="size-4" aria-hidden="true" />
               </CustomButton>
             </li>
           ))}

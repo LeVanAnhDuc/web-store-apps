@@ -68,10 +68,11 @@ const AppCard = ({ app }: { app: App }) => {
           <span className="text-muted-foreground text-xs">{app.category}</span>
           <CustomButton
             variant="ghost"
-            size="icon"
-            className="text-muted-foreground hover:text-warning size-8"
+            size="icon-sm"
+            aria-label={`Favorite ${app.name}`}
+            className="text-muted-foreground hover:text-warning"
           >
-            <Star className="size-4" />
+            <Star className="size-4" aria-hidden="true" />
           </CustomButton>
         </div>
       </CardContent>

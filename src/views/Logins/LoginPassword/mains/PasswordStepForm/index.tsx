@@ -61,11 +61,11 @@ const PasswordStepForm = ({
         </div>
         <CustomButton
           type="submit"
-          disabled={isPending}
+          loading={isPending}
           className="h-12"
           fullWidth
         >
-          {isPending ? "..." : signIn}
+          {signIn}
         </CustomButton>
         <div className="text-center">
           <Link

@@ -36,6 +36,10 @@
     "expand": "Expand sidebar",
     "closeMobile": "Close navigation menu"
   },
+  "passwordInput": {
+    "show": "Show password",
+    "hide": "Hide password"
+  },
   "announce": {
     "sidebarCollapsed": "Sidebar collapsed.",
     "sidebarExpanded": "Sidebar expanded.",
