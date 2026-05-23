@@ -19,10 +19,10 @@ const NextSteps = ({
 
   return (
     <FadeSlideUp delay={0.5} className="mb-8">
-      <h3 className="text-foreground mb-4 flex items-center gap-2">
-        <Clock className="text-info h-5 w-5" />
+      <h2 className="text-foreground mb-4 flex items-center gap-2 text-base font-semibold">
+        <Clock className="text-info h-5 w-5" aria-hidden="true" />
         {labels.title}
-      </h3>
+      </h2>
       <div className="space-y-5">
         {steps.map((step, index) => (
           <FadeSlideLeft
@@ -31,13 +31,15 @@ const NextSteps = ({
             className="bg-muted/50 flex items-start gap-4 rounded-xl p-4"
           >
             <div
-              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${step.color} ${step.textColor}`}
+              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${step.bgClass} ${step.textClass}`}
             >
               {index + 1}
             </div>
             <div className="flex-1">
-              <div className="text-foreground mb-1 text-sm">{step.title}</div>
-              <p className="text-muted-foreground text-xs">
+              <p className="text-foreground mb-1 text-sm font-medium">
+                {step.title}
+              </p>
+              <p className="text-muted-foreground text-sm">
                 {step.description}
               </p>
             </div>

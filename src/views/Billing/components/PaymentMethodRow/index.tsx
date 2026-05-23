@@ -31,7 +31,7 @@ const PaymentMethodRow = ({
       <p className="text-foreground truncate text-sm font-semibold">
         {brandLabel} {endingLabel}
       </p>
-      <p className="text-muted-foreground truncate text-xs">{expiresLabel}</p>
+      <p className="text-muted-foreground truncate text-sm">{expiresLabel}</p>
     </div>
     {isDefault ? (
       <Badge

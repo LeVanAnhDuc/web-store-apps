@@ -32,7 +32,11 @@ const LoginMagicLink = async ({
   const { magicLink } = translations.form;
 
   return (
-    <AuthStepLayout description={magicLink.subtitle} email={decodedEmail}>
+    <AuthStepLayout
+      title={magicLink.title}
+      description={magicLink.subtitle}
+      email={decodedEmail}
+    >
       <MagicLinkInstructions
         minutes={CONSTANTS.LOGIN.MAGIC_LINK_EXPIRY_MINUTES}
       />

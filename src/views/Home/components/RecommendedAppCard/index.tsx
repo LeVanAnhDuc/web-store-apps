@@ -39,12 +39,12 @@ const RecommendedAppCard = ({
       {icon}
     </div>
     <div className="flex flex-col gap-1">
-      <span
+      <h3
         id={`rec-${name}-title`}
         className="text-foreground text-base font-semibold"
       >
         {name}
-      </span>
+      </h3>
       <span className="text-muted-foreground text-xs">{category}</span>
     </div>
     <div className="flex items-center gap-1">

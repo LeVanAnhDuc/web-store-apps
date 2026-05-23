@@ -32,7 +32,9 @@ const AppCard = ({ app }: { app: App }) => {
             <Icon className="text-primary-foreground size-7" />
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-foreground truncate font-medium">{app.name}</h3>
+            <h3 className="text-foreground truncate text-base font-semibold">
+              {app.name}
+            </h3>
             <p className="text-muted-foreground mt-1 line-clamp-2 text-sm">
               {app.description}
             </p>

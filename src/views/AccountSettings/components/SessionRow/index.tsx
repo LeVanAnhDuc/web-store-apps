@@ -31,7 +31,7 @@ const SessionRow = ({
     </div>
     <div className="min-w-0 flex-1">
       <p className="text-foreground truncate text-sm font-semibold">{device}</p>
-      <p className="text-muted-foreground truncate text-xs">
+      <p className="text-muted-foreground truncate text-sm">
         {location} · {lastActive}
       </p>
     </div>

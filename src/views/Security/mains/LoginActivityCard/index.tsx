@@ -16,12 +16,12 @@ const LoginActivityCard = () => {
       aria-labelledby="login-activity-title"
     >
       <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
-        <h2
+        <h3
           id="login-activity-title"
           className="text-foreground text-base font-semibold"
         >
           {t("title")}
-        </h2>
+        </h3>
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
       <div className="flex flex-col">

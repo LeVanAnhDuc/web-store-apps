@@ -26,12 +26,10 @@ const ApiKeyRow = ({
     </div>
     <div className="min-w-0 flex-1">
       <p className="text-foreground truncate text-sm font-semibold">{name}</p>
-      <p className="text-muted-foreground truncate font-mono text-xs">
+      <p className="text-muted-foreground truncate font-mono text-sm">
         {prefix}
       </p>
-      <p className="text-muted-foreground mt-0.5 truncate text-[11px]">
-        {meta}
-      </p>
+      <p className="text-muted-foreground mt-0.5 truncate text-sm">{meta}</p>
     </div>
     <div className="flex shrink-0 items-center gap-2">
       <CustomButton variant="outline" size="sm" onClick={onCopy}>

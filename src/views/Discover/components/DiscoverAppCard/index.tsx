@@ -44,7 +44,7 @@ const DiscoverAppCard = ({
       <div className="flex min-w-0 flex-col gap-0.5">
         <h3
           id={`discover-${name}-title`}
-          className="text-foreground truncate text-[15px] font-bold"
+          className="text-foreground truncate text-base font-semibold"
         >
           {name}
         </h3>
@@ -53,7 +53,7 @@ const DiscoverAppCard = ({
         </span>
       </div>
     </div>
-    <p className="text-muted-foreground line-clamp-2 text-[13px] leading-relaxed">
+    <p className="text-muted-foreground line-clamp-2 text-sm leading-relaxed">
       {description}
     </p>
     <div className="flex items-center justify-between">

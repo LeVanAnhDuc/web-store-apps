@@ -19,7 +19,7 @@ const RecommendedSection = async () => {
       <div className="flex items-center justify-between">
         <h2
           id="recommended-title"
-          className="text-foreground text-lg font-bold"
+          className="text-foreground text-xl font-bold"
         >
           {t("title")}
         </h2>

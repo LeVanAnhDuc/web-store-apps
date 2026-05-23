@@ -38,12 +38,12 @@ const ChangePasswordCard = () => {
       aria-labelledby="change-password-title"
     >
       <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
-        <h2
+        <h3
           id="change-password-title"
           className="text-foreground text-base font-semibold"
         >
           {t("title")}
-        </h2>
+        </h3>
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
       <FormProvider {...methods}>

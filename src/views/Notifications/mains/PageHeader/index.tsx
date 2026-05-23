@@ -22,7 +22,7 @@ const PageHeader = ({ onMarkAllRead }: { onMarkAllRead: () => void }) => {
       <div className="flex flex-col gap-1">
         <h1
           id="notifications-title"
-          className="text-foreground text-xl font-bold tracking-tight"
+          className="text-foreground text-3xl font-bold tracking-tight"
         >
           {t("title")}
         </h1>

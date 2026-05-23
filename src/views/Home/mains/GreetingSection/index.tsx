@@ -110,7 +110,7 @@ const GreetingSection = () => {
           <div className="flex flex-col gap-0.5">
             <h2
               id="weekly-activity-title"
-              className="text-foreground text-lg font-semibold"
+              className="text-foreground text-xl font-bold"
             >
               {t("weeklyActivity.title")}
             </h2>

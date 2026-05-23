@@ -47,9 +47,7 @@ const AllAppsSection = () => {
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Grid3X3 className="text-muted-foreground size-5" />
-          <h2 className="text-foreground text-lg font-semibold">
-            {t("title")}
-          </h2>
+          <h2 className="text-foreground text-xl font-bold">{t("title")}</h2>
           <span className="text-muted-foreground text-sm">
             ({APPS_DATA.length})
           </span>

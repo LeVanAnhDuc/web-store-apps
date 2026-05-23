@@ -40,7 +40,7 @@ const QuickAccessCard = ({
     >
       {name}
     </span>
-    <span className="text-primary-foreground/80 text-[11px]" aria-hidden="true">
+    <span className="text-primary-foreground/80 text-xs" aria-hidden="true">
       {lastOpenedText}
     </span>
   </Button>

@@ -24,12 +24,12 @@ const TicketInfo = ({
     >
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Mail className="text-info h-5 w-5" />
-          <span className="text-foreground text-sm font-medium">
+          <Mail className="text-info h-5 w-5" aria-hidden="true" />
+          <h3 className="text-foreground text-sm font-semibold">
             {labels.title}
-          </span>
+          </h3>
         </div>
-        <span className="bg-info/20 text-foreground rounded-full px-3 py-1 font-mono text-sm">
+        <span className="bg-info/15 text-info rounded-full px-3 py-1 font-mono text-sm">
           {ticketNumber}
         </span>
       </div>

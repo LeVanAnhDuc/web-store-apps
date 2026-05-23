@@ -39,13 +39,13 @@ const RoleDefinitionRow = ({
         {isYou ? (
           <Badge
             variant="secondary"
-            className="bg-primary/15 text-primary rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase"
+            className="bg-primary/15 text-primary rounded-full px-2.5 py-0.5 text-xs font-semibold uppercase"
           >
             {youLabel}
           </Badge>
         ) : null}
       </div>
-      <p className="text-muted-foreground mt-0.5 text-xs">{description}</p>
+      <p className="text-muted-foreground mt-0.5 text-sm">{description}</p>
     </div>
   </div>
 );

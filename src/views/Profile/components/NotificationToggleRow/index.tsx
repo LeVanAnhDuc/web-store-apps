@@ -24,7 +24,7 @@ const NotificationToggleRow = ({
       >
         {title}
       </label>
-      <p className="text-muted-foreground mt-0.5 text-xs">{description}</p>
+      <p className="text-muted-foreground mt-0.5 text-sm">{description}</p>
     </div>
     <Switch
       id={id}

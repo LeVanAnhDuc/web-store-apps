@@ -17,12 +17,12 @@ const CurrentPlanCard = async () => {
     >
       <div className="border-border flex flex-wrap items-start justify-between gap-3 border-b px-6 py-5">
         <div className="flex flex-col gap-1">
-          <h2
+          <h3
             id="current-plan-title"
             className="text-foreground text-base font-semibold"
           >
             {t("title")}
-          </h2>
+          </h3>
           <p className="text-muted-foreground text-sm">
             {t("renewsOn", { date: "June 1, 2026" })}
           </p>

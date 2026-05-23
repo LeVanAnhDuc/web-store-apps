@@ -63,7 +63,7 @@ const NotificationList = ({
             <TabsTrigger value="unread">
               {t("tabs.unread")}
               {unreadCount > 0 ? (
-                <span className="bg-primary text-primary-foreground ml-1.5 inline-flex size-4 items-center justify-center rounded-full text-[10px] font-semibold">
+                <span className="bg-primary text-primary-foreground ml-1.5 inline-flex size-4 items-center justify-center rounded-full text-xs font-semibold">
                   {unreadCount}
                 </span>
               ) : null}

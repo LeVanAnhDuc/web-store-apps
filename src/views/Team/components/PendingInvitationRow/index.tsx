@@ -23,7 +23,7 @@ const PendingInvitationRow = ({
     </div>
     <div className="min-w-0 flex-1">
       <p className="text-foreground truncate text-sm font-semibold">{email}</p>
-      <p className="text-muted-foreground truncate text-xs">{sentAtLabel}</p>
+      <p className="text-muted-foreground truncate text-sm">{sentAtLabel}</p>
     </div>
     <Badge
       variant="secondary"

@@ -16,7 +16,7 @@ const QuickAccessSection = async () => {
         <div>
           <h2
             id="quick-access-title"
-            className="text-foreground text-lg font-bold"
+            className="text-foreground text-xl font-bold"
           >
             {t("title")}
           </h2>

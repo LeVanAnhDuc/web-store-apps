@@ -29,9 +29,9 @@ const LoginActivityRow = ({
     </div>
     <div className="min-w-0 flex-1">
       <p className="text-foreground truncate text-sm font-semibold">{title}</p>
-      <p className="text-muted-foreground truncate text-xs">{meta}</p>
+      <p className="text-muted-foreground truncate text-sm">{meta}</p>
     </div>
-    <span className="text-muted-foreground shrink-0 text-xs">{timestamp}</span>
+    <span className="text-muted-foreground shrink-0 text-sm">{timestamp}</span>
   </div>
 );
 

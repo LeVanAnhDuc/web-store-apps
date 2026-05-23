@@ -32,7 +32,7 @@ const ConnectedAccountRow = ({
     </div>
     <div className="min-w-0 flex-1">
       <p className="text-foreground truncate text-sm font-semibold">{name}</p>
-      <p className="text-muted-foreground truncate text-xs">{email}</p>
+      <p className="text-muted-foreground truncate text-sm">{email}</p>
     </div>
     {isConnected ? (
       <>

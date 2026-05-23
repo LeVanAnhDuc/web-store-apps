@@ -76,7 +76,9 @@ const AdminContactFilters = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="bg-card rounded-xl border p-4"
     >
-      <p className="text-foreground mb-4 text-sm font-semibold">{t("title")}</p>
+      <h2 className="text-foreground mb-4 text-sm font-semibold">
+        {t("title")}
+      </h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-1.5 lg:col-span-2">
           <Label className="text-muted-foreground text-xs">{t("search")}</Label>

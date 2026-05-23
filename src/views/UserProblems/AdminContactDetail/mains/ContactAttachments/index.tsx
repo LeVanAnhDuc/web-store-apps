@@ -25,9 +25,9 @@ const ContactAttachments = ({ id }: { id: string }) => {
   if (attachments.length === 0) {
     return (
       <div className="bg-card rounded-xl border p-6">
-        <p className="text-foreground mb-4 text-sm font-semibold">
+        <h2 className="text-foreground mb-4 text-sm font-semibold">
           {tFields("attachments")}
-        </p>
+        </h2>
         <p className="text-muted-foreground text-sm">{t("empty")}</p>
       </div>
     );
@@ -35,9 +35,9 @@ const ContactAttachments = ({ id }: { id: string }) => {
 
   return (
     <div className="bg-card rounded-xl border p-6">
-      <p className="text-foreground mb-4 text-sm font-semibold">
+      <h2 className="text-foreground mb-4 text-sm font-semibold">
         {tFields("attachments")} ({attachments.length})
-      </p>
+      </h2>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {attachments.map((att, i) => {
           const isImage = att.mimeType.startsWith("image/");

@@ -16,13 +16,13 @@ const HeroSection = async () => {
       <div className="flex flex-col gap-3.5">
         <Badge
           variant="secondary"
-          className="bg-primary-foreground/20 text-primary-foreground w-fit rounded-full border-0 px-3 py-1.5 text-[11px] font-bold tracking-widest"
+          className="bg-primary-foreground/20 text-primary-foreground w-fit rounded-full border-0 px-3 py-1.5 text-xs font-bold tracking-widest"
         >
           {t("badge")}
         </Badge>
         <h2
           id="discover-hero-title"
-          className="text-3xl leading-tight font-extrabold md:text-4xl"
+          className="text-3xl leading-tight font-bold md:text-4xl"
         >
           {t("name")}
         </h2>

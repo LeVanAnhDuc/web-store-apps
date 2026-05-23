@@ -56,7 +56,7 @@ const AppManagedCard = ({
           <div className="flex min-w-0 flex-col gap-0.5">
             <h3
               id={`apps-${name}-title`}
-              className="text-foreground truncate text-[15px] font-bold"
+              className="text-foreground truncate text-base font-semibold"
             >
               {name}
             </h3>
@@ -74,13 +74,13 @@ const AppManagedCard = ({
           <EllipsisVertical className="size-4" aria-hidden="true" />
         </CustomButton>
       </div>
-      <p className="text-muted-foreground line-clamp-2 text-[13px] leading-relaxed">
+      <p className="text-muted-foreground line-clamp-2 text-sm leading-relaxed">
         {description}
       </p>
       <Badge
         variant="secondary"
         className={cn(
-          "rounded-full border-0 px-2.5 py-0.5 text-[11px] font-semibold",
+          "rounded-full border-0 px-2.5 py-0.5 text-xs font-semibold",
           status === "published"
             ? "bg-success/15 text-success"
             : "bg-warning/20 text-warning-foreground"

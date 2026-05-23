@@ -31,12 +31,12 @@ const TeamMembersCard = () => {
     >
       <div className="border-border flex items-center justify-between gap-3 border-b px-6 py-5">
         <div className="flex flex-col gap-1">
-          <h2
+          <h3
             id="team-members-title"
             className="text-foreground text-base font-semibold"
           >
             {t("title")}
-          </h2>
+          </h3>
           <p className="text-muted-foreground text-sm">
             {t("description", { count: members.length, limit: 10 })}
           </p>

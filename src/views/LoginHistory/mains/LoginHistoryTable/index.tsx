@@ -89,12 +89,12 @@ const LoginHistoryTable = () => {
       <TableLoadingAnnouncer isLoading={isLoading} total={total} />
       <div className="bg-card flex flex-col overflow-hidden rounded-xl border">
         <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-4">
-          <h2
+          <h3
             id="login-history-table-title"
             className="text-foreground text-base font-semibold"
           >
             {tHeader("title")}
-          </h2>
+          </h3>
           <span className="text-muted-foreground text-xs" aria-live="polite">
             {tHeader("summary", { start, end, total })}
           </span>

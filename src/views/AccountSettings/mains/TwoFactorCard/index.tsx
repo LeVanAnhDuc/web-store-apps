@@ -24,12 +24,12 @@ const TwoFactorCard = () => {
   return (
     <Card className="rounded-2xl border p-0" aria-labelledby="two-factor-title">
       <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
-        <h2
+        <h3
           id="two-factor-title"
           className="text-foreground text-base font-semibold"
         >
           {t("title")}
-        </h2>
+        </h3>
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
       <div className="flex flex-col gap-3 px-6 py-5">
@@ -38,7 +38,7 @@ const TwoFactorCard = () => {
             <p className="text-foreground text-sm font-medium">
               {t("subtitle", { state: stateLabel })}
             </p>
-            <p className="text-muted-foreground mt-0.5 text-xs">{t("hint")}</p>
+            <p className="text-muted-foreground mt-0.5 text-sm">{t("hint")}</p>
           </div>
           <Switch
             checked={enabled}

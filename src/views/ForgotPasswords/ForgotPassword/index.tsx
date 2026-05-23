@@ -37,9 +37,12 @@ const ForgotPassword = async ({
   const { otp: otpMessages, magicLink: magicLinkMessages } = translations.form;
 
   return (
-    <AuthStepLayout email={decodedEmail}>
+    <AuthStepLayout
+      title={translations.form.options.title}
+      description={description}
+      email={decodedEmail}
+    >
       <div className="space-y-5">
-        <p className="text-muted-foreground text-center">{description}</p>
         <RecoveryOptionOtp
           email={decodedEmail}
           title={otp.title}

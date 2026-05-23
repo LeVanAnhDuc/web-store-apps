@@ -46,7 +46,7 @@ const TeamMemberRow = ({
       <p className="text-foreground truncate text-sm font-semibold">
         {fullName}
       </p>
-      <p className="text-muted-foreground truncate text-xs">{email}</p>
+      <p className="text-muted-foreground truncate text-sm">{email}</p>
     </div>
     <RoleBadge role={role} label={roleLabel} />
     {showRemove ? (

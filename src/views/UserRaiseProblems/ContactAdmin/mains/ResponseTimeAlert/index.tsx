@@ -22,7 +22,7 @@ const ResponseTimeAlert = ({
     <AlertCircle className="text-info mt-0.5 h-5 w-5 shrink-0" />
     <div>
       <p className="text-foreground mb-1 text-sm font-medium">{labels.title}</p>
-      <p className="text-muted-foreground text-xs">
+      <p className="text-muted-foreground text-sm">
         {labels.description.replace("{hours}", String(RESPONSE_HOURS))}
       </p>
     </div>

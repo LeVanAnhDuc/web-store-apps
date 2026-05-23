@@ -39,12 +39,12 @@ const RecentAppRow = ({
       <Icon className={cn("size-5.5", iconColor)} />
     </div>
     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-      <span
+      <h3
         id={`recent-${name}-${time}-title`}
-        className="text-foreground text-sm font-semibold"
+        className="text-foreground text-base font-semibold"
       >
         {name}
-      </span>
+      </h3>
       <span className="text-muted-foreground text-xs">{category}</span>
     </div>
     <div className="text-info flex items-center gap-1.5">

@@ -11,12 +11,12 @@ const UsageCard = async () => {
   return (
     <Card className="rounded-2xl border p-0" aria-labelledby="usage-title">
       <div className="border-border flex flex-col gap-1 border-b px-6 py-5">
-        <h2
+        <h3
           id="usage-title"
           className="text-foreground text-base font-semibold"
         >
           {t("title")}
-        </h2>
+        </h3>
         <p className="text-muted-foreground text-sm">
           {t("subtitle", { period: "May 2026", resetDate: "June 1" })}
         </p>

@@ -31,11 +31,7 @@ const AuthStepLayout = ({
       <div className="auth-card relative space-y-5 p-8 md:p-10">
         {(title || description) && (
           <FadeIn delay={0.2} y={10}>
-            {title && (
-              <h1 className="text-foreground text-center font-medium">
-                {title}
-              </h1>
-            )}
+            {title && <h1 className="text-foreground text-center">{title}</h1>}
             {description && (
               <p className="text-muted-foreground text-center">{description}</p>
             )}

@@ -113,7 +113,7 @@ const HistoryList = () => {
               </h2>
               <Badge
                 variant="secondary"
-                className="bg-muted text-muted-foreground rounded-full border-0 px-2.5 py-0.5 text-[11px] font-semibold"
+                className="bg-muted text-muted-foreground rounded-full border-0 px-2.5 py-0.5 text-xs font-semibold"
               >
                 {t("groupCount", { count: group.apps.length })}
               </Badge>

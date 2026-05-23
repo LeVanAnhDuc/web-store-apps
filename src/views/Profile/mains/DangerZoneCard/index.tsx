@@ -21,12 +21,12 @@ const DangerZoneCard = () => {
             className="text-destructive size-4"
             aria-hidden="true"
           />
-          <h2
+          <h3
             id="danger-zone-title"
             className="text-destructive text-base font-semibold"
           >
             {t("title")}
-          </h2>
+          </h3>
         </div>
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
@@ -36,7 +36,7 @@ const DangerZoneCard = () => {
             <p className="text-foreground text-sm font-semibold">
               {t("delete.title")}
             </p>
-            <p className="text-muted-foreground mt-0.5 text-xs">
+            <p className="text-muted-foreground mt-0.5 text-sm">
               {t("delete.description")}
             </p>
           </div>

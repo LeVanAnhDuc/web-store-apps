@@ -36,7 +36,7 @@ const SettingsUserCard = ({
           <p className="text-foreground truncate text-xs font-semibold">
             {fullName}
           </p>
-          <p className="text-muted-foreground truncate text-[11px]">{email}</p>
+          <p className="text-muted-foreground truncate text-xs">{email}</p>
         </div>
         <ChevronsUpDown
           className="text-muted-foreground size-3.5 shrink-0"

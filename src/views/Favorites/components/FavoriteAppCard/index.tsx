@@ -50,7 +50,7 @@ const FavoriteAppCard = ({
           <div className="flex flex-col gap-0.5">
             <h3
               id={`fav-${name}-title`}
-              className="text-foreground text-[15px] font-semibold"
+              className="text-foreground text-base font-semibold"
             >
               {name}
             </h3>
@@ -68,7 +68,7 @@ const FavoriteAppCard = ({
           <Heart className="fill-destructive size-5" aria-hidden="true" />
         </CustomButton>
       </div>
-      <p className="text-muted-foreground text-[13px]">{description}</p>
+      <p className="text-muted-foreground text-sm">{description}</p>
     </div>
     <div className="border-border border-t" aria-hidden="true" />
     <div className="flex items-center justify-between px-5 py-3">

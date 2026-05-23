@@ -48,7 +48,7 @@ const AppsBrowser = () => {
               onClick={() => handleSelect(key)}
               aria-pressed={isActive}
               className={cn(
-                "rounded-full border px-4 py-2 text-[13px] font-semibold",
+                "rounded-full border px-4 py-2 text-sm font-semibold",
                 isActive
                   ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90"
                   : "border-border bg-background text-muted-foreground hover:bg-muted"

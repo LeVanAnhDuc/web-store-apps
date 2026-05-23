@@ -14,7 +14,7 @@ const Login = async () => {
   const { form } = translations;
 
   return (
-    <AuthStepLayout>
+    <AuthStepLayout title={form.titleWelcome} description={form.description}>
       <div className="space-y-5">
         <SocialAuthenButtons
           labels={{

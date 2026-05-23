@@ -9,7 +9,6 @@ import { useAnnounce } from "@/hooks";
 // types
 import type { ContactStatus } from "@/types/ContactAdmin";
 // components
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -17,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
+import CustomBadge from "@/components/CustomBadge";
 // requests
 import {
   getAdminContactDetail,
@@ -76,18 +76,20 @@ const ContactDetailCard = ({ id }: { id: string }) => {
     <div className="bg-card rounded-xl border p-6">
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
-          <p className="font-mono text-lg font-bold">{contact.ticketNumber}</p>
+          <h2 className="font-mono text-lg font-bold">
+            {contact.ticketNumber}
+          </h2>
           <p className="text-muted-foreground text-sm">
             {formatDateTimeMedium(contact.createdAt)}
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <Badge
+          <CustomBadge
             variant={CONTACT_STATUS_VARIANT[contact.status]}
             className="text-sm"
           >
             {tStatus(contact.status)}
-          </Badge>
+          </CustomBadge>
           <div className="flex items-center gap-2">
             <Select
               value={contact.status}
