@@ -7,6 +7,7 @@ import usePostLoginRedirect from "./usePostLoginRedirect";
 import useAnnounce from "./useAnnounce";
 import useDelayedFlag from "./useDelayedFlag";
 import useUserInfo from "./useUserInfo";
+import useIsMobile from "./useIsMobile";
 
 export {
   useFieldProps,
@@ -17,5 +18,6 @@ export {
   usePostLoginRedirect,
   useAnnounce,
   useDelayedFlag,
-  useUserInfo
+  useUserInfo,
+  useIsMobile
 };

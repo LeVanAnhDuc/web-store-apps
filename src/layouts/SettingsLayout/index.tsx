@@ -1,58 +1,57 @@
 "use client";
 
 // libs
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 // components
+import {
+  SidebarInset,
+  SidebarProvider,
+  useSidebar
+} from "@/components/ui/sidebar";
 import DashboardHeader from "@/layouts/DashboardLayout/mains/Header";
 import Sidebar from "./mains/Sidebar";
 // hooks
 import { useAnnounce } from "@/hooks";
 
-const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const SettingsShell = ({ children }: { children: React.ReactNode }) => {
   const tAnnounce = useTranslations("common.announce");
   const tSidebar = useTranslations("common.sidebar");
   const { announce } = useAnnounce();
+  const { state, openMobile, setOpenMobile } = useSidebar();
+  const isCollapsed = state === "collapsed";
 
-  const handleCollapsedChange = (collapsed: boolean) => {
-    announce(tAnnounce(collapsed ? "sidebarCollapsed" : "sidebarExpanded"));
-    setIsSidebarCollapsed(collapsed);
-  };
-
-  const handleMobileOpenChange = (open: boolean) => {
-    announce(tAnnounce(open ? "mobileMenuOpened" : "mobileMenuClosed"));
-    setIsMobileMenuOpen(open);
+  const handleMobileMenuToggle = () => {
+    const next = !openMobile;
+    announce(tAnnounce(next ? "mobileMenuOpened" : "mobileMenuClosed"));
+    setOpenMobile(next);
   };
 
   return (
     <div className="bg-background flex h-screen flex-col overflow-hidden">
       <DashboardHeader
-        isMobileMenuOpen={isMobileMenuOpen}
-        onMobileMenuToggle={() => handleMobileOpenChange(!isMobileMenuOpen)}
+        isMobileMenuOpen={openMobile}
+        onMobileMenuToggle={handleMobileMenuToggle}
       />
       <div className="flex min-h-0 flex-1">
         <Sidebar
-          isCollapsed={isSidebarCollapsed}
-          onCollapsedChange={handleCollapsedChange}
-          isMobileOpen={isMobileMenuOpen}
-          onMobileOpenChange={handleMobileOpenChange}
           collapseToggleAriaLabel={tSidebar(
-            isSidebarCollapsed ? "expand" : "collapse"
+            isCollapsed ? "expand" : "collapse"
           )}
-          mobileCloseAriaLabel={tSidebar("closeMobile")}
         />
-        <main
-          id="main-content"
-          tabIndex={-1}
-          className="min-w-0 flex-1 overflow-y-auto"
-        >
-          <div className="space-y-6">{children}</div>
-        </main>
+        <SidebarInset className="min-w-0 flex-1 overflow-y-auto">
+          <main id="main-content" tabIndex={-1} className="space-y-6">
+            {children}
+          </main>
+        </SidebarInset>
       </div>
     </div>
   );
 };
+
+const SettingsLayout = ({ children }: { children: React.ReactNode }) => (
+  <SidebarProvider defaultOpen>
+    <SettingsShell>{children}</SettingsShell>
+  </SidebarProvider>
+);
 
 export default SettingsLayout;

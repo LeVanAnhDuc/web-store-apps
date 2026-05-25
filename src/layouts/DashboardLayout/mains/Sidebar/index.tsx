@@ -3,54 +3,76 @@
 // libs
 import { useTranslations } from "next-intl";
 // components
-import * as SidebarUI from "@/components/Sidebar";
+import { CustomSidebarCollapseToggle } from "@/components/CustomSidebar";
+import {
+  Sidebar as UISidebar,
+  SidebarContent,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem
+} from "@/components/ui/sidebar";
 import StarredApps from "../../components/StarredApps";
+// hooks
+import { useAnnounce } from "@/hooks";
 // dataSources
 import { NAV_ITEMS } from "@/dataSources/Dashboard";
+// others
+import { Link, usePathname } from "@/i18n/navigation";
 
 const Sidebar = ({
-  isCollapsed,
-  onCollapsedChange,
-  isMobileOpen,
-  onMobileOpenChange,
-  collapseToggleAriaLabel,
-  mobileCloseAriaLabel
+  collapseToggleAriaLabel
 }: {
-  isCollapsed: boolean;
-  onCollapsedChange: (collapsed: boolean) => void;
-  isMobileOpen: boolean;
-  onMobileOpenChange: (open: boolean) => void;
   collapseToggleAriaLabel: string;
-  mobileCloseAriaLabel: string;
 }) => {
   const tNav = useTranslations("dashboard.sidebar.nav");
-  const showExpandedContent = isMobileOpen || !isCollapsed;
+  const tAnnounce = useTranslations("common.announce");
+  const { announce } = useAnnounce();
+  const pathname = usePathname();
+
+  const handleCollapseToggle = (collapsed: boolean) => {
+    announce(tAnnounce(collapsed ? "sidebarCollapsed" : "sidebarExpanded"));
+  };
+
   return (
-    <SidebarUI.Root
-      isCollapsed={isCollapsed}
-      onCollapsedChange={onCollapsedChange}
-      isMobileOpen={isMobileOpen}
-      onMobileOpenChange={onMobileOpenChange}
+    <UISidebar
+      collapsible="icon"
+      className="border-border [&_[data-slot=sidebar-inner]]:bg-card top-16! h-[calc(100svh-4rem)]!"
     >
-      <SidebarUI.MobileBackdrop />
-      <SidebarUI.Aside>
-        <SidebarUI.CollapseToggle aria-label={collapseToggleAriaLabel} />
-        <SidebarUI.MobileCloseHeader aria-label={mobileCloseAriaLabel} />
-        <SidebarUI.Content>
-          <SidebarUI.Nav>
-            {NAV_ITEMS.map((item) => (
-              <SidebarUI.NavItem
-                key={item.key}
-                icon={item.icon}
-                label={tNav(item.key)}
-                href={item.href}
-              />
-            ))}
-          </SidebarUI.Nav>
-          {showExpandedContent && <StarredApps />}
-        </SidebarUI.Content>
-      </SidebarUI.Aside>
-    </SidebarUI.Root>
+      <CustomSidebarCollapseToggle
+        aria-label={collapseToggleAriaLabel}
+        onToggle={handleCollapseToggle}
+      />
+      <SidebarContent className="px-3 py-4 group-data-[collapsible=icon]:px-0">
+        <SidebarMenu className="gap-1 group-data-[collapsible=icon]:items-center">
+          {NAV_ITEMS.map((item) => {
+            const label = tNav(item.key);
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+            return (
+              <SidebarMenuItem key={item.key}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActive}
+                  tooltip={label}
+                  className="h-10 gap-3 px-3 text-sm group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:[&>span:last-child]:hidden"
+                >
+                  <Link
+                    href={item.href}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    <Icon aria-hidden="true" />
+                    <span>{label}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            );
+          })}
+        </SidebarMenu>
+        <div className="group-data-[collapsible=icon]:hidden">
+          <StarredApps />
+        </div>
+      </SidebarContent>
+    </UISidebar>
   );
 };
 

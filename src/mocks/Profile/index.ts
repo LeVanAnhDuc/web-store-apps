@@ -1,7 +1,7 @@
 // types
 import type { LucideIcon } from "lucide-react";
 // libs
-import { Github, Mail, Twitter } from "lucide-react";
+import { Bird, GitBranch, Mail } from "lucide-react";
 
 export type ConnectedAccountKey = "google" | "github" | "twitter";
 
@@ -13,8 +13,8 @@ export interface ConnectedAccountMock {
 
 export const CONNECTED_ACCOUNTS_MOCK: readonly ConnectedAccountMock[] = [
   { key: "google", icon: Mail, isConnected: true },
-  { key: "github", icon: Github, isConnected: true },
-  { key: "twitter", icon: Twitter, isConnected: false }
+  { key: "github", icon: GitBranch, isConnected: true },
+  { key: "twitter", icon: Bird, isConnected: false }
 ] as const;
 
 export type NotificationPrefKey = "email" | "push" | "marketing";

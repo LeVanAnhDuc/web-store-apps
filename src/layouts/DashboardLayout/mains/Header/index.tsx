@@ -47,7 +47,7 @@ const Header = ({
           variant="ghost"
           size="icon"
           aria-label={t("menuToggleLabel")}
-          className="lg:hidden"
+          className="md:hidden"
           onClick={onMobileMenuToggle}
         >
           {isMobileMenuOpen ? (
