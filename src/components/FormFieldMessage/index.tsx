@@ -7,9 +7,19 @@ import { useFormField } from "@/components/ui/form";
 // others
 import { cn } from "@/libs/utils";
 
-const FormFieldMessage = ({ className }: { className?: string }) => {
+type ValidationNamespace = NonNullable<Parameters<typeof useTranslations>[0]>;
+
+const DEFAULT_NAMESPACE = "common.validation" as ValidationNamespace;
+
+const FormFieldMessage = ({
+  className,
+  namespace = DEFAULT_NAMESPACE
+}: {
+  className?: string;
+  namespace?: ValidationNamespace;
+}) => {
   const { error, name, formMessageId } = useFormField();
-  const t = useTranslations("common.validation");
+  const t = useTranslations(namespace);
 
   if (!error?.message) return null;
 
