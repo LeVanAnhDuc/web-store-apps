@@ -18,6 +18,12 @@ import security from "./security.json";
 import notifications from "./notifications.json";
 import billing from "./billing.json";
 import team from "./team.json";
+import admin from "./admin.json";
+import adminDashboard from "./adminDashboard.json";
+import adminApps from "./adminApps.json";
+import adminEntitlements from "./adminEntitlements.json";
+import adminUsers from "./adminUsers.json";
+import adminContacts from "./adminContacts.json";
 
 const messages = {
   common,
@@ -39,7 +45,13 @@ const messages = {
   security,
   notifications,
   billing,
-  team
+  team,
+  admin,
+  adminDashboard,
+  adminApps,
+  adminEntitlements,
+  adminUsers,
+  adminContacts
 };
 
 export default messages;

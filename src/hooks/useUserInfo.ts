@@ -1,30 +1,40 @@
 // libs
 import { jwtDecode } from "jwt-decode";
 // types
-import type { DecodedIdToken } from "@/types/User";
+import type { DecodedAccessToken, DecodedIdToken } from "@/types/User";
 // stores
 import { useAuthStore } from "@/stores";
 // others
 import { getInitials } from "@/utils";
+import CONSTANTS from "@/constants";
 
-const useUserInfo = () => {
-  const idToken = useAuthStore((state) => state.tokens?.idToken);
+const { USER } = CONSTANTS.AUTHENTICATION_ROLES;
 
-  if (!idToken) return null;
-
+const decode = <T>(token: string | undefined): T | null => {
+  if (!token) return null;
   try {
-    const payload = jwtDecode<DecodedIdToken>(idToken);
-    const fullName = payload.name ?? payload.email;
-
-    return {
-      email: payload.email,
-      fullName,
-      avatar: payload.picture ?? null,
-      initials: getInitials(fullName)
-    };
+    return jwtDecode<T>(token);
   } catch {
     return null;
   }
+};
+
+const useUserInfo = () => {
+  const tokens = useAuthStore((state) => state.tokens);
+  const idPayload = decode<DecodedIdToken>(tokens?.idToken);
+
+  if (!idPayload) return null;
+
+  const accessPayload = decode<DecodedAccessToken>(tokens?.accessToken);
+  const fullName = idPayload.name ?? idPayload.email;
+
+  return {
+    email: idPayload.email,
+    fullName,
+    avatar: idPayload.picture ?? null,
+    initials: getInitials(fullName),
+    roles: accessPayload?.roles ?? USER
+  };
 };
 
 export default useUserInfo;

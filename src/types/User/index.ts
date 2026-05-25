@@ -1,3 +1,6 @@
+// others
+import type AUTHENTICATION_ROLES from "@/constants/roles";
+
 export type GenderEnum = "male" | "female" | "other" | "prefer_not_to_say";
 
 export type MyProfileResponse = {
@@ -31,9 +34,18 @@ export type UploadAvatarResponse = {
   avatarUrl: string;
 };
 
+export type AuthenticationRole =
+  (typeof AUTHENTICATION_ROLES)[keyof typeof AUTHENTICATION_ROLES];
+
 export interface DecodedIdToken {
   sub: string;
   name: string;
   email: string;
   picture?: string | null;
+}
+
+export interface DecodedAccessToken {
+  sub: string;
+  authId: string;
+  roles: AuthenticationRole;
 }

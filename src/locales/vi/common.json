@@ -26,7 +26,8 @@
     "signedOut": "Bạn đã đăng xuất.",
     "switchedToLight": "Đã chuyển sang chế độ sáng.",
     "switchedToDark": "Đã chuyển sang chế độ tối.",
-    "switchedToSystem": "Đã chuyển sang giao diện theo hệ thống."
+    "switchedToSystem": "Đã chuyển sang giao diện theo hệ thống.",
+    "adminConsole": "Bảng quản trị"
   },
   "sidebar": {
     "collapse": "Thu gọn thanh bên",

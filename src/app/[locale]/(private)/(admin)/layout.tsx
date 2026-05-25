@@ -1,12 +1,12 @@
 // types
 import type { ReactNode } from "react";
 // layouts
-import DashboardLayout from "@/layouts/DashboardLayout";
+import AdminLayout from "@/layouts/AdminLayout";
 
 export default function Layout({
   children
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return <DashboardLayout>{children}</DashboardLayout>;
+  return <AdminLayout>{children}</AdminLayout>;
 }

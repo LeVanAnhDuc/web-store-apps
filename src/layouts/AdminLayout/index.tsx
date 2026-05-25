@@ -13,7 +13,7 @@ import AppHeader from "../AppHeader";
 // hooks
 import { useAnnounce } from "@/hooks";
 
-const DashboardShell = ({ children }: { children: React.ReactNode }) => {
+const AdminShell = ({ children }: { children: React.ReactNode }) => {
   const tAnnounce = useTranslations("common.announce");
   const tSidebar = useTranslations("common.sidebar");
   const { announce } = useAnnounce();
@@ -48,10 +48,10 @@ const DashboardShell = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => (
+const AdminLayout = ({ children }: { children: React.ReactNode }) => (
   <SidebarProvider defaultOpen>
-    <DashboardShell>{children}</DashboardShell>
+    <AdminShell>{children}</AdminShell>
   </SidebarProvider>
 );
 
-export default DashboardLayout;
+export default AdminLayout;

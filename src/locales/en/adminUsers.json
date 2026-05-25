@@ -1,0 +1,4 @@
+{
+  "title": "Users",
+  "description": "Operate on user accounts — lock/unlock, reset passwords, force logout, and inspect session activity."
+}

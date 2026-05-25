@@ -1,0 +1,4 @@
+{
+  "title": "App Registry",
+  "description": "Register and manage every satellite app in the constellation — client credentials, redirect URIs, required roles, and lifecycle status."
+}

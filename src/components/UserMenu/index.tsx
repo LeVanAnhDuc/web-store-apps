@@ -13,6 +13,7 @@ import CustomButton from "../CustomButton";
 import AvatarUser from "./components/AvatarUser";
 import UserInfoHeader from "./mains/UserInfoHeader";
 import SettingsMenuItems from "./mains/SettingsMenuItems";
+import AdminEntryItem from "./mains/AdminEntryItem";
 import UtilityMenuItems from "./mains/UtilityMenuItems";
 import SignOutItem from "./mains/SignoutItem";
 // hooks
@@ -52,6 +53,7 @@ const UserMenu = () => {
             />
             <DropdownMenuSeparator />
             <SettingsMenuItems />
+            <AdminEntryItem />
             <DropdownMenuSeparator />
             <UtilityMenuItems />
             <DropdownMenuSeparator />

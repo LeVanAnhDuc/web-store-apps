@@ -26,7 +26,8 @@
     "signedOut": "You have been signed out.",
     "switchedToLight": "Switched to light mode.",
     "switchedToDark": "Switched to dark mode.",
-    "switchedToSystem": "Switched to system theme."
+    "switchedToSystem": "Switched to system theme.",
+    "adminConsole": "Admin Console"
   },
   "sidebar": {
     "collapse": "Collapse sidebar",

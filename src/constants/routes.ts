@@ -26,6 +26,11 @@ const ROUTES = {
   NOTIFICATIONS: "/notifications",
   CONTACT_ADMIN: "/contact-admin",
   CONTACT_ADMIN_SUCCESS: "/contact-admin/success",
+  ADMIN_DASHBOARD: "/admin",
+  ADMIN_APPS: "/admin/apps",
+  ADMIN_ENTITLEMENTS: "/admin/entitlements",
+  ADMIN_USERS: "/admin/users",
+  ADMIN_LOGIN_HISTORY: "/admin/login-history",
   ADMIN_CONTACTS: "/admin/contacts",
   MY_CONTACTS: "/contacts/me"
 };

@@ -2,7 +2,7 @@
 
 // libs
 import { useState } from "react";
-import { Bell, Menu, Search, X } from "lucide-react";
+import { Bell, Menu, Search, Shield, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
@@ -15,13 +15,14 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover";
-import NotificationPanel from "../../components/NotificationPanel";
+import NotificationPanel from "./components/NotificationPanel";
 // hooks
 import { useAnnounce } from "@/hooks";
 // others
 import { NOTIFICATIONS_MOCK } from "@/mocks/Dashboard";
+import { usePathname } from "@/i18n/navigation";
 
-const Header = ({
+const AppHeader = ({
   isMobileMenuOpen,
   onMobileMenuToggle
 }: {
@@ -29,10 +30,13 @@ const Header = ({
   onMobileMenuToggle: () => void;
 }) => {
   const t = useTranslations("dashboard.header");
+  const tAdmin = useTranslations("admin");
   const { announce } = useAnnounce();
+  const pathname = usePathname();
   const [searchValue, setSearchValue] = useState("");
   const [notifOpen, setNotifOpen] = useState(false);
 
+  const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
   const unreadCount = NOTIFICATIONS_MOCK.filter((n) => !n.isRead).length;
 
   const handleNotifOpenChange = (open: boolean) => {
@@ -42,7 +46,7 @@ const Header = ({
 
   return (
     <header className="border-border bg-card/80 sticky top-0 z-20 flex h-16 items-center justify-between border-b px-4 backdrop-blur-sm lg:px-6">
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <CustomButton
           variant="ghost"
           size="icon"
@@ -62,6 +66,15 @@ const Header = ({
             {t("appName")}
           </span>
         </div>
+        {isAdminRoute && (
+          <Badge
+            variant="default"
+            className="hidden h-6 gap-1 px-2 md:inline-flex"
+          >
+            <Shield className="size-3" aria-hidden="true" />
+            <span>{tAdmin("modeBadge")}</span>
+          </Badge>
+        )}
       </div>
       <SearchInput
         value={searchValue}
@@ -105,4 +118,4 @@ const Header = ({
   );
 };
 
-export default Header;
+export default AppHeader;

@@ -1,0 +1,4 @@
+{
+  "title": "Entitlements",
+  "description": "Grant or revoke per-user access to satellite apps. Override default role-based access on a case-by-case basis."
+}

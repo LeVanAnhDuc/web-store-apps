@@ -1,0 +1,4 @@
+{
+  "title": "Phân quyền truy cập",
+  "description": "Cấp hoặc thu hồi quyền truy cập app theo từng người dùng. Override mặc định role-based theo từng case riêng."
+}
