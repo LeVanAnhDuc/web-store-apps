@@ -1,14 +1,5 @@
 // types
 import type { WebApp } from "@/types/AdminApps";
-import type { AuthenticationRole } from "@/types/User";
-
-export interface AdminUser {
-  _id: string;
-  fullName: string;
-  email: string;
-  avatar: string | null;
-  role: AuthenticationRole;
-}
 
 export interface Entitlement {
   _id: string;

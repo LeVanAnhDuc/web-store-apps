@@ -1,7 +1,7 @@
 "use client";
 
 // types
-import type { AdminUser } from "@/types/AdminEntitlements";
+import type { AdminUser } from "@/types/AdminUsers";
 // components
 import {
   Select,

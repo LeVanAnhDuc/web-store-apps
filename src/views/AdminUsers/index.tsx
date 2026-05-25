@@ -1,19 +1,12 @@
-// libs
-import { getTranslations } from "next-intl/server";
 // components
-import AdminStubCard from "@/components/AdminStubCard";
+import AdminUsersHeader from "./mains/AdminUsersHeader";
+import AdminUsersTable from "./mains/AdminUsersTable";
 
-const AdminUsers = async () => {
-  const t = await getTranslations("adminUsers");
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-foreground text-2xl font-bold">{t("title")}</h1>
-        <p className="text-muted-foreground mt-1 text-sm">{t("description")}</p>
-      </div>
-      <AdminStubCard />
-    </div>
-  );
-};
+const AdminUsers = () => (
+  <div className="space-y-6">
+    <AdminUsersHeader />
+    <AdminUsersTable />
+  </div>
+);
 
 export default AdminUsers;

@@ -3,7 +3,6 @@
 // libs
 import { useTranslations } from "next-intl";
 // types
-import type { EntitlementRow } from "@/types/AdminEntitlements";
 import type { AdminUser } from "@/types/AdminUsers";
 // components
 import CustomButton from "@/components/CustomButton";
@@ -17,41 +16,29 @@ import {
 } from "@/components/ui/dialog";
 // hooks
 import { useAnnounce } from "@/hooks";
-import useRevokeEntitlement from "../../hooks/useRevokeEntitlement";
+import useResetAdminUserPassword from "../../hooks/useResetAdminUserPassword";
 
-const AdminEntitlementsRevokeDialog = ({
-  user,
+const AdminUsersResetPasswordDialog = ({
   target,
   onClose
 }: {
-  user: AdminUser | null;
-  target: EntitlementRow | null;
+  target: AdminUser | null;
   onClose: () => void;
 }) => {
-  const t = useTranslations("adminEntitlements");
-  const tActions = useTranslations("adminEntitlements.actions");
-  const tAnnounce = useTranslations("adminEntitlements.announce");
+  const t = useTranslations("adminUsers.resetDialog");
+  const tActions = useTranslations("adminUsers.actions");
+  const tAnnounce = useTranslations("adminUsers.announce");
   const { announce } = useAnnounce();
-
-  const mutation = useRevokeEntitlement();
+  const mutation = useResetAdminUserPassword();
 
   const handleConfirm = () => {
-    if (target && user) {
-      mutation.mutate(
-        { userId: user._id, webAppId: target.app._id },
-        {
-          onSuccess: () => {
-            announce(
-              tAnnounce("revoked", {
-                appName: target.app.displayName,
-                userName: user.fullName
-              })
-            );
-            onClose();
-          }
-        }
-      );
-    }
+    if (!target) return;
+    mutation.mutate(target._id, {
+      onSuccess: () => {
+        announce(tAnnounce("passwordReset", { name: target.fullName }));
+        onClose();
+      }
+    });
   };
 
   return (
@@ -60,14 +47,11 @@ const AdminEntitlementsRevokeDialog = ({
         <DialogHeader>
           <DialogTitle>
             {target
-              ? t("revoke.title", { appName: target.app.displayName })
-              : t("revoke.title", { appName: "" })}
+              ? t("title", { name: target.fullName })
+              : t("title", { name: "" })}
           </DialogTitle>
           <DialogDescription>
-            {t("revoke.description", {
-              userName: user?.fullName ?? "",
-              appName: target?.app.displayName ?? ""
-            })}
+            {t("description", { email: target?.email ?? "" })}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -81,11 +65,10 @@ const AdminEntitlementsRevokeDialog = ({
           </CustomButton>
           <CustomButton
             type="button"
-            variant="destructive"
             loading={mutation.isPending}
             onClick={handleConfirm}
           >
-            {tActions("confirmRevoke")}
+            {tActions("confirmReset")}
           </CustomButton>
         </DialogFooter>
       </DialogContent>
@@ -93,4 +76,4 @@ const AdminEntitlementsRevokeDialog = ({
   );
 };
 
-export default AdminEntitlementsRevokeDialog;
+export default AdminUsersResetPasswordDialog;
