@@ -1,8 +1,22 @@
 // types
 import type { LucideIcon } from "lucide-react";
-import { Home, Compass, LayoutGrid, History, Star, Clock } from "lucide-react";
+import {
+  Home,
+  Compass,
+  LayoutGrid,
+  History,
+  Star,
+  Clock,
+  User,
+  Settings,
+  CreditCard,
+  Users,
+  Shield
+} from "lucide-react";
 // others
 import CONSTANTS from "@/constants";
+
+const { ROUTES } = CONSTANTS;
 
 export interface App {
   id: string;
@@ -19,16 +33,60 @@ export interface App {
   tags: string[];
 }
 
-export const NAV_ITEMS = [
-  { key: "home", icon: Home, href: CONSTANTS.ROUTES.HOME },
-  { key: "discover", icon: Compass, href: CONSTANTS.ROUTES.DISCOVER },
-  { key: "apps", icon: LayoutGrid, href: CONSTANTS.ROUTES.APPS },
-  { key: "loginHistory", icon: History, href: CONSTANTS.ROUTES.LOGIN_HISTORY },
-  { key: "favorites", icon: Star, href: CONSTANTS.ROUTES.FAVORITES },
-  { key: "recentlyUsed", icon: Clock, href: CONSTANTS.ROUTES.RECENTLY_USED }
-] as const;
+export type NavKey =
+  | "home"
+  | "discover"
+  | "apps"
+  | "loginHistory"
+  | "favorites"
+  | "recentlyUsed"
+  | "profile"
+  | "accountSettings"
+  | "billing"
+  | "team"
+  | "security";
 
-export type NavKey = (typeof NAV_ITEMS)[number]["key"];
+export type NavGroupKey = "discover" | "mine" | "settings";
+
+export interface NavItem {
+  key: NavKey;
+  icon: LucideIcon;
+  href: string;
+}
+
+export interface NavGroup {
+  key: NavGroupKey;
+  items: readonly NavItem[];
+}
+
+export const NAV_GROUPS: readonly NavGroup[] = [
+  {
+    key: "discover",
+    items: [
+      { key: "home", icon: Home, href: ROUTES.HOME },
+      { key: "discover", icon: Compass, href: ROUTES.DISCOVER },
+      { key: "apps", icon: LayoutGrid, href: ROUTES.APPS }
+    ]
+  },
+  {
+    key: "mine",
+    items: [
+      { key: "loginHistory", icon: History, href: ROUTES.LOGIN_HISTORY },
+      { key: "favorites", icon: Star, href: ROUTES.FAVORITES },
+      { key: "recentlyUsed", icon: Clock, href: ROUTES.RECENTLY_USED }
+    ]
+  },
+  {
+    key: "settings",
+    items: [
+      { key: "profile", icon: User, href: ROUTES.PROFILE },
+      { key: "accountSettings", icon: Settings, href: ROUTES.ACCOUNT_SETTINGS },
+      { key: "billing", icon: CreditCard, href: ROUTES.BILLING },
+      { key: "team", icon: Users, href: ROUTES.TEAM },
+      { key: "security", icon: Shield, href: ROUTES.SECURITY }
+    ]
+  }
+] as const;
 
 export const SORT_OPTIONS = [
   { value: "featured" },

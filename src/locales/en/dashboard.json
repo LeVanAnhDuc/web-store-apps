@@ -22,15 +22,24 @@
     "title": "All Apps"
   },
   "sidebar": {
+    "groups": {
+      "discover": "Discover",
+      "mine": "My Group",
+      "settings": "Settings"
+    },
     "nav": {
       "home": "Home",
       "discover": "Discover",
       "apps": "Apps",
       "loginHistory": "Login History",
       "favorites": "Favorites",
-      "recentlyUsed": "Recently Used"
-    },
-    "starredApps": "Starred Apps"
+      "recentlyUsed": "Recently Used",
+      "profile": "Profile",
+      "accountSettings": "Account Settings",
+      "billing": "Billing",
+      "team": "Team",
+      "security": "Security"
+    }
   },
   "notifications": {
     "title": "Notifications",

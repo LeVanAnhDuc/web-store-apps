@@ -22,15 +22,24 @@
     "title": "Tất cả ứng dụng"
   },
   "sidebar": {
+    "groups": {
+      "discover": "Khám phá",
+      "mine": "Nhóm của tôi",
+      "settings": "Cài đặt"
+    },
     "nav": {
       "home": "Trang chủ",
       "discover": "Khám phá",
       "apps": "Ứng dụng",
       "loginHistory": "Lịch sử đăng nhập",
       "favorites": "Yêu thích",
-      "recentlyUsed": "Sử dụng gần đây"
-    },
-    "starredApps": "Ứng dụng yêu thích"
+      "recentlyUsed": "Sử dụng gần đây",
+      "profile": "Hồ sơ",
+      "accountSettings": "Cài đặt tài khoản",
+      "billing": "Thanh toán",
+      "team": "Nhóm",
+      "security": "Bảo mật"
+    }
   },
   "notifications": {
     "title": "Thông báo",

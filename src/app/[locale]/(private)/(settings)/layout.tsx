@@ -1,12 +1,12 @@
 // types
 import type { ReactNode } from "react";
 // components
-import SettingsLayout from "@/layouts/SettingsLayout";
+import DashboardLayout from "@/layouts/DashboardLayout";
 
 export default function Layout({
   children
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return <SettingsLayout>{children}</SettingsLayout>;
+  return <DashboardLayout>{children}</DashboardLayout>;
 }

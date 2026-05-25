@@ -27,7 +27,7 @@ const DashboardShell = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="bg-background flex h-screen flex-col overflow-hidden">
+    <div className="bg-background flex h-screen w-full flex-col overflow-hidden">
       <Header
         isMobileMenuOpen={openMobile}
         onMobileMenuToggle={handleMobileMenuToggle}
@@ -38,7 +38,7 @@ const DashboardShell = ({ children }: { children: React.ReactNode }) => {
             isCollapsed ? "expand" : "collapse"
           )}
         />
-        <SidebarInset className="min-w-0 flex-1 overflow-y-auto p-4 lg:p-6">
+        <SidebarInset className="min-w-0 flex-1 overflow-y-auto p-6 lg:p-8">
           <div id="main-content" tabIndex={-1}>
             {children}
           </div>

@@ -5,7 +5,7 @@ import PendingInvitationsCard from "./mains/PendingInvitationsCard";
 import RolesCard from "./mains/RolesCard";
 
 const Team = () => (
-  <div className="flex flex-col gap-6 p-6 lg:p-8">
+  <div className="flex flex-col gap-6">
     <PageHeader />
     <TeamMembersCard />
     <PendingInvitationsCard />

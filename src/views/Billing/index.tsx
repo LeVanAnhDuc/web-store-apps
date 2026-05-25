@@ -6,7 +6,7 @@ import BillingHistoryCard from "./mains/BillingHistoryCard";
 import UsageCard from "./mains/UsageCard";
 
 const Billing = () => (
-  <div className="flex flex-col gap-6 p-6 lg:p-8">
+  <div className="flex flex-col gap-6">
     <PageHeader />
     <CurrentPlanCard />
     <PaymentMethodCard />
