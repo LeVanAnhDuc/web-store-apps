@@ -1,3 +1,5 @@
+"use client";
+
 // libs
 import { useTranslations } from "next-intl";
 // types

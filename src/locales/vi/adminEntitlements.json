@@ -1,4 +1,61 @@
 {
   "title": "Phân quyền truy cập",
-  "description": "Cấp hoặc thu hồi quyền truy cập app theo từng người dùng. Override mặc định role-based theo từng case riêng."
+  "description": "Cấp hoặc thu hồi quyền truy cập app theo từng người dùng. Override mặc định role-based theo từng case riêng.",
+  "toolbar": {
+    "user": "Người dùng",
+    "userPlaceholder": "Chọn người dùng…",
+    "appSearch": "Tìm ứng dụng",
+    "appSearchPlaceholder": "Lọc theo tên hoặc mô tả ứng dụng…",
+    "clear": "Xóa bộ lọc"
+  },
+  "emptyUser": {
+    "title": "Chọn người dùng để quản lý phân quyền",
+    "description": "Chọn một người dùng từ dropdown phía trên để xem và chỉnh sửa quyền truy cập app vệ tinh của họ."
+  },
+  "emptyApps": {
+    "title": "Không có ứng dụng phù hợp",
+    "description": "Thử điều chỉnh tìm kiếm hoặc xóa bộ lọc."
+  },
+  "table": {
+    "app": "Ứng dụng",
+    "category": "Danh mục",
+    "requiredRoles": "Role yêu cầu",
+    "status": "Trạng thái",
+    "grantInfo": "Thông tin cấp quyền",
+    "action": "Thao tác"
+  },
+  "status": {
+    "granted": "Đã cấp",
+    "notGranted": "Chưa cấp",
+    "insufficientRole": "Không đủ role"
+  },
+  "grantInfo": {
+    "by": "bởi",
+    "on": "vào",
+    "neverGranted": "—"
+  },
+  "actions": {
+    "grant": "Cấp quyền",
+    "revoke": "Thu hồi",
+    "granting": "Đang cấp…",
+    "revoking": "Đang thu hồi…",
+    "confirmRevoke": "Thu hồi quyền",
+    "cancel": "Hủy",
+    "blockedTooltip": "Role của người dùng không đáp ứng yêu cầu của ứng dụng này."
+  },
+  "revoke": {
+    "title": "Thu hồi quyền truy cập {appName}?",
+    "description": "{userName} sẽ mất quyền SSO vào ứng dụng này ngay lập tức. Lịch sử cấp quyền ban đầu vẫn được giữ để audit. Bạn có thể cấp lại sau."
+  },
+  "toast": {
+    "grantSuccess": "Đã cấp quyền.",
+    "revokeSuccess": "Đã thu hồi quyền.",
+    "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
+  },
+  "announce": {
+    "userSelected": "Đã tải phân quyền của {name}.",
+    "granted": "Đã cấp quyền truy cập {appName} cho {userName}.",
+    "revoked": "Đã thu hồi quyền truy cập {appName} của {userName}.",
+    "revokeDialogOpened": "Xác nhận thu hồi quyền truy cập {appName}."
+  }
 }
