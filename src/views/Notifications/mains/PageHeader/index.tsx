@@ -18,8 +18,8 @@ const PageHeader = ({ onMarkAllRead }: { onMarkAllRead: () => void }) => {
   };
 
   return (
-    <div className="border-border bg-card flex flex-wrap items-center justify-between gap-3 border-b px-6 py-5">
-      <div className="flex flex-col gap-1">
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-col gap-1.5">
         <h1
           id="notifications-title"
           className="text-foreground text-3xl font-bold tracking-tight"

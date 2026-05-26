@@ -56,7 +56,7 @@ const NotificationList = ({
   };
 
   return (
-    <Card className="overflow-hidden rounded-none border-x-0 border-t-0 border-b p-0">
+    <Card className="overflow-hidden rounded-xl border p-0">
       <Tabs value={tab} onValueChange={handleTabChange}>
         <div className="border-border bg-card border-b px-6 py-2">
           <TabsList>
