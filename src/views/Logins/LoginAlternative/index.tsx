@@ -13,7 +13,7 @@ import LoginOptionsInfo from "./mains/LoginOptionsInfo";
 // others
 import CONSTANTS from "@/constants";
 
-const { LOGIN, LOGIN_ALTERNATIVE } = CONSTANTS.ROUTES;
+const { LOGIN } = CONSTANTS.ROUTES;
 const ANIMATION_DELAY_STEP = 0.1;
 
 const LoginAlternative = async ({
@@ -26,8 +26,6 @@ const LoginAlternative = async ({
   if (!email) redirect(LOGIN);
 
   const decodedEmail = decodeURIComponent(email);
-  const encodedEmail = encodeURIComponent(decodedEmail);
-  const currentPath = `${LOGIN_ALTERNATIVE}?email=${encodedEmail}`;
 
   const messages = await getMessages();
   const translations = messages.login as LoginMessages;
@@ -59,7 +57,6 @@ const LoginAlternative = async ({
         />
         <LoginOptionContactAdmin
           email={decodedEmail}
-          currentPath={currentPath}
           title={contactAdmin.title}
           description={contactAdmin.description}
           delay={ANIMATION_DELAY_STEP * 3}

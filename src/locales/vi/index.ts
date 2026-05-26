@@ -4,6 +4,7 @@ import signup from "./signup.json";
 import forgotPassword from "./forgotPassword.json";
 import forgotPasswordReset from "./forgotPasswordReset.json";
 import contactAdmin from "./contactAdmin.json";
+import support from "./support.json";
 import dashboard from "./dashboard.json";
 import home from "./home.json";
 import discover from "./discover.json";
@@ -31,6 +32,7 @@ const messages = {
   forgotPassword,
   forgotPasswordReset,
   contactAdmin,
+  support,
   dashboard,
   home,
   discover,

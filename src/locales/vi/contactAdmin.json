@@ -1,21 +1,5 @@
 {
-  "title": "Liên hệ quản trị viên",
   "form": {
-    "title": "Liên hệ hỗ trợ",
-    "responseTime": {
-      "title": "Thời gian phản hồi trung bình",
-      "description": "Chúng tôi sẽ phản hồi trong vòng {hours} giờ làm việc"
-    },
-    "input": {
-      "labelEmail": "Email liên hệ",
-      "labelEmailNote": "(khuyến khích)",
-      "labelSubject": "Tiêu đề",
-      "labelMessage": "Mô tả chi tiết",
-      "placeholderSubject": "Tóm tắt vấn đề của bạn...",
-      "placeholderMessage": "Vui lòng mô tả chi tiết vấn đề của bạn. Bao gồm các bước tái hiện lỗi nếu có...",
-      "emailHint": "Nhập email để nhận phản hồi từ chúng tôi",
-      "emailAutoFillHint": "Email được điền tự động, bạn có thể thay đổi nếu cần"
-    },
     "category": {
       "account": "Vấn đề tài khoản",
       "technical": "Lỗi kỹ thuật",
@@ -23,55 +7,6 @@
       "billing": "Thanh toán",
       "security": "Bảo mật",
       "other": "Khác"
-    },
-    "button": {
-      "submit": "Gửi yêu cầu hỗ trợ",
-      "submitting": "Đang gửi..."
-    },
-    "hint": {
-      "minChars": "Tối thiểu {count} ký tự",
-      "charCount": "{count} ký tự"
-    },
-    "attachments": {
-      "label": "Tệp đính kèm",
-      "labelNote": "(không bắt buộc)",
-      "hint": "Tối đa 5 tệp · 5MB mỗi tệp · JPG, PNG, GIF, PDF, DOC, DOCX",
-      "dragDrop": "Kéo thả tệp vào đây hoặc",
-      "browse": "chọn tệp",
-      "remove": "Xóa",
-      "errors": {
-        "fileTooLarge": "Tệp \"{name}\" vượt quá giới hạn 5MB",
-        "typeNotSupported": "Loại tệp \"{name}\" không được hỗ trợ",
-        "maxFilesExceeded": "Tối đa 5 tệp được phép"
-      }
-    },
-    "errors": {
-      "rateLimitExceeded": "Quá nhiều yêu cầu. Vui lòng thử lại sau vài phút."
-    }
-  },
-  "success": {
-    "title": "Cảm ơn bạn đã liên hệ với chúng tôi",
-    "ticketInfo": {
-      "title": "Mã yêu cầu",
-      "labelSubject": "Tiêu đề:"
-    },
-    "nextSteps": {
-      "title": "Điều gì xảy ra tiếp theo?",
-      "step2": {
-        "title": "Xem xét yêu cầu",
-        "description": "Đội ngũ hỗ trợ sẽ xem xét yêu cầu của bạn"
-      },
-      "step3": {
-        "title": "Phản hồi",
-        "description": "Bạn sẽ nhận được phản hồi trong vòng 24 giờ làm việc"
-      }
-    },
-    "importantNotes": {
-      "title": "Lưu ý quan trọng",
-      "note1": "Vui lòng lưu lại mã yêu cầu {ticketNumber}"
-    },
-    "button": {
-      "back": "Quay lại"
     }
   },
   "admin": {
@@ -88,7 +23,7 @@
         "attachments": "Tệp",
         "createdAt": "Ngày tạo",
         "actions": "Thao tác",
-        "empty": "Không có yêu cầu liên hệ",
+        "empty": "Không tìm thấy yêu cầu liên hệ nào",
         "viewDetail": "Xem"
       },
       "filters": {
@@ -108,11 +43,11 @@
       "status": {
         "new": "Mới",
         "processing": "Đang xử lý",
-        "resolved": "Đã giải quyết"
+        "resolved": "Đã xử lý"
       }
     },
     "detail": {
-      "title": "Chi tiết yêu cầu",
+      "title": "Chi tiết liên hệ",
       "back": "Quay lại danh sách",
       "breadcrumb": {
         "list": "Hộp thư liên hệ",
@@ -125,10 +60,10 @@
         "category": "Danh mục",
         "status": "Trạng thái",
         "ipAddress": "Địa chỉ IP",
-        "userId": "ID người dùng",
-        "message": "Nội dung",
+        "userId": "Mã người dùng",
+        "message": "Tin nhắn",
         "createdAt": "Ngày tạo",
-        "updatedAt": "Cập nhật lúc",
+        "updatedAt": "Cập nhật lần cuối",
         "attachments": "Tệp đính kèm"
       },
       "updateStatus": {
@@ -150,10 +85,6 @@
     }
   },
   "announce": {
-    "submitting": "Đang gửi tin nhắn của bạn...",
-    "success": "Tin nhắn của bạn đã được gửi. Mã ticket: {ticketNumber}",
-    "rateLimitError": "Quá nhiều yêu cầu. Vui lòng chờ trước khi thử lại.",
-    "error": "Gửi tin nhắn thất bại. Vui lòng thử lại.",
     "filterApplied": "Đã áp dụng bộ lọc.",
     "filterCleared": "Đã xóa bộ lọc.",
     "statusUpdating": "Đang cập nhật trạng thái...",
@@ -161,12 +92,7 @@
     "statusError": "Cập nhật trạng thái thất bại.",
     "categoryUpdating": "Đang cập nhật danh mục...",
     "categoryUpdated": "Cập nhật danh mục thành công.",
-    "categoryError": "Cập nhật danh mục thất bại.",
-    "fileAdded": "Đã thêm tệp \"{name}\".",
-    "fileRemoved": "Đã xóa tệp \"{name}\".",
-    "fileTooLarge": "Tệp \"{name}\" vượt quá giới hạn 5MB.",
-    "fileTypeError": "Loại tệp \"{name}\" không được hỗ trợ.",
-    "maxFilesError": "Tối đa 5 tệp được phép."
+    "categoryError": "Cập nhật danh mục thất bại."
   },
   "myContacts": {
     "title": "Yêu cầu của tôi",
@@ -177,8 +103,8 @@
       "category": "Danh mục",
       "status": "Trạng thái",
       "attachments": "Tệp",
-      "createdAt": "Ngày gửi",
-      "empty": "Bạn chưa gửi yêu cầu nào"
+      "createdAt": "Ngày tạo",
+      "empty": "Chưa gửi yêu cầu nào"
     },
     "submitNew": "Gửi yêu cầu mới"
   }

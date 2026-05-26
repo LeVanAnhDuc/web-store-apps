@@ -24,8 +24,6 @@ const ROUTES = {
   TEAM: "/team",
   SECURITY: "/security",
   NOTIFICATIONS: "/notifications",
-  CONTACT_ADMIN: "/contact-admin",
-  CONTACT_ADMIN_SUCCESS: "/contact-admin/success",
   ADMIN_DASHBOARD: "/admin",
   ADMIN_APPS: "/admin/apps",
   ADMIN_ENTITLEMENTS: "/admin/entitlements",

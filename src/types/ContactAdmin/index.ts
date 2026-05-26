@@ -1,11 +1,3 @@
-export interface ContactAdminFormValues {
-  email?: string;
-  subject: string;
-  message: string;
-}
-
-// ─── v2.0 Types ──────────────────────────────────────────────────────────────
-
 export type ContactStatus = "new" | "processing" | "resolved";
 export type ContactCategory =
   | "account"

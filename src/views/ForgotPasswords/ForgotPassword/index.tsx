@@ -13,7 +13,7 @@ import RecoveryOptionContactAdmin from "./mains/RecoveryOptionContactAdmin";
 import { Link } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
-const { LOGIN, FORGOT_PASSWORD } = CONSTANTS.ROUTES;
+const { LOGIN } = CONSTANTS.ROUTES;
 const ANIMATION_DELAY_STEP = 0.1;
 
 const ForgotPassword = async ({
@@ -26,8 +26,6 @@ const ForgotPassword = async ({
   if (!email) redirect(LOGIN);
 
   const decodedEmail = decodeURIComponent(email);
-  const encodedEmail = encodeURIComponent(decodedEmail);
-  const currentPath = `${FORGOT_PASSWORD}?email=${encodedEmail}`;
 
   const messages = await getMessages();
   const translations = messages.forgotPassword as ForgotPasswordMessages;
@@ -66,7 +64,6 @@ const ForgotPassword = async ({
         />
         <RecoveryOptionContactAdmin
           email={decodedEmail}
-          currentPath={currentPath}
           title={contactAdmin.title}
           description={contactAdmin.description}
           delay={ANIMATION_DELAY_STEP * 3}

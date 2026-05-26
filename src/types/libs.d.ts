@@ -16,4 +16,3 @@ export type LoginMessages = Messages["login"];
 export type SignupMessages = Messages["signup"];
 export type ForgotPasswordMessages = Messages["forgotPassword"];
 export type ForgotPasswordResetMessages = Messages["forgotPasswordReset"];
-export type ContactAdminMessages = Messages["contactAdmin"];

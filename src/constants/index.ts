@@ -5,7 +5,7 @@ import END_POINTS from "./endpoints";
 import ERROR_CODES from "./errorCodes";
 import AUTHENTICATION_ROLES from "./roles";
 import FORGOT_PASSWORD from "./pages/forgotPassword";
-import CONTACT_ADMIN from "./pages/contactAdmin";
+import SUPPORT from "./pages/support";
 import LOGIN from "./pages/login";
 import SIGNUP from "./pages/signup";
 import USER_PROFILE from "./pages/userProfile";
@@ -18,7 +18,7 @@ const CONSTANTS = {
   ERROR_CODES,
   AUTHENTICATION_ROLES,
   FORGOT_PASSWORD,
-  CONTACT_ADMIN,
+  SUPPORT,
   LOGIN,
   SIGNUP,
   USER_PROFILE

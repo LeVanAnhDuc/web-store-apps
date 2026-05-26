@@ -1,38 +1,55 @@
+"use client";
+
 // libs
+import { useState } from "react";
 import { Headset } from "lucide-react";
 // components
-import LoginOptionCardLink from "../../components/LoginOptionCardLink";
+import LoginOptionCard from "../../components/LoginOptionCard";
+import CustomButton from "@/components/CustomButton";
+import SupportDialog from "@/components/SupportDialog";
+import { FadeSlideLeft } from "@/components/Animated";
 // others
-import CONSTANTS from "@/constants";
-
-const { CONTACT_ADMIN } = CONSTANTS.ROUTES;
+import { cn } from "@/libs/utils";
 
 const LoginOptionContactAdmin = ({
   email,
-  currentPath,
   title,
   description,
   delay
 }: {
   email: string;
-  currentPath: string;
   title: string;
   description: string;
   delay?: number;
 }) => {
-  const encodedEmail = encodeURIComponent(email);
-  const encodedFrom = encodeURIComponent(currentPath);
-  const href = `${CONTACT_ADMIN}?email=${encodedEmail}&from=${encodedFrom}`;
+  const [open, setOpen] = useState(false);
 
   return (
-    <LoginOptionCardLink
-      icon={Headset}
-      title={title}
-      description={description}
-      colorVariant="info"
-      href={href}
-      animationDelay={delay}
-    />
+    <>
+      <FadeSlideLeft delay={delay}>
+        <CustomButton
+          variant="ghost"
+          size="lg"
+          fullWidth
+          onClick={() => setOpen(true)}
+          className={cn(
+            "group flex h-auto items-center justify-start gap-4",
+            "border-border rounded-xl border-2 px-4 py-4",
+            "text-left whitespace-normal",
+            "transition-colors duration-200",
+            "hover:border-primary hover:bg-primary/5"
+          )}
+        >
+          <LoginOptionCard
+            icon={Headset}
+            title={title}
+            description={description}
+            colorVariant="info"
+          />
+        </CustomButton>
+      </FadeSlideLeft>
+      <SupportDialog open={open} onOpenChange={setOpen} initialEmail={email} />
+    </>
   );
 };
 

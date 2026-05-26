@@ -1,21 +1,5 @@
 {
-  "title": "Contact Admin",
   "form": {
-    "title": "Contact Support",
-    "responseTime": {
-      "title": "Average response time",
-      "description": "We will respond within {hours} business hours"
-    },
-    "input": {
-      "labelEmail": "Contact email",
-      "labelEmailNote": "(recommended)",
-      "labelSubject": "Subject",
-      "labelMessage": "Detailed description",
-      "placeholderSubject": "Summarize your issue...",
-      "placeholderMessage": "Please describe your issue in detail. Include steps to reproduce the error if any...",
-      "emailHint": "Enter your email to receive a response from us",
-      "emailAutoFillHint": "Email auto-filled, you can change it if needed"
-    },
     "category": {
       "account": "Account issues",
       "technical": "Technical errors",
@@ -23,55 +7,6 @@
       "billing": "Billing",
       "security": "Security",
       "other": "Other"
-    },
-    "button": {
-      "submit": "Submit support request",
-      "submitting": "Submitting..."
-    },
-    "hint": {
-      "minChars": "Minimum {count} characters",
-      "charCount": "{count} characters"
-    },
-    "attachments": {
-      "label": "Attachments",
-      "labelNote": "(optional)",
-      "hint": "Max 5 files · 5MB each · JPG, PNG, GIF, PDF, DOC, DOCX",
-      "dragDrop": "Drag & drop files here or",
-      "browse": "browse",
-      "remove": "Remove",
-      "errors": {
-        "fileTooLarge": "File \"{name}\" exceeds the 5MB limit",
-        "typeNotSupported": "File type \"{name}\" is not supported",
-        "maxFilesExceeded": "Maximum 5 files allowed"
-      }
-    },
-    "errors": {
-      "rateLimitExceeded": "Too many requests. Please try again in a few minutes."
-    }
-  },
-  "success": {
-    "title": "Thank you for contacting us",
-    "ticketInfo": {
-      "title": "Request code",
-      "labelSubject": "Subject:"
-    },
-    "nextSteps": {
-      "title": "What happens next?",
-      "step2": {
-        "title": "Review request",
-        "description": "Our support team will review your request"
-      },
-      "step3": {
-        "title": "Response",
-        "description": "You will receive a response within 24 business hours"
-      }
-    },
-    "importantNotes": {
-      "title": "Important notes",
-      "note1": "Please save the request code {ticketNumber}"
-    },
-    "button": {
-      "back": "Go back"
     }
   },
   "admin": {
@@ -150,10 +85,6 @@
     }
   },
   "announce": {
-    "submitting": "Submitting your message...",
-    "success": "Your message has been sent. Ticket number: {ticketNumber}",
-    "rateLimitError": "Too many requests. Please wait before trying again.",
-    "error": "Failed to send message. Please try again.",
     "filterApplied": "Filters applied.",
     "filterCleared": "Filters cleared.",
     "statusUpdating": "Updating status...",
@@ -161,12 +92,7 @@
     "statusError": "Failed to update status.",
     "categoryUpdating": "Updating category...",
     "categoryUpdated": "Category updated successfully.",
-    "categoryError": "Failed to update category.",
-    "fileAdded": "File \"{name}\" added.",
-    "fileRemoved": "File \"{name}\" removed.",
-    "fileTooLarge": "File \"{name}\" exceeds the 5MB limit.",
-    "fileTypeError": "File type \"{name}\" is not supported.",
-    "maxFilesError": "Maximum 5 files allowed."
+    "categoryError": "Failed to update category."
   },
   "myContacts": {
     "title": "My Requests",
