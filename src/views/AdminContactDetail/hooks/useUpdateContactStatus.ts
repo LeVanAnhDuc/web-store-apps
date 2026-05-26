@@ -7,7 +7,7 @@ import type { ContactStatus } from "@/types/ContactAdmin";
 // requests
 import { updateContactStatus } from "@/requests/contactAdmin";
 // others
-import { ADMIN_CONTACT_LIST_QUERY_KEY } from "@/views/UserProblems/AdminContact/hooks/useAdminContactList";
+import { ADMIN_CONTACT_LIST_QUERY_KEY } from "@/views/AdminContact/hooks/useAdminContactList";
 import { ADMIN_CONTACT_DETAIL_QUERY_KEY } from "./useAdminContactDetail";
 
 const useUpdateContactStatus = (id: string) => {

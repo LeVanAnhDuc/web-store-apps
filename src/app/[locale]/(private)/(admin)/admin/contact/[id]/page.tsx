@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import type { Locale } from "@/i18n/config";
 // views
-import AdminContactDetail from "@/views/UserProblems/AdminContactDetail";
+import AdminContactDetail from "@/views/AdminContactDetail";
 
 export async function generateMetadata({
   params
