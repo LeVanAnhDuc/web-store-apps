@@ -25,6 +25,7 @@
   },
   "tableEmpty": "No login history found",
   "table": {
+    "caption": "Admin login audit history",
     "method": "Method",
     "status": "Status",
     "ip": "IP Address",

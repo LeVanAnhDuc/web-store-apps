@@ -1,28 +1,25 @@
 "use client";
 
 // libs
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 // types
 import type { AdminLoginHistoryFilterFormValues } from "@/types/LoginHistory";
 // components
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
 import CustomButton from "@/components/CustomButton";
+import StatusFilter from "../../components/StatusFilter";
+import MethodFilter from "../../components/MethodFilter";
+import CountryFilter from "../../components/CountryFilter";
+import CityFilter from "../../components/CityFilter";
+import FromDateFilter from "../../components/FromDateFilter";
+import ToDateFilter from "../../components/ToDateFilter";
+import UserIdFilter from "../../components/UserIdFilter";
+import IpFilter from "../../components/IpFilter";
 // hooks
 import { useAnnounce } from "@/hooks";
 // others
 import { useRouter, usePathname } from "@/i18n/navigation";
-
-const ALL_VALUE = "__all";
 
 const AdminLoginHistoryFilters = () => {
   const t = useTranslations("loginHistory.filters");
@@ -34,19 +31,18 @@ const AdminLoginHistoryFilters = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const { register, handleSubmit, reset, setValue, watch } =
-    useForm<AdminLoginHistoryFilterFormValues>({
-      defaultValues: {
-        status: searchParams.get("status") ?? "",
-        method: searchParams.get("method") ?? "",
-        country: searchParams.get("country") ?? "",
-        city: searchParams.get("city") ?? "",
-        fromDate: searchParams.get("fromDate") ?? "",
-        toDate: searchParams.get("toDate") ?? "",
-        userId: searchParams.get("userId") ?? "",
-        ip: searchParams.get("ip") ?? ""
-      }
-    });
+  const methods = useForm<AdminLoginHistoryFilterFormValues>({
+    defaultValues: {
+      status: searchParams.get("status") ?? "",
+      method: searchParams.get("method") ?? "",
+      country: searchParams.get("country") ?? "",
+      city: searchParams.get("city") ?? "",
+      fromDate: searchParams.get("fromDate") ?? "",
+      toDate: searchParams.get("toDate") ?? "",
+      userId: searchParams.get("userId") ?? "",
+      ip: searchParams.get("ip") ?? ""
+    }
+  });
 
   const onSubmit = (data: AdminLoginHistoryFilterFormValues) => {
     const params = new URLSearchParams();
@@ -64,7 +60,7 @@ const AdminLoginHistoryFilters = () => {
   };
 
   const onClear = () => {
-    reset({
+    methods.reset({
       status: "",
       method: "",
       country: "",
@@ -79,113 +75,55 @@ const AdminLoginHistoryFilters = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="bg-card rounded-xl border p-4"
-    >
-      <p className="text-foreground mb-4 text-sm font-semibold">{t("title")}</p>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("status")}</Label>
-          <Select
-            value={watch("status") || ALL_VALUE}
-            onValueChange={(v) => setValue("status", v === ALL_VALUE ? "" : v)}
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        role="search"
+        aria-label={t("title")}
+        className="bg-card rounded-xl border p-4"
+      >
+        <p className="text-foreground mb-4 text-sm font-semibold">
+          {t("title")}
+        </p>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <StatusFilter
+            label={t("status")}
+            allLabel={t("all")}
+            successLabel={tStatus("success")}
+            failedLabel={tStatus("failed")}
+          />
+          <MethodFilter
+            label={t("method")}
+            allLabel={t("all")}
+            methodLabels={{
+              password: tMethod("password"),
+              otp: tMethod("otp"),
+              "magic-link": tMethod("magic-link"),
+              "forgot-password": tMethod("forgot-password")
+            }}
+          />
+          <CountryFilter label={t("country")} placeholder={t("country")} />
+          <CityFilter label={t("city")} placeholder={t("city")} />
+          <FromDateFilter label={t("fromDate")} placeholder="dd/MM/yyyy" />
+          <ToDateFilter label={t("toDate")} placeholder="dd/MM/yyyy" />
+          <UserIdFilter label={t("userId")} placeholder="24-char ObjectId" />
+          <IpFilter label={t("ip")} placeholder={t("ip")} />
+        </div>
+        <div className="mt-4 flex justify-end gap-2">
+          <CustomButton
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={onClear}
           >
-            <SelectTrigger className="h-9">
-              <SelectValue placeholder={t("all")} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={ALL_VALUE}>{t("all")}</SelectItem>
-              <SelectItem value="success">{tStatus("success")}</SelectItem>
-              <SelectItem value="failed">{tStatus("failed")}</SelectItem>
-            </SelectContent>
-          </Select>
+            {t("clear")}
+          </CustomButton>
+          <CustomButton type="submit" size="sm">
+            {t("apply")}
+          </CustomButton>
         </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("method")}</Label>
-          <Select
-            value={watch("method") || ALL_VALUE}
-            onValueChange={(v) => setValue("method", v === ALL_VALUE ? "" : v)}
-          >
-            <SelectTrigger className="h-9">
-              <SelectValue placeholder={t("all")} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={ALL_VALUE}>{t("all")}</SelectItem>
-              <SelectItem value="password">{tMethod("password")}</SelectItem>
-              <SelectItem value="otp">{tMethod("otp")}</SelectItem>
-              <SelectItem value="magic-link">
-                {tMethod("magic-link")}
-              </SelectItem>
-              <SelectItem value="forgot-password">
-                {tMethod("forgot-password")}
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">
-            {t("country")}
-          </Label>
-          <Input
-            {...register("country")}
-            className="h-9"
-            placeholder={t("country")}
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("city")}</Label>
-          <Input
-            {...register("city")}
-            className="h-9"
-            placeholder={t("city")}
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">
-            {t("fromDate")}
-          </Label>
-          <Input {...register("fromDate")} type="date" className="h-9" />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("toDate")}</Label>
-          <Input {...register("toDate")} type="date" className="h-9" />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("userId")}</Label>
-          <Input
-            {...register("userId")}
-            className="h-9"
-            placeholder="24-char ObjectId"
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("ip")}</Label>
-          <Input {...register("ip")} className="h-9" placeholder={t("ip")} />
-        </div>
-      </div>
-
-      <div className="mt-4 flex justify-end gap-2">
-        <CustomButton
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={onClear}
-        >
-          {t("clear")}
-        </CustomButton>
-        <CustomButton type="submit" size="sm">
-          {t("apply")}
-        </CustomButton>
-      </div>
-    </form>
+      </form>
+    </FormProvider>
   );
 };
 

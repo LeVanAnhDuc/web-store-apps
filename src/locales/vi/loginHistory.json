@@ -25,6 +25,7 @@
   },
   "tableEmpty": "Không có lịch sử đăng nhập",
   "table": {
+    "caption": "Lịch sử đăng nhập admin",
     "method": "Phương thức",
     "status": "Trạng thái",
     "ip": "Địa chỉ IP",

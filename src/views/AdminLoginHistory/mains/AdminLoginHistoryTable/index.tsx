@@ -1,7 +1,6 @@
 "use client";
 
 // libs
-import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 // types
@@ -10,10 +9,10 @@ import type {
   LoginHistoryMethod
 } from "@/types/LoginHistory";
 // components
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -22,13 +21,14 @@ import {
 import CustomBadge from "@/components/CustomBadge";
 import CustomButton from "@/components/CustomButton";
 import CustomPagination from "@/components/CustomPagination";
+import LoginHistoryTableSkeleton from "../../components/LoginHistoryTableSkeleton";
+import AdminLoginHistoryFilters from "../AdminLoginHistoryFilters";
 // ghosts
 import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
 import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
 // hooks
 import { useAnnounce } from "@/hooks";
-// requests
-import { getAdminLoginHistory } from "@/requests/loginHistory";
+import useAdminLoginHistory from "../../hooks/useAdminLoginHistory";
 // others
 import { useRouter, usePathname } from "@/i18n/navigation";
 import {
@@ -36,6 +36,9 @@ import {
   isLoginHistoryStatus,
   isLoginHistoryMethod
 } from "@/utils";
+
+const DEFAULT_PAGE_SIZE = 20;
+const TABLE_COLUMN_COUNT = 10;
 
 const AdminLoginHistoryTable = () => {
   const tTable = useTranslations("loginHistory.table");
@@ -48,6 +51,7 @@ const AdminLoginHistoryTable = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+
   const statusParam = searchParams.get("status");
   const methodParam = searchParams.get("method");
   const countryParam = searchParams.get("country");
@@ -57,9 +61,10 @@ const AdminLoginHistoryTable = () => {
   const userIdParam = searchParams.get("userId");
   const ipParam = searchParams.get("ip");
   const page = Number(searchParams.get("page") ?? 1);
+
   const params: AdminLoginHistoryQueryParams = {
     page,
-    limit: 20,
+    limit: DEFAULT_PAGE_SIZE,
     ...(isLoginHistoryStatus(statusParam) && { status: statusParam }),
     ...(isLoginHistoryMethod(methodParam) && { method: methodParam }),
     ...(countryParam && { country: countryParam }),
@@ -69,43 +74,42 @@ const AdminLoginHistoryTable = () => {
     ...(userIdParam && { userId: userIdParam }),
     ...(ipParam && { ip: ipParam })
   };
-  const { data, isLoading } = useQuery({
-    queryKey: ["adminLoginHistory", params],
-    queryFn: () => getAdminLoginHistory(params)
-  });
+
+  const { data, isLoading } = useAdminLoginHistory(params);
+
   const handleGoToPage = (newPage: number) => {
     announce(tAnnounce("navigating", { page: newPage }));
     const next = new URLSearchParams(searchParams.toString());
     next.set("page", String(newPage));
     router.push(`${pathname}?${next.toString()}`);
   };
+
   const hasActiveFilters = Array.from(searchParams.keys()).some(
     (key) => key !== "page"
   );
   const handleClearFilters = () => {
     router.push(pathname);
   };
+
   if (isLoading) {
     return (
       <>
+        <AdminLoginHistoryFilters />
         <TableLoadingAnnouncer
           isLoading={isLoading}
           message={tAnnounce("loading")}
         />
-        <div className="bg-card rounded-xl border p-6">
-          <div className="flex flex-col gap-3">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Skeleton key={`skeleton-${i}`} className="h-10 rounded-lg" />
-            ))}
-          </div>
-        </div>
+        <LoginHistoryTableSkeleton />
       </>
     );
   }
+
   const items = data?.items ?? [];
   const meta = data?.meta;
+
   return (
     <>
+      <AdminLoginHistoryFilters />
       <TableLoadedAnnouncer
         total={meta?.total}
         message={
@@ -116,24 +120,28 @@ const AdminLoginHistoryTable = () => {
       />
       <div className="bg-card rounded-xl border">
         <Table>
+          <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead>{tTable("userId")}</TableHead>
-              <TableHead>{tTable("usernameAttempted")}</TableHead>
-              <TableHead>{tTable("method")}</TableHead>
-              <TableHead>{tTable("status")}</TableHead>
-              <TableHead>{tTable("ip")}</TableHead>
-              <TableHead>{tTable("country")}</TableHead>
-              <TableHead>{tTable("deviceType")}</TableHead>
-              <TableHead>{tTable("browser")}</TableHead>
-              <TableHead>{tTable("isAnomaly")}</TableHead>
-              <TableHead>{tTable("createdAt")}</TableHead>
+              <TableHead scope="col">{tTable("userId")}</TableHead>
+              <TableHead scope="col">{tTable("usernameAttempted")}</TableHead>
+              <TableHead scope="col">{tTable("method")}</TableHead>
+              <TableHead scope="col">{tTable("status")}</TableHead>
+              <TableHead scope="col">{tTable("ip")}</TableHead>
+              <TableHead scope="col">{tTable("country")}</TableHead>
+              <TableHead scope="col">{tTable("deviceType")}</TableHead>
+              <TableHead scope="col">{tTable("browser")}</TableHead>
+              <TableHead scope="col">{tTable("isAnomaly")}</TableHead>
+              <TableHead scope="col">{tTable("createdAt")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {items.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={10} className="py-12 text-center">
+                <TableCell
+                  colSpan={TABLE_COLUMN_COUNT}
+                  className="py-12 text-center"
+                >
                   <div className="flex flex-col items-center gap-3">
                     <p className="text-muted-foreground text-sm">
                       {tTable("empty")}
