@@ -3,7 +3,7 @@
 // libs
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 // types
 import type {
   AdminLoginHistoryQueryParams,
@@ -23,12 +23,14 @@ import CustomBadge from "@/components/CustomBadge";
 import CustomButton from "@/components/CustomButton";
 import CustomPagination from "@/components/CustomPagination";
 // ghosts
-import TableLoadingAnnouncer from "../../ghosts/TableLoadingAnnouncer";
+import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
+import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
 // hooks
 import { useAnnounce } from "@/hooks";
 // requests
 import { getAdminLoginHistory } from "@/requests/loginHistory";
 // others
+import { useRouter, usePathname } from "@/i18n/navigation";
 import {
   formatDateTimeShort,
   isLoginHistoryStatus,
@@ -86,7 +88,10 @@ const AdminLoginHistoryTable = () => {
   if (isLoading) {
     return (
       <>
-        <TableLoadingAnnouncer isLoading={isLoading} />
+        <TableLoadingAnnouncer
+          isLoading={isLoading}
+          message={tAnnounce("loading")}
+        />
         <div className="bg-card rounded-xl border p-6">
           <div className="flex flex-col gap-3">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -101,7 +106,14 @@ const AdminLoginHistoryTable = () => {
   const meta = data?.meta;
   return (
     <>
-      <TableLoadingAnnouncer isLoading={isLoading} total={meta?.total} />
+      <TableLoadedAnnouncer
+        total={meta?.total}
+        message={
+          meta?.total !== undefined
+            ? tAnnounce("loaded", { total: meta.total })
+            : ""
+        }
+      />
       <div className="bg-card rounded-xl border">
         <Table>
           <TableHeader>

@@ -1,13 +1,15 @@
 "use client";
 
 // libs
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 // components
 import { Label } from "@/components/ui/label";
 import CustomButton from "@/components/CustomButton";
 import SearchInput from "@/components/SearchInput";
 import UserPickerSelect from "../../components/UserPickerSelect";
+// others
+import { useRouter, usePathname } from "@/i18n/navigation";
 
 const AdminEntitlementsToolbar = () => {
   const t = useTranslations("adminEntitlements.toolbar");

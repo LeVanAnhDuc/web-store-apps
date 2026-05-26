@@ -1,24 +1,24 @@
 "use client";
 
 // libs
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 // types
 import type { AdminContactFilterFormValues } from "@/types/ContactAdmin";
 // components
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select";
 import CustomButton from "@/components/CustomButton";
+import SearchFilter from "../../components/SearchFilter";
+import StatusFilter from "../../components/StatusFilter";
+import CategoryFilter from "../../components/CategoryFilter";
+import EmailFilter from "../../components/EmailFilter";
+import TicketNumberFilter from "../../components/TicketNumberFilter";
+import FromDateFilter from "../../components/FromDateFilter";
+import ToDateFilter from "../../components/ToDateFilter";
 // hooks
 import { useAnnounce } from "@/hooks";
+// others
+import { useRouter, usePathname } from "@/i18n/navigation";
 
 const AdminContactFilters = () => {
   const t = useTranslations("contactAdmin.admin.list.filters");
@@ -30,18 +30,17 @@ const AdminContactFilters = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const { register, handleSubmit, reset, setValue, watch } =
-    useForm<AdminContactFilterFormValues>({
-      defaultValues: {
-        status: searchParams.get("status") ?? "",
-        category: searchParams.get("category") ?? "",
-        email: searchParams.get("email") ?? "",
-        ticketNumber: searchParams.get("ticketNumber") ?? "",
-        search: searchParams.get("search") ?? "",
-        fromDate: searchParams.get("fromDate") ?? "",
-        toDate: searchParams.get("toDate") ?? ""
-      }
-    });
+  const methods = useForm<AdminContactFilterFormValues>({
+    defaultValues: {
+      status: searchParams.get("status") ?? "",
+      category: searchParams.get("category") ?? "",
+      email: searchParams.get("email") ?? "",
+      ticketNumber: searchParams.get("ticketNumber") ?? "",
+      search: searchParams.get("search") ?? "",
+      fromDate: searchParams.get("fromDate") ?? "",
+      toDate: searchParams.get("toDate") ?? ""
+    }
+  });
 
   const onSubmit = (data: AdminContactFilterFormValues) => {
     const params = new URLSearchParams();
@@ -58,7 +57,7 @@ const AdminContactFilters = () => {
   };
 
   const onClear = () => {
-    reset({
+    methods.reset({
       status: "",
       category: "",
       email: "",
@@ -72,121 +71,63 @@ const AdminContactFilters = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="bg-card rounded-xl border p-4"
-    >
-      <h2 className="text-foreground mb-4 text-sm font-semibold">
-        {t("title")}
-      </h2>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="space-y-1.5 lg:col-span-2">
-          <Label className="text-muted-foreground text-xs">{t("search")}</Label>
-          <Input
-            {...register("search")}
-            className="h-9"
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        role="search"
+        aria-label={t("title")}
+        className="bg-card rounded-xl border p-4"
+      >
+        <h2 className="text-foreground mb-4 text-sm font-semibold">
+          {t("title")}
+        </h2>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <SearchFilter
+            label={t("search")}
             placeholder={t("searchPlaceholder")}
           />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("status")}</Label>
-          <Select
-            value={watch("status")}
-            onValueChange={(v) => setValue("status", v)}
-          >
-            <SelectTrigger className="h-9">
-              <SelectValue placeholder={t("all")} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">{t("all")}</SelectItem>
-              <SelectItem value="new">{tStatus("new")}</SelectItem>
-              <SelectItem value="processing">
-                {tStatus("processing")}
-              </SelectItem>
-              <SelectItem value="resolved">{tStatus("resolved")}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">
-            {t("category")}
-          </Label>
-          <Select
-            value={watch("category")}
-            onValueChange={(v) => setValue("category", v)}
-          >
-            <SelectTrigger className="h-9">
-              <SelectValue placeholder={t("all")} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="">{t("all")}</SelectItem>
-              {(
-                [
-                  "account",
-                  "technical",
-                  "feature",
-                  "billing",
-                  "security",
-                  "other"
-                ] as const
-              ).map((c) => (
-                <SelectItem key={c} value={c}>
-                  {tCategory(c)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("email")}</Label>
-          <Input
-            {...register("email")}
-            className="h-9"
-            placeholder={t("email")}
+          <StatusFilter
+            label={t("status")}
+            allLabel={t("all")}
+            newLabel={tStatus("new")}
+            processingLabel={tStatus("processing")}
+            resolvedLabel={tStatus("resolved")}
           />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">
-            {t("ticketNumber")}
-          </Label>
-          <Input
-            {...register("ticketNumber")}
-            className="h-9"
+          <CategoryFilter
+            label={t("category")}
+            allLabel={t("all")}
+            categoryLabels={{
+              account: tCategory("account"),
+              technical: tCategory("technical"),
+              feature: tCategory("feature"),
+              billing: tCategory("billing"),
+              security: tCategory("security"),
+              other: tCategory("other")
+            }}
+          />
+          <EmailFilter label={t("email")} placeholder={t("email")} />
+          <TicketNumberFilter
+            label={t("ticketNumber")}
             placeholder={t("ticketNumber")}
           />
+          <FromDateFilter label={t("fromDate")} placeholder="dd/MM/yyyy" />
+          <ToDateFilter label={t("toDate")} placeholder="dd/MM/yyyy" />
         </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">
-            {t("fromDate")}
-          </Label>
-          <Input {...register("fromDate")} type="date" className="h-9" />
+        <div className="mt-4 flex justify-end gap-2">
+          <CustomButton
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={onClear}
+          >
+            {t("clear")}
+          </CustomButton>
+          <CustomButton type="submit" size="sm">
+            {t("apply")}
+          </CustomButton>
         </div>
-
-        <div className="space-y-1.5">
-          <Label className="text-muted-foreground text-xs">{t("toDate")}</Label>
-          <Input {...register("toDate")} type="date" className="h-9" />
-        </div>
-      </div>
-
-      <div className="mt-4 flex justify-end gap-2">
-        <CustomButton
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={onClear}
-        >
-          {t("clear")}
-        </CustomButton>
-        <CustomButton type="submit" size="sm">
-          {t("apply")}
-        </CustomButton>
-      </div>
-    </form>
+      </form>
+    </FormProvider>
   );
 };
 

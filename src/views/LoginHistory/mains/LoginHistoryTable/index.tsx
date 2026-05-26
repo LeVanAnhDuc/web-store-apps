@@ -3,7 +3,7 @@
 // libs
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 // types
 import type { LoginHistoryQueryParams } from "@/types/LoginHistory";
 // components
@@ -20,12 +20,14 @@ import {
 import CustomPagination from "@/components/CustomPagination";
 import LoginHistoryTableRow from "../../components/LoginHistoryTableRow";
 // ghosts
-import TableLoadingAnnouncer from "../../ghosts/TableLoadingAnnouncer";
+import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
+import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
 // hooks
 import { useAnnounce } from "@/hooks";
 // requests
 import { getMyLoginHistory } from "@/requests/loginHistory";
 // others
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { isLoginHistoryStatus, isLoginHistoryMethod } from "@/utils";
 
 const LoginHistoryTable = () => {
@@ -67,7 +69,10 @@ const LoginHistoryTable = () => {
   if (isLoading) {
     return (
       <>
-        <TableLoadingAnnouncer isLoading={isLoading} />
+        <TableLoadingAnnouncer
+          isLoading={isLoading}
+          message={tAnnounce("loading")}
+        />
         <div className="bg-card rounded-xl border p-6">
           <div className="flex flex-col gap-3">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -86,7 +91,14 @@ const LoginHistoryTable = () => {
   const totalPages = meta?.totalPages ?? 1;
   return (
     <>
-      <TableLoadingAnnouncer isLoading={isLoading} total={total} />
+      <TableLoadedAnnouncer
+        total={meta?.total}
+        message={
+          meta?.total !== undefined
+            ? tAnnounce("loaded", { total: meta.total })
+            : ""
+        }
+      />
       <div className="bg-card flex flex-col overflow-hidden rounded-xl border">
         <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-4">
           <h3

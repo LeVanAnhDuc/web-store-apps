@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 // components
 import { Label } from "@/components/ui/label";
@@ -14,6 +14,8 @@ import {
 import CustomButton from "@/components/CustomButton";
 import CustomSelectTrigger from "@/components/CustomSelectTrigger";
 import SearchInput from "@/components/SearchInput";
+// others
+import { useRouter, usePathname } from "@/i18n/navigation";
 
 const ALL_VALUE = "__all";
 

@@ -79,6 +79,7 @@
       "title": "Contact Requests",
       "description": "Manage all user support requests",
       "table": {
+        "caption": "Contact requests submitted by users",
         "ticketNumber": "Ticket",
         "email": "Email",
         "subject": "Subject",
@@ -86,6 +87,7 @@
         "status": "Status",
         "attachments": "Files",
         "createdAt": "Date",
+        "actions": "Actions",
         "empty": "No contact requests found",
         "viewDetail": "View"
       },
@@ -112,6 +114,10 @@
     "detail": {
       "title": "Contact Detail",
       "back": "Back to list",
+      "breadcrumb": {
+        "list": "Contact Inbox",
+        "current": "Detail"
+      },
       "fields": {
         "ticketNumber": "Ticket Number",
         "email": "Email",

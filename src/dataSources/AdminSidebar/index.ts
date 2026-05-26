@@ -47,7 +47,7 @@ export const ADMIN_NAV_GROUPS: readonly AdminNavGroup[] = [
     items: [
       { key: "users", icon: Users, href: ROUTES.ADMIN_USERS },
       { key: "loginHistory", icon: History, href: ROUTES.ADMIN_LOGIN_HISTORY },
-      { key: "contacts", icon: Inbox, href: ROUTES.ADMIN_CONTACTS }
+      { key: "contacts", icon: Inbox, href: ROUTES.ADMIN_CONTACT }
     ]
   },
   {

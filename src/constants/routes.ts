@@ -31,7 +31,7 @@ const ROUTES = {
   ADMIN_ENTITLEMENTS: "/admin/entitlements",
   ADMIN_USERS: "/admin/users",
   ADMIN_LOGIN_HISTORY: "/admin/login-history",
-  ADMIN_CONTACTS: "/admin/contacts",
+  ADMIN_CONTACT: "/admin/contact",
   MY_CONTACTS: "/contacts/me"
 };
 

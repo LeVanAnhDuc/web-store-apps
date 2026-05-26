@@ -2,7 +2,7 @@
 
 // libs
 import { useQuery } from "@tanstack/react-query";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 // components
 import { Label } from "@/components/ui/label";
@@ -18,6 +18,7 @@ import SearchInput from "@/components/SearchInput";
 // dataSources
 import { APP_STATUSES } from "@/dataSources/AdminApps";
 // others
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { getAdminAppCategories } from "@/mocks/AdminApps";
 
 const ALL_VALUE = "__all";

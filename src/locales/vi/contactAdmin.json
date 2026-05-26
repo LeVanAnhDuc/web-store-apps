@@ -79,6 +79,7 @@
       "title": "Yêu cầu liên hệ",
       "description": "Quản lý tất cả yêu cầu hỗ trợ của người dùng",
       "table": {
+        "caption": "Danh sách yêu cầu liên hệ do người dùng gửi",
         "ticketNumber": "Mã ticket",
         "email": "Email",
         "subject": "Tiêu đề",
@@ -86,6 +87,7 @@
         "status": "Trạng thái",
         "attachments": "Tệp",
         "createdAt": "Ngày tạo",
+        "actions": "Thao tác",
         "empty": "Không có yêu cầu liên hệ",
         "viewDetail": "Xem"
       },
@@ -112,6 +114,10 @@
     "detail": {
       "title": "Chi tiết yêu cầu",
       "back": "Quay lại danh sách",
+      "breadcrumb": {
+        "list": "Hộp thư liên hệ",
+        "current": "Chi tiết"
+      },
       "fields": {
         "ticketNumber": "Mã ticket",
         "email": "Email",

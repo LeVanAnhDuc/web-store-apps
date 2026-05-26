@@ -1,4 +1,5 @@
 "use client";
+
 // libs
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
@@ -14,14 +15,17 @@ const StatsAnnouncer = ({
 }) => {
   const tAnnounce = useTranslations("loginHistory.announce");
   const { announce } = useAnnounce();
+
   useEffect(() => {
     if (isLoading) announce(tAnnounce("loading"));
   }, [isLoading, announce, tAnnounce]);
+
   useEffect(() => {
     if (typeof total === "number") {
       announce(tAnnounce("statsLoaded", { total }));
     }
   }, [total, announce, tAnnounce]);
+
   return null;
 };
 

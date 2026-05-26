@@ -3,7 +3,7 @@
 // libs
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 // types
 import type { AdminLoginHistoryFilterFormValues } from "@/types/LoginHistory";
 // components
@@ -19,6 +19,10 @@ import {
 import CustomButton from "@/components/CustomButton";
 // hooks
 import { useAnnounce } from "@/hooks";
+// others
+import { useRouter, usePathname } from "@/i18n/navigation";
+
+const ALL_VALUE = "__all";
 
 const AdminLoginHistoryFilters = () => {
   const t = useTranslations("loginHistory.filters");
@@ -84,14 +88,14 @@ const AdminLoginHistoryFilters = () => {
         <div className="space-y-1.5">
           <Label className="text-muted-foreground text-xs">{t("status")}</Label>
           <Select
-            value={watch("status")}
-            onValueChange={(v) => setValue("status", v)}
+            value={watch("status") || ALL_VALUE}
+            onValueChange={(v) => setValue("status", v === ALL_VALUE ? "" : v)}
           >
             <SelectTrigger className="h-9">
               <SelectValue placeholder={t("all")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">{t("all")}</SelectItem>
+              <SelectItem value={ALL_VALUE}>{t("all")}</SelectItem>
               <SelectItem value="success">{tStatus("success")}</SelectItem>
               <SelectItem value="failed">{tStatus("failed")}</SelectItem>
             </SelectContent>
@@ -101,14 +105,14 @@ const AdminLoginHistoryFilters = () => {
         <div className="space-y-1.5">
           <Label className="text-muted-foreground text-xs">{t("method")}</Label>
           <Select
-            value={watch("method")}
-            onValueChange={(v) => setValue("method", v)}
+            value={watch("method") || ALL_VALUE}
+            onValueChange={(v) => setValue("method", v === ALL_VALUE ? "" : v)}
           >
             <SelectTrigger className="h-9">
               <SelectValue placeholder={t("all")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">{t("all")}</SelectItem>
+              <SelectItem value={ALL_VALUE}>{t("all")}</SelectItem>
               <SelectItem value="password">{tMethod("password")}</SelectItem>
               <SelectItem value="otp">{tMethod("otp")}</SelectItem>
               <SelectItem value="magic-link">

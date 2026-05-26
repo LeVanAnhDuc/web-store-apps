@@ -1,11 +1,7 @@
 "use client";
 
 // libs
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
-// hooks
-import { useAnnounce } from "@/hooks";
 // types
 import type { ContactStatus } from "@/types/ContactAdmin";
 // components
@@ -13,15 +9,15 @@ import {
   Select,
   SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
 import CustomBadge from "@/components/CustomBadge";
-// requests
-import {
-  getAdminContactDetail,
-  updateContactStatus
-} from "@/requests/contactAdmin";
+import CustomSelectTrigger from "@/components/CustomSelectTrigger";
+import ContactDetailSkeleton from "../../components/ContactDetailSkeleton";
+// hooks
+import { useAnnounce } from "@/hooks";
+import useAdminContactDetail from "../../hooks/useAdminContactDetail";
+import useUpdateContactStatus from "../../hooks/useUpdateContactStatus";
 // dataSources
 import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
 // others
@@ -33,43 +29,19 @@ const ContactDetailCard = ({ id }: { id: string }) => {
   const tCategory = useTranslations("contactAdmin.form.category");
   const tAnnounce = useTranslations("contactAdmin.announce");
   const { announce } = useAnnounce();
-  const queryClient = useQueryClient();
 
-  const { data: contact, isLoading } = useQuery({
-    queryKey: ["adminContactDetail", id],
-    queryFn: () => getAdminContactDetail(id)
-  });
+  const { data: contact, isLoading } = useAdminContactDetail(id);
+  const updateMutation = useUpdateContactStatus(id);
 
-  const { mutate: changeStatus, isPending: isUpdatingStatus } = useMutation({
-    mutationFn: (status: ContactStatus) => updateContactStatus(id, status),
-    onMutate: () => {
-      announce(tAnnounce("statusUpdating"));
-    },
-    onSuccess: () => {
-      announce(tAnnounce("statusUpdated"));
-      toast.success(t("updateStatus.success"));
-      queryClient.invalidateQueries({ queryKey: ["adminContactDetail", id] });
-      queryClient.invalidateQueries({ queryKey: ["adminContacts"] });
-    },
-    onError: () => {
-      announce(tAnnounce("statusError"));
-      toast.error(t("updateStatus.error"));
-    }
-  });
+  const handleStatusChange = (status: ContactStatus) => {
+    announce(tAnnounce("statusUpdating"));
+    updateMutation.mutate(status, {
+      onSuccess: () => announce(tAnnounce("statusUpdated")),
+      onError: () => announce(tAnnounce("statusError"))
+    });
+  };
 
-  if (isLoading) {
-    return (
-      <div className="bg-card space-y-3 rounded-xl border p-6">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div
-            key={`skeleton-${i}`}
-            className="bg-muted h-8 animate-pulse rounded-lg"
-          />
-        ))}
-      </div>
-    );
-  }
-
+  if (isLoading) return <ContactDetailSkeleton />;
   if (!contact) return null;
 
   return (
@@ -90,24 +62,22 @@ const ContactDetailCard = ({ id }: { id: string }) => {
           >
             {tStatus(contact.status)}
           </CustomBadge>
-          <div className="flex items-center gap-2">
-            <Select
-              value={contact.status}
-              onValueChange={(v) => changeStatus(v as ContactStatus)}
-              disabled={isUpdatingStatus}
-            >
-              <SelectTrigger className="h-9 w-[160px]">
-                <SelectValue placeholder={t("updateStatus.label")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="new">{tStatus("new")}</SelectItem>
-                <SelectItem value="processing">
-                  {tStatus("processing")}
-                </SelectItem>
-                <SelectItem value="resolved">{tStatus("resolved")}</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          <Select
+            value={contact.status}
+            onValueChange={(v) => handleStatusChange(v as ContactStatus)}
+            disabled={updateMutation.isPending}
+          >
+            <CustomSelectTrigger className="w-[160px]">
+              <SelectValue placeholder={t("updateStatus.label")} />
+            </CustomSelectTrigger>
+            <SelectContent>
+              <SelectItem value="new">{tStatus("new")}</SelectItem>
+              <SelectItem value="processing">
+                {tStatus("processing")}
+              </SelectItem>
+              <SelectItem value="resolved">{tStatus("resolved")}</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
       <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
