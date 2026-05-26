@@ -5,10 +5,6 @@
   },
   "userMenu": {
     "trigger": "Mở menu người dùng",
-    "profile": "Hồ sơ",
-    "accountSettings": "Cài đặt tài khoản",
-    "billing": "Thanh toán",
-    "team": "Nhóm",
     "theme": "Giao diện",
     "themeSubmenuLabel": "Tùy chọn giao diện",
     "themeLight": "Sáng",

@@ -12,7 +12,6 @@ import {
 import CustomButton from "../CustomButton";
 import AvatarUser from "./components/AvatarUser";
 import UserInfoHeader from "./mains/UserInfoHeader";
-import SettingsMenuItems from "./mains/SettingsMenuItems";
 import AdminEntryItem from "./mains/AdminEntryItem";
 import UtilityMenuItems from "./mains/UtilityMenuItems";
 import SignOutItem from "./mains/SignoutItem";
@@ -51,8 +50,6 @@ const UserMenu = () => {
               avatar={userInfo.avatar}
               initials={userInfo.initials}
             />
-            <DropdownMenuSeparator />
-            <SettingsMenuItems />
             <AdminEntryItem />
             <DropdownMenuSeparator />
             <UtilityMenuItems />

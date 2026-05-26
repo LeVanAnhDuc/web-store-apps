@@ -5,10 +5,6 @@
   },
   "userMenu": {
     "trigger": "Open user menu",
-    "profile": "Profile",
-    "accountSettings": "Account Settings",
-    "billing": "Billing",
-    "team": "Team",
     "theme": "Theme",
     "themeSubmenuLabel": "Theme options",
     "themeLight": "Light",
