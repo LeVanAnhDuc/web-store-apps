@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 // components
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
-import CustomButton from "@/components/CustomButton";
 import StatBadge from "../../components/StatBadge";
 // hooks
 import useUserInfo from "@/hooks/useUserInfo";
@@ -23,18 +22,7 @@ const ProfileCard = () => {
       className="gap-0 overflow-hidden py-0"
       aria-labelledby="profile-page-title"
     >
-      <div className="from-info to-primary relative h-40 bg-gradient-to-r">
-        <div className="absolute inset-0 flex items-end justify-end px-6 pb-4">
-          <CustomButton
-            variant="outline"
-            size="sm"
-            className="bg-card/95 hover:bg-card"
-          >
-            {t("card.edit")}
-          </CustomButton>
-        </div>
-      </div>
-      <div className="-mt-10 flex flex-col gap-4 px-8 pb-6">
+      <div className="flex flex-col gap-4 px-8 pt-6 pb-6">
         <div className="flex items-end gap-5">
           <Avatar className="ring-card size-20 shrink-0 ring-4">
             <AvatarImage src={userInfo.avatar ?? ""} alt={userInfo.fullName} />
