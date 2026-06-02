@@ -66,6 +66,9 @@
       "requirements": "Password must contain uppercase, lowercase, number and special character",
       "requirementsHint": "Allowed characters: A–Z, a–z, 0–9, @$!%*?&"
     },
+    "currentPassword": {
+      "required": "Please enter your current password"
+    },
     "newPassword": {
       "required": "Please enter new password",
       "minLength": "Password must be at least 8 characters",

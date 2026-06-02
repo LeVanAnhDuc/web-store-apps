@@ -1,6 +1,27 @@
 {
   "title": "Bảo mật",
   "description": "Theo dõi bảo mật tài khoản và quản lý quyền truy cập API",
+  "changePassword": {
+    "title": "Đổi mật khẩu",
+    "description": "Cập nhật mật khẩu tài khoản. Các thiết bị khác sẽ bị đăng xuất.",
+    "form": {
+      "currentLabel": "Mật khẩu hiện tại",
+      "currentPlaceholder": "Nhập mật khẩu hiện tại",
+      "newLabel": "Mật khẩu mới",
+      "newPlaceholder": "Nhập mật khẩu mới",
+      "confirmLabel": "Xác nhận mật khẩu mới",
+      "confirmPlaceholder": "Nhập lại mật khẩu mới",
+      "submit": "Đổi mật khẩu"
+    },
+    "message": {
+      "success": "Đổi mật khẩu thành công",
+      "error": "Không thể đổi mật khẩu"
+    },
+    "announce": {
+      "submitting": "Đang đổi mật khẩu",
+      "success": "Đổi mật khẩu thành công"
+    }
+  },
   "loginActivity": {
     "title": "Hoạt động đăng nhập gần đây",
     "description": "Xem các thiết bị và vị trí đã đăng nhập gần đây",

@@ -66,6 +66,9 @@
       "requirements": "Mật khẩu phải chứa chữ hoa, chữ thường, số và ký tự đặc biệt",
       "requirementsHint": "Ký tự cho phép: A–Z, a–z, 0–9, @$!%*?&"
     },
+    "currentPassword": {
+      "required": "Vui lòng nhập mật khẩu hiện tại"
+    },
     "newPassword": {
       "required": "Vui lòng nhập mật khẩu mới",
       "minLength": "Mật khẩu phải có ít nhất 8 ký tự",
