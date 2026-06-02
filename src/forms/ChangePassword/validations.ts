@@ -2,16 +2,21 @@
 import * as z from "zod";
 // schemas
 import { passwordSchema } from "@/schemas";
+// others
+import CONSTANTS from "@/constants";
+
+const { CURRENT_PASSWORD, NEW_PASSWORD, CONFIRM_PASSWORD } =
+  CONSTANTS.FIELD_NAMES.CHANGE_PASSWORD_FIELD_NAMES;
 
 export const changePasswordValidation = z
   .object({
-    currentPassword: z.string().min(1, { message: "required" }),
-    newPassword: passwordSchema,
-    confirmPassword: z.string().min(1, { message: "required" })
+    [CURRENT_PASSWORD]: z.string().min(1, { message: "required" }),
+    [NEW_PASSWORD]: passwordSchema,
+    [CONFIRM_PASSWORD]: z.string().min(1, { message: "required" })
   })
-  .refine((data) => data.newPassword === data.confirmPassword, {
+  .refine((data) => data[NEW_PASSWORD] === data[CONFIRM_PASSWORD], {
     message: "mismatch",
-    path: ["confirmPassword"]
+    path: [CONFIRM_PASSWORD]
   });
 
 export type ChangePasswordFormValues = z.infer<typeof changePasswordValidation>;
