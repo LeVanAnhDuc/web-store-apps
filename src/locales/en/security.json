@@ -1,27 +1,6 @@
 {
   "title": "Security",
   "description": "Monitor your account security and manage API access",
-  "changePassword": {
-    "title": "Change password",
-    "description": "Update your account password. Other devices will be signed out.",
-    "form": {
-      "currentLabel": "Current password",
-      "currentPlaceholder": "Enter your current password",
-      "newLabel": "New password",
-      "newPlaceholder": "Enter a new password",
-      "confirmLabel": "Confirm new password",
-      "confirmPlaceholder": "Re-enter your new password",
-      "submit": "Change password"
-    },
-    "message": {
-      "success": "Password changed successfully",
-      "error": "Could not change password"
-    },
-    "announce": {
-      "submitting": "Changing password",
-      "success": "Password changed successfully"
-    }
-  },
   "loginActivity": {
     "title": "Recent Login Activity",
     "description": "Review devices and locations that recently signed in",
