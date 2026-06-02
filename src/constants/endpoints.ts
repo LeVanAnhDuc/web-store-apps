@@ -23,6 +23,9 @@ const END_POINTS = {
     "/auth/forgot-password/magic-link/verify",
   AUTH_FORGOT_PASSWORD_RESET: "/auth/forgot-password/reset",
 
+  // Change Password
+  AUTH_CHANGE_PASSWORD: "/auth/change-password",
+
   // Users
   USERS_ME: "/users/me",
   USERS_ME_AVATAR: "/users/me/avatar",
