@@ -3,7 +3,6 @@
 // libs
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 // types
 import type { ChangePasswordFormValues } from "@/forms/ChangePassword/validations";
 // components
@@ -17,25 +16,30 @@ import CustomButton from "@/components/CustomButton";
 import CustomTooltip from "@/components/CustomTooltip";
 import PasswordInput from "@/components/PasswordInput";
 // hooks
-import { useAnnounce } from "@/hooks";
+import { useChangePassword } from "../../hooks/useChangePassword";
 // forms
 import { changePasswordFormProps } from "@/forms/ChangePassword";
+// others
+import CONSTANTS from "@/constants";
+
+const { CURRENT_PASSWORD, NEW_PASSWORD, CONFIRM_PASSWORD } =
+  CONSTANTS.FIELD_NAMES.CHANGE_PASSWORD_FIELD_NAMES;
 
 const ChangePasswordCard = () => {
   const t = useTranslations("accountSettings.changePassword");
-  const { announce } = useAnnounce();
   const methods = useForm<ChangePasswordFormValues>({
     ...changePasswordFormProps
   });
 
-  const onSubmit = () => {
-    announce(t("announce.saving"));
-    setTimeout(() => {
-      announce(t("announce.saved"));
-      toast.success(t("toast.success"));
-      methods.reset();
-    }, 400);
+  const { changePassword, isPending } = useChangePassword({
+    onSuccess: () => methods.reset()
+  });
+
+  const onSubmit = (data: ChangePasswordFormValues) => {
+    changePassword(data);
   };
+
+  const isDisabled = !methods.formState.isDirty || isPending;
 
   return (
     <Card aria-labelledby="change-password-title">
@@ -52,22 +56,25 @@ const ChangePasswordCard = () => {
         <CardContent>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-5">
             <PasswordInput
-              name="currentPassword"
+              name={CURRENT_PASSWORD}
               label={t("fields.currentPassword")}
               placeholder={t("placeholders.currentPassword")}
               autoComplete="current-password"
+              disabled={isPending}
             />
             <PasswordInput
-              name="newPassword"
+              name={NEW_PASSWORD}
               label={t("fields.newPassword")}
               placeholder={t("placeholders.newPassword")}
               autoComplete="new-password"
+              disabled={isPending}
             />
             <PasswordInput
-              name="confirmPassword"
+              name={CONFIRM_PASSWORD}
               label={t("fields.confirmPassword")}
               placeholder={t("placeholders.confirmPassword")}
               autoComplete="new-password"
+              disabled={isPending}
             />
             <div className="border-border flex justify-end gap-3 border-t pt-5">
               <CustomTooltip
@@ -79,7 +86,7 @@ const ChangePasswordCard = () => {
                   type="button"
                   variant="outline"
                   onClick={() => methods.reset()}
-                  disabled={!methods.formState.isDirty}
+                  disabled={isDisabled}
                 >
                   {t("buttons.cancel")}
                 </CustomButton>
@@ -91,7 +98,8 @@ const ChangePasswordCard = () => {
               >
                 <CustomButton
                   type="submit"
-                  disabled={!methods.formState.isDirty}
+                  loading={isPending}
+                  disabled={isDisabled}
                 >
                   {t("buttons.save")}
                 </CustomButton>
