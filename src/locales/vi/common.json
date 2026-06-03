@@ -67,10 +67,12 @@
       "requirementsHint": "Ký tự cho phép: A–Z, a–z, 0–9, @$!%*?&"
     },
     "currentPassword": {
-      "required": "Vui lòng nhập mật khẩu hiện tại"
+      "required": "Vui lòng nhập mật khẩu hiện tại",
+      "wrongCurrentPassword": "Mật khẩu hiện tại không đúng"
     },
     "newPassword": {
       "required": "Vui lòng nhập mật khẩu mới",
+      "sameAsCurrent": "Mật khẩu mới phải khác mật khẩu hiện tại",
       "minLength": "Mật khẩu phải có ít nhất 8 ký tự",
       "minLengthHint": "Độ dài hợp lệ: 8–128 ký tự",
       "maxLength": "Mật khẩu không được vượt quá 128 ký tự",

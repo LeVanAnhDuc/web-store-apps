@@ -31,9 +31,7 @@ const ChangePasswordCard = () => {
     ...changePasswordFormProps
   });
 
-  const { changePassword, isPending } = useChangePassword({
-    onSuccess: () => methods.reset()
-  });
+  const { changePassword, isPending } = useChangePassword(methods);
 
   const onSubmit = (data: ChangePasswordFormValues) => {
     changePassword(data);
