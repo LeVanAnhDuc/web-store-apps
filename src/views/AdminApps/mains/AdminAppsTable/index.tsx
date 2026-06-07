@@ -26,8 +26,9 @@ import RoleChip from "../../components/RoleChip";
 import AppRowActions from "../../components/AppRowActions";
 // dataSources
 import { APP_STATUSES } from "@/dataSources/AdminApps";
+// requests
+import { getAdminApps, getAdminAppCategories } from "@/requests/adminApps";
 // others
-import { getAdminApps, getAdminAppCategories } from "@/mocks/AdminApps";
 import { formatDateTimeShort } from "@/utils";
 
 const ADMIN_APPS_QUERY_KEY = "adminApps";

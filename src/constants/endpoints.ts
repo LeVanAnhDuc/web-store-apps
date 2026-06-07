@@ -37,7 +37,11 @@ const END_POINTS = {
   // Login History
   LOGIN_HISTORY: "/login-history",
   LOGIN_HISTORY_STATS: "/login-history/stats",
-  ADMIN_LOGIN_HISTORY: "/admin/login-history"
+  ADMIN_LOGIN_HISTORY: "/admin/login-history",
+
+  // App Registry
+  ADMIN_APPS: "/admin/apps",
+  ADMIN_APP_CATEGORIES: "/admin/apps/categories"
 };
 
 export default END_POINTS;
