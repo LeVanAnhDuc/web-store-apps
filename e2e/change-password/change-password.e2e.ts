@@ -5,14 +5,14 @@ import { ensureDefaultPassword } from "../helpers/changePassword";
 const DEFAULT_PASSWORD = process.env.E2E_USER_PASSWORD ?? "User@123";
 const NEW_PASSWORD = "NewPass@123";
 
-// The form renders visible labels ("Current Password", etc.) but the toggle
-// button wrapper breaks shadcn's Slot id forwarding, so the <input> has no id
-// for getByLabel to resolve. Select by the stable name attribute instead.
+// Labels are programmatically associated with their inputs (PasswordInput
+// forwards the shadcn FormControl id to the <input>), so select by label.
 const currentPassword = (page: Page) =>
-  page.locator('input[name="currentPassword"]');
-const newPassword = (page: Page) => page.locator('input[name="newPassword"]');
+  page.getByLabel("Current Password", { exact: true });
+const newPassword = (page: Page) =>
+  page.getByLabel("New Password", { exact: true });
 const confirmPassword = (page: Page) =>
-  page.locator('input[name="confirmPassword"]');
+  page.getByLabel("Confirm New Password", { exact: true });
 
 test.describe.configure({ mode: "serial" });
 
