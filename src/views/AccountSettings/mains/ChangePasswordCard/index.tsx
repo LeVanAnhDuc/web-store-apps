@@ -3,7 +3,9 @@
 // libs
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 // types
+import type { AxiosError } from "axios";
 import type { ChangePasswordFormValues } from "@/forms/ChangePassword/validations";
 // components
 import {
@@ -24,6 +26,8 @@ import CONSTANTS from "@/constants";
 
 const { CURRENT_PASSWORD, NEW_PASSWORD, CONFIRM_PASSWORD } =
   CONSTANTS.FIELD_NAMES.CHANGE_PASSWORD_FIELD_NAMES;
+const { CHANGE_PASSWORD_WRONG_CURRENT, CHANGE_PASSWORD_SAME_AS_CURRENT } =
+  CONSTANTS.ERROR_CODES;
 
 const ChangePasswordCard = () => {
   const t = useTranslations("accountSettings.changePassword");
@@ -31,10 +35,25 @@ const ChangePasswordCard = () => {
     ...changePasswordFormProps
   });
 
-  const { changePassword, isPending } = useChangePassword(methods);
+  const { changePassword, isPending } = useChangePassword();
 
   const onSubmit = (data: ChangePasswordFormValues) => {
-    changePassword(data);
+    changePassword(data, {
+      onSuccess: () => methods.reset(),
+      onError: (error) => {
+        const code = (error as AxiosError<ErrorResponsePattern>).response?.data
+          ?.code;
+        if (code === CHANGE_PASSWORD_WRONG_CURRENT) {
+          methods.setError(CURRENT_PASSWORD, {
+            message: "wrongCurrentPassword"
+          });
+        } else if (code === CHANGE_PASSWORD_SAME_AS_CURRENT) {
+          methods.setError(NEW_PASSWORD, { message: "sameAsCurrent" });
+        } else {
+          toast.error(t("toast.error"));
+        }
+      }
+    });
   };
 
   const isDisabled = !methods.formState.isDirty || isPending;
