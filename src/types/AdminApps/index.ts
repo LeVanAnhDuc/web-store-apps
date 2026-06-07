@@ -46,3 +46,5 @@ export interface AdminAppFormValues {
 export type AdminAppCreateInput = AdminAppFormValues;
 
 export type AdminAppUpdateInput = AdminAppFormValues;
+
+export type AdminAppCreateResult = WebApp & { clientSecret: string };

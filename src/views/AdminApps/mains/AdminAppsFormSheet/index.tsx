@@ -6,7 +6,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 // types
-import type { AdminAppFormValues, WebApp } from "@/types/AdminApps";
+import type {
+  AdminAppFormValues,
+  WebApp,
+  AdminAppCreateResult
+} from "@/types/AdminApps";
 // components
 import CustomButton from "@/components/CustomButton";
 import {
@@ -25,22 +29,26 @@ import FormResetEffect from "../../ghosts/FormResetEffect";
 import { adminAppFormProps } from "@/forms/AdminApp";
 // hooks
 import { useAnnounce } from "@/hooks";
+import useCreateAdminApp, {
+  ADMIN_APPS_QUERY_KEY
+} from "../../hooks/useCreateAdminApp";
 // requests
 import { getAdminAppCategories } from "@/requests/adminApps";
 // others
-import { createAdminApp, updateAdminApp } from "@/mocks/AdminApps";
+import { updateAdminApp } from "@/mocks/AdminApps";
 
-const ADMIN_APPS_QUERY_KEY = "adminApps";
 const ADMIN_APP_CATEGORIES_QUERY_KEY = "adminAppCategories";
 
 const AdminAppsFormSheet = ({
   open,
   editingApp,
-  onClose
+  onClose,
+  onCreated
 }: {
   open: boolean;
   editingApp: WebApp | null;
   onClose: () => void;
+  onCreated: (result: AdminAppCreateResult) => void;
 }) => {
   const t = useTranslations("adminApps.form");
   const tActions = useTranslations("adminApps.actions");
@@ -58,16 +66,7 @@ const AdminAppsFormSheet = ({
     enabled: open
   });
 
-  const createMutation = useMutation({
-    mutationFn: createAdminApp,
-    onSuccess: (created) => {
-      queryClient.invalidateQueries({ queryKey: [ADMIN_APPS_QUERY_KEY] });
-      toast.success(tToast("createSuccess"));
-      announce(tAnnounce("created", { name: created.displayName }));
-      onClose();
-    },
-    onError: () => toast.error(tToast("error"))
-  });
+  const createMutation = useCreateAdminApp();
 
   const updateMutation = useMutation({
     mutationFn: (values: AdminAppFormValues) => {
@@ -86,8 +85,17 @@ const AdminAppsFormSheet = ({
   const isPending = createMutation.isPending || updateMutation.isPending;
 
   const onSubmit = (values: AdminAppFormValues) => {
-    if (isEdit) updateMutation.mutate(values);
-    else createMutation.mutate(values);
+    if (isEdit) {
+      updateMutation.mutate(values);
+      return;
+    }
+    createMutation.mutate(values, {
+      onSuccess: (created) => {
+        announce(tAnnounce("created", { name: created.displayName }));
+        onClose();
+        onCreated(created);
+      }
+    });
   };
 
   return (
