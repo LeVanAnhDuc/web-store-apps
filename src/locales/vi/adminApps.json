@@ -12,7 +12,8 @@
     "cancel": "Hủy",
     "createSubmit": "Đăng ký",
     "updateSubmit": "Lưu thay đổi",
-    "confirmDelete": "Xóa ứng dụng"
+    "confirmDelete": "Xóa ứng dụng",
+    "copy": "Sao chép"
   },
   "toolbar": {
     "search": "Tìm kiếm",
@@ -142,5 +143,16 @@
     "deleted": "Đã xóa ứng dụng {name}.",
     "created": "Đã đăng ký ứng dụng {name}.",
     "updated": "Đã cập nhật ứng dụng {name}."
+  },
+  "secretDialog": {
+    "title": "Đã đăng ký ứng dụng — sao chép thông tin xác thực",
+    "description": "Gửi các giá trị này cho lập trình viên của ứng dụng để cấu hình OAuth. Client secret chỉ hiển thị một lần.",
+    "clientIdLabel": "Client ID",
+    "clientSecretLabel": "Client Secret",
+    "warning": "Hãy lưu client secret ngay — nó sẽ không hiển thị lại.",
+    "done": "Xong",
+    "announce": {
+      "copied": "Đã sao chép vào clipboard."
+    }
   }
 }

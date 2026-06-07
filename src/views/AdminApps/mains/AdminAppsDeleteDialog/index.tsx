@@ -18,10 +18,9 @@ import {
 } from "@/components/ui/dialog";
 // hooks
 import { useAnnounce } from "@/hooks";
+import { ADMIN_APPS_QUERY_KEY } from "../../hooks/useCreateAdminApp";
 // others
 import { deleteAdminApp } from "@/mocks/AdminApps";
-
-const ADMIN_APPS_QUERY_KEY = "adminApps";
 
 const AdminAppsDeleteDialog = ({
   target,

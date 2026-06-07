@@ -12,7 +12,8 @@
     "cancel": "Cancel",
     "createSubmit": "Register",
     "updateSubmit": "Save Changes",
-    "confirmDelete": "Delete App"
+    "confirmDelete": "Delete App",
+    "copy": "Copy"
   },
   "toolbar": {
     "search": "Search",
@@ -142,5 +143,16 @@
     "deleted": "App {name} deleted.",
     "created": "App {name} registered.",
     "updated": "App {name} updated."
+  },
+  "secretDialog": {
+    "title": "App registered — copy your credentials",
+    "description": "Share these with the app's developer to configure OAuth. The client secret is shown only once.",
+    "clientIdLabel": "Client ID",
+    "clientSecretLabel": "Client Secret",
+    "warning": "Store the client secret now — it will not be shown again.",
+    "done": "Done",
+    "announce": {
+      "copied": "Copied to clipboard."
+    }
   }
 }

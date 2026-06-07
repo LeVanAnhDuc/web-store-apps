@@ -26,12 +26,12 @@ import RoleChip from "../../components/RoleChip";
 import AppRowActions from "../../components/AppRowActions";
 // dataSources
 import { APP_STATUSES } from "@/dataSources/AdminApps";
+// hooks
+import { ADMIN_APPS_QUERY_KEY } from "../../hooks/useCreateAdminApp";
 // requests
 import { getAdminApps, getAdminAppCategories } from "@/requests/adminApps";
 // others
 import { formatDateTimeShort } from "@/utils";
-
-const ADMIN_APPS_QUERY_KEY = "adminApps";
 const ADMIN_APP_CATEGORIES_QUERY_KEY = "adminAppCategories";
 const TABLE_COLUMN_COUNT = 7;
 const SKELETON_ROW_COUNT = 4;
