@@ -17,9 +17,10 @@ import CustomSelectTrigger from "@/components/CustomSelectTrigger";
 import SearchInput from "@/components/SearchInput";
 // dataSources
 import { APP_STATUSES } from "@/dataSources/AdminApps";
+// requests
+import { getAdminAppCategories } from "@/requests/adminApps";
 // others
 import { useRouter, usePathname } from "@/i18n/navigation";
-import { getAdminAppCategories } from "@/mocks/AdminApps";
 
 const ALL_VALUE = "__all";
 const ADMIN_APP_CATEGORIES_QUERY_KEY = "adminAppCategories";

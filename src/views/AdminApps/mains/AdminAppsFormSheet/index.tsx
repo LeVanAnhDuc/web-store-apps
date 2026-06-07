@@ -25,12 +25,10 @@ import FormResetEffect from "../../ghosts/FormResetEffect";
 import { adminAppFormProps } from "@/forms/AdminApp";
 // hooks
 import { useAnnounce } from "@/hooks";
+// requests
+import { getAdminAppCategories } from "@/requests/adminApps";
 // others
-import {
-  createAdminApp,
-  getAdminAppCategories,
-  updateAdminApp
-} from "@/mocks/AdminApps";
+import { createAdminApp, updateAdminApp } from "@/mocks/AdminApps";
 
 const ADMIN_APPS_QUERY_KEY = "adminApps";
 const ADMIN_APP_CATEGORIES_QUERY_KEY = "adminAppCategories";
