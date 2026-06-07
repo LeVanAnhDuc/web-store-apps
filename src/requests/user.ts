@@ -2,8 +2,7 @@
 import type {
   MyProfileResponse,
   PublicProfileResponse,
-  UpdateProfileData,
-  UploadAvatarResponse
+  UpdateProfileData
 } from "@/types/User";
 // others
 import axiosInstance from "@/libs/axios";
@@ -24,20 +23,6 @@ export const updateMyProfile = async (
   const response = await axiosInstance.patch<
     ResponsePattern<MyProfileResponse>
   >(END_POINTS.USERS_ME, data);
-  return response.data.data;
-};
-
-export const uploadAvatar = async (
-  file: File
-): Promise<UploadAvatarResponse> => {
-  const formData = new FormData();
-  formData.append("avatar", file);
-
-  const response = await axiosInstance.post<
-    ResponsePattern<UploadAvatarResponse>
-  >(END_POINTS.USERS_ME_AVATAR, formData, {
-    headers: { "Content-Type": "multipart/form-data" }
-  });
   return response.data.data;
 };
 
