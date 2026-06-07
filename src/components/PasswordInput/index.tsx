@@ -52,8 +52,8 @@ const PasswordInput = ({
             {label}
             {required && <span className="text-destructive"> *</span>}
           </FormLabel>
-          <FormControl>
-            <div className="relative w-full">
+          <div className="relative w-full">
+            <FormControl>
               <CustomInput
                 {...field}
                 type={showPassword ? "text" : "password"}
@@ -63,25 +63,25 @@ const PasswordInput = ({
                 disabled={disabled}
                 className="pr-12"
               />
-              <CustomButton
-                type="button"
-                variant="ghost"
-                size="icon-sm"
-                aria-label={showPassword ? tToggle("hide") : tToggle("show")}
-                aria-pressed={showPassword}
-                className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 size-8 -translate-y-1/2"
-                onClick={handleTogglePasswordVisibility}
-                onMouseDown={(e) => e.preventDefault()}
-                disabled={disabled}
-              >
-                {showPassword ? (
-                  <EyeOff className="size-4" aria-hidden="true" />
-                ) : (
-                  <Eye className="size-4" aria-hidden="true" />
-                )}
-              </CustomButton>
-            </div>
-          </FormControl>
+            </FormControl>
+            <CustomButton
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label={showPassword ? tToggle("hide") : tToggle("show")}
+              aria-pressed={showPassword}
+              className="text-muted-foreground hover:text-foreground absolute top-1/2 right-2 size-8 -translate-y-1/2"
+              onClick={handleTogglePasswordVisibility}
+              onMouseDown={(e) => e.preventDefault()}
+              disabled={disabled}
+            >
+              {showPassword ? (
+                <EyeOff className="size-4" aria-hidden="true" />
+              ) : (
+                <Eye className="size-4" aria-hidden="true" />
+              )}
+            </CustomButton>
+          </div>
           <FormFieldMessage />
         </FormItem>
       )}
