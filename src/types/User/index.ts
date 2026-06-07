@@ -30,10 +30,6 @@ export type UpdateProfileData = {
   gender?: GenderEnum;
 };
 
-export type UploadAvatarResponse = {
-  avatarUrl: string;
-};
-
 export type AuthenticationRole =
   (typeof AUTHENTICATION_ROLES)[keyof typeof AUTHENTICATION_ROLES];
 

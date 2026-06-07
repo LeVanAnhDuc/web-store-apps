@@ -28,7 +28,6 @@ const END_POINTS = {
 
   // Users
   USERS_ME: "/users/me",
-  USERS_ME_AVATAR: "/users/me/avatar",
   USERS_BY_ID: "/users",
 
   // Contact
