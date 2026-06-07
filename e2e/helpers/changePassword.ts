@@ -13,10 +13,14 @@ async function tryLogin(
     data: { email: EMAIL, password }
   });
   if (!res.ok()) return null;
-  const body = await res.json();
-  return (body?.data?.accessToken as string) ?? null;
+  const body = (await res.json()) as { data?: { accessToken?: string } };
+  return body?.data?.accessToken ?? null;
 }
 
+// Restore the seed user's password to DEFAULT_PASSWORD.
+// `currentGuess` MUST be the only non-default password any spec sets (the helper
+// only tries DEFAULT_PASSWORD then `currentGuess`). If a spec introduces another
+// new password, pass that value or extend this helper.
 export async function ensureDefaultPassword(
   currentGuess: string
 ): Promise<void> {

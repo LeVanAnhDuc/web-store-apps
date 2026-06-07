@@ -9,5 +9,9 @@ setup("authenticate", async ({ page }) => {
     data: { email: EMAIL, password: PASSWORD }
   });
   expect(res.ok()).toBeTruthy();
-  await page.context().storageState({ path: AUTH_FILE });
+
+  const state = await page.context().storageState({ path: AUTH_FILE });
+  // Fail loudly here if the refresh cookie wasn't captured — otherwise every
+  // test would 401 after SessionGate's /token/refresh, far from the root cause.
+  expect(state.cookies.some((c) => c.name === "refreshToken")).toBeTruthy();
 });
