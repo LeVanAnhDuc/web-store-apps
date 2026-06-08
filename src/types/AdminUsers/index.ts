@@ -18,4 +18,20 @@ export interface AdminUsersQueryParams {
   search?: string;
   role?: AuthenticationRole;
   status?: AdminUserStatusFilter;
+  page?: number;
+  limit?: number;
+  sortBy?: "createdAt" | "fullName" | "lastLoginAt";
+  sortOrder?: "asc" | "desc";
+}
+
+export interface AdminUsersMeta {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export interface PaginatedAdminUsersResponse {
+  items: AdminUser[];
+  meta: AdminUsersMeta;
 }

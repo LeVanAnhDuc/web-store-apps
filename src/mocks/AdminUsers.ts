@@ -1,9 +1,5 @@
 // types
-import type {
-  AdminUser,
-  AdminUserStatusFilter,
-  AdminUsersQueryParams
-} from "@/types/AdminUsers";
+import type { AdminUser } from "@/types/AdminUsers";
 
 const SIMULATED_LATENCY_MS = 200;
 
@@ -55,25 +51,6 @@ const MOCK_USERS: AdminUser[] = [
   }
 ];
 
-const matchesStatus = (
-  user: AdminUser,
-  status: AdminUserStatusFilter
-): boolean => (status === "active" ? user.isActive : !user.isActive);
-
-const matchesQuery = (
-  user: AdminUser,
-  params: AdminUsersQueryParams
-): boolean => {
-  if (params.role && user.role !== params.role) return false;
-  if (params.status && !matchesStatus(user, params.status)) return false;
-  if (params.search) {
-    const q = params.search.toLowerCase();
-    const hay = `${user.fullName} ${user.email}`.toLowerCase();
-    if (!hay.includes(q)) return false;
-  }
-  return true;
-};
-
 export const getAdminUsers = async (): Promise<AdminUser[]> =>
   delay(MOCK_USERS);
 
@@ -82,15 +59,6 @@ export const getAdminUserById = async (
 ): Promise<AdminUser | null> => {
   const user = MOCK_USERS.find((u) => u._id === id) ?? null;
   return delay(user);
-};
-
-export const getAdminUsersList = async (
-  params: AdminUsersQueryParams = {}
-): Promise<{ items: AdminUser[] }> => {
-  const items = MOCK_USERS.filter((u) => matchesQuery(u, params)).sort((a, b) =>
-    a.fullName.localeCompare(b.fullName)
-  );
-  return delay({ items });
 };
 
 const updateUser = (id: string, patch: Partial<AdminUser>): AdminUser => {

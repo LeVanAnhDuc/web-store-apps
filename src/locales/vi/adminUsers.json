@@ -29,6 +29,11 @@
     "emptyDescription": "Thử điều chỉnh tìm kiếm hoặc xóa bộ lọc.",
     "rowMenuLabel": "Thao tác với người dùng"
   },
+  "pagination": {
+    "page": "Trang",
+    "of": "/",
+    "results": "người dùng"
+  },
   "actions": {
     "resetPassword": "Đặt lại mật khẩu",
     "lock": "Khóa tài khoản",

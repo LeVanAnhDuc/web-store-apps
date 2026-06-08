@@ -41,7 +41,10 @@ const END_POINTS = {
 
   // App Registry
   ADMIN_APPS: "/admin/apps",
-  ADMIN_APP_CATEGORIES: "/admin/apps/categories"
+  ADMIN_APP_CATEGORIES: "/admin/apps/categories",
+
+  // Users (admin)
+  ADMIN_USERS: "/admin/users"
 };
 
 export default END_POINTS;
