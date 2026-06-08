@@ -1,8 +1,8 @@
 {
   "title": "Apps",
-  "description": "Browse and search all your web applications.",
+  "description": "Browse and search all available web applications.",
   "search": {
-    "placeholder": "Search your apps...",
+    "placeholder": "Search apps...",
     "filter": "Filters"
   },
   "view": {
@@ -10,13 +10,10 @@
     "list": "List view"
   },
   "card": {
-    "open": "Open",
-    "menu": "More actions"
+    "open": "Open"
   },
-  "status": {
-    "published": "Published",
-    "draft": "Draft"
-  },
+  "empty": "No apps found.",
+  "error": "Could not load apps. Please try again.",
   "pagination": {
     "summary": "Showing {shown} of {total} apps",
     "previous": "Previous",
@@ -25,6 +22,7 @@
   "announce": {
     "viewModeChanged": "View mode changed to {mode}.",
     "pageChanged": "Page {page} loaded.",
-    "searchChanged": "{count} apps match the search."
+    "loading": "Loading apps...",
+    "loaded": "{total} apps loaded."
   }
 }

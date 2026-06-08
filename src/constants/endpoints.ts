@@ -40,6 +40,7 @@ const END_POINTS = {
   ADMIN_LOGIN_HISTORY: "/admin/login-history",
 
   // App Registry
+  APPS: "/apps",
   ADMIN_APPS: "/admin/apps",
   ADMIN_APP_CATEGORIES: "/admin/apps/categories"
 };

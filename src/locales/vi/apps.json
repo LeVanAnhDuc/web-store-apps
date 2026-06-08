@@ -1,6 +1,6 @@
 {
   "title": "Ứng dụng",
-  "description": "Duyệt và tìm kiếm tất cả ứng dụng web của bạn.",
+  "description": "Duyệt và tìm kiếm tất cả ứng dụng web khả dụng.",
   "search": {
     "placeholder": "Tìm ứng dụng...",
     "filter": "Bộ lọc"
@@ -10,13 +10,10 @@
     "list": "Xem dạng danh sách"
   },
   "card": {
-    "open": "Mở",
-    "menu": "Tùy chọn"
+    "open": "Mở"
   },
-  "status": {
-    "published": "Đã xuất bản",
-    "draft": "Bản nháp"
-  },
+  "empty": "Không tìm thấy ứng dụng nào.",
+  "error": "Không thể tải ứng dụng. Vui lòng thử lại.",
   "pagination": {
     "summary": "Hiển thị {shown} trên {total} ứng dụng",
     "previous": "Trước",
@@ -25,6 +22,7 @@
   "announce": {
     "viewModeChanged": "Đã chuyển sang {mode}.",
     "pageChanged": "Đã tải trang {page}.",
-    "searchChanged": "{count} ứng dụng khớp với tìm kiếm."
+    "loading": "Đang tải ứng dụng...",
+    "loaded": "Đã tải {total} ứng dụng."
   }
 }
