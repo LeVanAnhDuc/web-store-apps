@@ -1,23 +1,24 @@
 "use client";
 // libs
-import {
-  ChevronLeft,
-  ChevronRight,
-  Filter,
-  LayoutGrid,
-  List
-} from "lucide-react";
-import { useMemo, useState } from "react";
+import { Filter, LayoutGrid, List } from "lucide-react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
 import SearchInput from "@/components/SearchInput";
-import AppManagedCard from "../../components/AppManagedCard";
+import CustomPagination from "@/components/CustomPagination";
+import AppCard from "../../components/AppCard";
+import AppCardSkeleton from "../../components/AppCardSkeleton";
+// ghosts
+import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
+import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
 // hooks
-import useAnnounce from "@/hooks/useAnnounce";
+import { useAnnounce, useDebouncedValue } from "@/hooks";
 // others
-import { MANAGED_APPS_MOCK } from "@/mocks/Apps";
+import useApps from "../../hooks/useApps";
 import { cn } from "@/libs/utils";
+
+const PAGE_SIZE = 12;
 
 const AppsBoard = () => {
   const t = useTranslations("apps");
@@ -25,36 +26,42 @@ const AppsBoard = () => {
   const [search, setSearch] = useState("");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [page, setPage] = useState(1);
-  const pageSize = 9;
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    if (!q) return MANAGED_APPS_MOCK;
-    return MANAGED_APPS_MOCK.filter(
-      (app) =>
-        app.name.toLowerCase().includes(q) ||
-        app.category.toLowerCase().includes(q) ||
-        app.description.toLowerCase().includes(q)
-    );
-  }, [search]);
-  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-  const safePage = Math.min(page, totalPages);
-  const paged = filtered.slice((safePage - 1) * pageSize, safePage * pageSize);
+  const debouncedSearch = useDebouncedValue(search, 300);
+  const { data, isLoading, isError } = useApps({
+    page,
+    limit: PAGE_SIZE,
+    ...(debouncedSearch.trim() && { search: debouncedSearch.trim() })
+  });
+  const items = data?.items ?? [];
+  const meta = data?.meta;
+  const totalPages = meta?.totalPages ?? 1;
+  const total = meta?.total ?? 0;
   const handleSearch = (value: string) => {
     setSearch(value);
     setPage(1);
-    announce(t("announce.searchChanged", { count: filtered.length }));
   };
   const handleViewChange = (mode: "grid" | "list") => {
     setView(mode);
     announce(t("announce.viewModeChanged", { mode: t(`view.${mode}`) }));
   };
   const handlePageChange = (next: number) => {
-    if (next < 1 || next > totalPages) return;
     setPage(next);
     announce(t("announce.pageChanged", { page: next }));
   };
   return (
     <div className="flex flex-col gap-7">
+      <TableLoadingAnnouncer
+        isLoading={isLoading}
+        message={t("announce.loading")}
+      />
+      <TableLoadedAnnouncer
+        total={meta?.total}
+        message={
+          meta?.total !== undefined
+            ? t("announce.loaded", { total: meta.total })
+            : ""
+        }
+      />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <SearchInput
@@ -116,75 +123,50 @@ const AppsBoard = () => {
             : "grid-cols-1"
         )}
       >
-        {paged.map((app) => (
-          <AppManagedCard
-            key={app.id}
-            name={app.name}
-            category={app.category}
-            description={app.description}
-            icon={app.icon}
-            iconColor={app.iconColor}
-            iconBg={app.iconBg}
-            status={app.status}
-            statusLabel={t(`status.${app.status}`)}
-            views={app.views}
-            date={app.date}
-            openLabel={t("card.open")}
-            menuLabel={t("card.menu")}
-          />
-        ))}
+        {isLoading
+          ? Array.from({ length: PAGE_SIZE }).map((_, idx) => (
+              <AppCardSkeleton key={`skeleton-${idx}`} />
+            ))
+          : items.map((app) => (
+              <AppCard
+                key={app._id}
+                id={app._id}
+                displayName={app.displayName}
+                category={app.category}
+                description={app.description}
+                iconUrl={app.iconUrl}
+                homeUrl={app.homeUrl}
+                openLabel={t("card.open")}
+              />
+            ))}
       </div>
-      <nav
-        className="flex flex-wrap items-center justify-between gap-3"
-        aria-label={t("pagination.next")}
-      >
-        <span className="text-muted-foreground text-sm font-medium">
-          {t("pagination.summary", {
-            shown: paged.length,
-            total: filtered.length
-          })}
-        </span>
-        <div className="flex items-center gap-1.5">
-          <CustomButton
-            size="icon-sm"
-            variant="outline"
-            aria-label={t("pagination.previous")}
-            onClick={() => handlePageChange(safePage - 1)}
-            disabled={safePage <= 1}
-          >
-            <ChevronLeft className="size-4" aria-hidden="true" />
-          </CustomButton>
-          {Array.from({ length: totalPages }).map((_, idx) => {
-            const num = idx + 1;
-            const isActive = num === safePage;
-            return (
-              <CustomButton
-                key={num}
-                size="icon-sm"
-                onClick={() => handlePageChange(num)}
-                aria-label={`Page ${num}`}
-                aria-current={isActive ? "page" : undefined}
-                className={cn(
-                  isActive
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "border-border bg-background hover:bg-muted text-foreground border"
-                )}
-              >
-                {num}
-              </CustomButton>
-            );
-          })}
-          <CustomButton
-            size="icon-sm"
-            variant="outline"
-            aria-label={t("pagination.next")}
-            onClick={() => handlePageChange(safePage + 1)}
-            disabled={safePage >= totalPages}
-          >
-            <ChevronRight className="size-4" aria-hidden="true" />
-          </CustomButton>
-        </div>
-      </nav>
+      {isError && (
+        <p className="text-destructive text-sm" role="alert">
+          {t("error")}
+        </p>
+      )}
+      {!isLoading && !isError && items.length === 0 && (
+        <p className="text-muted-foreground py-12 text-center text-sm">
+          {t("empty")}
+        </p>
+      )}
+      {meta && total > 0 && (
+        <nav
+          className="flex flex-wrap items-center justify-between gap-3"
+          aria-label={t("pagination.next")}
+        >
+          <span className="text-muted-foreground text-sm font-medium">
+            {t("pagination.summary", { shown: items.length, total })}
+          </span>
+          {totalPages > 1 && (
+            <CustomPagination
+              page={page}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </nav>
+      )}
     </div>
   );
 };
