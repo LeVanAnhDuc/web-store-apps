@@ -54,7 +54,9 @@ const CategorySelect = ({
           >
             <FormControl>
               <CustomSelectTrigger aria-invalid={fieldState.invalid}>
-                <SelectValue placeholder={placeholder} />
+                <SelectValue placeholder={placeholder}>
+                  {categories.find((cat) => cat._id === field.value)?.name}
+                </SelectValue>
               </CustomSelectTrigger>
             </FormControl>
             <SelectContent>

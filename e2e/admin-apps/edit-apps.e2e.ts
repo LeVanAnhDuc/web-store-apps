@@ -25,6 +25,9 @@ test.describe("Admin Apps — edit + hide/unhide", () => {
     await page.getByRole("menuitem", { name: "Edit" }).click();
     const displayName = page.getByRole("textbox", { name: "Display Name" });
     await expect(displayName).toBeVisible();
+    await expect(
+      page.getByRole("combobox", { name: "Category" })
+    ).toContainText("Content");
     await displayName.fill(EDITED_DISPLAY_NAME);
     await page.getByRole("button", { name: "Save Changes" }).click();
     await expect(page.getByText("App updated.")).toBeVisible();
