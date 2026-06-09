@@ -10,12 +10,14 @@ import LoadingScreen from "@/components/LoadingScreen";
 import { useAuthStore } from "@/stores";
 // requests
 import { refreshToken } from "@/requests/login";
+// others
+import CONSTANTS from "@/constants";
 
 const SessionGate = ({ children }: PropsWithChildren) => {
   const hasBootstrapped = useAuthStore((state) => state.hasBootstrapped);
 
   useQuery({
-    queryKey: ["session-bootstrap"],
+    queryKey: [CONSTANTS.QUERY_KEYS.SESSION_BOOTSTRAP],
     queryFn: async () => {
       try {
         const data = await refreshToken();

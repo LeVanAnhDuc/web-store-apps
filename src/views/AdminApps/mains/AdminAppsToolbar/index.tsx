@@ -20,10 +20,10 @@ import { APP_STATUSES } from "@/dataSources/AdminApps";
 // requests
 import { getAdminAppCategories } from "@/requests/adminApps";
 // others
+import CONSTANTS from "@/constants";
 import { useRouter, usePathname } from "@/i18n/navigation";
 
 const ALL_VALUE = "__all";
-const ADMIN_APP_CATEGORIES_QUERY_KEY = "adminAppCategories";
 
 const AdminAppsToolbar = () => {
   const t = useTranslations("adminApps.toolbar");
@@ -42,7 +42,7 @@ const AdminAppsToolbar = () => {
   );
 
   const { data: categories = [] } = useQuery({
-    queryKey: [ADMIN_APP_CATEGORIES_QUERY_KEY],
+    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_APP_CATEGORIES],
     queryFn: getAdminAppCategories
   });
 

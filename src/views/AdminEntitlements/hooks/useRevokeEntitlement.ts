@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 // others
+import CONSTANTS from "@/constants";
 import { revokeEntitlement } from "@/mocks/AdminEntitlements";
-import { ENTITLEMENTS_QUERY_KEY } from "./useEntitlementsByUser";
 
 const useRevokeEntitlement = () => {
   const queryClient = useQueryClient();
@@ -13,7 +13,7 @@ const useRevokeEntitlement = () => {
     mutationFn: revokeEntitlement,
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: [ENTITLEMENTS_QUERY_KEY, variables.userId]
+        queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_ENTITLEMENTS, variables.userId]
       });
       toast.success(tToast("revokeSuccess"));
     },

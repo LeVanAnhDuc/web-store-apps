@@ -7,8 +7,7 @@ import type { ContactStatus } from "@/types/ContactAdmin";
 // requests
 import { updateContactStatus } from "@/requests/contactAdmin";
 // others
-import { ADMIN_CONTACT_LIST_QUERY_KEY } from "@/views/AdminContact/hooks/useAdminContactList";
-import { ADMIN_CONTACT_DETAIL_QUERY_KEY } from "./useAdminContactDetail";
+import CONSTANTS from "@/constants";
 
 const useUpdateContactStatus = (id: string) => {
   const queryClient = useQueryClient();
@@ -17,10 +16,10 @@ const useUpdateContactStatus = (id: string) => {
     mutationFn: (status: ContactStatus) => updateContactStatus(id, status),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [ADMIN_CONTACT_DETAIL_QUERY_KEY, id]
+        queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_CONTACT_DETAIL, id]
       });
       queryClient.invalidateQueries({
-        queryKey: [ADMIN_CONTACT_LIST_QUERY_KEY]
+        queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_CONTACT_LIST]
       });
       toast.success(t("success"));
     },

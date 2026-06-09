@@ -4,12 +4,12 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import type { UserAppsQueryParams } from "@/types/Apps";
 // requests
 import { getApps } from "@/requests/apps";
-
-export const APPS_QUERY_KEY = "apps";
+// others
+import CONSTANTS from "@/constants";
 
 const useApps = (params: UserAppsQueryParams) =>
   useQuery({
-    queryKey: [APPS_QUERY_KEY, params],
+    queryKey: [CONSTANTS.QUERY_KEYS.APPS, params],
     queryFn: () => getApps(params),
     placeholderData: keepPreviousData
   });

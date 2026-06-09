@@ -4,12 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import type { AdminUsersQueryParams } from "@/types/AdminUsers";
 // requests
 import { getAdminUsers } from "@/requests/adminUsers";
-
-export const ADMIN_USERS_LIST_QUERY_KEY = "adminUsersList";
+// others
+import CONSTANTS from "@/constants";
 
 const useAdminUsersList = (params: AdminUsersQueryParams) =>
   useQuery({
-    queryKey: [ADMIN_USERS_LIST_QUERY_KEY, params],
+    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_USERS_LIST, params],
     queryFn: () => getAdminUsers(params)
   });
 

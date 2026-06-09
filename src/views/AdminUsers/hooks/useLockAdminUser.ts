@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 // others
+import CONSTANTS from "@/constants";
 import { lockAdminUser } from "@/mocks/AdminUsers";
-import { ADMIN_USERS_LIST_QUERY_KEY } from "./useAdminUsersList";
 
 const useLockAdminUser = () => {
   const queryClient = useQueryClient();
@@ -13,7 +13,7 @@ const useLockAdminUser = () => {
     mutationFn: lockAdminUser,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [ADMIN_USERS_LIST_QUERY_KEY]
+        queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_USERS_LIST]
       });
       toast.success(tToast("lockSuccess"));
     },

@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/dialog";
 // requests
 import { getAdminContactDetail } from "@/requests/contactAdmin";
+// others
+import CONSTANTS from "@/constants";
 
 const ContactAttachments = ({ id }: { id: string }) => {
   const t = useTranslations("contactAdmin.admin.detail.attachments");
@@ -23,7 +25,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const { data: contact } = useQuery({
-    queryKey: ["adminContactDetail", id],
+    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_CONTACT_DETAIL, id],
     queryFn: () => getAdminContactDetail(id)
   });
 

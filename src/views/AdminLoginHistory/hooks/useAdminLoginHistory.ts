@@ -4,12 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import type { AdminLoginHistoryQueryParams } from "@/types/LoginHistory";
 // requests
 import { getAdminLoginHistory } from "@/requests/loginHistory";
-
-export const ADMIN_LOGIN_HISTORY_QUERY_KEY = "adminLoginHistory";
+// others
+import CONSTANTS from "@/constants";
 
 const useAdminLoginHistory = (params: AdminLoginHistoryQueryParams) =>
   useQuery({
-    queryKey: [ADMIN_LOGIN_HISTORY_QUERY_KEY, params],
+    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_LOGIN_HISTORY, params],
     queryFn: () => getAdminLoginHistory(params)
   });
 

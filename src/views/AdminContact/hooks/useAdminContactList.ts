@@ -4,12 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import type { AdminContactQuery } from "@/types/ContactAdmin";
 // requests
 import { getAdminContact } from "@/requests/contactAdmin";
-
-export const ADMIN_CONTACT_LIST_QUERY_KEY = "adminContactList";
+// others
+import CONSTANTS from "@/constants";
 
 const useAdminContactList = (params: AdminContactQuery) =>
   useQuery({
-    queryKey: [ADMIN_CONTACT_LIST_QUERY_KEY, params],
+    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_CONTACT_LIST, params],
     queryFn: () => getAdminContact(params)
   });
 

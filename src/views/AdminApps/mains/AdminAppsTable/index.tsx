@@ -26,13 +26,12 @@ import RoleChip from "../../components/RoleChip";
 import AppRowActions from "../../components/AppRowActions";
 // dataSources
 import { APP_STATUSES } from "@/dataSources/AdminApps";
-// hooks
-import { ADMIN_APPS_QUERY_KEY } from "../../hooks/useCreateAdminApp";
 // requests
 import { getAdminApps, getAdminAppCategories } from "@/requests/adminApps";
 // others
+import CONSTANTS from "@/constants";
 import { formatDateTimeShort } from "@/utils";
-const ADMIN_APP_CATEGORIES_QUERY_KEY = "adminAppCategories";
+
 const TABLE_COLUMN_COUNT = 7;
 const SKELETON_ROW_COUNT = 4;
 
@@ -62,12 +61,12 @@ const AdminAppsTable = ({
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: [ADMIN_APPS_QUERY_KEY, params],
+    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_APPS, params],
     queryFn: () => getAdminApps(params)
   });
 
   const { data: categories = [] } = useQuery({
-    queryKey: [ADMIN_APP_CATEGORIES_QUERY_KEY],
+    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_APP_CATEGORIES],
     queryFn: getAdminAppCategories
   });
 

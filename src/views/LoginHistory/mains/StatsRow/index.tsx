@@ -10,11 +10,13 @@ import LoginStatCard from "../../components/LoginStatCard";
 import StatsAnnouncer from "../../ghosts/StatsAnnouncer";
 // requests
 import { getMyLoginHistoryStats } from "@/requests/loginHistory";
+// others
+import CONSTANTS from "@/constants";
 
 const StatsRow = () => {
   const t = useTranslations("loginHistory.stats");
   const { data, isLoading } = useQuery({
-    queryKey: ["loginHistory", "stats"],
+    queryKey: [CONSTANTS.QUERY_KEYS.LOGIN_HISTORY, "stats"],
     queryFn: getMyLoginHistoryStats
   });
   return (

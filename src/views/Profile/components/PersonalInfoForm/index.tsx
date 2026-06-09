@@ -38,6 +38,7 @@ import { updatePersonalInfoFormProps } from "@/forms/UpdatePersonalInfo";
 // requests
 import { updateMyProfile } from "@/requests/user";
 // others
+import CONSTANTS from "@/constants";
 import { mapProfileToFormValues } from "@/utils";
 
 const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
@@ -55,7 +56,7 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
     onMutate: () => announce(t("announce.saving")),
     onSuccess: (updated: MyProfileResponse) => {
       announce(t("announce.saved"));
-      queryClient.setQueryData(["myProfile"], updated);
+      queryClient.setQueryData([CONSTANTS.QUERY_KEYS.MY_PROFILE], updated);
       toast.success(t("toast.success"));
     },
     onError: () => toast.error(t("toast.error"))

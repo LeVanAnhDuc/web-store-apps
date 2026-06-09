@@ -37,8 +37,6 @@ import { getAdminAppCategories } from "@/requests/adminApps";
 // others
 import CONSTANTS from "@/constants";
 
-const ADMIN_APP_CATEGORIES_QUERY_KEY = "adminAppCategories";
-
 const AdminAppsFormSheet = ({
   open,
   editingApp,
@@ -63,7 +61,7 @@ const AdminAppsFormSheet = ({
   const methods = useForm<AdminAppFormValues>(adminAppFormProps);
 
   const { data: categories = [] } = useQuery({
-    queryKey: [ADMIN_APP_CATEGORIES_QUERY_KEY],
+    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_APP_CATEGORIES],
     queryFn: getAdminAppCategories,
     enabled: open
   });

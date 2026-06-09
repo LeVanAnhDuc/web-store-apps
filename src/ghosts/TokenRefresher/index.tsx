@@ -7,6 +7,7 @@ import { useAuthStore } from "@/stores";
 // requests
 import { refreshToken } from "@/requests/login";
 // others
+import CONSTANTS from "@/constants";
 import { getTokenExpSeconds } from "@/utils";
 
 const REFRESH_BUFFER_SECONDS = 60;
@@ -16,7 +17,7 @@ const TokenRefresher = () => {
   const tokens = useAuthStore((state) => state.tokens);
 
   useQuery({
-    queryKey: ["token-refresh"],
+    queryKey: [CONSTANTS.QUERY_KEYS.TOKEN_REFRESH],
     queryFn: async () => {
       const currentTokens = useAuthStore.getState().tokens;
       if (!currentTokens?.accessToken) return null;

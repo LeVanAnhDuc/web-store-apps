@@ -1,13 +1,12 @@
 // libs
 import { useQuery } from "@tanstack/react-query";
 // others
+import CONSTANTS from "@/constants";
 import { getEntitlementsByUserId } from "@/mocks/AdminEntitlements";
-
-export const ENTITLEMENTS_QUERY_KEY = "adminEntitlements";
 
 const useEntitlementsByUser = (userId: string | null) =>
   useQuery({
-    queryKey: [ENTITLEMENTS_QUERY_KEY, userId],
+    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_ENTITLEMENTS, userId],
     queryFn: () => getEntitlementsByUserId(userId!),
     enabled: Boolean(userId)
   });
