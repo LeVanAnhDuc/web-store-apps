@@ -18,7 +18,10 @@ const QUERY_KEYS = {
   // Profile / session
   MY_PROFILE: "myProfile",
   TOKEN_REFRESH: "token-refresh",
-  SESSION_BOOTSTRAP: "session-bootstrap"
+  SESSION_BOOTSTRAP: "session-bootstrap",
+  // Notifications
+  NOTIFICATIONS: "notifications",
+  NOTIFICATIONS_UNREAD_COUNT: "notificationsUnreadCount"
 } as const;
 
 export default QUERY_KEYS;

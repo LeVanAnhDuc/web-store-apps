@@ -45,7 +45,13 @@ const END_POINTS = {
   ADMIN_APP_CATEGORIES: "/admin/apps/categories",
 
   // Users (admin)
-  ADMIN_USERS: "/admin/users"
+  ADMIN_USERS: "/admin/users",
+
+  // Notifications
+  NOTIFICATIONS: "/notifications",
+  NOTIFICATIONS_UNREAD_COUNT: "/notifications/unread-count",
+  NOTIFICATIONS_READ_ALL: "/notifications/read-all",
+  NOTIFICATION_READ: (id: string) => `/notifications/${id}/read`
 };
 
 export default END_POINTS;
