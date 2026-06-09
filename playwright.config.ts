@@ -17,13 +17,24 @@ export default defineConfig({
   },
   projects: [
     { name: "setup", testMatch: /auth\.setup\.ts/ },
+    { name: "admin-setup", testMatch: /admin\.setup\.ts/ },
     {
       name: "chromium",
+      testIgnore: /admin-apps\//,
       use: {
         ...devices["Desktop Chrome"],
         storageState: "e2e/.auth/user.json"
       },
       dependencies: ["setup"]
+    },
+    {
+      name: "admin",
+      testMatch: /admin-apps\/.*\.e2e\.ts/,
+      use: {
+        ...devices["Desktop Chrome"],
+        storageState: "e2e/.auth/admin.json"
+      },
+      dependencies: ["admin-setup"]
     }
   ]
 });

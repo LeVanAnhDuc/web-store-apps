@@ -5,8 +5,9 @@ import type {
   EntitlementStatus,
   GrantEntitlementInput
 } from "@/types/AdminEntitlements";
+// requests
+import { getAdminApps } from "@/requests/adminApps";
 // others
-import { getAdminApps } from "./AdminApps";
 import { MOCK_ADMIN_USERS } from "./AdminUsers";
 
 const SIMULATED_LATENCY_MS = 250;

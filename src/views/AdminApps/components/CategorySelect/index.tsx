@@ -47,12 +47,16 @@ const CategorySelect = ({
           </FormLabel>
           <Select
             value={field.value}
-            onValueChange={field.onChange}
+            onValueChange={(value) => {
+              if (value) field.onChange(value);
+            }}
             disabled={disabled}
           >
             <FormControl>
               <CustomSelectTrigger aria-invalid={fieldState.invalid}>
-                <SelectValue placeholder={placeholder} />
+                <SelectValue placeholder={placeholder}>
+                  {categories.find((cat) => cat._id === field.value)?.name}
+                </SelectValue>
               </CustomSelectTrigger>
             </FormControl>
             <SelectContent>

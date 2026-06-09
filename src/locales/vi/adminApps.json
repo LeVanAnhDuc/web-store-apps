@@ -4,7 +4,9 @@
   "actions": {
     "create": "Đăng ký ứng dụng",
     "edit": "Chỉnh sửa",
-    "delete": "Xóa",
+    "hide": "Ẩn",
+    "unhide": "Bỏ ẩn",
+    "confirmHide": "Tạm dừng ứng dụng",
     "rowMenuLabel": "Thao tác với ứng dụng",
     "addUri": "Thêm URI",
     "removeUri": "Xóa URI",
@@ -12,7 +14,6 @@
     "cancel": "Hủy",
     "createSubmit": "Đăng ký",
     "updateSubmit": "Lưu thay đổi",
-    "confirmDelete": "Xóa ứng dụng",
     "copy": "Sao chép"
   },
   "toolbar": {
@@ -93,7 +94,8 @@
         "required": "Vui lòng nhập tên.",
         "minLength": "Tên phải có ít nhất 2 ký tự.",
         "maxLength": "Tên không được vượt quá 64 ký tự.",
-        "invalid": "Chỉ dùng chữ thường, số và dấu gạch ngang."
+        "invalid": "Chỉ dùng chữ thường, số và dấu gạch ngang.",
+        "exists": "Đã tồn tại ứng dụng với tên này."
       },
       "displayName": {
         "required": "Vui lòng nhập tên hiển thị.",
@@ -125,24 +127,25 @@
       }
     }
   },
-  "delete": {
-    "title": "Xóa {name}?",
-    "description": "Thao tác này xóa vĩnh viễn ứng dụng khỏi registry. Người dùng đang được phép truy cập app này sẽ mất quyền SSO. Không thể hoàn tác."
+  "hide": {
+    "title": "Tạm dừng {name}?",
+    "description": "Thao tác này tạm dừng ứng dụng — vẫn giữ trong registry nhưng ẩn khỏi dashboard người dùng. Bạn có thể bỏ ẩn bất cứ lúc nào."
   },
   "toast": {
     "createSuccess": "Đã đăng ký ứng dụng.",
     "updateSuccess": "Đã cập nhật ứng dụng.",
-    "deleteSuccess": "Đã xóa ứng dụng.",
+    "hidden": "Đã tạm dừng ứng dụng.",
+    "reactivated": "Đã kích hoạt lại ứng dụng.",
     "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
   },
   "announce": {
     "formOpened": "Đã mở form đăng ký ứng dụng.",
     "formClosed": "Đã đóng form đăng ký ứng dụng.",
     "editOpened": "Đang chỉnh sửa ứng dụng {name}.",
-    "deleteOpened": "Xác nhận xóa ứng dụng {name}.",
-    "deleted": "Đã xóa ứng dụng {name}.",
     "created": "Đã đăng ký ứng dụng {name}.",
-    "updated": "Đã cập nhật ứng dụng {name}."
+    "updated": "Đã cập nhật ứng dụng {name}.",
+    "hidden": "Đã tạm dừng ứng dụng {name}.",
+    "reactivated": "Đã kích hoạt lại ứng dụng {name}."
   },
   "secretDialog": {
     "title": "Đã đăng ký ứng dụng — sao chép thông tin xác thực",
