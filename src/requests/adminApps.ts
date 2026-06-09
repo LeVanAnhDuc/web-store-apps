@@ -3,6 +3,8 @@ import type {
   AdminAppsQueryParams,
   AdminAppCreateInput,
   AdminAppCreateResult,
+  AdminAppUpdateInput,
+  AppStatus,
   WebApp,
   WebAppCategory
 } from "@/types/AdminApps";
@@ -34,5 +36,27 @@ export const createAdminApp = async (
   const response = await axiosInstance.post<
     ResponsePattern<AdminAppCreateResult>
   >(END_POINTS.ADMIN_APPS, input);
+  return response.data.data;
+};
+
+export const updateAdminApp = async (
+  id: string,
+  input: AdminAppUpdateInput
+): Promise<WebApp> => {
+  const response = await axiosInstance.patch<ResponsePattern<WebApp>>(
+    `${END_POINTS.ADMIN_APPS}/${id}`,
+    input
+  );
+  return response.data.data;
+};
+
+export const setAdminAppStatus = async (
+  id: string,
+  status: AppStatus
+): Promise<WebApp> => {
+  const response = await axiosInstance.patch<ResponsePattern<WebApp>>(
+    `${END_POINTS.ADMIN_APPS}/${id}`,
+    { status }
+  );
   return response.data.data;
 };

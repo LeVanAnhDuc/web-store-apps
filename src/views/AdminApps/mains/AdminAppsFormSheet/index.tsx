@@ -2,10 +2,11 @@
 
 // libs
 import { FormProvider, useForm } from "react-hook-form";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 // types
+import type { AxiosError } from "axios";
 import type {
   AdminAppFormValues,
   WebApp,
@@ -29,13 +30,12 @@ import FormResetEffect from "../../ghosts/FormResetEffect";
 import { adminAppFormProps } from "@/forms/AdminApp";
 // hooks
 import { useAnnounce } from "@/hooks";
-import useCreateAdminApp, {
-  ADMIN_APPS_QUERY_KEY
-} from "../../hooks/useCreateAdminApp";
+import useCreateAdminApp from "../../hooks/useCreateAdminApp";
+import useUpdateAdminApp from "../../hooks/useUpdateAdminApp";
 // requests
 import { getAdminAppCategories } from "@/requests/adminApps";
 // others
-import { updateAdminApp } from "@/mocks/AdminApps";
+import CONSTANTS from "@/constants";
 
 const ADMIN_APP_CATEGORIES_QUERY_KEY = "adminAppCategories";
 
@@ -55,8 +55,10 @@ const AdminAppsFormSheet = ({
   const tToast = useTranslations("adminApps.toast");
   const tAnnounce = useTranslations("adminApps.announce");
   const { announce } = useAnnounce();
-  const queryClient = useQueryClient();
   const isEdit = editingApp !== null;
+
+  const { NAME } = CONSTANTS.FIELD_NAMES.ADMIN_APP_FIELD_NAMES;
+  const { WEB_APP_NAME_EXISTS } = CONSTANTS.ERROR_CODES;
 
   const methods = useForm<AdminAppFormValues>(adminAppFormProps);
 
@@ -67,26 +69,29 @@ const AdminAppsFormSheet = ({
   });
 
   const createMutation = useCreateAdminApp();
-
-  const updateMutation = useMutation({
-    mutationFn: (values: AdminAppFormValues) => {
-      if (!editingApp) throw new Error("No editing app");
-      return updateAdminApp(editingApp._id, values);
-    },
-    onSuccess: (updated) => {
-      queryClient.invalidateQueries({ queryKey: [ADMIN_APPS_QUERY_KEY] });
-      toast.success(tToast("updateSuccess"));
-      announce(tAnnounce("updated", { name: updated.displayName }));
-      onClose();
-    },
-    onError: () => toast.error(tToast("error"))
-  });
-
+  const updateMutation = useUpdateAdminApp();
   const isPending = createMutation.isPending || updateMutation.isPending;
 
   const onSubmit = (values: AdminAppFormValues) => {
-    if (isEdit) {
-      updateMutation.mutate(values);
+    if (isEdit && editingApp) {
+      updateMutation.mutate(
+        { id: editingApp._id, input: values },
+        {
+          onSuccess: (updated) => {
+            announce(tAnnounce("updated", { name: updated.displayName }));
+            onClose();
+          },
+          onError: (error) => {
+            const code = (error as AxiosError<ErrorResponsePattern>).response
+              ?.data?.code;
+            if (code === WEB_APP_NAME_EXISTS) {
+              methods.setError(NAME, { message: "exists" });
+            } else {
+              toast.error(tToast("error"));
+            }
+          }
+        }
+      );
       return;
     }
     createMutation.mutate(values, {
@@ -94,7 +99,8 @@ const AdminAppsFormSheet = ({
         announce(tAnnounce("created", { name: created.displayName }));
         onClose();
         onCreated(created);
-      }
+      },
+      onError: () => toast.error(tToast("error"))
     });
   };
 

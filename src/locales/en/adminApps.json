@@ -4,7 +4,9 @@
   "actions": {
     "create": "Register App",
     "edit": "Edit",
-    "delete": "Delete",
+    "hide": "Hide",
+    "unhide": "Unhide",
+    "confirmHide": "Hide App",
     "rowMenuLabel": "App actions",
     "addUri": "Add URI",
     "removeUri": "Remove URI",
@@ -12,7 +14,6 @@
     "cancel": "Cancel",
     "createSubmit": "Register",
     "updateSubmit": "Save Changes",
-    "confirmDelete": "Delete App",
     "copy": "Copy"
   },
   "toolbar": {
@@ -25,7 +26,7 @@
   },
   "status": {
     "active": "Active",
-    "inactive": "Inactive"
+    "inactive": "Paused"
   },
   "roles": {
     "user": "User",
@@ -93,7 +94,8 @@
         "required": "Please enter a name.",
         "minLength": "Name must be at least 2 characters.",
         "maxLength": "Name must not exceed 64 characters.",
-        "invalid": "Use lowercase letters, numbers, and hyphens only."
+        "invalid": "Use lowercase letters, numbers, and hyphens only.",
+        "exists": "An app with this name already exists."
       },
       "displayName": {
         "required": "Please enter a display name.",
@@ -125,24 +127,25 @@
       }
     }
   },
-  "delete": {
-    "title": "Delete {name}?",
-    "description": "This permanently removes the app from the registry. Users entitled to this app will lose SSO access. This cannot be undone."
+  "hide": {
+    "title": "Hide {name}?",
+    "description": "This pauses the app — it stays in the registry but is hidden from users' dashboards. You can unhide it anytime."
   },
   "toast": {
     "createSuccess": "App registered.",
     "updateSuccess": "App updated.",
-    "deleteSuccess": "App deleted.",
+    "hidden": "App hidden.",
+    "reactivated": "App reactivated.",
     "error": "Something went wrong. Please try again."
   },
   "announce": {
     "formOpened": "App registration form opened.",
     "formClosed": "App registration form closed.",
     "editOpened": "Editing app {name}.",
-    "deleteOpened": "Confirm delete for app {name}.",
-    "deleted": "App {name} deleted.",
     "created": "App {name} registered.",
-    "updated": "App {name} updated."
+    "updated": "App {name} updated.",
+    "hidden": "App {name} hidden.",
+    "reactivated": "App {name} reactivated."
   },
   "secretDialog": {
     "title": "App registered — copy your credentials",

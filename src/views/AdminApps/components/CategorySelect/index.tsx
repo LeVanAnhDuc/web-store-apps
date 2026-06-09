@@ -47,7 +47,9 @@ const CategorySelect = ({
           </FormLabel>
           <Select
             value={field.value}
-            onValueChange={field.onChange}
+            onValueChange={(value) => {
+              if (value) field.onChange(value);
+            }}
             disabled={disabled}
           >
             <FormControl>

@@ -41,10 +41,12 @@ const isAppStatus = (value: unknown): value is AppStatus =>
 
 const AdminAppsTable = ({
   onEdit,
-  onDelete
+  onHide,
+  onUnhide
 }: {
   onEdit: (app: WebApp) => void;
-  onDelete: (app: WebApp) => void;
+  onHide: (app: WebApp) => void;
+  onUnhide: (app: WebApp) => void;
 }) => {
   const t = useTranslations("adminApps.table");
   const searchParams = useSearchParams();
@@ -155,7 +157,8 @@ const AdminAppsTable = ({
                   <AppRowActions
                     app={app}
                     onEdit={onEdit}
-                    onDelete={onDelete}
+                    onHide={onHide}
+                    onUnhide={onUnhide}
                   />
                 </TableCell>
               </TableRow>

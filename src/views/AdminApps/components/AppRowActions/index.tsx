@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
+import { Edit, MoreHorizontal, Eye, EyeOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 // types
 import type { WebApp } from "@/types/AdminApps";
@@ -17,13 +17,16 @@ import {
 const AppRowActions = ({
   app,
   onEdit,
-  onDelete
+  onHide,
+  onUnhide
 }: {
   app: WebApp;
   onEdit: (app: WebApp) => void;
-  onDelete: (app: WebApp) => void;
+  onHide: (app: WebApp) => void;
+  onUnhide: (app: WebApp) => void;
 }) => {
   const t = useTranslations("adminApps.actions");
+  const isActive = app.status === "active";
 
   return (
     <DropdownMenu>
@@ -44,14 +47,24 @@ const AppRowActions = ({
           <Edit className="size-4" aria-hidden="true" />
           <span>{t("edit")}</span>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          variant="destructive"
-          className="cursor-pointer gap-2"
-          onSelect={() => onDelete(app)}
-        >
-          <Trash2 className="size-4" aria-hidden="true" />
-          <span>{t("delete")}</span>
-        </DropdownMenuItem>
+        {isActive ? (
+          <DropdownMenuItem
+            variant="destructive"
+            className="cursor-pointer gap-2"
+            onSelect={() => onHide(app)}
+          >
+            <EyeOff className="size-4" aria-hidden="true" />
+            <span>{t("hide")}</span>
+          </DropdownMenuItem>
+        ) : (
+          <DropdownMenuItem
+            className="cursor-pointer gap-2"
+            onSelect={() => onUnhide(app)}
+          >
+            <Eye className="size-4" aria-hidden="true" />
+            <span>{t("unhide")}</span>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
