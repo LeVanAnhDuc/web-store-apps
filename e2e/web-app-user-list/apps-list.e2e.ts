@@ -7,24 +7,56 @@ import { test, expect } from "@playwright/test";
 const APPS_PATH = "/vi/apps";
 
 test.describe("Apps catalog (/vi/apps)", () => {
-  test("renders the active-app catalog from the API", async ({ page }) => {
+  test("renders only the role-permitted active apps for a user", async ({
+    page
+  }) => {
     const listResponse = page.waitForResponse(
       (r) => r.url().includes("/api/v1/apps") && r.status() === 200
     );
     await page.goto(APPS_PATH);
     await listResponse;
 
-    // Seeded active apps render as cards (h3 titles).
+    // The auth user (user@test.com) has the `user` role → sees apps whose
+    // requiredRoles include `user`: Blog, IDMS Portal, Notes (Team Calendar is
+    // inactive). Admin-only apps must NOT appear.
     await expect(
       page.getByRole("heading", { level: 3, name: "Blog", exact: true })
     ).toBeVisible();
     await expect(
       page.getByRole("heading", { level: 3, name: "Notes", exact: true })
     ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 3, name: "IDMS Portal", exact: true })
+    ).toBeVisible();
 
-    // Each card exposes an "Open" action (vi locale → "Mở <name>").
-    const openButtons = page.getByRole("button", { name: /^Mở\s/ });
-    expect(await openButtons.count()).toBeGreaterThanOrEqual(5);
+    // Admin-only apps are hidden for a non-admin user.
+    await expect(
+      page.getByRole("heading", {
+        level: 3,
+        name: "Analytics Dashboard",
+        exact: true
+      })
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole("heading", {
+        level: 3,
+        name: "Operations Console",
+        exact: true
+      })
+    ).toHaveCount(0);
+
+    // The user-visible apps each render an "Open" action; admin-only apps do not.
+    await expect(page.getByRole("button", { name: "Mở Blog" })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Mở IDMS Portal" })
+    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Mở Notes" })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Mở Analytics Dashboard" })
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole("button", { name: "Mở Operations Console" })
+    ).toHaveCount(0);
   });
 
   test("search filters the catalog server-side and clears", async ({
