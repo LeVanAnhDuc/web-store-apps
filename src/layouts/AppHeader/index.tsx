@@ -18,8 +18,8 @@ import {
 import NotificationPanel from "./components/NotificationPanel";
 // hooks
 import { useAnnounce } from "@/hooks";
+import useUnreadCount from "@/views/Notifications/hooks/useUnreadCount";
 // others
-import { NOTIFICATIONS_MOCK } from "@/mocks/Dashboard";
 import { usePathname } from "@/i18n/navigation";
 
 const AppHeader = ({
@@ -37,7 +37,8 @@ const AppHeader = ({
   const [notifOpen, setNotifOpen] = useState(false);
 
   const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
-  const unreadCount = NOTIFICATIONS_MOCK.filter((n) => !n.isRead).length;
+  const { data: unread } = useUnreadCount();
+  const unreadCount = unread?.count ?? 0;
 
   const handleNotifOpenChange = (open: boolean) => {
     setNotifOpen(open);

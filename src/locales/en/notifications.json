@@ -24,28 +24,6 @@
     "yesterday": "Yesterday",
     "earlier": "Earlier"
   },
-  "items": {
-    "newOrder": {
-      "title": "New order received",
-      "description": "John Doe placed an order for $129.00"
-    },
-    "flashSale": {
-      "title": "Flash Sale Alert",
-      "description": "Limited-time 30% off on all top products. Ends in 3 hours."
-    },
-    "profileUpdated": {
-      "title": "Profile updated",
-      "description": "Your profile information was successfully updated."
-    },
-    "paymentConfirmed": {
-      "title": "Payment confirmed",
-      "description": "Your payment of $89.00 for order #2240 was confirmed."
-    },
-    "newFollower": {
-      "title": "New follower",
-      "description": "Maria Anderson started following your store."
-    }
-  },
   "announce": {
     "tabChanged": "Showing {tab} notifications.",
     "markedRead": "Notification marked as read.",
