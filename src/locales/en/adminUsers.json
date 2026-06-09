@@ -29,6 +29,11 @@
     "emptyDescription": "Try adjusting the search or clearing the filter.",
     "rowMenuLabel": "User actions"
   },
+  "pagination": {
+    "page": "Page",
+    "of": "of",
+    "results": "users"
+  },
   "actions": {
     "resetPassword": "Reset password",
     "lock": "Lock account",

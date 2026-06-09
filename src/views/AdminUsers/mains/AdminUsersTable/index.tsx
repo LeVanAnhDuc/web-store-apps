@@ -29,10 +29,12 @@ import AdminUsersToolbar from "../AdminUsersToolbar";
 import AdminUsersResetPasswordDialog from "../AdminUsersResetPasswordDialog";
 import AdminUsersLockDialog from "../AdminUsersLockDialog";
 import AdminUsersForceLogoutDialog from "../AdminUsersForceLogoutDialog";
+import TablePagination from "@/components/TablePagination";
 // hooks
 import useAdminUsersList from "../../hooks/useAdminUsersList";
 // others
 import { formatDateTimeShort } from "@/utils";
+import { useRouter, usePathname } from "@/i18n/navigation";
 // constants
 import CONSTANTS from "@/constants";
 
@@ -47,13 +49,19 @@ const isStatus = (value: unknown): value is AdminUserStatusFilter =>
 
 const AdminUsersTable = () => {
   const t = useTranslations("adminUsers.table");
+  const tPagination = useTranslations("adminUsers.pagination");
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const search = searchParams.get("search") ?? "";
   const roleParam = searchParams.get("role");
   const statusParam = searchParams.get("status");
+  const rawPage = Number(searchParams.get("page"));
+  const page = Number.isInteger(rawPage) && rawPage >= 1 ? rawPage : 1;
 
   const params: AdminUsersQueryParams = {
+    page,
     ...(search && { search }),
     ...(isRole(roleParam) && { role: roleParam }),
     ...(isStatus(statusParam) && { status: statusParam })
@@ -67,6 +75,13 @@ const AdminUsersTable = () => {
 
   const { data, isLoading } = useAdminUsersList(params);
   const items = data?.items ?? [];
+  const meta = data?.meta;
+
+  const handlePageChange = (newPage: number) => {
+    const next = new URLSearchParams(searchParams.toString());
+    next.set("page", String(newPage));
+    router.push(`${pathname}?${next.toString()}`);
+  };
 
   return (
     <>
@@ -135,6 +150,18 @@ const AdminUsersTable = () => {
               )}
             </TableBody>
           </Table>
+          <TablePagination
+            page={meta?.page ?? page}
+            totalPages={meta?.totalPages ?? 1}
+            total={meta?.total ?? 0}
+            onPageChange={handlePageChange}
+            loading={isLoading}
+            labels={{
+              page: tPagination("page"),
+              of: tPagination("of"),
+              results: tPagination("results")
+            }}
+          />
         </div>
       )}
       <AdminUsersResetPasswordDialog
