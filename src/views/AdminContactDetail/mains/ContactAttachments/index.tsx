@@ -8,6 +8,7 @@ import { FileText, Download } from "lucide-react";
 // components
 import { Button } from "@/components/ui/button";
 import CustomButton from "@/components/CustomButton";
+import CustomImage from "@/components/CustomImage";
 import {
   Dialog,
   DialogContent,
@@ -61,8 +62,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
                   className="mb-2 h-20 w-full p-0"
                   onClick={() => setPreviewUrl(att.previewUrl)}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <CustomImage
                     src={att.previewUrl}
                     alt={att.originalName}
                     width={200}
@@ -114,8 +114,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
             {t("closePreview")}
           </DialogDescription>
           {previewUrl && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <CustomImage
               src={previewUrl}
               alt={tFields("attachments")}
               width={1920}

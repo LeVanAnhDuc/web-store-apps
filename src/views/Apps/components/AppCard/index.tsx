@@ -2,6 +2,7 @@
 import { ArrowUpRight } from "lucide-react";
 // components
 import CustomButton from "@/components/CustomButton";
+import CustomImage from "@/components/CustomImage";
 import { Card } from "@/components/ui/card";
 
 const AppCard = ({
@@ -27,8 +28,13 @@ const AppCard = ({
   };
 
   const iconNode = iconUrl ? (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img src={iconUrl} alt="" className="size-full object-cover" />
+    <CustomImage
+      src={iconUrl}
+      alt=""
+      width={48}
+      height={48}
+      className="size-full object-cover"
+    />
   ) : (
     initial
   );
