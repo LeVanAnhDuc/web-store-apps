@@ -6,10 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import PersonalInfoForm from "@/views/Profile/components/PersonalInfoForm";
 // requests
 import { getMyProfile } from "@/requests/user";
+// others
+import CONSTANTS from "@/constants";
 
 const PersonalInfoCard = () => {
   const { data: profile } = useQuery({
-    queryKey: ["myProfile"],
+    queryKey: [CONSTANTS.QUERY_KEYS.MY_PROFILE],
     queryFn: getMyProfile
   });
 

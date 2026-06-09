@@ -7,7 +7,7 @@ import type { AdminAppUpdateInput } from "@/types/AdminApps";
 // requests
 import { updateAdminApp } from "@/requests/adminApps";
 // others
-import { ADMIN_APPS_QUERY_KEY } from "./useCreateAdminApp";
+import CONSTANTS from "@/constants";
 
 const useUpdateAdminApp = () => {
   const queryClient = useQueryClient();
@@ -17,7 +17,10 @@ const useUpdateAdminApp = () => {
     mutationFn: ({ id, input }: { id: string; input: AdminAppUpdateInput }) =>
       updateAdminApp(id, input),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [ADMIN_APPS_QUERY_KEY] });
+      queryClient.invalidateQueries({
+        queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_APPS]
+      });
+      queryClient.invalidateQueries({ queryKey: [CONSTANTS.QUERY_KEYS.APPS] });
       toast.success(tToast("updateSuccess"));
     }
   });

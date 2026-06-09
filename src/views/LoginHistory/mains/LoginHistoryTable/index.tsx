@@ -27,6 +27,7 @@ import { useAnnounce } from "@/hooks";
 // requests
 import { getMyLoginHistory } from "@/requests/loginHistory";
 // others
+import CONSTANTS from "@/constants";
 import { useRouter, usePathname } from "@/i18n/navigation";
 import { isLoginHistoryStatus, isLoginHistoryMethod } from "@/utils";
 
@@ -57,7 +58,7 @@ const LoginHistoryTable = () => {
     ...(toDateParam && { toDate: toDateParam })
   };
   const { data, isLoading } = useQuery({
-    queryKey: ["loginHistory", params],
+    queryKey: [CONSTANTS.QUERY_KEYS.LOGIN_HISTORY, params],
     queryFn: () => getMyLoginHistory(params)
   });
   const handleGoToPage = (newPage: number) => {
