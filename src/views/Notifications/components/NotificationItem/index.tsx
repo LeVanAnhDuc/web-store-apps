@@ -1,58 +1,75 @@
 // libs
-import type { LucideIcon } from "lucide-react";
+import { Check } from "lucide-react";
+// types
+import type { ApiNotificationType } from "@/types/Notification";
+// components
+import CustomButton from "@/components/CustomButton";
 // others
+import { NOTIFICATION_VISUALS } from "@/dataSources/Notifications";
 import { cn } from "@/libs/utils";
 
 const NotificationItem = ({
-  icon: Icon,
-  iconBg,
-  iconColor,
+  type,
   title,
-  description,
+  message,
   timestamp,
-  isRead
+  isRead,
+  markReadLabel,
+  onMarkRead,
+  isMarking = false
 }: {
-  icon: LucideIcon;
-  iconBg: string;
-  iconColor: string;
+  type: ApiNotificationType;
   title: string;
-  description: string;
+  message: string;
   timestamp: string;
   isRead: boolean;
-}) => (
-  <article
-    aria-label={title}
-    className={cn(
-      "border-border flex items-start gap-3 border-b px-5 py-4",
-      !isRead && "bg-info/5"
-    )}
-  >
-    <div
+  markReadLabel: string;
+  onMarkRead: () => void;
+  isMarking?: boolean;
+}) => {
+  const visual = NOTIFICATION_VISUALS[type];
+  const Icon = visual.icon;
+  return (
+    <article
+      aria-label={title}
       className={cn(
-        "flex size-10 shrink-0 items-center justify-center rounded-full",
-        iconBg,
-        iconColor
+        "border-border flex items-start gap-3 border-b px-5 py-4",
+        !isRead && "bg-info/5"
       )}
-      aria-hidden="true"
     >
-      <Icon className="size-4" />
-    </div>
-    <div className="min-w-0 flex-1">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="text-foreground text-sm font-semibold">{title}</p>
-        <span className="text-muted-foreground shrink-0 text-xs">
-          {timestamp}
-        </span>
+      <div
+        className={cn(
+          "flex size-10 shrink-0 items-center justify-center rounded-full",
+          visual.iconBg,
+          visual.iconColor
+        )}
+        aria-hidden="true"
+      >
+        <Icon className="size-4" />
       </div>
-      <p className="text-muted-foreground mt-1 text-sm">{description}</p>
-    </div>
-    {!isRead ? (
-      <span
-        className="bg-info mt-2 size-2 shrink-0 rounded-full"
-        aria-label="Unread"
-      />
-    ) : null}
-  </article>
-);
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <p className="text-foreground text-sm font-semibold">{title}</p>
+          <span className="text-muted-foreground shrink-0 text-xs">
+            {timestamp}
+          </span>
+        </div>
+        <p className="text-muted-foreground mt-1 text-sm">{message}</p>
+      </div>
+      {!isRead ? (
+        <CustomButton
+          variant="ghost"
+          size="icon"
+          aria-label={markReadLabel}
+          onClick={onMarkRead}
+          disabled={isMarking}
+          className="shrink-0"
+        >
+          <Check className="size-4" aria-hidden="true" />
+        </CustomButton>
+      ) : null}
+    </article>
+  );
+};
 
 export default NotificationItem;

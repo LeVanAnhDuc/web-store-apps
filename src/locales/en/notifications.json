@@ -3,7 +3,17 @@
   "description": "Updates, alerts, and activity from your store",
   "actions": {
     "markAllRead": "Mark all as read",
+    "markRead": "Mark as read",
     "loadMore": "Load more notifications"
+  },
+  "states": {
+    "empty": "No notifications here.",
+    "loading": "Loading notifications...",
+    "error": "Couldn't load notifications."
+  },
+  "toast": {
+    "markReadError": "Could not mark as read.",
+    "markAllError": "Could not mark all as read."
   },
   "tabs": {
     "unread": "Unread",
@@ -38,6 +48,7 @@
   },
   "announce": {
     "tabChanged": "Showing {tab} notifications.",
+    "markedRead": "Notification marked as read.",
     "markedAllRead": "All notifications marked as read.",
     "loadingMore": "Loading more notifications..."
   }

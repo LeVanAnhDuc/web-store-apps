@@ -1,53 +1,40 @@
 "use client";
 
 // libs
-import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 // types
 import type { NotificationListTabValue } from "@/types/Notification";
 // components
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import CustomButton from "@/components/CustomButton";
-import NotificationItem from "../../components/NotificationItem";
-import GroupHeader from "../../components/GroupHeader";
+import NotificationGroups from "../../components/NotificationGroups";
 // hooks
 import { useAnnounce } from "@/hooks";
-// others
-import {
-  NOTIFICATIONS_LIST_MOCK,
-  type NotificationItemMock,
-  type NotificationGroup
-} from "@/mocks/Notifications";
+import useNotifications from "../../hooks/useNotifications";
+import useMarkNotificationRead from "../../hooks/useMarkNotificationRead";
 
-const NotificationList = ({
-  itemsOverride
-}: {
-  itemsOverride?: readonly NotificationItemMock[];
-}) => {
+const NotificationList = () => {
+  const locale = useLocale();
   const t = useTranslations("notifications");
-  const tItems = useTranslations("notifications.items");
   const tGroups = useTranslations("notifications.groups");
+  const tStates = useTranslations("notifications.states");
   const { announce } = useAnnounce();
   const [tab, setTab] = useState<NotificationListTabValue>("unread");
-  const items = itemsOverride ?? NOTIFICATIONS_LIST_MOCK;
+  const isRead = tab === "unread" ? false : true;
 
-  const filtered = useMemo(
-    () => items.filter((it) => (tab === "unread" ? !it.isRead : it.isRead)),
-    [items, tab]
-  );
+  const {
+    data,
+    isLoading,
+    isError,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage
+  } = useNotifications(isRead);
+  const markRead = useMarkNotificationRead();
 
-  const grouped = useMemo(() => {
-    const groups: Record<NotificationGroup, NotificationItemMock[]> = {
-      today: [],
-      yesterday: [],
-      earlier: []
-    };
-    filtered.forEach((it) => groups[it.group].push(it));
-    return groups;
-  }, [filtered]);
-
-  const unreadCount = items.filter((it) => !it.isRead).length;
+  const items = data?.pages.flatMap((p) => p.items) ?? [];
 
   const handleTabChange = (value: string) => {
     const next = value as NotificationListTabValue;
@@ -55,48 +42,64 @@ const NotificationList = ({
     announce(t("announce.tabChanged", { tab: t(`tabs.${next}`) }));
   };
 
+  const handleMarkRead = (id: string) =>
+    markRead.mutate(id, {
+      onSuccess: () => announce(t("announce.markedRead"))
+    });
+
+  const handleLoadMore = () => {
+    fetchNextPage();
+    announce(t("announce.loadingMore"));
+  };
+
   return (
     <Card className="overflow-hidden rounded-xl border p-0">
       <Tabs value={tab} onValueChange={handleTabChange}>
         <div className="border-border bg-card border-b px-6 py-2">
           <TabsList>
-            <TabsTrigger value="unread">
-              {t("tabs.unread")}
-              {unreadCount > 0 ? (
-                <span className="bg-primary text-primary-foreground ml-1.5 inline-flex size-4 items-center justify-center rounded-full text-xs font-semibold">
-                  {unreadCount}
-                </span>
-              ) : null}
-            </TabsTrigger>
+            <TabsTrigger value="unread">{t("tabs.unread")}</TabsTrigger>
             <TabsTrigger value="read">{t("tabs.read")}</TabsTrigger>
           </TabsList>
         </div>
         <TabsContent value={tab} className="m-0">
-          {(["today", "yesterday", "earlier"] as NotificationGroup[]).map(
-            (group) =>
-              grouped[group].length > 0 ? (
-                <div key={group}>
-                  <GroupHeader label={tGroups(group)} />
-                  {grouped[group].map((item) => (
-                    <NotificationItem
-                      key={item.id}
-                      icon={item.icon}
-                      iconBg={item.iconBg}
-                      iconColor={item.iconColor}
-                      title={tItems(`${item.itemKey}.title`)}
-                      description={tItems(`${item.itemKey}.description`)}
-                      timestamp={item.timestamp}
-                      isRead={item.isRead}
-                    />
-                  ))}
-                </div>
-              ) : null
+          {isLoading ? (
+            <p className="text-muted-foreground px-5 py-6 text-sm">
+              {tStates("loading")}
+            </p>
+          ) : isError ? (
+            <p className="text-destructive px-5 py-6 text-sm">
+              {tStates("error")}
+            </p>
+          ) : items.length === 0 ? (
+            <p className="text-muted-foreground px-5 py-6 text-sm">
+              {tStates("empty")}
+            </p>
+          ) : (
+            <NotificationGroups
+              items={items}
+              locale={locale}
+              groupLabels={{
+                today: tGroups("today"),
+                yesterday: tGroups("yesterday"),
+                earlier: tGroups("earlier")
+              }}
+              markReadLabel={t("actions.markRead")}
+              onMarkRead={handleMarkRead}
+              isMarking={markRead.isPending}
+            />
           )}
-          <div className="flex items-center justify-center px-5 py-5">
-            <CustomButton variant="outline" size="sm">
-              {t("actions.loadMore")}
-            </CustomButton>
-          </div>
+          {hasNextPage ? (
+            <div className="flex items-center justify-center px-5 py-5">
+              <CustomButton
+                variant="outline"
+                size="sm"
+                onClick={handleLoadMore}
+                disabled={isFetchingNextPage}
+              >
+                {t("actions.loadMore")}
+              </CustomButton>
+            </div>
+          ) : null}
         </TabsContent>
       </Tabs>
     </Card>

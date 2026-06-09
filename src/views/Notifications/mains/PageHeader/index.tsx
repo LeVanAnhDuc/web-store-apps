@@ -7,15 +7,17 @@ import { useTranslations } from "next-intl";
 import CustomButton from "@/components/CustomButton";
 // hooks
 import { useAnnounce } from "@/hooks";
+import useMarkAllRead from "../../hooks/useMarkAllRead";
 
-const PageHeader = ({ onMarkAllRead }: { onMarkAllRead: () => void }) => {
+const PageHeader = () => {
   const t = useTranslations("notifications");
   const { announce } = useAnnounce();
+  const markAll = useMarkAllRead();
 
-  const handleMarkAllRead = () => {
-    onMarkAllRead();
-    announce(t("announce.markedAllRead"));
-  };
+  const handleMarkAllRead = () =>
+    markAll.mutate(undefined, {
+      onSuccess: () => announce(t("announce.markedAllRead"))
+    });
 
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
@@ -33,6 +35,7 @@ const PageHeader = ({ onMarkAllRead }: { onMarkAllRead: () => void }) => {
         size="sm"
         iconLeft={<CheckCheck className="size-3.5" aria-hidden="true" />}
         onClick={handleMarkAllRead}
+        disabled={markAll.isPending}
       >
         {t("actions.markAllRead")}
       </CustomButton>
