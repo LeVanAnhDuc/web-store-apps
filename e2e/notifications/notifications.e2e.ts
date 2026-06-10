@@ -112,13 +112,26 @@ test.describe("Notifications page", () => {
   });
 
   // --- Scenario 2: AuthN (no storageState → redirect to login) ---
-  test("unauthenticated visit redirects to login", async ({ browser }) => {
-    const ctx = await browser.newContext(); // no storageState
+  test("unauthenticated visit is gated to the login screen", async ({
+    browser
+  }) => {
+    // Truly clean context: no storageState, and proactively clear cookies so a
+    // localhost-scoped refresh cookie from another port/run can't leak in.
+    const ctx = await browser.newContext({ storageState: undefined });
+    await ctx.clearCookies();
     try {
       const freshPage = await ctx.newPage();
       await freshPage.goto("/notifications");
-      await freshPage.waitForURL(/\/login/, { timeout: 15_000 });
-      await expect(freshPage).toHaveURL(/\/login/);
+      // The app renders the login screen for unauthenticated users (AuthGuard).
+      // It may keep the /notifications URL and swap in the login content, so we
+      // assert the login affordance rather than a specific URL.
+      await expect(
+        freshPage.getByRole("button", { name: /continue with email/i })
+      ).toBeVisible({ timeout: 20_000 });
+      // And the protected notifications chrome must NOT be present.
+      await expect(
+        freshPage.getByRole("tab", { name: EN.unread, exact: true })
+      ).toHaveCount(0);
     } finally {
       await ctx.close();
     }
@@ -177,13 +190,19 @@ test.describe("Notifications page", () => {
 
     const loadMore = page.getByRole("button", { name: EN.loadMore });
     await expect(loadMore).toBeVisible();
-    await expect(page.getByText("Intercepted notification 1")).toBeVisible();
-    await expect(page.getByText("Intercepted notification 21")).toHaveCount(0);
+    await expect(
+      page.getByText("Intercepted notification 1", { exact: true })
+    ).toBeVisible();
+    await expect(
+      page.getByText("Intercepted notification 21", { exact: true })
+    ).toHaveCount(0);
 
     await loadMore.click();
 
     // Page 2 items appended; load-more gone (last page reached).
-    await expect(page.getByText("Intercepted notification 21")).toBeVisible();
+    await expect(
+      page.getByText("Intercepted notification 21", { exact: true })
+    ).toBeVisible();
     await expect(loadMore).toHaveCount(0);
   });
 
