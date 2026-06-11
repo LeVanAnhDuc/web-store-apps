@@ -2,8 +2,7 @@
 
 // libs
 import { useState } from "react";
-import { CircleCheck, CircleAlert } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 // types
 import type { NotificationPanelTab } from "@/types/Notification";
 // components
@@ -13,30 +12,40 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 // hooks
 import { useAnnounce } from "@/hooks";
+import useNotifications from "@/views/Notifications/hooks/useNotifications";
+import useUnreadCount from "@/views/Notifications/hooks/useUnreadCount";
+import useMarkAllRead from "@/views/Notifications/hooks/useMarkAllRead";
 // others
-import { NOTIFICATIONS_MOCK } from "@/mocks/Dashboard";
+import { NOTIFICATION_VISUALS } from "@/dataSources/Notifications";
+import { relativeTime } from "@/utils/notifications";
 import { cn } from "@/libs/utils";
 import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
 const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
   const router = useRouter();
+  const locale = useLocale();
   const t = useTranslations("dashboard.notifications");
   const { announce } = useAnnounce();
   const [activeTab, setActiveTab] = useState<NotificationPanelTab>("all");
+
+  const { data } = useNotifications(activeTab === "unread" ? false : undefined);
+  const { data: unread } = useUnreadCount();
+  const markAllRead = useMarkAllRead();
+
+  const items = data?.pages[0]?.items ?? [];
+  const unreadCount = unread?.count ?? 0;
+
+  const handleMarkAllRead = () => {
+    markAllRead.mutate();
+    announce(t("markAllRead"));
+  };
 
   const handleViewAll = () => {
     announce(t("viewAllAnnounce"));
     onNavigate?.();
     router.push(CONSTANTS.ROUTES.NOTIFICATIONS);
   };
-
-  const unreadCount = NOTIFICATIONS_MOCK.filter((n) => !n.isRead).length;
-
-  const filtered =
-    activeTab === "unread"
-      ? NOTIFICATIONS_MOCK.filter((n) => !n.isRead)
-      : NOTIFICATIONS_MOCK;
 
   return (
     <div className="bg-card border-border flex w-[380px] flex-col overflow-hidden rounded-xl border shadow-lg">
@@ -53,12 +62,14 @@ const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
             variant="link"
             size="sm"
             className="text-muted-foreground h-auto p-0"
+            onClick={handleMarkAllRead}
+            disabled={markAllRead.isPending}
           >
             {t("markAllRead")}
           </CustomButton>
         </div>
         <div className="flex">
-          {(["all", "unread", "mentions"] as const).map((tab) => (
+          {(["all", "unread"] as const).map((tab) => (
             <CustomButton
               key={tab}
               variant="ghost"
@@ -77,57 +88,46 @@ const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
       </div>
       <ScrollArea className="max-h-[360px]">
         <div className="px-2 py-1">
-          {filtered.map((item) => (
-            <div
-              key={item.id}
-              className={cn(
-                "hover:bg-muted/50 relative flex cursor-pointer items-start gap-3 rounded-lg px-2 py-3 transition-colors",
-                item.isRead && "opacity-50"
-              )}
-            >
-              {!item.isRead && (
-                <span className="bg-info absolute top-1/2 left-1 size-2 -translate-y-1/2 rounded-full" />
-              )}
-              {item.avatar.kind === "initials" ? (
-                <div
-                  className={cn(
-                    "flex size-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br",
-                    item.avatar.gradientClass
-                  )}
-                >
-                  <span className="text-primary-foreground text-sm font-semibold">
-                    {item.avatar.initials}
-                  </span>
-                </div>
-              ) : (
+          {items.map((item) => {
+            const visual = NOTIFICATION_VISUALS[item.type];
+            const Icon = visual.icon;
+            return (
+              <div
+                key={item.id}
+                className={cn(
+                  "hover:bg-muted/50 relative flex cursor-pointer items-start gap-3 rounded-lg px-2 py-3 transition-colors",
+                  item.isRead && "opacity-50"
+                )}
+              >
+                {!item.isRead && (
+                  <span className="bg-info absolute top-1/2 left-1 size-2 -translate-y-1/2 rounded-full" />
+                )}
                 <div
                   className={cn(
                     "flex size-10 shrink-0 items-center justify-center rounded-full",
-                    item.avatar.bgClass
+                    visual.iconBg,
+                    visual.iconColor
                   )}
+                  aria-hidden="true"
                 >
-                  {item.type === "alert" ? (
-                    <CircleAlert className="text-destructive size-5" />
-                  ) : (
-                    <CircleCheck className="text-success size-5" />
-                  )}
+                  <Icon className="size-5" />
                 </div>
-              )}
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-foreground truncate text-sm font-semibold">
-                    {item.title}
-                  </span>
-                  <span className="text-muted-foreground shrink-0 text-xs">
-                    {item.time}
-                  </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-foreground truncate text-sm font-semibold">
+                      {item.title}
+                    </span>
+                    <span className="text-muted-foreground shrink-0 text-xs">
+                      {relativeTime(item.createdAt, locale)}
+                    </span>
+                  </div>
+                  <p className="text-muted-foreground mt-1 text-sm leading-snug">
+                    {item.message}
+                  </p>
                 </div>
-                <p className="text-muted-foreground mt-1 text-sm leading-snug">
-                  {item.description}
-                </p>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </ScrollArea>
       <Separator />
