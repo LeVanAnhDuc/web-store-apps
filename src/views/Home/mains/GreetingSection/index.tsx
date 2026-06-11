@@ -14,6 +14,8 @@ import { useTranslations } from "next-intl";
 import { Card } from "@/components/ui/card";
 import CustomButton from "@/components/CustomButton";
 import StatCard from "../../components/StatCard";
+// others
+import useHomeApps from "../../hooks/useHomeApps";
 
 const WEEKLY_DATA = [
   { day: "M", value: 40 },
@@ -29,6 +31,8 @@ const MAX_BAR = 80;
 
 const GreetingSection = () => {
   const t = useTranslations("home");
+  const { data } = useHomeApps();
+  const totalApps = data?.meta.total ?? 0;
   const now = new Date();
   const hour = now.getHours();
   const greeting =
@@ -63,7 +67,7 @@ const GreetingSection = () => {
         <StatCard
           icon={<Compass className="text-primary size-6" aria-hidden="true" />}
           iconBg="bg-primary/10"
-          value="47"
+          value={String(totalApps)}
           label={t("stats.totalApps")}
           badge={t("stats.allTime")}
           badgeBg="bg-primary/10"

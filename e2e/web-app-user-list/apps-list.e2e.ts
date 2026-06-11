@@ -121,4 +121,53 @@ test.describe("Apps catalog (/vi/apps)", () => {
     );
     expect(opened).toContain("https://blog.example.com");
   });
+
+  test("category pills filter the catalog server-side", async ({ page }) => {
+    await page.goto(APPS_PATH);
+    await page.waitForResponse(
+      (r) =>
+        r.url().includes("/api/v1/apps") &&
+        !r.url().includes("/apps/categories") &&
+        r.status() === 200
+    );
+
+    // Category pills come from GET /apps/categories. Pick the first real
+    // category pill (skip the "All"/"Tất cả" pill at index 0).
+    const group = page.getByRole("group", {
+      name: /Lọc theo danh mục|Filter by category/
+    });
+    const pills = group.getByRole("button");
+    await expect(pills.first()).toBeVisible();
+    const realPill = pills.nth(1);
+    await expect(realPill).toBeVisible();
+
+    const filtered = page.waitForResponse(
+      (r) =>
+        r.url().includes("/api/v1/apps") &&
+        r.url().includes("categoryId=") &&
+        r.status() === 200
+    );
+    await realPill.click();
+    await filtered;
+    await expect(realPill).toHaveAttribute("aria-pressed", "true");
+
+    // Back to "All": React Query serves the initial unfiltered result from cache
+    // (no new request fires), so assert the toggle state rather than the network.
+    await pills.first().click();
+    await expect(pills.first()).toHaveAttribute("aria-pressed", "true");
+    await expect(realPill).toHaveAttribute("aria-pressed", "false");
+  });
+});
+
+test.describe("Apps catalog (/apps EN locale)", () => {
+  test("renders catalog and category group in English", async ({ page }) => {
+    await page.goto("/apps");
+    await page.waitForResponse(
+      (r) => r.url().includes("/api/v1/apps") && r.status() === 200
+    );
+    await expect(
+      page.getByRole("group", { name: "Filter by category" })
+    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Open Blog" })).toBeVisible();
+  });
 });

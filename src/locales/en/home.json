@@ -31,13 +31,14 @@
   "quickAccess": {
     "title": "Quick Access",
     "subtitle": "Jump back in",
-    "lastOpened": "Last opened {time}"
+    "empty": "No apps yet.",
+    "error": "Could not load apps."
   },
   "recommended": {
     "title": "Recommended for You",
     "seeAll": "See all apps",
-    "install": "Install",
-    "free": "Free"
+    "empty": "No apps to recommend yet.",
+    "error": "Could not load apps."
   },
   "exploreCTA": {
     "title": "Discover more apps in the store",

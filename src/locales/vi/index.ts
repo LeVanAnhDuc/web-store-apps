@@ -7,7 +7,6 @@ import contactAdmin from "./contactAdmin.json";
 import support from "./support.json";
 import dashboard from "./dashboard.json";
 import home from "./home.json";
-import discover from "./discover.json";
 import apps from "./apps.json";
 import favorites from "./favorites.json";
 import recentlyUsed from "./recentlyUsed.json";
@@ -35,7 +34,6 @@ const messages = {
   support,
   dashboard,
   home,
-  discover,
   apps,
   favorites,
   recentlyUsed,

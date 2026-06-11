@@ -2,8 +2,11 @@
   "title": "Ứng dụng",
   "description": "Duyệt và tìm kiếm tất cả ứng dụng web khả dụng.",
   "search": {
-    "placeholder": "Tìm ứng dụng...",
-    "filter": "Bộ lọc"
+    "placeholder": "Tìm ứng dụng..."
+  },
+  "categories": {
+    "all": "Tất cả",
+    "groupLabel": "Lọc theo danh mục"
   },
   "view": {
     "grid": "Xem dạng lưới",
@@ -22,6 +25,7 @@
   "announce": {
     "viewModeChanged": "Đã chuyển sang {mode}.",
     "pageChanged": "Đã tải trang {page}.",
+    "categoryChanged": "Đã lọc theo {category}.",
     "loading": "Đang tải ứng dụng...",
     "loaded": "Đã tải {total} ứng dụng."
   }

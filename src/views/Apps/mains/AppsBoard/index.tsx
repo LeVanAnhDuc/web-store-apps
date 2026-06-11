@@ -1,6 +1,6 @@
 "use client";
 // libs
-import { Filter, LayoutGrid, List } from "lucide-react";
+import { LayoutGrid, List } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 // components
@@ -9,6 +9,7 @@ import SearchInput from "@/components/SearchInput";
 import CustomPagination from "@/components/CustomPagination";
 import AppCard from "../../components/AppCard";
 import AppCardSkeleton from "../../components/AppCardSkeleton";
+import CategoryFilter from "../../components/CategoryFilter";
 // ghosts
 import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
 import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
@@ -16,6 +17,7 @@ import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
 import { useAnnounce, useDebouncedValue } from "@/hooks";
 // others
 import useApps from "../../hooks/useApps";
+import useAppCategories from "../../hooks/useAppCategories";
 import { cn } from "@/libs/utils";
 
 const PAGE_SIZE = 12;
@@ -26,11 +28,14 @@ const AppsBoard = () => {
   const [search, setSearch] = useState("");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [page, setPage] = useState(1);
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
+  const { data: categories } = useAppCategories();
   const debouncedSearch = useDebouncedValue(search, 300);
   const { data, isLoading, isError } = useApps({
     page,
     limit: PAGE_SIZE,
-    ...(debouncedSearch.trim() && { search: debouncedSearch.trim() })
+    ...(debouncedSearch.trim() && { search: debouncedSearch.trim() }),
+    ...(activeCategoryId && { categoryId: activeCategoryId })
   });
   const items = data?.items ?? [];
   const meta = data?.meta;
@@ -39,6 +44,16 @@ const AppsBoard = () => {
   const handleSearch = (value: string) => {
     setSearch(value);
     setPage(1);
+  };
+  const handleCategoryChange = (id: string | null) => {
+    setActiveCategoryId(id);
+    setPage(1);
+    const label = id
+      ? categories?.find((c) => c._id === id)?.displayName
+      : t("categories.all");
+    if (label) {
+      announce(t("announce.categoryChanged", { category: label }));
+    }
   };
   const handleViewChange = (mode: "grid" | "list") => {
     setView(mode);
@@ -71,14 +86,6 @@ const AppsBoard = () => {
             ariaLabel={t("search.placeholder")}
             className="w-72"
           />
-          <CustomButton
-            size="default"
-            variant="outline"
-            iconLeft={<Filter className="size-4" aria-hidden="true" />}
-            className="h-10"
-          >
-            {t("search.filter")}
-          </CustomButton>
         </div>
         <div
           className="flex items-center gap-1.5"
@@ -115,6 +122,13 @@ const AppsBoard = () => {
           </CustomButton>
         </div>
       </div>
+      <CategoryFilter
+        categories={categories ?? []}
+        activeId={activeCategoryId}
+        allLabel={t("categories.all")}
+        groupLabel={t("categories.groupLabel")}
+        onSelect={handleCategoryChange}
+      />
       <div
         className={cn(
           "grid gap-4",
