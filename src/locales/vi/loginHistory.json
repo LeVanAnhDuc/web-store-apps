@@ -45,7 +45,10 @@
     "isAnomaly": "Bất thường",
     "anomalyReasons": "Lý do bất thường",
     "anomalyYes": "Có",
-    "anomalyNo": "Không"
+    "anomalyNo": "Không",
+    "ipLocation": "IP & Vị trí",
+    "action": "Thao tác",
+    "viewDetail": "Xem"
   },
   "filters": {
     "title": "Bộ lọc",
@@ -86,7 +89,38 @@
   },
   "admin": {
     "title": "Toàn bộ lịch sử đăng nhập",
-    "description": "Xem lịch sử đăng nhập của tất cả người dùng"
+    "description": "Xem lịch sử đăng nhập của tất cả người dùng",
+    "detail": {
+      "title": "Chi tiết lần đăng nhập",
+      "breadcrumb": {
+        "list": "Lịch sử đăng nhập",
+        "current": "Chi tiết"
+      },
+      "notFound": "Không tìm thấy bản ghi lịch sử đăng nhập.",
+      "error": "Không thể tải bản ghi đăng nhập này. Vui lòng thử lại.",
+      "anomalyNone": "Không có",
+      "anomalyYes": "Có",
+      "anomalyNo": "Không",
+      "fields": {
+        "userId": "User ID",
+        "usernameAttempted": "Tên đăng nhập đã dùng",
+        "method": "Phương thức",
+        "status": "Trạng thái",
+        "failReason": "Lý do thất bại",
+        "ip": "Địa chỉ IP",
+        "country": "Quốc gia",
+        "city": "Thành phố",
+        "deviceType": "Thiết bị",
+        "os": "Hệ điều hành",
+        "browser": "Trình duyệt",
+        "clientType": "Client",
+        "userAgent": "User Agent",
+        "timezoneOffset": "Múi giờ",
+        "isAnomaly": "Bất thường",
+        "anomalyReasons": "Lý do bất thường",
+        "createdAt": "Thời gian"
+      }
+    }
   },
   "announce": {
     "loading": "Đang tải dữ liệu...",

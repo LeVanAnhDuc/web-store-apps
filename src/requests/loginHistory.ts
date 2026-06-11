@@ -4,7 +4,8 @@ import type {
   AdminLoginHistoryQueryParams,
   PaginatedLoginHistoryResponse,
   PaginatedAdminLoginHistoryResponse,
-  LoginHistoryStats
+  LoginHistoryStats,
+  LoginHistoryAdminDetailItem
 } from "@/types/LoginHistory";
 // others
 import axiosInstance from "@/libs/axios";
@@ -34,5 +35,14 @@ export const getAdminLoginHistory = async (
   const response = await axiosInstance.get<
     ResponsePattern<PaginatedAdminLoginHistoryResponse>
   >(END_POINTS.ADMIN_LOGIN_HISTORY, { params });
+  return response.data.data;
+};
+
+export const getAdminLoginHistoryDetail = async (
+  id: string
+): Promise<LoginHistoryAdminDetailItem> => {
+  const response = await axiosInstance.get<
+    ResponsePattern<LoginHistoryAdminDetailItem>
+  >(`${END_POINTS.ADMIN_LOGIN_HISTORY}/${id}`);
   return response.data.data;
 };

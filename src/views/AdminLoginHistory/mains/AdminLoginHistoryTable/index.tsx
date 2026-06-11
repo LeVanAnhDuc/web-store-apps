@@ -3,6 +3,7 @@
 // libs
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
+import { ChevronRight } from "lucide-react";
 // types
 import type {
   AdminLoginHistoryQueryParams,
@@ -36,9 +37,11 @@ import {
   isLoginHistoryStatus,
   isLoginHistoryMethod
 } from "@/utils";
+import CONSTANTS from "@/constants";
 
+const { ADMIN_LOGIN_HISTORY } = CONSTANTS.ROUTES;
 const DEFAULT_PAGE_SIZE = 20;
-const TABLE_COLUMN_COUNT = 10;
+const TABLE_COLUMN_COUNT = 7;
 
 const AdminLoginHistoryTable = () => {
   const tTable = useTranslations("loginHistory.table");
@@ -123,16 +126,15 @@ const AdminLoginHistoryTable = () => {
           <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead scope="col">{tTable("userId")}</TableHead>
               <TableHead scope="col">{tTable("usernameAttempted")}</TableHead>
               <TableHead scope="col">{tTable("method")}</TableHead>
               <TableHead scope="col">{tTable("status")}</TableHead>
-              <TableHead scope="col">{tTable("ip")}</TableHead>
-              <TableHead scope="col">{tTable("country")}</TableHead>
-              <TableHead scope="col">{tTable("deviceType")}</TableHead>
-              <TableHead scope="col">{tTable("browser")}</TableHead>
+              <TableHead scope="col">{tTable("ipLocation")}</TableHead>
               <TableHead scope="col">{tTable("isAnomaly")}</TableHead>
               <TableHead scope="col">{tTable("createdAt")}</TableHead>
+              <TableHead scope="col">
+                <span className="sr-only">{tTable("action")}</span>
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -161,9 +163,6 @@ const AdminLoginHistoryTable = () => {
             ) : (
               items.map((item) => (
                 <TableRow key={item._id}>
-                  <TableCell className="text-muted-foreground font-mono text-xs">
-                    {item.userId ?? "—"}
-                  </TableCell>
                   <TableCell>{item.usernameAttempted}</TableCell>
                   <TableCell>
                     {tMethod(item.method as LoginHistoryMethod)}
@@ -178,19 +177,15 @@ const AdminLoginHistoryTable = () => {
                       {tStatus(item.status)}
                     </CustomBadge>
                   </TableCell>
-                  <TableCell className="text-muted-foreground font-mono text-xs">
-                    {item.ip}
-                  </TableCell>
                   <TableCell>
-                    {item.city !== "UNKNOWN"
-                      ? `${item.city}, ${item.country}`
-                      : item.country}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {item.deviceType}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {item.browser}
+                    <span className="text-muted-foreground block font-mono text-xs">
+                      {item.ip}
+                    </span>
+                    <span className="text-muted-foreground block text-xs">
+                      {item.city !== "UNKNOWN"
+                        ? `${item.city}, ${item.country}`
+                        : item.country}
+                    </span>
                   </TableCell>
                   <TableCell>
                     {item.isAnomaly ? (
@@ -205,6 +200,20 @@ const AdminLoginHistoryTable = () => {
                   </TableCell>
                   <TableCell className="text-muted-foreground text-xs">
                     {formatDateTimeShort(item.createdAt)}
+                  </TableCell>
+                  <TableCell>
+                    <CustomButton
+                      variant="ghost"
+                      size="sm"
+                      iconRight={
+                        <ChevronRight className="size-4" aria-hidden="true" />
+                      }
+                      onClick={() =>
+                        router.push(`${ADMIN_LOGIN_HISTORY}/${item._id}`)
+                      }
+                    >
+                      {tTable("viewDetail")}
+                    </CustomButton>
                   </TableCell>
                 </TableRow>
               ))

@@ -37,6 +37,8 @@ export interface LoginHistoryAdminItem extends LoginHistoryItem {
   anomalyReasons: string[];
 }
 
+export type LoginHistoryAdminDetailItem = LoginHistoryAdminItem;
+
 export interface LoginHistoryMeta {
   total: number;
   page: number;

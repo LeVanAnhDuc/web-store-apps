@@ -45,7 +45,10 @@
     "isAnomaly": "Anomaly",
     "anomalyReasons": "Anomaly Reasons",
     "anomalyYes": "Yes",
-    "anomalyNo": "No"
+    "anomalyNo": "No",
+    "ipLocation": "IP & Location",
+    "action": "Actions",
+    "viewDetail": "View"
   },
   "filters": {
     "title": "Filters",
@@ -86,7 +89,38 @@
   },
   "admin": {
     "title": "All Login History",
-    "description": "View all users' login activity"
+    "description": "View all users' login activity",
+    "detail": {
+      "title": "Login Attempt Detail",
+      "breadcrumb": {
+        "list": "Login History",
+        "current": "Detail"
+      },
+      "notFound": "Login history record not found.",
+      "error": "Could not load this login record. Please try again.",
+      "anomalyNone": "None",
+      "anomalyYes": "Yes",
+      "anomalyNo": "No",
+      "fields": {
+        "userId": "User ID",
+        "usernameAttempted": "Username Attempted",
+        "method": "Method",
+        "status": "Status",
+        "failReason": "Fail Reason",
+        "ip": "IP Address",
+        "country": "Country",
+        "city": "City",
+        "deviceType": "Device",
+        "os": "OS",
+        "browser": "Browser",
+        "clientType": "Client",
+        "userAgent": "User Agent",
+        "timezoneOffset": "Timezone",
+        "isAnomaly": "Anomaly",
+        "anomalyReasons": "Anomaly Reasons",
+        "createdAt": "Date"
+      }
+    }
   },
   "announce": {
     "loading": "Loading data...",
