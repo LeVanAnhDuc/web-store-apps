@@ -14,6 +14,7 @@ const QUERY_KEYS = {
   ADMIN_USERS_LIST: "adminUsersList",
   // Login history
   ADMIN_LOGIN_HISTORY: "adminLoginHistory",
+  ADMIN_LOGIN_HISTORY_DETAIL: "adminLoginHistoryDetail",
   LOGIN_HISTORY: "loginHistory",
   // Profile / session
   MY_PROFILE: "myProfile",
