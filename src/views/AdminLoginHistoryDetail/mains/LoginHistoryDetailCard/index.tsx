@@ -1,6 +1,7 @@
 "use client";
 
 // libs
+import { isAxiosError } from "axios";
 import { useTranslations } from "next-intl";
 // types
 import type { LoginHistoryMethod } from "@/types/LoginHistory";
@@ -20,14 +21,18 @@ const LoginHistoryDetailCard = ({ id }: { id: string }) => {
   const tMethod = useTranslations("loginHistory.method");
   const tDevice = useTranslations("loginHistory.deviceType");
 
-  const { data, isLoading, isError } = useAdminLoginHistoryDetail(id);
+  const { data, isLoading, isError, error } = useAdminLoginHistoryDetail(id);
 
   if (isLoading) return <LoginHistoryDetailSkeleton />;
 
   if (isError) {
+    const status = isAxiosError(error) ? error.response?.status : undefined;
+    const isMissing = status === 404 || status === 400;
     return (
       <div className="bg-card rounded-xl border p-6">
-        <p className="text-muted-foreground text-sm">{t("error")}</p>
+        <p className="text-muted-foreground text-sm">
+          {isMissing ? t("notFound") : t("error")}
+        </p>
       </div>
     );
   }
