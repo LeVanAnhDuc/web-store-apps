@@ -23,4 +23,10 @@ export interface UserAppsQueryParams {
   page?: number;
   limit?: number;
   search?: string;
+  categoryId?: string;
+}
+
+export interface UserCategory {
+  _id: string;
+  displayName: string;
 }

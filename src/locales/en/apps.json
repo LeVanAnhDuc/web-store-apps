@@ -2,8 +2,11 @@
   "title": "Apps",
   "description": "Browse and search all available web applications.",
   "search": {
-    "placeholder": "Search apps...",
-    "filter": "Filters"
+    "placeholder": "Search apps..."
+  },
+  "categories": {
+    "all": "All",
+    "groupLabel": "Filter by category"
   },
   "view": {
     "grid": "Grid view",
@@ -22,6 +25,7 @@
   "announce": {
     "viewModeChanged": "View mode changed to {mode}.",
     "pageChanged": "Page {page} loaded.",
+    "categoryChanged": "Filtered by {category}.",
     "loading": "Loading apps...",
     "loaded": "{total} apps loaded."
   }

@@ -1,16 +1,33 @@
+"use client";
 // libs
 import { ArrowRight, Compass } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import RecommendedAppCard from "../../components/RecommendedAppCard";
 // others
-import { RECOMMENDED_APPS_MOCK } from "@/mocks/Home";
+import useHomeApps from "../../hooks/useHomeApps";
+import { useRouter } from "@/i18n/navigation";
+import CONSTANTS from "@/constants";
 
-const RecommendedSection = async () => {
-  const t = await getTranslations("home.recommended");
-  const tCTA = await getTranslations("home.exploreCTA");
+const { ROUTES } = CONSTANTS;
+
+const GRADIENTS = [
+  "bg-gradient-to-br from-cream to-cream/60",
+  "bg-gradient-to-br from-success/20 to-success/5",
+  "bg-gradient-to-br from-destructive/20 to-warning/10",
+  "bg-gradient-to-br from-info/20 to-info/5"
+];
+
+const RecommendedSection = () => {
+  const t = useTranslations("home.recommended");
+  const tCTA = useTranslations("home.exploreCTA");
+  const tCard = useTranslations("apps.card");
+  const router = useRouter();
+  const { data, isLoading, isError } = useHomeApps();
+  const items = (data?.items ?? []).slice(4, 8);
   return (
     <section
       className="flex flex-col gap-4"
@@ -26,33 +43,41 @@ const RecommendedSection = async () => {
         <CustomButton
           size="sm"
           variant="ghost"
+          onClick={() => router.push(ROUTES.APPS)}
           iconRight={<ArrowRight className="size-3.5" aria-hidden="true" />}
         >
           {t("seeAll")}
         </CustomButton>
       </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {RECOMMENDED_APPS_MOCK.map((app) => {
-          const Icon = app.icon;
-          return (
+      {isError ? (
+        <p className="text-destructive text-sm" role="alert">
+          {t("error")}
+        </p>
+      ) : isLoading ? (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, idx) => (
+            <Skeleton key={`rec-skeleton-${idx}`} className="h-64 rounded-xl" />
+          ))}
+        </div>
+      ) : items.length === 0 ? (
+        <p className="text-muted-foreground py-8 text-center text-sm">
+          {t("empty")}
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {items.map((app, idx) => (
             <RecommendedAppCard
-              key={app.id}
-              name={app.name}
+              key={app._id}
+              name={app.displayName}
               category={app.category}
-              rating={app.rating}
-              icon={
-                <Icon
-                  className={`size-10 ${app.iconColor}`}
-                  aria-hidden="true"
-                />
-              }
-              gradient={app.gradient}
-              installLabel={t("install")}
-              freeLabel={t("free")}
+              iconUrl={app.iconUrl}
+              homeUrl={app.homeUrl}
+              gradient={GRADIENTS[idx % GRADIENTS.length]}
+              openLabel={tCard("open")}
             />
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      )}
       <Card className="from-primary to-primary/90 text-primary-foreground mt-2 flex items-center justify-between gap-4 rounded-2xl border-0 bg-gradient-to-br p-7">
         <div className="flex items-center gap-4">
           <div

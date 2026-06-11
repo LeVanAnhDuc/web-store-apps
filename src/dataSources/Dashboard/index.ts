@@ -2,7 +2,6 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Home,
-  Compass,
   LayoutGrid,
   History,
   Star,
@@ -35,7 +34,6 @@ export interface App {
 
 export type NavKey =
   | "home"
-  | "discover"
   | "apps"
   | "loginHistory"
   | "favorites"
@@ -64,7 +62,6 @@ export const NAV_GROUPS: readonly NavGroup[] = [
     key: "discover",
     items: [
       { key: "home", icon: Home, href: ROUTES.HOME },
-      { key: "discover", icon: Compass, href: ROUTES.DISCOVER },
       { key: "apps", icon: LayoutGrid, href: ROUTES.APPS }
     ]
   },

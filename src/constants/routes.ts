@@ -13,7 +13,6 @@ const ROUTES = {
   SIGNUP_OTP: "/signup/otp",
   SIGNUP_INFO: "/signup/info",
   HOME: "/",
-  DISCOVER: "/discover",
   APPS: "/apps",
   FAVORITES: "/favorites",
   RECENTLY_USED: "/recently-used",

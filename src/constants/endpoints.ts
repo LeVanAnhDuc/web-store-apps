@@ -41,6 +41,7 @@ const END_POINTS = {
 
   // App Registry
   APPS: "/apps",
+  APP_CATEGORIES: "/apps/categories",
   ADMIN_APPS: "/admin/apps",
   ADMIN_APP_CATEGORIES: "/admin/apps/categories",
 

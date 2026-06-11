@@ -31,13 +31,14 @@
   "quickAccess": {
     "title": "Truy cập nhanh",
     "subtitle": "Quay lại ngay",
-    "lastOpened": "Mở lần cuối {time}"
+    "empty": "Chưa có ứng dụng nào.",
+    "error": "Không thể tải ứng dụng."
   },
   "recommended": {
     "title": "Đề xuất cho bạn",
     "seeAll": "Xem tất cả ứng dụng",
-    "install": "Cài đặt",
-    "free": "Miễn phí"
+    "empty": "Chưa có ứng dụng để đề xuất.",
+    "error": "Không thể tải ứng dụng."
   },
   "exploreCTA": {
     "title": "Khám phá thêm ứng dụng trong kho",
