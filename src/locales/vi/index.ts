@@ -23,6 +23,7 @@ import adminDashboard from "./adminDashboard.json";
 import adminApps from "./adminApps.json";
 import adminEntitlements from "./adminEntitlements.json";
 import adminUsers from "./adminUsers.json";
+import list from "./list.json";
 
 const messages = {
   common,
@@ -49,7 +50,8 @@ const messages = {
   adminDashboard,
   adminApps,
   adminEntitlements,
-  adminUsers
+  adminUsers,
+  list
 };
 
 export default messages;

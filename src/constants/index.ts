@@ -10,6 +10,7 @@ import SUPPORT from "./pages/support";
 import LOGIN from "./pages/login";
 import SIGNUP from "./pages/signup";
 import USER_PROFILE from "./pages/userProfile";
+import LIST from "./list";
 
 const CONSTANTS = {
   ROUTES,
@@ -23,7 +24,8 @@ const CONSTANTS = {
   SUPPORT,
   LOGIN,
   SIGNUP,
-  USER_PROFILE
+  USER_PROFILE,
+  LIST
 };
 
 export default CONSTANTS;

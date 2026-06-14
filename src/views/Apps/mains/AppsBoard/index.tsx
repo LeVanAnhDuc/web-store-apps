@@ -1,187 +1,173 @@
 "use client";
+
 // libs
 import { LayoutGrid, List } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
-import SearchInput from "@/components/SearchInput";
-import CustomPagination from "@/components/CustomPagination";
+import ListPageShell from "@/components/list/ListPageShell";
+import ListPageHeader from "@/components/list/ListPageHeader";
+import ListToolbar from "@/components/list/ListToolbar";
+import ListContent from "@/components/list/ListContent";
+import ListPagination from "@/components/list/ListPagination";
 import AppCard from "../../components/AppCard";
 import AppCardSkeleton from "../../components/AppCardSkeleton";
-import CategoryFilter from "../../components/CategoryFilter";
-// ghosts
-import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
-import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
 // hooks
-import { useAnnounce, useDebouncedValue } from "@/hooks";
-// others
+import { useListQuery } from "@/hooks";
 import useApps from "../../hooks/useApps";
 import useAppCategories from "../../hooks/useAppCategories";
+// dataSources
+import { buildAppsFilterDefs } from "@/dataSources/Apps";
+// others
 import { cn } from "@/libs/utils";
 
 const PAGE_SIZE = 12;
 
-const AppsBoard = () => {
-  const t = useTranslations("apps");
-  const { announce } = useAnnounce();
-  const [search, setSearch] = useState("");
-  const [view, setView] = useState<"grid" | "list">("grid");
-  const [page, setPage] = useState(1);
-  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
-  const { data: categories } = useAppCategories();
-  const debouncedSearch = useDebouncedValue(search, 300);
-  const { data, isLoading, isError } = useApps({
-    page,
-    limit: PAGE_SIZE,
-    ...(debouncedSearch.trim() && { search: debouncedSearch.trim() }),
-    ...(activeCategoryId && { categoryId: activeCategoryId })
-  });
-  const items = data?.items ?? [];
-  const meta = data?.meta;
-  const totalPages = meta?.totalPages ?? 1;
-  const total = meta?.total ?? 0;
-  const handleSearch = (value: string) => {
-    setSearch(value);
-    setPage(1);
-  };
-  const handleCategoryChange = (id: string | null) => {
-    setActiveCategoryId(id);
-    setPage(1);
-    const label = id
-      ? categories?.find((c) => c._id === id)?.displayName
-      : t("categories.all");
-    if (label) {
-      announce(t("announce.categoryChanged", { category: label }));
-    }
-  };
-  const handleViewChange = (mode: "grid" | "list") => {
-    setView(mode);
-    announce(t("announce.viewModeChanged", { mode: t(`view.${mode}`) }));
-  };
-  const handlePageChange = (next: number) => {
-    setPage(next);
-    announce(t("announce.pageChanged", { page: next }));
-  };
+const AppsBoardSkeleton = () => (
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {Array.from({ length: PAGE_SIZE }).map((_, idx) => (
+      <AppCardSkeleton key={`skeleton-${idx}`} />
+    ))}
+  </div>
+);
+
+const ViewToggle = ({
+  view,
+  onViewChange
+}: {
+  view: "grid" | "list";
+  onViewChange: (mode: "grid" | "list") => void;
+}) => {
+  const t = useTranslations("list");
   return (
-    <div className="flex flex-col gap-6">
-      <TableLoadingAnnouncer
-        isLoading={isLoading}
-        message={t("announce.loading")}
-      />
-      <TableLoadedAnnouncer
-        total={meta?.total}
-        message={
-          meta?.total !== undefined
-            ? t("announce.loaded", { total: meta.total })
-            : ""
-        }
-      />
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <SearchInput
-            value={search}
-            onChange={handleSearch}
-            placeholder={t("search.placeholder")}
-            ariaLabel={t("search.placeholder")}
-            className="w-72"
-          />
-        </div>
-        <div
-          className="flex items-center gap-1.5"
-          role="group"
-          aria-label={t("view.grid")}
-        >
-          <CustomButton
-            size="icon"
-            aria-label={t("view.grid")}
-            aria-pressed={view === "grid"}
-            onClick={() => handleViewChange("grid")}
-            className={cn(
-              "size-10",
-              view === "grid"
-                ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                : "border-border bg-background hover:bg-muted text-muted-foreground border"
-            )}
-          >
-            <LayoutGrid className="size-4" aria-hidden="true" />
-          </CustomButton>
-          <CustomButton
-            size="icon"
-            aria-label={t("view.list")}
-            aria-pressed={view === "list"}
-            onClick={() => handleViewChange("list")}
-            className={cn(
-              "size-10",
-              view === "list"
-                ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                : "border-border bg-background hover:bg-muted text-muted-foreground border"
-            )}
-          >
-            <List className="size-4" aria-hidden="true" />
-          </CustomButton>
-        </div>
-      </div>
-      <CategoryFilter
-        categories={categories ?? []}
-        activeId={activeCategoryId}
-        allLabel={t("categories.all")}
-        groupLabel={t("categories.groupLabel")}
-        onSelect={handleCategoryChange}
-      />
-      <div
+    <div
+      className="flex items-center gap-1"
+      role="group"
+      aria-label={t("viewGrid")}
+    >
+      <CustomButton
+        size="icon"
+        aria-label={t("viewGrid")}
+        aria-pressed={view === "grid"}
+        onClick={() => onViewChange("grid")}
         className={cn(
-          "grid gap-4",
+          "size-10",
           view === "grid"
-            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-            : "grid-cols-1"
+            ? "bg-secondary text-secondary-foreground"
+            : "border-border bg-background hover:bg-muted text-muted-foreground border"
         )}
       >
-        {isLoading
-          ? Array.from({ length: PAGE_SIZE }).map((_, idx) => (
-              <AppCardSkeleton key={`skeleton-${idx}`} />
-            ))
-          : items.map((app) => (
-              <AppCard
-                key={app._id}
-                id={app._id}
-                displayName={app.displayName}
-                category={app.category}
-                description={app.description}
-                iconUrl={app.iconUrl}
-                homeUrl={app.homeUrl}
-                openLabel={t("card.open")}
-              />
-            ))}
-      </div>
-      {isError && (
-        <p className="text-destructive text-sm" role="alert">
-          {t("error")}
-        </p>
-      )}
-      {!isLoading && !isError && items.length === 0 && (
-        <p className="text-muted-foreground py-12 text-center text-sm">
-          {t("empty")}
-        </p>
-      )}
-      {meta && total > 0 && (
-        <nav
-          className="flex flex-wrap items-center justify-between gap-3"
-          aria-label={t("pagination.next")}
-        >
-          <span className="text-muted-foreground text-sm font-medium">
-            {t("pagination.summary", { shown: items.length, total })}
-          </span>
-          {totalPages > 1 && (
-            <CustomPagination
-              page={page}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
-          )}
-        </nav>
-      )}
+        <LayoutGrid className="size-4" aria-hidden="true" />
+      </CustomButton>
+      <CustomButton
+        size="icon"
+        aria-label={t("viewList")}
+        aria-pressed={view === "list"}
+        onClick={() => onViewChange("list")}
+        className={cn(
+          "size-10",
+          view === "list"
+            ? "bg-secondary text-secondary-foreground"
+            : "border-border bg-background hover:bg-muted text-muted-foreground border"
+        )}
+      >
+        <List className="size-4" aria-hidden="true" />
+      </CustomButton>
     </div>
+  );
+};
+
+const AppsBoard = () => {
+  const t = useTranslations("apps");
+  const tToolbar = useTranslations("apps.categories");
+
+  // view is a display preference — kept in local state, not URL
+  const [view, setView] = useState<"grid" | "list">("grid");
+
+  const { data: categories = [] } = useAppCategories();
+
+  const categoryOptions = useMemo(
+    () => categories.map((cat) => ({ value: cat._id, label: cat.displayName })),
+    [categories]
+  );
+
+  const filterDefs = useMemo(
+    () =>
+      buildAppsFilterDefs(categoryOptions, {
+        category: tToolbar("groupLabel")
+      }),
+    [categoryOptions, tToolbar]
+  );
+
+  const query = useListQuery(filterDefs);
+
+  const params = {
+    page: query.page,
+    limit: PAGE_SIZE,
+    ...(query.appliedSearch && { search: query.appliedSearch }),
+    ...(query.filters.categoryId && { categoryId: query.filters.categoryId })
+  };
+
+  const { data, isLoading, isError } = useApps(params);
+  const items = data?.items ?? [];
+  const meta = data?.meta;
+
+  const hasActiveFilters =
+    query.activeFilterCount > 0 || Boolean(query.appliedSearch);
+
+  return (
+    <ListPageShell>
+      <ListPageHeader title={t("title")} description={t("description")} />
+      <ListToolbar
+        query={query}
+        filterDefs={filterDefs}
+        searchPlaceholder={t("search.placeholder")}
+        rightSlot={<ViewToggle view={view} onViewChange={setView} />}
+      />
+      <ListContent
+        isLoading={isLoading}
+        isEmpty={items.length === 0}
+        hasActiveFilters={hasActiveFilters}
+        onClearFilters={query.clearFilters}
+        skeleton={<AppsBoardSkeleton />}
+        emptyTitle={t("empty")}
+      >
+        <div
+          className={cn(
+            "grid gap-4",
+            view === "grid"
+              ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              : "grid-cols-1"
+          )}
+        >
+          {isError && (
+            <p className="text-destructive col-span-full text-sm" role="alert">
+              {t("error")}
+            </p>
+          )}
+          {items.map((app) => (
+            <AppCard
+              key={app._id}
+              id={app._id}
+              displayName={app.displayName}
+              category={app.category}
+              description={app.description}
+              iconUrl={app.iconUrl}
+              homeUrl={app.homeUrl}
+              openLabel={t("card.open")}
+            />
+          ))}
+        </div>
+      </ListContent>
+      <ListPagination
+        page={meta?.page ?? query.page}
+        totalPages={meta?.totalPages ?? 1}
+        total={meta?.total ?? 0}
+        onPageChange={query.setPage}
+        loading={isLoading}
+      />
+    </ListPageShell>
   );
 };
 

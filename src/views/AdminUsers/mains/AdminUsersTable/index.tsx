@@ -1,8 +1,7 @@
 "use client";
 
 // libs
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 // types
 import type {
@@ -20,51 +19,58 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import ListPageShell from "@/components/list/ListPageShell";
+import ListPageHeader from "@/components/list/ListPageHeader";
+import ListToolbar from "@/components/list/ListToolbar";
+import ListContent from "@/components/list/ListContent";
+import ListPagination from "@/components/list/ListPagination";
 import UserRoleBadge from "../../components/UserRoleBadge";
 import UserStatusBadge from "../../components/UserStatusBadge";
 import UserRowActions from "../../components/UserRowActions";
 import UsersTableSkeleton from "../../components/UsersTableSkeleton";
-import UsersEmptyState from "../../components/UsersEmptyState";
-import AdminUsersToolbar from "../AdminUsersToolbar";
 import AdminUsersResetPasswordDialog from "../AdminUsersResetPasswordDialog";
 import AdminUsersLockDialog from "../AdminUsersLockDialog";
 import AdminUsersForceLogoutDialog from "../AdminUsersForceLogoutDialog";
-import TablePagination from "@/components/TablePagination";
 // hooks
+import { useListQuery } from "@/hooks";
 import useAdminUsersList from "../../hooks/useAdminUsersList";
+// dataSources
+import { buildAdminUsersFilterDefs } from "@/dataSources/AdminUsers";
 // others
 import { formatDateTimeShort } from "@/utils";
-import { useRouter, usePathname } from "@/i18n/navigation";
-// constants
 import CONSTANTS from "@/constants";
 
-const TABLE_COLUMN_COUNT = 6;
+const { AUTHENTICATION_ROLES } = CONSTANTS;
 
 const isRole = (value: unknown): value is AuthenticationRole =>
-  value === CONSTANTS.AUTHENTICATION_ROLES.USER ||
-  value === CONSTANTS.AUTHENTICATION_ROLES.ADMIN;
+  value === AUTHENTICATION_ROLES.USER || value === AUTHENTICATION_ROLES.ADMIN;
 
 const isStatus = (value: unknown): value is AdminUserStatusFilter =>
   value === "active" || value === "locked";
 
 const AdminUsersTable = () => {
-  const t = useTranslations("adminUsers.table");
-  const tPagination = useTranslations("adminUsers.pagination");
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const t = useTranslations("adminUsers");
+  const tTable = useTranslations("adminUsers.table");
+  const tToolbar = useTranslations("adminUsers.toolbar");
+  const tRole = useTranslations("adminUsers.role");
+  const tStatus = useTranslations("adminUsers.status");
 
-  const search = searchParams.get("search") ?? "";
-  const roleParam = searchParams.get("role");
-  const statusParam = searchParams.get("status");
-  const rawPage = Number(searchParams.get("page"));
-  const page = Number.isInteger(rawPage) && rawPage >= 1 ? rawPage : 1;
+  const filterDefs = useMemo(
+    () =>
+      buildAdminUsersFilterDefs(
+        (k) => tRole(k as Parameters<typeof tRole>[0]),
+        (k) => tStatus(k as Parameters<typeof tStatus>[0]),
+        (k) => tToolbar(k as Parameters<typeof tToolbar>[0])
+      ),
+    [tRole, tStatus, tToolbar]
+  );
+  const query = useListQuery(filterDefs);
 
   const params: AdminUsersQueryParams = {
-    page,
-    ...(search && { search }),
-    ...(isRole(roleParam) && { role: roleParam }),
-    ...(isStatus(statusParam) && { status: statusParam })
+    page: query.page,
+    ...(query.appliedSearch && { search: query.appliedSearch }),
+    ...(isRole(query.filters.role) && { role: query.filters.role }),
+    ...(isStatus(query.filters.status) && { status: query.filters.status })
   };
 
   const [resetTarget, setResetTarget] = useState<AdminUser | null>(null);
@@ -77,93 +83,88 @@ const AdminUsersTable = () => {
   const items = data?.items ?? [];
   const meta = data?.meta;
 
-  const handlePageChange = (newPage: number) => {
-    const next = new URLSearchParams(searchParams.toString());
-    next.set("page", String(newPage));
-    router.push(`${pathname}?${next.toString()}`);
-  };
+  const hasActiveFilters =
+    query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   return (
-    <>
-      <AdminUsersToolbar />
-      {isLoading ? (
-        <UsersTableSkeleton />
-      ) : (
+    <ListPageShell>
+      <ListPageHeader title={t("title")} description={t("description")} />
+      <ListToolbar
+        query={query}
+        filterDefs={filterDefs}
+        searchPlaceholder={tToolbar("searchPlaceholder")}
+      />
+      <ListContent
+        isLoading={isLoading}
+        isEmpty={items.length === 0}
+        hasActiveFilters={hasActiveFilters}
+        onClearFilters={query.clearFilters}
+        skeleton={<UsersTableSkeleton />}
+        emptyTitle={tTable("empty")}
+        emptyDescription={tTable("emptyDescription")}
+      >
         <div className="bg-card rounded-xl border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t("user")}</TableHead>
-                <TableHead>{t("role")}</TableHead>
-                <TableHead>{t("status")}</TableHead>
-                <TableHead>{t("lastLoginAt")}</TableHead>
-                <TableHead>{t("createdAt")}</TableHead>
+                <TableHead>{tTable("user")}</TableHead>
+                <TableHead>{tTable("role")}</TableHead>
+                <TableHead>{tTable("status")}</TableHead>
+                <TableHead>{tTable("lastLoginAt")}</TableHead>
+                <TableHead>{tTable("createdAt")}</TableHead>
                 <TableHead className="w-12 text-right">
-                  <span className="sr-only">{t("actions")}</span>
+                  <span className="sr-only">{tTable("actions")}</span>
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {items.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={TABLE_COLUMN_COUNT}>
-                    <UsersEmptyState />
+              {items.map((user) => (
+                <TableRow key={user._id}>
+                  <TableCell>
+                    <div className="flex flex-col">
+                      <span className="text-foreground font-medium">
+                        {user.fullName}
+                      </span>
+                      <span className="text-muted-foreground text-xs">
+                        {user.email}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <UserRoleBadge role={user.role} />
+                  </TableCell>
+                  <TableCell>
+                    <UserStatusBadge isActive={user.isActive} />
+                  </TableCell>
+                  <TableCell className="text-muted-foreground text-xs">
+                    {user.lastLoginAt
+                      ? formatDateTimeShort(user.lastLoginAt)
+                      : tTable("neverLoggedIn")}
+                  </TableCell>
+                  <TableCell className="text-muted-foreground text-xs">
+                    {formatDateTimeShort(user.createdAt)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <UserRowActions
+                      user={user}
+                      onResetPassword={setResetTarget}
+                      onLockToggle={setLockTarget}
+                      onForceLogout={setForceLogoutTarget}
+                    />
                   </TableCell>
                 </TableRow>
-              ) : (
-                items.map((user) => (
-                  <TableRow key={user._id}>
-                    <TableCell>
-                      <div className="flex flex-col">
-                        <span className="text-foreground font-medium">
-                          {user.fullName}
-                        </span>
-                        <span className="text-muted-foreground text-xs">
-                          {user.email}
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <UserRoleBadge role={user.role} />
-                    </TableCell>
-                    <TableCell>
-                      <UserStatusBadge isActive={user.isActive} />
-                    </TableCell>
-                    <TableCell className="text-muted-foreground text-xs">
-                      {user.lastLoginAt
-                        ? formatDateTimeShort(user.lastLoginAt)
-                        : t("neverLoggedIn")}
-                    </TableCell>
-                    <TableCell className="text-muted-foreground text-xs">
-                      {formatDateTimeShort(user.createdAt)}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <UserRowActions
-                        user={user}
-                        onResetPassword={setResetTarget}
-                        onLockToggle={setLockTarget}
-                        onForceLogout={setForceLogoutTarget}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
+              ))}
             </TableBody>
           </Table>
-          <TablePagination
-            page={meta?.page ?? page}
-            totalPages={meta?.totalPages ?? 1}
-            total={meta?.total ?? 0}
-            onPageChange={handlePageChange}
-            loading={isLoading}
-            labels={{
-              page: tPagination("page"),
-              of: tPagination("of"),
-              results: tPagination("results")
-            }}
-          />
         </div>
-      )}
+      </ListContent>
+      <ListPagination
+        page={meta?.page ?? query.page}
+        totalPages={meta?.totalPages ?? 1}
+        total={meta?.total ?? 0}
+        onPageChange={query.setPage}
+        loading={isLoading}
+      />
       <AdminUsersResetPasswordDialog
         target={resetTarget}
         onClose={() => setResetTarget(null)}
@@ -176,7 +177,7 @@ const AdminUsersTable = () => {
         target={forceLogoutTarget}
         onClose={() => setForceLogoutTarget(null)}
       />
-    </>
+    </ListPageShell>
   );
 };
 

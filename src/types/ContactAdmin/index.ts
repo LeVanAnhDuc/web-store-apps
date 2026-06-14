@@ -80,16 +80,6 @@ export interface AdminContactQuery {
   sortOrder?: "asc" | "desc";
 }
 
-export type AdminContactFilterFormValues = {
-  status: string;
-  category: string;
-  email: string;
-  ticketNumber: string;
-  search: string;
-  fromDate: string;
-  toDate: string;
-};
-
 export interface MyContactsQuery {
   page?: number;
   limit?: number;

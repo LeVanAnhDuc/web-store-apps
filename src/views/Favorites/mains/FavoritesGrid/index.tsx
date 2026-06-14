@@ -3,11 +3,12 @@
 import { ArrowUpDown, ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-// types
-import type { FavoriteCategoryKey } from "@/mocks/Favorites";
 // components
 import CustomButton from "@/components/CustomButton";
-import SearchInput from "@/components/SearchInput";
+import ListPageShell from "@/components/list/ListPageShell";
+import ListPageHeader from "@/components/list/ListPageHeader";
+import ListToolbar from "@/components/list/ListToolbar";
+import ListContent from "@/components/list/ListContent";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,23 +17,56 @@ import {
 } from "@/components/ui/dropdown-menu";
 import FavoriteAppCard from "../../components/FavoriteAppCard";
 // hooks
-import useAnnounce from "@/hooks/useAnnounce";
+import { useListQuery } from "@/hooks";
+// dataSources
+import { buildFavoritesFilterDefs } from "@/dataSources/Favorites";
 // others
 import { FAVORITE_APPS_MOCK, FAVORITE_CATEGORIES } from "@/mocks/Favorites";
-import { cn } from "@/libs/utils";
+import type { FavoriteCategoryKey } from "@/mocks/Favorites";
 
 const FavoritesGrid = () => {
   const t = useTranslations("favorites");
-  const { announce } = useAnnounce();
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState<FavoriteCategoryKey>("all");
+
   const [sort, setSort] = useState<"recent" | "name" | "rating">("recent");
   const [removed, setRemoved] = useState<string[]>([]);
+
+  // Category options derived from FAVORITE_CATEGORIES (exclude "all" — that's the filterDef default)
+  const categoryOptions = useMemo(
+    () =>
+      (
+        FAVORITE_CATEGORIES.filter((k) => k !== "all") as Exclude<
+          FavoriteCategoryKey,
+          "all"
+        >[]
+      ).map((key) => ({
+        value: key,
+        label: t(`categories.${key}`)
+      })),
+    [t]
+  );
+
+  const filterDefs = useMemo(
+    () =>
+      buildFavoritesFilterDefs(categoryOptions, {
+        category: t("categories.all")
+      }),
+    [categoryOptions, t]
+  );
+
+  const query = useListQuery(filterDefs);
+
+  // Client-side filtering: use query.search (live value) for instant filtering
   const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
+    const q = query.search.trim().toLowerCase();
+    const categoryFilter = query.filters["category"] as
+      | Exclude<FavoriteCategoryKey, "all">
+      | undefined;
+
     let list = FAVORITE_APPS_MOCK.filter((app) => !removed.includes(app.id));
-    if (category !== "all")
-      list = list.filter((app) => app.category === category);
+
+    if (categoryFilter) {
+      list = list.filter((app) => app.category === categoryFilter);
+    }
     if (q) {
       list = list.filter(
         (app) =>
@@ -44,105 +78,77 @@ const FavoritesGrid = () => {
       return [...list].sort((a, b) => a.name.localeCompare(b.name));
     if (sort === "rating") return [...list].sort((a, b) => b.rating - a.rating);
     return list;
-  }, [search, category, sort, removed]);
-  const handleCategory = (key: FavoriteCategoryKey) => {
-    setCategory(key);
-    announce(
-      t("announce.categoryChanged", { category: t(`categories.${key}`) })
-    );
-  };
-  const handleSort = (value: "recent" | "name" | "rating") => {
-    setSort(value);
-    announce(t("announce.sortChanged", { sort: t(`sort.${value}`) }));
-  };
-  const handleRemove = (id: string, name: string) => {
+  }, [query.search, query.filters, sort, removed]);
+
+  const hasActiveFilters = query.activeFilterCount > 0 || Boolean(query.search);
+
+  const handleRemove = (id: string) => {
     setRemoved((prev) => [...prev, id]);
-    announce(t("announce.removed", { name }));
   };
-  return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center gap-3">
-        <SearchInput
-          value={search}
-          onChange={setSearch}
-          placeholder={t("search.placeholder")}
-          ariaLabel={t("search.placeholder")}
-          className="w-72"
-        />
-        <div
-          className="flex flex-wrap gap-2"
-          role="group"
-          aria-label={t("categories.all")}
+
+  const SortDropdown = (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <CustomButton
+          size="default"
+          variant="outline"
+          iconLeft={<ArrowUpDown className="size-3.5" aria-hidden="true" />}
+          iconRight={<ChevronDown className="size-3.5" aria-hidden="true" />}
+          className="h-10"
         >
-          {FAVORITE_CATEGORIES.map((key) => {
-            const isActive = category === key;
-            return (
-              <CustomButton
-                key={key}
-                size="sm"
-                onClick={() => handleCategory(key)}
-                aria-pressed={isActive}
-                className={cn(
-                  "rounded-full border px-4 py-2 text-sm font-medium",
-                  isActive
-                    ? "border-primary bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "border-border bg-muted text-muted-foreground hover:bg-muted/70"
-                )}
-              >
-                {t(`categories.${key}`)}
-              </CustomButton>
-            );
-          })}
+          {t("sort.label", { value: t(`sort.${sort}`) })}
+        </CustomButton>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setSort("recent")}>
+          {t("sort.recent")}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setSort("name")}>
+          {t("sort.name")}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setSort("rating")}>
+          {t("sort.rating")}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+
+  return (
+    <ListPageShell>
+      <ListPageHeader title={t("title")} description={t("description")} />
+      <ListToolbar
+        query={query}
+        filterDefs={filterDefs}
+        searchPlaceholder={t("search.placeholder")}
+        rightSlot={SortDropdown}
+      />
+      <ListContent
+        isLoading={false}
+        isEmpty={filtered.length === 0}
+        hasActiveFilters={hasActiveFilters}
+        onClearFilters={query.clearFilters}
+        skeleton={<></>}
+        emptyTitle={t("title")}
+      >
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((app) => (
+            <FavoriteAppCard
+              key={app.id}
+              name={app.name}
+              category={t(`categories.${app.category}`)}
+              description={app.description}
+              rating={app.rating}
+              icon={app.icon}
+              iconBg={app.iconBg}
+              openLabel={t("card.open")}
+              reviewsLabel={t("card.reviews", { count: app.reviews })}
+              removeLabel={t("card.remove")}
+              onRemove={() => handleRemove(app.id)}
+            />
+          ))}
         </div>
-        <div className="ml-auto">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <CustomButton
-                size="default"
-                variant="outline"
-                iconLeft={
-                  <ArrowUpDown className="size-3.5" aria-hidden="true" />
-                }
-                iconRight={
-                  <ChevronDown className="size-3.5" aria-hidden="true" />
-                }
-                className="h-10"
-              >
-                {t("sort.label", { value: t(`sort.${sort}`) })}
-              </CustomButton>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => handleSort("recent")}>
-                {t("sort.recent")}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleSort("name")}>
-                {t("sort.name")}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleSort("rating")}>
-                {t("sort.rating")}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((app) => (
-          <FavoriteAppCard
-            key={app.id}
-            name={app.name}
-            category={t(`categories.${app.category}`)}
-            description={app.description}
-            rating={app.rating}
-            icon={app.icon}
-            iconBg={app.iconBg}
-            openLabel={t("card.open")}
-            reviewsLabel={t("card.reviews", { count: app.reviews })}
-            removeLabel={t("card.remove")}
-            onRemove={() => handleRemove(app.id, app.name)}
-          />
-        ))}
-      </div>
-    </div>
+      </ListContent>
+    </ListPageShell>
   );
 };
 

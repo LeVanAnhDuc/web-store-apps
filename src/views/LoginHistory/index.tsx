@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 // components
 import PageTitle from "@/components/PageTitle";
 import StatsRow from "./mains/StatsRow";
-import LoginHistoryFilters from "./mains/LoginHistoryFilters";
 import LoginHistoryTable from "./mains/LoginHistoryTable";
 
 const LoginHistory = async () => {
@@ -15,7 +14,6 @@ const LoginHistory = async () => {
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
       <StatsRow />
-      <LoginHistoryFilters />
       <LoginHistoryTable />
     </div>
   );

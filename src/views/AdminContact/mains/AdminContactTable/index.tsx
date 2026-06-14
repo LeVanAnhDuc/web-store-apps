@@ -1,9 +1,9 @@
 "use client";
 
 // libs
+import { useMemo } from "react";
 import { ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 // types
 import type { AdminContactQuery } from "@/types/ContactAdmin";
 // components
@@ -18,144 +18,121 @@ import {
 } from "@/components/ui/table";
 import CustomBadge from "@/components/CustomBadge";
 import CustomButton from "@/components/CustomButton";
-import CustomPagination from "@/components/CustomPagination";
+import ListPageShell from "@/components/list/ListPageShell";
+import ListPageHeader from "@/components/list/ListPageHeader";
+import ListToolbar from "@/components/list/ListToolbar";
+import ListContent from "@/components/list/ListContent";
+import ListPagination from "@/components/list/ListPagination";
 import ContactTableSkeleton from "../../components/ContactTableSkeleton";
-import AdminContactFilters from "../AdminContactFilters";
-// ghosts
-import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
-import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
 // hooks
-import { useAnnounce } from "@/hooks";
+import { useListQuery } from "@/hooks";
 import useAdminContactList from "../../hooks/useAdminContactList";
 // dataSources
-import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
+import {
+  CONTACT_STATUS_VARIANT,
+  buildAdminContactFilterDefs
+} from "@/dataSources/ContactAdmin";
 // others
-import { useRouter, usePathname } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 import { formatDateShort, isContactStatus, isContactCategory } from "@/utils";
 
 const { ADMIN_CONTACT } = CONSTANTS.ROUTES;
 const DEFAULT_PAGE_SIZE = 20;
-const TABLE_COLUMN_COUNT = 8;
 
 const AdminContactTable = () => {
+  const tPage = useTranslations("contactAdmin.admin.list");
   const tTable = useTranslations("contactAdmin.admin.list.table");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
   const tCategory = useTranslations("contactAdmin.form.category");
   const tFilters = useTranslations("contactAdmin.admin.list.filters");
-  const tPagination = useTranslations("loginHistory.pagination");
-  const tAnnounce = useTranslations("loginHistory.announce");
-  const { announce } = useAnnounce();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const tList = useTranslations("list");
 
-  const statusParam = searchParams.get("status");
-  const categoryParam = searchParams.get("category");
-  const emailParam = searchParams.get("email");
-  const ticketNumberParam = searchParams.get("ticketNumber");
-  const searchParam = searchParams.get("search");
-  const fromDateParam = searchParams.get("fromDate");
-  const toDateParam = searchParams.get("toDate");
-  const page = Number(searchParams.get("page") ?? 1);
+  const filterDefs = useMemo(
+    () =>
+      buildAdminContactFilterDefs(
+        (k) => tStatus(k as Parameters<typeof tStatus>[0]),
+        (k) => tCategory(k as Parameters<typeof tCategory>[0]),
+        {
+          status: tFilters("status"),
+          category: tFilters("category"),
+          email: tFilters("email"),
+          ticketNumber: tFilters("ticketNumber"),
+          dateRange: tList("dateRange.label"),
+          emailPh: tFilters("email"),
+          ticketPh: tFilters("ticketNumber")
+        }
+      ),
+    [tStatus, tCategory, tFilters, tList]
+  );
+
+  const query = useListQuery(filterDefs);
 
   const params: AdminContactQuery = {
-    page,
+    page: query.page,
     limit: DEFAULT_PAGE_SIZE,
-    ...(isContactStatus(statusParam) && { status: statusParam }),
-    ...(isContactCategory(categoryParam) && { category: categoryParam }),
-    ...(emailParam && { email: emailParam }),
-    ...(ticketNumberParam && { ticketNumber: ticketNumberParam }),
-    ...(searchParam && { search: searchParam }),
-    ...(fromDateParam && { fromDate: fromDateParam }),
-    ...(toDateParam && { toDate: toDateParam })
+    ...(query.appliedSearch && { search: query.appliedSearch }),
+    ...(isContactStatus(query.filters.status) && {
+      status: query.filters.status
+    }),
+    ...(isContactCategory(query.filters.category) && {
+      category: query.filters.category
+    }),
+    ...(query.filters.email && { email: query.filters.email }),
+    ...(query.filters.ticketNumber && {
+      ticketNumber: query.filters.ticketNumber
+    }),
+    ...(query.filters.fromDate && { fromDate: query.filters.fromDate }),
+    ...(query.filters.toDate && { toDate: query.filters.toDate })
   };
 
   const { data, isLoading } = useAdminContactList(params);
-
-  const handleGoToPage = (newPage: number) => {
-    announce(tAnnounce("navigating", { page: newPage }));
-    const next = new URLSearchParams(searchParams.toString());
-    next.set("page", String(newPage));
-    router.push(`${pathname}?${next.toString()}`);
-  };
-
-  const hasActiveFilters = Array.from(searchParams.keys()).some(
-    (key) => key !== "page"
-  );
-  const handleClearFilters = () => {
-    router.push(pathname);
-  };
-
   const items = data?.items ?? [];
   const meta = data?.meta;
 
-  if (isLoading) {
-    return (
-      <>
-        <AdminContactFilters />
-        <TableLoadingAnnouncer
-          isLoading={isLoading}
-          message={tAnnounce("loading")}
-        />
-        <ContactTableSkeleton />
-      </>
-    );
-  }
+  const hasActiveFilters =
+    query.activeFilterCount > 0 || Boolean(query.appliedSearch);
+
+  const router = useRouter();
 
   return (
-    <>
-      <AdminContactFilters />
-      <TableLoadedAnnouncer
-        total={meta?.total}
-        message={
-          meta?.total !== undefined
-            ? tAnnounce("loaded", { total: meta.total })
-            : ""
-        }
+    <ListPageShell>
+      <ListPageHeader
+        title={tPage("title")}
+        description={tPage("description")}
       />
-      <div className="bg-card rounded-xl border">
-        <Table>
-          <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead scope="col">{tTable("ticketNumber")}</TableHead>
-              <TableHead scope="col">{tTable("email")}</TableHead>
-              <TableHead scope="col">{tTable("subject")}</TableHead>
-              <TableHead scope="col">{tTable("category")}</TableHead>
-              <TableHead scope="col">{tTable("status")}</TableHead>
-              <TableHead scope="col">{tTable("attachments")}</TableHead>
-              <TableHead scope="col">{tTable("createdAt")}</TableHead>
-              <TableHead scope="col">
-                <span className="sr-only">{tTable("actions")}</span>
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {items.length === 0 ? (
+      <ListToolbar
+        query={query}
+        filterDefs={filterDefs}
+        searchPlaceholder={tFilters("searchPlaceholder")}
+      />
+      <ListContent
+        isLoading={isLoading}
+        isEmpty={items.length === 0}
+        hasActiveFilters={hasActiveFilters}
+        onClearFilters={query.clearFilters}
+        skeleton={<ContactTableSkeleton />}
+        emptyTitle={tTable("empty")}
+      >
+        <div className="bg-card rounded-xl border">
+          <Table>
+            <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
+            <TableHeader>
               <TableRow>
-                <TableCell
-                  colSpan={TABLE_COLUMN_COUNT}
-                  className="py-12 text-center"
-                >
-                  <div className="flex flex-col items-center gap-3">
-                    <p className="text-muted-foreground text-sm">
-                      {tTable("empty")}
-                    </p>
-                    {hasActiveFilters && (
-                      <CustomButton
-                        variant="outline"
-                        size="sm"
-                        onClick={handleClearFilters}
-                      >
-                        {tFilters("clear")}
-                      </CustomButton>
-                    )}
-                  </div>
-                </TableCell>
+                <TableHead scope="col">{tTable("ticketNumber")}</TableHead>
+                <TableHead scope="col">{tTable("email")}</TableHead>
+                <TableHead scope="col">{tTable("subject")}</TableHead>
+                <TableHead scope="col">{tTable("category")}</TableHead>
+                <TableHead scope="col">{tTable("status")}</TableHead>
+                <TableHead scope="col">{tTable("attachments")}</TableHead>
+                <TableHead scope="col">{tTable("createdAt")}</TableHead>
+                <TableHead scope="col">
+                  <span className="sr-only">{tTable("actions")}</span>
+                </TableHead>
               </TableRow>
-            ) : (
-              items.map((item) => (
+            </TableHeader>
+            <TableBody>
+              {items.map((item) => (
                 <TableRow key={item._id}>
                   <TableCell className="font-mono text-xs font-medium">
                     {item.ticketNumber}
@@ -198,25 +175,19 @@ const AdminContactTable = () => {
                     </CustomButton>
                   </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-        {meta && meta.totalPages > 1 && (
-          <div className="flex items-center justify-between gap-2 border-t px-4 py-3">
-            <p className="text-muted-foreground text-sm">
-              {tPagination("page")} {meta.page} {tPagination("of")}{" "}
-              {meta.totalPages} · {meta.total} {tPagination("results")}
-            </p>
-            <CustomPagination
-              page={meta.page}
-              totalPages={meta.totalPages}
-              onPageChange={handleGoToPage}
-            />
-          </div>
-        )}
-      </div>
-    </>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </ListContent>
+      <ListPagination
+        page={meta?.page ?? query.page}
+        totalPages={meta?.totalPages ?? 1}
+        total={meta?.total ?? 0}
+        onPageChange={query.setPage}
+        loading={isLoading}
+      />
+    </ListPageShell>
   );
 };
 
