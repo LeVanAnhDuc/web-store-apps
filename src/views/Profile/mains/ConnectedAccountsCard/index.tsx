@@ -10,6 +10,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import ConnectedAccountRow from "../../components/ConnectedAccountRow";
 // hooks
 import { useAnnounce } from "@/hooks";
@@ -45,12 +46,9 @@ const ConnectedAccountsCard = () => {
   return (
     <Card aria-labelledby="connected-accounts-title">
       <CardHeader className="border-b">
-        <h3
-          id="connected-accounts-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
+        <CardSectionTitle id="connected-accounts-title">
           {t("title")}
-        </h3>
+        </CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="px-0">

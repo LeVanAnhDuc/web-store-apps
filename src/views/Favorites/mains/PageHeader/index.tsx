@@ -2,6 +2,7 @@
 import { Bookmark } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 // components
+import PageTitle from "@/components/PageTitle";
 import { Badge } from "@/components/ui/badge";
 // others
 import { FAVORITE_APPS_MOCK } from "@/mocks/Favorites";
@@ -11,9 +12,7 @@ const PageHeader = async () => {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="flex flex-col gap-1.5">
-        <h1 className="text-foreground text-3xl font-bold tracking-tight">
-          {t("title")}
-        </h1>
+        <PageTitle>{t("title")}</PageTitle>
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
       <Badge

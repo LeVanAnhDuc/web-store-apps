@@ -3,6 +3,7 @@
 // libs
 import { useTranslations } from "next-intl";
 // components
+import EntityName from "@/components/EntityName";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import StatBadge from "../../components/StatBadge";
@@ -31,9 +32,7 @@ const ProfileCard = () => {
             </AvatarFallback>
           </Avatar>
           <div className="mb-2 min-w-0 flex-1">
-            <h2 className="text-foreground truncate text-lg font-semibold">
-              {userInfo.fullName}
-            </h2>
+            <EntityName className="truncate">{userInfo.fullName}</EntityName>
             <p className="text-muted-foreground truncate text-sm">
               {userInfo.email}
             </p>

@@ -2,6 +2,7 @@
 import { getTranslations } from "next-intl/server";
 // components
 import CustomBreadcrumb from "@/components/CustomBreadcrumb";
+import PageTitle from "@/components/PageTitle";
 // dataSources
 import { ADMIN_LOGIN_HISTORY_DETAIL_BREADCRUMB } from "@/dataSources/AdminLoginHistoryDetail";
 
@@ -13,9 +14,7 @@ const AdminLoginHistoryDetailHeader = async () => {
         items={ADMIN_LOGIN_HISTORY_DETAIL_BREADCRUMB}
         namespace="loginHistory.admin.detail.breadcrumb"
       />
-      <h1 className="text-foreground text-2xl font-bold tracking-tight">
-        {t("title")}
-      </h1>
+      <PageTitle>{t("title")}</PageTitle>
     </div>
   );
 };

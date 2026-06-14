@@ -2,6 +2,7 @@
 // libs
 import { useTranslations } from "next-intl";
 // components
+import SectionHeading from "@/components/SectionHeading";
 import QuickAccessCard from "../../components/QuickAccessCard";
 import { Skeleton } from "@/components/ui/skeleton";
 // others
@@ -25,12 +26,7 @@ const QuickAccessSection = () => {
     >
       <div className="flex items-center justify-between">
         <div>
-          <h2
-            id="quick-access-title"
-            className="text-foreground text-xl font-bold"
-          >
-            {t("title")}
-          </h2>
+          <SectionHeading id="quick-access-title">{t("title")}</SectionHeading>
           <p className="text-muted-foreground text-sm">{t("subtitle")}</p>
         </div>
       </div>

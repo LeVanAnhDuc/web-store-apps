@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { Edit, MoreHorizontal, Eye, EyeOff } from "lucide-react";
+import { Pencil, MoreHorizontal, Eye, EyeOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 // types
 import type { WebApp } from "@/types/AdminApps";
@@ -44,7 +44,7 @@ const AppRowActions = ({
           className="cursor-pointer gap-2"
           onSelect={() => onEdit(app)}
         >
-          <Edit className="size-4" aria-hidden="true" />
+          <Pencil className="size-4" aria-hidden="true" />
           <span>{t("edit")}</span>
         </DropdownMenuItem>
         {isActive ? (

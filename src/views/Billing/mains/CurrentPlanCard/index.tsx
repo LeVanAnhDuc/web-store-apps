@@ -10,6 +10,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import CustomButton from "@/components/CustomButton";
 
 const CurrentPlanCard = async () => {
@@ -19,12 +20,9 @@ const CurrentPlanCard = async () => {
   return (
     <Card aria-labelledby="current-plan-title">
       <CardHeader className="border-b">
-        <h3
-          id="current-plan-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
+        <CardSectionTitle id="current-plan-title">
           {t("title")}
-        </h3>
+        </CardSectionTitle>
         <CardDescription>
           {t("renewsOn", { date: "June 1, 2026" })}
         </CardDescription>

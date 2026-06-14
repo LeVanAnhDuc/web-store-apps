@@ -5,6 +5,7 @@ import { CheckCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
+import PageTitle from "@/components/PageTitle";
 // hooks
 import { useAnnounce } from "@/hooks";
 import useMarkAllRead from "../../hooks/useMarkAllRead";
@@ -22,12 +23,7 @@ const PageHeader = () => {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="flex flex-col gap-1.5">
-        <h1
-          id="notifications-title"
-          className="text-foreground text-3xl font-bold tracking-tight"
-        >
-          {t("title")}
-        </h1>
+        <PageTitle id="notifications-title">{t("title")}</PageTitle>
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
       <CustomButton

@@ -4,7 +4,7 @@ import QuickAccessSection from "./mains/QuickAccessSection";
 import RecommendedSection from "./mains/RecommendedSection";
 
 const Home = () => (
-  <div className="flex flex-col gap-8">
+  <div className="flex flex-col gap-6">
     <GreetingSection />
     <QuickAccessSection />
     <RecommendedSection />

@@ -64,7 +64,7 @@ const AppsBoard = () => {
     announce(t("announce.pageChanged", { page: next }));
   };
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-6">
       <TableLoadingAnnouncer
         isLoading={isLoading}
         message={t("announce.loading")}

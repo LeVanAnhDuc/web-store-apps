@@ -11,6 +11,8 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
+import SectionHeading from "@/components/SectionHeading";
+import HeroTitle from "@/components/HeroTitle";
 import { Card } from "@/components/ui/card";
 import CustomButton from "@/components/CustomButton";
 import StatCard from "../../components/StatCard";
@@ -46,9 +48,7 @@ const GreetingSection = () => {
     <div className="flex flex-col gap-5">
       <Card className="from-card to-primary/5 flex flex-row items-center justify-between gap-6 rounded-2xl border bg-gradient-to-b p-8 md:p-10">
         <div className="flex flex-col gap-3">
-          <h1 className="text-foreground text-3xl font-bold md:text-4xl">
-            {greeting}, Anh Duc <span aria-hidden="true">👋</span>
-          </h1>
+          <HeroTitle>{greeting}, Anh Duc</HeroTitle>
           <p className="text-muted-foreground text-sm font-medium">
             {t("greeting.date")}
           </p>
@@ -112,12 +112,9 @@ const GreetingSection = () => {
       >
         <div className="mb-5 flex items-center justify-between">
           <div className="flex flex-col gap-0.5">
-            <h2
-              id="weekly-activity-title"
-              className="text-foreground text-xl font-bold"
-            >
+            <SectionHeading id="weekly-activity-title">
               {t("weeklyActivity.title")}
-            </h2>
+            </SectionHeading>
             <p className="text-muted-foreground text-sm">
               {t("weeklyActivity.subtitle")}
             </p>
@@ -170,7 +167,6 @@ const GreetingSection = () => {
           </div>
           <div className="flex flex-col gap-0.5">
             <p className="text-warning-foreground text-sm font-bold">
-              <span aria-hidden="true">🔥 </span>
               {t("achievement.title")}
             </p>
             <p className="text-warning-foreground/80 text-xs">

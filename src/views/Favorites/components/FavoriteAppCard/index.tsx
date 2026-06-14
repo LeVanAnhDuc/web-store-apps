@@ -3,6 +3,7 @@ import { Heart, Star } from "lucide-react";
 // types
 import type { LucideIcon } from "lucide-react";
 // components
+import CardItemTitle from "@/components/CardItemTitle";
 import CustomButton from "@/components/CustomButton";
 import { Card } from "@/components/ui/card";
 // others
@@ -48,12 +49,7 @@ const FavoriteAppCard = ({
             <Icon className="text-primary-foreground size-6" />
           </div>
           <div className="flex flex-col gap-0.5">
-            <h3
-              id={`fav-${name}-title`}
-              className="text-foreground text-base font-semibold"
-            >
-              {name}
-            </h3>
+            <CardItemTitle id={`fav-${name}-title`}>{name}</CardItemTitle>
             <span className="text-muted-foreground text-xs">{category}</span>
           </div>
         </div>

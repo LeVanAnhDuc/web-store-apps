@@ -10,6 +10,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import NotificationToggleRow from "../../components/NotificationToggleRow";
 // hooks
 import { useAnnounce } from "@/hooks";
@@ -45,12 +46,9 @@ const NotificationPreferencesCard = () => {
   return (
     <Card aria-labelledby="notification-prefs-title">
       <CardHeader className="border-b">
-        <h3
-          id="notification-prefs-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
+        <CardSectionTitle id="notification-prefs-title">
           {t("title")}
-        </h3>
+        </CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="px-0">
