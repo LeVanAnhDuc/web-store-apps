@@ -83,7 +83,7 @@ const HistoryList = () => {
           </CustomButton>
         </div>
       </div>
-      <div className="flex flex-col gap-7">
+      <div className="flex flex-col gap-6">
         {grouped.map((group) => (
           <section
             key={group.key}
