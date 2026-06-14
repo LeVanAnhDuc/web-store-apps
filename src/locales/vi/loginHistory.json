@@ -101,6 +101,11 @@
       "anomalyNone": "Không có",
       "anomalyYes": "Có",
       "anomalyNo": "Không",
+      "announce": {
+        "loading": "Đang tải chi tiết lần đăng nhập...",
+        "loaded": "Đã tải chi tiết lần đăng nhập",
+        "error": "Không thể tải bản ghi đăng nhập này. Vui lòng thử lại."
+      },
       "fields": {
         "userId": "User ID",
         "usernameAttempted": "Tên đăng nhập đã dùng",

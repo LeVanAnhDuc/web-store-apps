@@ -101,6 +101,11 @@
       "anomalyNone": "None",
       "anomalyYes": "Yes",
       "anomalyNo": "No",
+      "announce": {
+        "loading": "Loading login attempt detail...",
+        "loaded": "Login attempt detail loaded",
+        "error": "Could not load this login record. Please try again."
+      },
       "fields": {
         "userId": "User ID",
         "usernameAttempted": "Username Attempted",

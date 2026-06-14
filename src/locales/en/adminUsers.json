@@ -27,6 +27,7 @@
     "neverLoggedIn": "Never",
     "empty": "No users match",
     "emptyDescription": "Try adjusting the search or clearing the filter.",
+    "error": "Could not load users. Please try again.",
     "rowMenuLabel": "User actions"
   },
   "pagination": {
@@ -67,6 +68,10 @@
     "error": "Something went wrong. Please try again."
   },
   "announce": {
+    "loading": "Loading users...",
+    "loaded": "{total} users loaded",
+    "navigating": "Navigating to page {page}",
+    "error": "Could not load users. Please try again.",
     "passwordReset": "Password reset email sent to {name}.",
     "locked": "{name}'s account locked.",
     "unlocked": "{name}'s account unlocked.",
