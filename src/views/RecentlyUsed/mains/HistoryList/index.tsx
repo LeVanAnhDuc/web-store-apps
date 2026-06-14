@@ -58,7 +58,7 @@ const HistoryList = () => {
     announce(t("announce.cleared"));
   };
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col gap-1.5">
           <PageTitle>{t("title")}</PageTitle>

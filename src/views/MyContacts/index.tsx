@@ -8,10 +8,10 @@ const MyContacts = async () => {
   const t = await getTranslations("contactAdmin.myContacts");
 
   return (
-    <div className="space-y-6 p-6">
-      <div>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1.5">
         <PageTitle>{t("title")}</PageTitle>
-        <p className="text-muted-foreground mt-1 text-sm">{t("description")}</p>
+        <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
       <MyContactsTable />
     </div>
