@@ -47,7 +47,7 @@ const GreetingSection = () => {
       <Card className="from-card to-primary/5 flex flex-row items-center justify-between gap-6 rounded-2xl border bg-gradient-to-b p-8 md:p-10">
         <div className="flex flex-col gap-3">
           <h1 className="text-foreground text-3xl font-bold md:text-4xl">
-            {greeting}, Anh Duc <span aria-hidden="true">👋</span>
+            {greeting}, Anh Duc
           </h1>
           <p className="text-muted-foreground text-sm font-medium">
             {t("greeting.date")}
@@ -170,7 +170,6 @@ const GreetingSection = () => {
           </div>
           <div className="flex flex-col gap-0.5">
             <p className="text-warning-foreground text-sm font-bold">
-              <span aria-hidden="true">🔥 </span>
               {t("achievement.title")}
             </p>
             <p className="text-warning-foreground/80 text-xs">
