@@ -8,7 +8,6 @@ import type { NotificationPanelTab } from "@/types/Notification";
 // components
 import CustomButton from "@/components/CustomButton";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 // hooks
 import { useAnnounce } from "@/hooks";
@@ -86,50 +85,48 @@ const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
           ))}
         </div>
       </div>
-      <ScrollArea className="max-h-[360px]">
-        <div className="px-2 py-1">
-          {items.map((item) => {
-            const visual = NOTIFICATION_VISUALS[item.type];
-            const Icon = visual.icon;
-            return (
+      <div className="max-h-[360px] overflow-y-auto px-2 py-1">
+        {items.map((item) => {
+          const visual = NOTIFICATION_VISUALS[item.type];
+          const Icon = visual.icon;
+          return (
+            <div
+              key={item.id}
+              className={cn(
+                "hover:bg-muted/50 relative flex cursor-pointer items-start gap-3 rounded-lg px-2 py-3 transition-colors",
+                item.isRead && "opacity-50"
+              )}
+            >
+              {!item.isRead && (
+                <span className="bg-info absolute top-1/2 left-1 size-2 -translate-y-1/2 rounded-full" />
+              )}
               <div
-                key={item.id}
                 className={cn(
-                  "hover:bg-muted/50 relative flex cursor-pointer items-start gap-3 rounded-lg px-2 py-3 transition-colors",
-                  item.isRead && "opacity-50"
+                  "flex size-10 shrink-0 items-center justify-center rounded-full",
+                  visual.iconBg,
+                  visual.iconColor
                 )}
+                aria-hidden="true"
               >
-                {!item.isRead && (
-                  <span className="bg-info absolute top-1/2 left-1 size-2 -translate-y-1/2 rounded-full" />
-                )}
-                <div
-                  className={cn(
-                    "flex size-10 shrink-0 items-center justify-center rounded-full",
-                    visual.iconBg,
-                    visual.iconColor
-                  )}
-                  aria-hidden="true"
-                >
-                  <Icon className="size-5" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-foreground truncate text-sm font-semibold">
-                      {item.title}
-                    </span>
-                    <span className="text-muted-foreground shrink-0 text-xs">
-                      {relativeTime(item.createdAt, locale)}
-                    </span>
-                  </div>
-                  <p className="text-muted-foreground mt-1 text-sm leading-snug">
-                    {item.message}
-                  </p>
-                </div>
+                <Icon className="size-5" />
               </div>
-            );
-          })}
-        </div>
-      </ScrollArea>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-foreground truncate text-sm font-semibold">
+                    {item.title}
+                  </span>
+                  <span className="text-muted-foreground shrink-0 text-xs">
+                    {relativeTime(item.createdAt, locale)}
+                  </span>
+                </div>
+                <p className="text-muted-foreground mt-1 text-sm leading-snug">
+                  {item.message}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
       <Separator />
       <div className="flex justify-center px-4 py-3">
         <CustomButton
