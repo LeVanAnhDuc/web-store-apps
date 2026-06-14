@@ -112,9 +112,9 @@ test.describe("Favorites page (/favorites)", () => {
     await waitForFavorites(page);
     await expect(page.getByText(EMPTY_TEXT)).toBeVisible();
 
-    // Clear → all back.
+    // Clear → all back. Clearing reverts to the initial query key, which React
+    // Query serves from cache (no network GET fires), so assert the UI directly.
     await search.fill("");
-    await waitForFavorites(page);
     await expect(cardTitle(page, "Blog")).toBeVisible();
     await expect(cardTitle(page, "Notes")).toBeVisible();
   });
@@ -140,10 +140,9 @@ test.describe("Favorites page (/favorites)", () => {
     await filtered;
     await expect(realChip).toHaveAttribute("aria-pressed", "true");
 
-    // "All" resets the category filter and re-lists everything.
-    const reset = waitForFavorites(page);
+    // "All" resets the category filter. It reverts to the initial query key,
+    // served from React Query cache (no network GET), so assert state directly.
     await chips.first().click();
-    await reset;
     await expect(chips.first()).toHaveAttribute("aria-pressed", "true");
     await expect(realChip).toHaveAttribute("aria-pressed", "false");
   });

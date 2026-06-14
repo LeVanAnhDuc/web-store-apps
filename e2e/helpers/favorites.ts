@@ -34,13 +34,17 @@ async function login(ctx: APIRequestContext): Promise<string> {
   return token;
 }
 
+// Cache the bearer token module-wide: logging in on every helper call exhausts
+// the BE login rate-limit (30 / 15 min) across the suite's setup/teardown hooks.
+let cachedToken: string | null = null;
+
 async function withApi<T>(
   fn: (ctx: APIRequestContext, token: string) => Promise<T>
 ): Promise<T> {
   const ctx = await request.newContext({ baseURL: BASE_URL });
   try {
-    const token = await login(ctx);
-    return await fn(ctx, token);
+    if (!cachedToken) cachedToken = await login(ctx);
+    return await fn(ctx, cachedToken);
   } finally {
     await ctx.dispose();
   }
