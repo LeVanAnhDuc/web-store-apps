@@ -24,6 +24,7 @@ const DISPLAY_NAME_MAX = 80;
 const DESCRIPTION_MAX = 500;
 const URL_MAX = 2000;
 const URL_PATTERN = /^https?:\/\/.+/i;
+const REDIRECT_URIS_MAX = 20;
 
 const optionalUrl = z
   .string()
@@ -56,5 +57,8 @@ export const adminAppValidation = z.object({
   [REQUIRED_ROLES]: z
     .array(z.enum([USER, ADMIN]))
     .min(1, { message: "required" }),
-  [REDIRECT_URIS]: z.array(requiredUrl).min(1, { message: "required" })
+  [REDIRECT_URIS]: z
+    .array(requiredUrl)
+    .min(1, { message: "required" })
+    .max(REDIRECT_URIS_MAX, { message: "maxItems" })
 });

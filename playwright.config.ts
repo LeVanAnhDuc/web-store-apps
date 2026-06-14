@@ -48,7 +48,11 @@ export default defineConfig({
     { name: "admin-setup", testMatch: /admin\.setup\.ts/ },
     {
       name: "chromium",
-      testIgnore: /admin-apps\//,
+      // Regular-user project. Ignore only the three admin-only suites (they run
+      // under the `admin` project). `admin-authz/` is NOT in this list, so its
+      // AuthZ denial tests run here as a logged-in NON-admin — exactly what they
+      // need to verify.
+      testIgnore: /(?:admin-apps|admin-users-list|admin-login-history)\//,
       use: {
         ...devices["Desktop Chrome"],
         storageState: "e2e/.auth/user.json"
@@ -57,7 +61,9 @@ export default defineConfig({
     },
     {
       name: "admin",
-      testMatch: /admin-apps\/.*\.e2e\.ts/,
+      // All admin-only suites run under the admin storageState.
+      testMatch:
+        /(?:admin-apps|admin-users-list|admin-login-history)\/.*\.e2e\.ts/,
       use: {
         ...devices["Desktop Chrome"],
         storageState: "e2e/.auth/admin.json"

@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 // types
@@ -30,7 +30,11 @@ import AdminUsersResetPasswordDialog from "../AdminUsersResetPasswordDialog";
 import AdminUsersLockDialog from "../AdminUsersLockDialog";
 import AdminUsersForceLogoutDialog from "../AdminUsersForceLogoutDialog";
 import TablePagination from "@/components/TablePagination";
+// ghosts
+import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
+import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
 // hooks
+import { useAnnounce } from "@/hooks";
 import useAdminUsersList from "../../hooks/useAdminUsersList";
 // others
 import { formatDateTimeShort } from "@/utils";
@@ -50,6 +54,8 @@ const isStatus = (value: unknown): value is AdminUserStatusFilter =>
 const AdminUsersTable = () => {
   const t = useTranslations("adminUsers.table");
   const tPagination = useTranslations("adminUsers.pagination");
+  const tAnnounce = useTranslations("adminUsers.announce");
+  const { announce } = useAnnounce();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -73,11 +79,16 @@ const AdminUsersTable = () => {
     null
   );
 
-  const { data, isLoading } = useAdminUsersList(params);
+  const { data, isLoading, isError } = useAdminUsersList(params);
   const items = data?.items ?? [];
   const meta = data?.meta;
 
+  useEffect(() => {
+    if (isError) announce(tAnnounce("error"));
+  }, [isError, announce, tAnnounce]);
+
   const handlePageChange = (newPage: number) => {
+    announce(tAnnounce("navigating", { page: newPage }));
     const next = new URLSearchParams(searchParams.toString());
     next.set("page", String(newPage));
     router.push(`${pathname}?${next.toString()}`);
@@ -86,6 +97,18 @@ const AdminUsersTable = () => {
   return (
     <>
       <AdminUsersToolbar />
+      <TableLoadingAnnouncer
+        isLoading={isLoading}
+        message={tAnnounce("loading")}
+      />
+      <TableLoadedAnnouncer
+        total={meta?.total}
+        message={
+          meta?.total !== undefined
+            ? tAnnounce("loaded", { total: meta.total })
+            : ""
+        }
+      />
       {isLoading ? (
         <UsersTableSkeleton />
       ) : (
@@ -104,7 +127,18 @@ const AdminUsersTable = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {items.length === 0 ? (
+              {isError ? (
+                <TableRow>
+                  <TableCell colSpan={TABLE_COLUMN_COUNT}>
+                    <p
+                      className="text-destructive py-16 text-center text-sm"
+                      role="alert"
+                    >
+                      {t("error")}
+                    </p>
+                  </TableCell>
+                </TableRow>
+              ) : items.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={TABLE_COLUMN_COUNT}>
                     <UsersEmptyState />
