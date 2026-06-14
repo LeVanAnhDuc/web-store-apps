@@ -1,7 +1,6 @@
 "use client";
 
 // libs
-import { useTheme } from "next-themes";
 import { useState, useEffect, useRef } from "react";
 import {
   MessageCircle,
@@ -105,7 +104,6 @@ interface IconPosition {
 }
 
 const AnimatedBackground = () => {
-  const { resolvedTheme } = useTheme();
   const [positions, setPositions] = useState<IconPosition[]>([]);
   const [mounted, setMounted] = useState(false);
   const spotlightRef = useRef<HTMLDivElement>(null);
@@ -187,10 +185,6 @@ const AnimatedBackground = () => {
 
   if (!mounted) return null;
 
-  const isDark = resolvedTheme === "dark";
-  const highlightColor = isDark ? "rgb(168, 85, 247)" : "rgb(59, 130, 246)";
-  const dimColor = isDark ? "rgb(100, 100, 100)" : "rgb(160, 160, 160)";
-
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden">
       <div className="bg-background absolute inset-0" />
@@ -202,28 +196,20 @@ const AnimatedBackground = () => {
         <div
           className="h-full w-full rounded-full blur-[150px]"
           style={{
-            background: isDark
-              ? "radial-gradient(circle, rgba(99,102,241,0.4) 0%, rgba(168,85,247,0.3) 30%, transparent 70%)"
-              : "radial-gradient(circle, rgba(59,130,246,0.5) 0%, rgba(147,197,253,0.4) 30%, transparent 70%)"
+            background:
+              "radial-gradient(circle, color-mix(in oklch, var(--primary) 35%, transparent) 0%, color-mix(in oklch, var(--primary) 20%, transparent) 30%, transparent 70%)"
           }}
         />
       </div>
       <div
         className="absolute inset-0"
         style={{
-          background: isDark
-            ? [
-                "radial-gradient(circle at 20% 20%, rgba(99,102,241,0.08) 0%, transparent 50%)",
-                "radial-gradient(circle at 80% 20%, rgba(168,85,247,0.08) 0%, transparent 50%)",
-                "radial-gradient(circle at 80% 80%, rgba(59,130,246,0.08) 0%, transparent 50%)",
-                "radial-gradient(circle at 20% 80%, rgba(99,102,241,0.08) 0%, transparent 50%)"
-              ].join(", ")
-            : [
-                "radial-gradient(circle at 20% 20%, rgba(147,197,253,0.15) 0%, transparent 50%)",
-                "radial-gradient(circle at 80% 20%, rgba(196,181,253,0.15) 0%, transparent 50%)",
-                "radial-gradient(circle at 80% 80%, rgba(165,180,252,0.15) 0%, transparent 50%)",
-                "radial-gradient(circle at 20% 80%, rgba(147,197,253,0.15) 0%, transparent 50%)"
-              ].join(", ")
+          background: [
+            "radial-gradient(circle at 20% 20%, color-mix(in oklch, var(--primary) 8%, transparent) 0%, transparent 50%)",
+            "radial-gradient(circle at 80% 20%, color-mix(in oklch, var(--primary) 8%, transparent) 0%, transparent 50%)",
+            "radial-gradient(circle at 80% 80%, color-mix(in oklch, var(--primary) 8%, transparent) 0%, transparent 50%)",
+            "radial-gradient(circle at 20% 80%, color-mix(in oklch, var(--primary) 8%, transparent) 0%, transparent 50%)"
+          ].join(", ")
         }}
       />
       <div className="absolute inset-0">
@@ -231,7 +217,12 @@ const AnimatedBackground = () => {
           <div
             key={idx}
             className="absolute"
-            style={{ left: pos.x, top: pos.y, opacity: 0.15, color: dimColor }}
+            style={{
+              left: pos.x,
+              top: pos.y,
+              opacity: 0.15,
+              color: "var(--muted-foreground)"
+            }}
           >
             <pos.Icon size={40} strokeWidth={1.5} />
           </div>
@@ -246,7 +237,7 @@ const AnimatedBackground = () => {
           <div
             key={idx}
             className="absolute"
-            style={{ left: pos.x, top: pos.y, color: highlightColor }}
+            style={{ left: pos.x, top: pos.y, color: "var(--primary)" }}
           >
             <pos.Icon size={40} strokeWidth={1.5} />
           </div>
@@ -255,9 +246,8 @@ const AnimatedBackground = () => {
       <div
         className="absolute inset-0 opacity-[0.02]"
         style={{
-          backgroundImage: isDark
-            ? "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)"
-            : "linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)",
+          backgroundImage:
+            "linear-gradient(color-mix(in oklch, var(--foreground) 5%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklch, var(--foreground) 5%, transparent) 1px, transparent 1px)",
           backgroundSize: "60px 60px"
         }}
       />
