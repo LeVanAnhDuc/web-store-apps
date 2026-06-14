@@ -22,3 +22,4 @@ export {
   useIsMobile
 };
 export { default as useDebouncedValue } from "./useDebouncedValue";
+export { default as useToggleFavorite } from "./useToggleFavorite";

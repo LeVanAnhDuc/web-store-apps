@@ -6,23 +6,36 @@ import CardItemTitle from "@/components/CardItemTitle";
 import { Card } from "@/components/ui/card";
 import CustomButton from "@/components/CustomButton";
 import CustomImage from "@/components/CustomImage";
+import FavoriteButton from "@/components/FavoriteButton";
 // others
 import { cn } from "@/libs/utils";
 
 const RecommendedAppCard = ({
+  id,
   name,
   category,
   iconUrl,
   homeUrl,
   gradient,
-  openLabel
+  openLabel,
+  isFavorite,
+  addFavoriteLabel,
+  removeFavoriteLabel,
+  togglePending,
+  onToggleFavorite
 }: {
+  id: string;
   name: string;
   category: string | null;
   iconUrl: string | null;
   homeUrl: string;
   gradient: string;
   openLabel: string;
+  isFavorite: boolean;
+  addFavoriteLabel: string;
+  removeFavoriteLabel: string;
+  togglePending?: boolean;
+  onToggleFavorite: () => void;
 }) => {
   const initial = name.charAt(0).toUpperCase();
   const handleOpen = () => {
@@ -32,6 +45,7 @@ const RecommendedAppCard = ({
     <Card
       className="flex flex-col gap-4 rounded-xl border p-6"
       aria-labelledby={`rec-${name}-title`}
+      data-app-id={id}
     >
       <div
         className={cn(
@@ -52,11 +66,20 @@ const RecommendedAppCard = ({
           initial
         )}
       </div>
-      <div className="flex flex-col gap-1">
-        <CardItemTitle id={`rec-${name}-title`}>{name}</CardItemTitle>
-        {category && (
-          <span className="text-muted-foreground text-xs">{category}</span>
-        )}
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex flex-col gap-1">
+          <CardItemTitle id={`rec-${name}-title`}>{name}</CardItemTitle>
+          {category && (
+            <span className="text-muted-foreground text-xs">{category}</span>
+          )}
+        </div>
+        <FavoriteButton
+          isFavorite={isFavorite}
+          pending={togglePending}
+          addLabel={`${addFavoriteLabel}: ${name}`}
+          removeLabel={`${removeFavoriteLabel}: ${name}`}
+          onToggle={onToggleFavorite}
+        />
       </div>
       <CustomButton
         size="sm"

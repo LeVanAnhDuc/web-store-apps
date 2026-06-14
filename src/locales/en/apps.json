@@ -13,7 +13,9 @@
     "list": "List view"
   },
   "card": {
-    "open": "Open"
+    "open": "Open",
+    "addFavorite": "Add to favorites",
+    "removeFavorite": "Remove from favorites"
   },
   "empty": "No apps found.",
   "error": "Could not load apps. Please try again.",

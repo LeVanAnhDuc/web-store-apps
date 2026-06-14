@@ -44,6 +44,8 @@ const END_POINTS = {
   APP_CATEGORIES: "/apps/categories",
   ADMIN_APPS: "/admin/apps",
   ADMIN_APP_CATEGORIES: "/admin/apps/categories",
+  FAVORITES: "/users/me/favorites",
+  FAVORITE_TOGGLE: (appId: string) => `/users/me/favorites/${appId}`,
 
   // Users (admin)
   ADMIN_USERS: "/admin/users",
