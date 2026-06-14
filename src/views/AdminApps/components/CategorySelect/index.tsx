@@ -1,5 +1,7 @@
 "use client";
 
+// libs
+import { useTranslations } from "next-intl";
 // types
 import type { AdminAppFormValues, WebAppCategory } from "@/types/AdminApps";
 // components
@@ -21,6 +23,7 @@ import AppFormMessage from "../AppFormMessage";
 import { useFieldProps } from "@/hooks";
 // others
 import CONSTANTS from "@/constants";
+import { resolveCategoryLabel } from "@/utils";
 
 const { CATEGORY_ID } = CONSTANTS.FIELD_NAMES.ADMIN_APP_FIELD_NAMES;
 
@@ -36,6 +39,7 @@ const CategorySelect = ({
   disabled?: boolean;
 }) => {
   const { field, fieldState } = useFieldProps<AdminAppFormValues>(CATEGORY_ID);
+  const t = useTranslations("common.categories");
 
   return (
     <FormField
@@ -55,14 +59,21 @@ const CategorySelect = ({
             <FormControl>
               <CustomSelectTrigger aria-invalid={fieldState.invalid}>
                 <SelectValue placeholder={placeholder}>
-                  {categories.find((cat) => cat._id === field.value)?.name}
+                  {(() => {
+                    const selected = categories.find(
+                      (cat) => cat._id === field.value
+                    );
+                    return selected
+                      ? resolveCategoryLabel(t, selected.slug, selected.name)
+                      : null;
+                  })()}
                 </SelectValue>
               </CustomSelectTrigger>
             </FormControl>
             <SelectContent>
               {categories.map((cat) => (
                 <SelectItem key={cat._id} value={cat._id}>
-                  {cat.name}
+                  {resolveCategoryLabel(t, cat.slug, cat.name)}
                 </SelectItem>
               ))}
             </SelectContent>

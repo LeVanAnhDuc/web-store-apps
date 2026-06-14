@@ -18,12 +18,14 @@ import { useAnnounce, useDebouncedValue } from "@/hooks";
 // others
 import useApps from "../../hooks/useApps";
 import useAppCategories from "../../hooks/useAppCategories";
+import { resolveCategoryLabel } from "@/utils";
 import { cn } from "@/libs/utils";
 
 const PAGE_SIZE = 12;
 
 const AppsBoard = () => {
   const t = useTranslations("apps");
+  const tCat = useTranslations("common.categories");
   const { announce } = useAnnounce();
   const [search, setSearch] = useState("");
   const [view, setView] = useState<"grid" | "list">("grid");
@@ -48,8 +50,10 @@ const AppsBoard = () => {
   const handleCategoryChange = (id: string | null) => {
     setActiveCategoryId(id);
     setPage(1);
+    const selected = id ? categories?.find((c) => c._id === id) : undefined;
     const label = id
-      ? categories?.find((c) => c._id === id)?.displayName
+      ? selected &&
+        resolveCategoryLabel(tCat, selected.slug, selected.displayName)
       : t("categories.all");
     if (label) {
       announce(t("announce.categoryChanged", { category: label }));
@@ -146,7 +150,15 @@ const AppsBoard = () => {
                 key={app._id}
                 id={app._id}
                 displayName={app.displayName}
-                category={app.category}
+                category={
+                  app.category
+                    ? resolveCategoryLabel(
+                        tCat,
+                        app.categorySlug ?? "",
+                        app.category
+                      )
+                    : null
+                }
                 description={app.description}
                 iconUrl={app.iconUrl}
                 homeUrl={app.homeUrl}

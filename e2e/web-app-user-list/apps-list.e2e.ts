@@ -193,6 +193,34 @@ test.describe("Apps catalog (/vi/apps)", () => {
     await expect(pills.first()).toHaveAttribute("aria-pressed", "true");
     await expect(realPill).toHaveAttribute("aria-pressed", "false");
   });
+
+  // Row 9 — i18n VI depth (category localization): category pills are localized
+  // via slug → CATEGORY_LABEL_KEY → common.categories. On /vi/apps the seeded
+  // user-visible categories (content/identity/productivity) must render their VI
+  // labels, NOT the raw English. We assert the `productivity` pill shows
+  // "Năng suất" (vi) and that the English "Productivity" is absent in the group.
+  // Seed: Notes (productivity, ACTIVE, USER role) is visible to user@test.com, so
+  // GET /apps/categories includes the productivity category. [EP en→vi]
+  test("renders category pills with VI labels (productivity → 'Năng suất')", async ({
+    page
+  }) => {
+    await page.goto(APPS_PATH);
+    await page.waitForResponse(
+      (r) =>
+        r.url().includes("/api/v1/apps") &&
+        !r.url().includes("/apps/categories") &&
+        r.status() === 200
+    );
+
+    const group = page.getByRole("group", { name: "Lọc theo danh mục" });
+    // The localized VI pill renders; the English label must NOT leak through.
+    await expect(
+      group.getByRole("button", { name: "Năng suất" })
+    ).toBeVisible();
+    await expect(
+      group.getByRole("button", { name: "Productivity" })
+    ).toHaveCount(0);
+  });
 });
 
 test.describe("Apps catalog (/apps EN locale)", () => {

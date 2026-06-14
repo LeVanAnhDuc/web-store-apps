@@ -4,7 +4,7 @@
   "toolbar": {
     "search": "Tìm kiếm",
     "searchPlaceholder": "Tìm theo tên hoặc email…",
-    "role": "Role",
+    "role": "Vai trò",
     "status": "Trạng thái",
     "all": "Tất cả",
     "clear": "Xóa bộ lọc"
@@ -19,7 +19,7 @@
   },
   "table": {
     "user": "Người dùng",
-    "role": "Role",
+    "role": "Vai trò",
     "status": "Trạng thái",
     "lastLoginAt": "Đăng nhập gần nhất",
     "createdAt": "Ngày tạo",

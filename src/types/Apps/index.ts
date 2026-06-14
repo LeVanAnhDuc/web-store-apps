@@ -5,6 +5,7 @@ export interface UserApp {
   iconUrl: string | null;
   homeUrl: string;
   category: string | null;
+  categorySlug: string | null;
 }
 
 export interface UserAppsMeta {
@@ -29,4 +30,5 @@ export interface UserAppsQueryParams {
 export interface UserCategory {
   _id: string;
   displayName: string;
+  slug: string;
 }
