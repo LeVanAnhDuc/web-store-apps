@@ -11,8 +11,7 @@ const ADMIN_EMAIL = "admin@test.com";
 const USER_EMAIL = "user@test.com";
 const INACTIVE_EMAIL = "inactive@test.com";
 
-const gotoUsers = (page: Page, query = "") =>
-  page.goto(`/admin/users${query}`);
+const gotoUsers = (page: Page, query = "") => page.goto(`/admin/users${query}`);
 
 const cell = (page: Page, email: string) =>
   page.getByText(email, { exact: true });
