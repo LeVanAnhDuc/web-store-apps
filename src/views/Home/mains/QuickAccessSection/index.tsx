@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import SectionHeading from "@/components/SectionHeading";
 import QuickAccessCard from "../../components/QuickAccessCard";
 import { Skeleton } from "@/components/ui/skeleton";
+// hooks
+import { useToggleFavorite } from "@/hooks";
 // others
 import useHomeApps from "../../hooks/useHomeApps";
 
@@ -17,6 +19,8 @@ const GRADIENTS = [
 
 const QuickAccessSection = () => {
   const t = useTranslations("home.quickAccess");
+  const tCard = useTranslations("apps.card");
+  const toggleFavorite = useToggleFavorite();
   const { data, isLoading, isError } = useHomeApps();
   const items = (data?.items ?? []).slice(0, 4);
   return (
@@ -52,11 +56,22 @@ const QuickAccessSection = () => {
           {items.map((app, idx) => (
             <QuickAccessCard
               key={app._id}
+              id={app._id}
               name={app.displayName}
               category={app.category}
               iconUrl={app.iconUrl}
               homeUrl={app.homeUrl}
               gradient={GRADIENTS[idx % GRADIENTS.length]}
+              isFavorite={app.isFavorite}
+              addFavoriteLabel={tCard("addFavorite")}
+              removeFavoriteLabel={tCard("removeFavorite")}
+              togglePending={toggleFavorite.isPending}
+              onToggleFavorite={() =>
+                toggleFavorite.mutate({
+                  appId: app._id,
+                  isFavorite: app.isFavorite
+                })
+              }
             />
           ))}
         </div>

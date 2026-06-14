@@ -1,31 +1,22 @@
 {
   "title": "Favorites",
   "description": "Your bookmarked apps, always one click away.",
-  "savedBadge": "{count} saved",
-  "search": {
-    "placeholder": "Search favorites..."
-  },
-  "categories": {
-    "all": "All",
-    "productivity": "Productivity",
-    "entertainment": "Entertainment",
-    "developer": "Developer",
-    "lifestyle": "Lifestyle"
-  },
-  "sort": {
-    "label": "Sort: {value}",
-    "recent": "Recent",
-    "name": "Name",
-    "rating": "Rating"
-  },
+  "search": { "placeholder": "Search favorites..." },
+  "categories": { "all": "All", "groupLabel": "Filter by category" },
+  "sort": { "label": "Sort: {value}", "recent": "Recent", "name": "Name" },
   "card": {
     "open": "Open",
-    "reviews": "{count} reviews",
+    "add": "Add to favorites",
     "remove": "Remove from favorites"
   },
+  "toast": { "error": "Failed to update favorites. Please try again." },
+  "empty": "You haven't favorited any apps yet.",
+  "error": "Could not load favorites. Please try again.",
   "announce": {
     "categoryChanged": "Filtered favorites by {category}.",
     "sortChanged": "Sorted by {sort}.",
-    "removed": "{name} removed from favorites."
+    "added": "Added to favorites.",
+    "removed": "Removed from favorites.",
+    "error": "Failed to update favorites."
   }
 }

@@ -13,7 +13,9 @@
     "list": "Xem dạng danh sách"
   },
   "card": {
-    "open": "Mở"
+    "open": "Mở",
+    "addFavorite": "Thêm vào yêu thích",
+    "removeFavorite": "Xóa khỏi yêu thích"
   },
   "empty": "Không tìm thấy ứng dụng nào.",
   "error": "Không thể tải ứng dụng. Vui lòng thử lại.",
