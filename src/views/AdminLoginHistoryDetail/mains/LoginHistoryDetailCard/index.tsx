@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import type { LoginHistoryMethod } from "@/types/LoginHistory";
 // components
 import CustomBadge from "@/components/CustomBadge";
+import EntityName from "@/components/EntityName";
 import LoginHistoryDetailSkeleton from "../../components/LoginHistoryDetailSkeleton";
 import DetailField from "../../components/DetailField";
 // hooks
@@ -52,7 +53,7 @@ const LoginHistoryDetailCard = ({ id }: { id: string }) => {
     <div className="bg-card rounded-xl border p-6">
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-bold">{data.usernameAttempted}</h2>
+          <EntityName>{data.usernameAttempted}</EntityName>
           <p className="text-muted-foreground text-sm">
             {formatDateTimeMedium(data.createdAt)}
           </p>

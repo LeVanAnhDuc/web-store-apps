@@ -2,6 +2,7 @@
 import { getTranslations } from "next-intl/server";
 // components
 import CustomBreadcrumb from "@/components/CustomBreadcrumb";
+import PageTitle from "@/components/PageTitle";
 // dataSources
 import { ADMIN_CONTACT_DETAIL_BREADCRUMB } from "@/dataSources/AdminContactDetail";
 
@@ -13,9 +14,7 @@ const AdminContactDetailHeader = async () => {
         items={ADMIN_CONTACT_DETAIL_BREADCRUMB}
         namespace="contactAdmin.admin.detail.breadcrumb"
       />
-      <h1 className="text-foreground text-2xl font-bold tracking-tight">
-        {t("title")}
-      </h1>
+      <PageTitle>{t("title")}</PageTitle>
     </div>
   );
 };

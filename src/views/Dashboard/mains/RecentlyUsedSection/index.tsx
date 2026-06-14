@@ -2,6 +2,7 @@
 import { Clock, ChevronRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 // components
+import SectionHeading from "@/components/SectionHeading";
 import CustomButton from "@/components/CustomButton";
 import AppCardCompact from "../../components/AppCardCompact";
 // mocks
@@ -22,7 +23,7 @@ const RecentlyUsedSection = async () => {
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Clock className="text-muted-foreground size-5" />
-          <h2 className="text-foreground text-xl font-bold">{t("title")}</h2>
+          <SectionHeading>{t("title")}</SectionHeading>
         </div>
         <CustomButton
           variant="ghost"

@@ -1,13 +1,13 @@
 // libs
 import { getTranslations } from "next-intl/server";
+// components
+import PageTitle from "@/components/PageTitle";
 
 const PageHeader = async () => {
   const t = await getTranslations("apps");
   return (
-    <div className="flex flex-col gap-2">
-      <h1 className="text-foreground text-3xl font-bold tracking-tight">
-        {t("title")}
-      </h1>
+    <div className="flex flex-col gap-1.5">
+      <PageTitle>{t("title")}</PageTitle>
       <p className="text-muted-foreground text-sm">{t("description")}</p>
     </div>
   );

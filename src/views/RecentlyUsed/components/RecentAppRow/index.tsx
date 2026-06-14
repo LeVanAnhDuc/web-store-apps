@@ -3,6 +3,7 @@ import { ArrowUpRight, Timer } from "lucide-react";
 // types
 import type { LucideIcon } from "lucide-react";
 // components
+import CardItemTitle from "@/components/CardItemTitle";
 import CustomButton from "@/components/CustomButton";
 import { Card } from "@/components/ui/card";
 // others
@@ -39,12 +40,7 @@ const RecentAppRow = ({
       <Icon className={cn("size-5.5", iconColor)} />
     </div>
     <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-      <h3
-        id={`recent-${name}-${time}-title`}
-        className="text-foreground text-base font-semibold"
-      >
-        {name}
-      </h3>
+      <CardItemTitle id={`recent-${name}-${time}-title`}>{name}</CardItemTitle>
       <span className="text-muted-foreground text-xs">{category}</span>
     </div>
     <div className="text-info flex items-center gap-1.5">

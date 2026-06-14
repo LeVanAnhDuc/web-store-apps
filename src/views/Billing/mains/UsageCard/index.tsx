@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import UsageStat from "../../components/UsageStat";
 // others
 import { USAGE_STATS_MOCK } from "@/mocks/Billing";
@@ -16,12 +17,7 @@ const UsageCard = async () => {
   return (
     <Card aria-labelledby="usage-title">
       <CardHeader className="border-b">
-        <h3
-          id="usage-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
-          {t("title")}
-        </h3>
+        <CardSectionTitle id="usage-title">{t("title")}</CardSectionTitle>
         <CardDescription>
           {t("subtitle", { period: "May 2026", resetDate: "June 1" })}
         </CardDescription>

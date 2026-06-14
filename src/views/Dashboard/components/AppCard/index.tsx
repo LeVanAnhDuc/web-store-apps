@@ -3,6 +3,7 @@ import { Star, Download, Sparkles } from "lucide-react";
 // types
 import type { App } from "@/dataSources/Dashboard";
 // components
+import CardItemTitle from "@/components/CardItemTitle";
 import CustomButton from "@/components/CustomButton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -32,9 +33,7 @@ const AppCard = ({ app }: { app: App }) => {
             <Icon className="text-primary-foreground size-7" />
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-foreground truncate text-base font-semibold">
-              {app.name}
-            </h3>
+            <CardItemTitle className="truncate">{app.name}</CardItemTitle>
             <p className="text-muted-foreground mt-1 line-clamp-2 text-sm">
               {app.description}
             </p>

@@ -1,6 +1,7 @@
 // libs
 import { getTranslations } from "next-intl/server";
 // components
+import PageTitle from "@/components/PageTitle";
 import StatsRow from "./mains/StatsRow";
 import LoginHistoryFilters from "./mains/LoginHistoryFilters";
 import LoginHistoryTable from "./mains/LoginHistoryTable";
@@ -10,9 +11,7 @@ const LoginHistory = async () => {
   return (
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-1.5">
-        <h1 className="text-foreground text-3xl font-bold tracking-tight">
-          {t("title")}
-        </h1>
+        <PageTitle>{t("title")}</PageTitle>
         <p className="text-muted-foreground text-sm">{t("description")}</p>
       </div>
       <StatsRow />

@@ -1,6 +1,7 @@
 // types
 import type { App } from "@/dataSources/Dashboard";
 // components
+import CardItemTitle from "@/components/CardItemTitle";
 import { Card, CardContent } from "@/components/ui/card";
 // others
 import { cn } from "@/libs/utils";
@@ -22,9 +23,7 @@ const AppCardCompact = ({ app }: { app: App }) => {
             <Icon className="text-primary-foreground size-6" />
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-foreground truncate text-base font-semibold">
-              {app.name}
-            </h3>
+            <CardItemTitle className="truncate">{app.name}</CardItemTitle>
             <p className="text-muted-foreground text-xs">
               {app.lastUsed ? formatLastUsed(app.lastUsed) : app.category}
             </p>

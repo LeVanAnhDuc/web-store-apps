@@ -7,6 +7,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import RoleDefinitionRow from "../../components/RoleDefinitionRow";
 // others
 import { ROLE_DEFINITIONS_MOCK } from "@/mocks/Team";
@@ -16,12 +17,7 @@ const RolesCard = async () => {
   return (
     <Card aria-labelledby="roles-title">
       <CardHeader className="border-b">
-        <h3
-          id="roles-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
-          {t("title")}
-        </h3>
+        <CardSectionTitle id="roles-title">{t("title")}</CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="px-0">

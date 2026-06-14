@@ -3,6 +3,7 @@
 import { ArrowRight, Compass } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
+import SectionHeading from "@/components/SectionHeading";
 import CustomButton from "@/components/CustomButton";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -34,12 +35,7 @@ const RecommendedSection = () => {
       aria-labelledby="recommended-title"
     >
       <div className="flex items-center justify-between">
-        <h2
-          id="recommended-title"
-          className="text-foreground text-xl font-bold"
-        >
-          {t("title")}
-        </h2>
+        <SectionHeading id="recommended-title">{t("title")}</SectionHeading>
         <CustomButton
           size="sm"
           variant="ghost"

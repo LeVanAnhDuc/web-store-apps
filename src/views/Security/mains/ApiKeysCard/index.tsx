@@ -12,6 +12,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import CustomButton from "@/components/CustomButton";
 import ApiKeyRow from "../../components/ApiKeyRow";
 // hooks
@@ -41,12 +42,7 @@ const ApiKeysCard = () => {
   return (
     <Card aria-labelledby="api-keys-title">
       <CardHeader className="border-b">
-        <h3
-          id="api-keys-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
-          {t("title")}
-        </h3>
+        <CardSectionTitle id="api-keys-title">{t("title")}</CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
         <CardAction>
           <CustomButton

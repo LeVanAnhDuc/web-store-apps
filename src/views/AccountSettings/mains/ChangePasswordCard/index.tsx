@@ -14,6 +14,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import CustomButton from "@/components/CustomButton";
 import CustomTooltip from "@/components/CustomTooltip";
 import PasswordInput from "@/components/PasswordInput";
@@ -61,12 +62,9 @@ const ChangePasswordCard = () => {
   return (
     <Card aria-labelledby="change-password-title">
       <CardHeader className="border-b">
-        <h3
-          id="change-password-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
+        <CardSectionTitle id="change-password-title">
           {t("title")}
-        </h3>
+        </CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <FormProvider {...methods}>

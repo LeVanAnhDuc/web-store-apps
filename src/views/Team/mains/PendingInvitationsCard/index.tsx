@@ -10,6 +10,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import PendingInvitationRow from "../../components/PendingInvitationRow";
 // hooks
 import { useAnnounce } from "@/hooks";
@@ -36,12 +37,9 @@ const PendingInvitationsCard = () => {
   return (
     <Card aria-labelledby="pending-invitations-title">
       <CardHeader className="border-b">
-        <h3
-          id="pending-invitations-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
+        <CardSectionTitle id="pending-invitations-title">
           {t("title")}
-        </h3>
+        </CardSectionTitle>
         <CardDescription>
           {t("description", { count: invitations.length })}
         </CardDescription>

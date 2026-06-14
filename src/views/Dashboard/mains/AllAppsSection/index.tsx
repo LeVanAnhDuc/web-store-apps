@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 // types
 import type { SortOption } from "@/dataSources/Dashboard";
 // components
+import SectionHeading from "@/components/SectionHeading";
 import AppCard from "../../components/AppCard";
 import {
   Select,
@@ -47,7 +48,7 @@ const AllAppsSection = () => {
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Grid3X3 className="text-muted-foreground size-5" />
-          <h2 className="text-foreground text-xl font-bold">{t("title")}</h2>
+          <SectionHeading>{t("title")}</SectionHeading>
           <span className="text-muted-foreground text-sm">
             ({APPS_DATA.length})
           </span>

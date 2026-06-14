@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import CustomButton from "@/components/CustomButton";
 import InvoiceStatusBadge from "../../components/InvoiceStatusBadge";
 // others
@@ -29,12 +30,7 @@ const BillingHistoryCard = () => {
   return (
     <Card aria-labelledby="history-title">
       <CardHeader className="border-b">
-        <h3
-          id="history-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
-          {t("title")}
-        </h3>
+        <CardSectionTitle id="history-title">{t("title")}</CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="px-0">
