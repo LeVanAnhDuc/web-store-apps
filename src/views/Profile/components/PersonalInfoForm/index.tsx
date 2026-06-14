@@ -33,7 +33,7 @@ import DateOfBirthField from "@/views/Profile/components/DateOfBirthField";
 // ghosts
 import ProfileFormSyncEffect from "@/views/Profile/ghosts/ProfileFormSyncEffect";
 // hooks
-import { useAnnounce } from "@/hooks";
+import { useAnnounce, useSubmitGuard } from "@/hooks";
 // forms
 import { updatePersonalInfoFormProps } from "@/forms/UpdatePersonalInfo";
 // requests
@@ -52,6 +52,8 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
     defaultValues: mapProfileToFormValues(profile)
   });
 
+  const { run, release } = useSubmitGuard();
+
   const { mutate, isPending } = useMutation({
     mutationFn: (data: UpdateProfileData) => updateMyProfile(data),
     onMutate: () => announce(t("announce.saving")),
@@ -60,18 +62,22 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
       queryClient.setQueryData([CONSTANTS.QUERY_KEYS.MY_PROFILE], updated);
       toast.success(t("toast.success"));
     },
-    onError: () => toast.error(t("toast.error"))
+    onError: () => toast.error(t("toast.error")),
+    onSettled: () => release()
   });
 
-  const onSubmit = (data: UpdatePersonalInfoFormValues) => {
-    const fullName = [data.firstName, data.lastName].filter(Boolean).join(" ");
-    const payload: UpdateProfileData = { fullName };
-    if (data.phone) payload.phone = data.phone;
-    if (data.address) payload.address = data.address;
-    if (data.dateOfBirth) payload.dateOfBirth = data.dateOfBirth;
-    if (data.gender) payload.gender = data.gender as GenderEnum;
-    mutate(payload);
-  };
+  const onSubmit = (data: UpdatePersonalInfoFormValues) =>
+    run(() => {
+      const fullName = [data.firstName, data.lastName]
+        .filter(Boolean)
+        .join(" ");
+      const payload: UpdateProfileData = { fullName };
+      if (data.phone) payload.phone = data.phone;
+      if (data.address) payload.address = data.address;
+      if (data.dateOfBirth) payload.dateOfBirth = data.dateOfBirth;
+      if (data.gender) payload.gender = data.gender as GenderEnum;
+      mutate(payload);
+    });
 
   const handleCancel = () => {
     methods.reset(mapProfileToFormValues(profile));

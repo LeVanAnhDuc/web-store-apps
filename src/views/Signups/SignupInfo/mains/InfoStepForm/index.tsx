@@ -14,6 +14,7 @@ import SubmitButton from "../../components/SubmitButton";
 // forms
 import { signupInfoFormProps } from "@/forms/Signup";
 // hooks
+import { useSubmitGuard } from "@/hooks";
 import { useSignupComplete } from "../../hooks/useSignupComplete";
 // others
 import CONSTANTS from "@/constants";
@@ -32,6 +33,7 @@ const InfoStepForm = ({
 }) => {
   const methods = useForm<SignupInfoFormValues>({ ...signupInfoFormProps });
   const { complete, isPending } = useSignupComplete();
+  const { run, release } = useSubmitGuard();
 
   const {
     input: {
@@ -50,18 +52,22 @@ const InfoStepForm = ({
     button: { submit }
   } = translations.infoStep;
 
-  const onSubmit = (data: SignupInfoFormValues) => {
-    complete({
-      email,
-      sessionToken,
-      fullName: data[FULL_NAME],
-      gender: data[GENDER],
-      dateOfBirth: data[BIRTHDAY],
-      password: data[PASSWORD],
-      confirmPassword: data[PASSWORD_CONFIRM],
-      acceptTerms: true
+  const onSubmit = (data: SignupInfoFormValues) =>
+    run(() => {
+      complete(
+        {
+          email,
+          sessionToken,
+          fullName: data[FULL_NAME],
+          gender: data[GENDER],
+          dateOfBirth: data[BIRTHDAY],
+          password: data[PASSWORD],
+          confirmPassword: data[PASSWORD_CONFIRM],
+          acceptTerms: true
+        },
+        { onSettled: release }
+      );
     });
-  };
 
   return (
     <FormProvider {...methods}>
