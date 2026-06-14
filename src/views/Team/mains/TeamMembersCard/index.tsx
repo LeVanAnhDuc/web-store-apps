@@ -12,6 +12,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import CustomButton from "@/components/CustomButton";
 import TeamMemberRow from "../../components/TeamMemberRow";
 // hooks
@@ -33,12 +34,9 @@ const TeamMembersCard = () => {
   return (
     <Card aria-labelledby="team-members-title">
       <CardHeader className="border-b">
-        <h3
-          id="team-members-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
+        <CardSectionTitle id="team-members-title">
           {t("title")}
-        </h3>
+        </CardSectionTitle>
         <CardDescription>
           {t("description", { count: members.length, limit: 10 })}
         </CardDescription>

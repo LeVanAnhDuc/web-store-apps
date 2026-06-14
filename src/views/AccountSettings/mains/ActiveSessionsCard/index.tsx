@@ -10,6 +10,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import SessionRow from "../../components/SessionRow";
 // hooks
 import { useAnnounce } from "@/hooks";
@@ -33,12 +34,9 @@ const ActiveSessionsCard = () => {
   return (
     <Card aria-labelledby="active-sessions-title">
       <CardHeader className="border-b">
-        <h3
-          id="active-sessions-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
+        <CardSectionTitle id="active-sessions-title">
           {t("title")}
-        </h3>
+        </CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="px-0">

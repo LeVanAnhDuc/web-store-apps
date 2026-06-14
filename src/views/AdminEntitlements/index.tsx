@@ -3,7 +3,7 @@ import AdminEntitlementsHeader from "./mains/AdminEntitlementsHeader";
 import AdminEntitlementsTable from "./mains/AdminEntitlementsTable";
 
 const AdminEntitlements = () => (
-  <div className="space-y-6">
+  <div className="flex flex-col gap-6">
     <AdminEntitlementsHeader />
     <AdminEntitlementsTable />
   </div>

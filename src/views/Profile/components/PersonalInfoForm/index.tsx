@@ -20,6 +20,7 @@ import {
   CardHeader
 } from "@/components/ui/card";
 import { FormItem, FormLabel } from "@/components/ui/form";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import CustomTooltip from "@/components/CustomTooltip";
@@ -91,12 +92,9 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
   return (
     <Card aria-labelledby="personal-info-title">
       <CardHeader className="border-b">
-        <h3
-          id="personal-info-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
+        <CardSectionTitle id="personal-info-title">
           {t("title")}
-        </h3>
+        </CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <FormProvider {...methods}>

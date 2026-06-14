@@ -11,6 +11,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import CustomButton from "@/components/CustomButton";
 import PaymentMethodRow from "../../components/PaymentMethodRow";
 // others
@@ -22,12 +23,7 @@ const PaymentMethodCard = () => {
   return (
     <Card aria-labelledby="payment-title">
       <CardHeader className="border-b">
-        <h3
-          id="payment-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
-          {t("title")}
-        </h3>
+        <CardSectionTitle id="payment-title">{t("title")}</CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
         <CardAction>
           <CustomButton

@@ -9,6 +9,7 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
+import CardSectionTitle from "@/components/CardSectionTitle";
 import LoginActivityRow from "../../components/LoginActivityRow";
 // others
 import { LOGIN_ACTIVITY_MOCK } from "@/mocks/Security";
@@ -18,12 +19,9 @@ const LoginActivityCard = () => {
   return (
     <Card aria-labelledby="login-activity-title">
       <CardHeader className="border-b">
-        <h3
-          id="login-activity-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
+        <CardSectionTitle id="login-activity-title">
           {t("title")}
-        </h3>
+        </CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="px-0">

@@ -1,6 +1,7 @@
 // libs
 import { ArrowUpRight } from "lucide-react";
 // components
+import CardItemTitle from "@/components/CardItemTitle";
 import CustomButton from "@/components/CustomButton";
 import CustomImage from "@/components/CustomImage";
 import { Card } from "@/components/ui/card";
@@ -52,12 +53,9 @@ const AppCard = ({
             {iconNode}
           </div>
           <div className="flex min-w-0 flex-col gap-0.5">
-            <h3
-              id={`apps-${id}-title`}
-              className="text-foreground truncate text-base font-semibold"
-            >
+            <CardItemTitle id={`apps-${id}-title`} className="truncate">
               {displayName}
-            </h3>
+            </CardItemTitle>
             {category && (
               <span className="text-muted-foreground text-xs font-medium">
                 {category}

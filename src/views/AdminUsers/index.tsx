@@ -3,7 +3,7 @@ import AdminUsersHeader from "./mains/AdminUsersHeader";
 import AdminUsersTable from "./mains/AdminUsersTable";
 
 const AdminUsers = () => (
-  <div className="space-y-6">
+  <div className="flex flex-col gap-6">
     <AdminUsersHeader />
     <AdminUsersTable />
   </div>

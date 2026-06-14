@@ -3,7 +3,7 @@ import OverviewHeader from "./mains/OverviewHeader";
 import OverviewGrid from "./mains/OverviewGrid";
 
 const AdminDashboard = () => (
-  <div className="space-y-6">
+  <div className="flex flex-col gap-6">
     <OverviewHeader />
     <OverviewGrid />
   </div>

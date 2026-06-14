@@ -2,6 +2,7 @@
 // libs
 import { ArrowUpRight } from "lucide-react";
 // components
+import CardItemTitle from "@/components/CardItemTitle";
 import { Card } from "@/components/ui/card";
 import CustomButton from "@/components/CustomButton";
 import CustomImage from "@/components/CustomImage";
@@ -52,12 +53,7 @@ const RecommendedAppCard = ({
         )}
       </div>
       <div className="flex flex-col gap-1">
-        <h3
-          id={`rec-${name}-title`}
-          className="text-foreground text-base font-semibold"
-        >
-          {name}
-        </h3>
+        <CardItemTitle id={`rec-${name}-title`}>{name}</CardItemTitle>
         {category && (
           <span className="text-muted-foreground text-xs">{category}</span>
         )}

@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import type { RecentApp, RecentGroupKey } from "@/mocks/RecentlyUsed";
 // components
 import CustomButton from "@/components/CustomButton";
+import PageTitle from "@/components/PageTitle";
 import SearchInput from "@/components/SearchInput";
 import { Badge } from "@/components/ui/badge";
 import RecentAppRow from "../../components/RecentAppRow";
@@ -57,12 +58,10 @@ const HistoryList = () => {
     announce(t("announce.cleared"));
   };
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col gap-1.5">
-          <h1 className="text-foreground text-3xl font-bold tracking-tight">
-            {t("title")}
-          </h1>
+          <PageTitle>{t("title")}</PageTitle>
           <p className="text-muted-foreground text-sm">{t("description")}</p>
         </div>
         <div className="flex items-center gap-2.5">
@@ -84,7 +83,7 @@ const HistoryList = () => {
           </CustomButton>
         </div>
       </div>
-      <div className="flex flex-col gap-7">
+      <div className="flex flex-col gap-6">
         {grouped.map((group) => (
           <section
             key={group.key}

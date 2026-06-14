@@ -11,6 +11,7 @@ import {
   CardHeader
 } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
+import CardSectionTitle from "@/components/CardSectionTitle";
 // hooks
 import { useAnnounce } from "@/hooks";
 
@@ -29,12 +30,7 @@ const TwoFactorCard = () => {
   return (
     <Card aria-labelledby="two-factor-title">
       <CardHeader className="border-b">
-        <h3
-          id="two-factor-title"
-          className="text-foreground text-base leading-none font-semibold"
-        >
-          {t("title")}
-        </h3>
+        <CardSectionTitle id="two-factor-title">{t("title")}</CardSectionTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent>
