@@ -19,6 +19,7 @@ import CustomButton from "@/components/CustomButton";
 import CustomTooltip from "@/components/CustomTooltip";
 import PasswordInput from "@/components/PasswordInput";
 // hooks
+import { useSubmitGuard } from "@/hooks";
 import { useChangePassword } from "../../hooks/useChangePassword";
 // forms
 import { changePasswordFormProps } from "@/forms/ChangePassword";
@@ -30,6 +31,20 @@ const { CURRENT_PASSWORD, NEW_PASSWORD, CONFIRM_PASSWORD } =
 const { CHANGE_PASSWORD_WRONG_CURRENT, CHANGE_PASSWORD_SAME_AS_CURRENT } =
   CONSTANTS.ERROR_CODES;
 
+const FIELD_ERROR_MAP: Record<
+  string,
+  { field: keyof ChangePasswordFormValues; message: string }
+> = {
+  [CHANGE_PASSWORD_WRONG_CURRENT]: {
+    field: CURRENT_PASSWORD,
+    message: "wrongCurrentPassword"
+  },
+  [CHANGE_PASSWORD_SAME_AS_CURRENT]: {
+    field: NEW_PASSWORD,
+    message: "sameAsCurrent"
+  }
+};
+
 const ChangePasswordCard = () => {
   const t = useTranslations("accountSettings.changePassword");
   const methods = useForm<ChangePasswordFormValues>({
@@ -37,25 +52,25 @@ const ChangePasswordCard = () => {
   });
 
   const { changePassword, isPending } = useChangePassword();
+  const { run, release } = useSubmitGuard();
 
-  const onSubmit = (data: ChangePasswordFormValues) => {
-    changePassword(data, {
-      onSuccess: () => methods.reset(),
-      onError: (error) => {
-        const code = (error as AxiosError<ErrorResponsePattern>).response?.data
-          ?.code;
-        if (code === CHANGE_PASSWORD_WRONG_CURRENT) {
-          methods.setError(CURRENT_PASSWORD, {
-            message: "wrongCurrentPassword"
-          });
-        } else if (code === CHANGE_PASSWORD_SAME_AS_CURRENT) {
-          methods.setError(NEW_PASSWORD, { message: "sameAsCurrent" });
-        } else {
-          toast.error(t("toast.error"));
+  const onSubmit = (data: ChangePasswordFormValues) =>
+    run(() => {
+      changePassword(data, {
+        onSettled: release,
+        onSuccess: () => methods.reset(),
+        onError: (error) => {
+          const code = (error as AxiosError<ErrorResponsePattern>).response
+            ?.data?.code;
+          const fieldError = code ? FIELD_ERROR_MAP[code] : undefined;
+          if (fieldError) {
+            methods.setError(fieldError.field, { message: fieldError.message });
+          } else {
+            toast.error(t("toast.error"));
+          }
         }
-      }
+      });
     });
-  };
 
   const isDisabled = !methods.formState.isDirty || isPending;
 

@@ -8,6 +8,8 @@ import CustomButton from "@/components/CustomButton";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import RecommendedAppCard from "../../components/RecommendedAppCard";
+// hooks
+import { useToggleFavorite } from "@/hooks";
 // others
 import useHomeApps from "../../hooks/useHomeApps";
 import { useRouter } from "@/i18n/navigation";
@@ -26,6 +28,7 @@ const RecommendedSection = () => {
   const t = useTranslations("home.recommended");
   const tCTA = useTranslations("home.exploreCTA");
   const tCard = useTranslations("apps.card");
+  const toggleFavorite = useToggleFavorite();
   const router = useRouter();
   const { data, isLoading, isError } = useHomeApps();
   const items = (data?.items ?? []).slice(4, 8);
@@ -64,12 +67,23 @@ const RecommendedSection = () => {
           {items.map((app, idx) => (
             <RecommendedAppCard
               key={app._id}
+              id={app._id}
               name={app.displayName}
               category={app.category}
               iconUrl={app.iconUrl}
               homeUrl={app.homeUrl}
               gradient={GRADIENTS[idx % GRADIENTS.length]}
               openLabel={tCard("open")}
+              isFavorite={app.isFavorite}
+              addFavoriteLabel={tCard("addFavorite")}
+              removeFavoriteLabel={tCard("removeFavorite")}
+              togglePending={toggleFavorite.isPending}
+              onToggleFavorite={() =>
+                toggleFavorite.mutate({
+                  appId: app._id,
+                  isFavorite: app.isFavorite
+                })
+              }
             />
           ))}
         </div>

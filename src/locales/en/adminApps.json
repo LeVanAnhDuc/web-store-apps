@@ -123,7 +123,8 @@
       "redirectUris": {
         "required": "Add at least one redirect URI.",
         "invalid": "Must start with http:// or https://",
-        "maxLength": "URL is too long."
+        "maxLength": "URL is too long.",
+        "maxItems": "You can add at most 20 redirect URIs."
       }
     }
   },

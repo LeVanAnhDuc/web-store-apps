@@ -1,6 +1,10 @@
 import { test, expect } from "@playwright/test";
 import type { Page, Route } from "@playwright/test";
-import { fetchUnreadCount, SEED_UNREAD_TITLE } from "../helpers/notifications";
+import {
+  fetchUnreadCount,
+  SEED_UNREAD_TITLE,
+  SEED_READ_TITLE
+} from "../helpers/notifications";
 
 // E2E for the Notifications page (/notifications) + header bell badge.
 // Runs authenticated as user@test.com via the global storageState (auth.setup).
@@ -31,6 +35,8 @@ import { fetchUnreadCount, SEED_UNREAD_TITLE } from "../helpers/notifications";
 const LIST_RE = /\/api\/v1\/notifications(\?|$)/;
 const UNREAD_COUNT_RE = /\/api\/v1\/notifications\/unread-count/;
 const READ_ALL_RE = /\/api\/v1\/notifications\/read-all/;
+// PATCH /api/v1/notifications/<id>/read  (must NOT match /read-all).
+const MARK_READ_RE = /\/api\/v1\/notifications\/[^/]+\/read(\?|$)/;
 
 // ---- en/vi chrome strings (must mirror src/locales/*/notifications.json) ----
 const EN = {
@@ -40,12 +46,25 @@ const EN = {
   markRead: "Mark as read",
   loadMore: "Load more notifications",
   empty: "No notifications here.",
-  error: "Couldn't load notifications."
+  error: "Couldn't load notifications.",
+  // announce.* (notifications.json → announce) — tabChanged interpolates {tab}
+  // with the localized tab label (NotificationList passes t(`tabs.${next}`)).
+  announceTabChangedRead: "Showing Read notifications.",
+  announceMarkedRead: "Notification marked as read.",
+  announceMarkedAllRead: "All notifications marked as read.",
+  announceLoadingMore: "Loading more notifications...",
+  // toast.* (notifications.json → toast)
+  toastMarkReadError: "Could not mark as read.",
+  // header bell (dashboard.json → header.notificationsLabel)
+  bellLabel: "Notifications",
+  // header panel (dashboard.json → notifications.markAllRead)
+  panelMarkAll: "Mark all as read"
 };
 const VI = {
   unread: "Chưa đọc",
   read: "Đã đọc",
   markAll: "Đánh dấu tất cả đã đọc",
+  markRead: "Đánh dấu đã đọc",
   loadMore: "Tải thêm thông báo"
 };
 
@@ -378,12 +397,490 @@ test.describe.serial("Notifications — mutations", () => {
     await expect(page.getByText("Intercepted notification 101")).toHaveCount(0);
   });
 
-  test.afterAll(() => {
-    // Test 9 fires a REAL mark-read PATCH and there is NO mark-unread API, so
-    // read-state cannot be reverted programmatically. To restore the seed for
-    // the next run: `cd server && yarn seed --clear && yarn seed`.
-    // (Documented in docs/specs/notifications-api/e2e.md.)
+  // --- D7: Mark-all-when-empty no-op (matrix row 11c) — A only -------------
+  test("mark-all on an already-empty list is a no-op (no negative badge)", async ({
+    page
+  }) => {
+    // [BVA] mark-all when nothing unread → BE returns updated:0, UI no-op, the
+    // bell badge never goes negative (count never < 0). All via intercept, so
+    // the real seed is NOT mutated; classified A only as a mutation-path test.
+    await page.route(LIST_RE, (route: Route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(
+          responseEnvelope({
+            items: [],
+            meta: { total: 0, page: 1, limit: 20, totalPages: 0 }
+          })
+        )
+      })
+    );
+    await page.route(UNREAD_COUNT_RE, (route: Route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(responseEnvelope({ count: 0 }))
+      })
+    );
+    await page.route(READ_ALL_RE, (route: Route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(responseEnvelope({ updated: 0 }))
+      })
+    );
+
+    await gotoNotifications(page);
+    await expect(page.getByText(EN.empty)).toBeVisible();
+    // PageHeader mark-all button is always present; click with nothing unread.
+    await page.getByRole("button", { name: EN.markAll }).click();
+
+    // Still empty; no numeric (and definitely no negative) badge on the bell.
+    await expect(page.getByText(EN.empty)).toBeVisible();
+    const bell = page.getByRole("button", { name: EN.bellLabel });
+    await expect(bell.getByText(/^-?\d+$/)).toHaveCount(0);
   });
+
+  // --- D8: Double-click idempotency (matrix row 11d) — A only -------------
+  test("double-clicking mark-read fires the PATCH once, not twice", async ({
+    page
+  }) => {
+    // [State Transition] the mark-read button is disabled while
+    // markRead.isPending (the hook is shared across the whole list), so a 2nd
+    // rapid click is swallowed → exactly one PATCH fires (count -1, not -2).
+    // Measured at the PATCH-request layer via intercept (no seed mutation).
+    let patchCount = 0;
+    await page.route(LIST_RE, (route: Route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(
+          responseEnvelope({
+            items: [fakeItem(401)],
+            meta: { total: 1, page: 1, limit: 20, totalPages: 1 }
+          })
+        )
+      })
+    );
+    // Delay the PATCH so the button stays disabled (isPending) across the 2nd
+    // click; the 2nd click must be swallowed by `disabled={isMarking}`.
+    await page.route(MARK_READ_RE, async (route: Route) => {
+      patchCount += 1;
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(
+          responseEnvelope({ ...fakeItem(401, true), id: "fake-401" })
+        )
+      });
+    });
+
+    await gotoNotifications(page);
+    const button = markReadButtons(page).first();
+    await expect(button).toBeVisible();
+
+    // First click fires the (delayed 600ms) PATCH; the shared markRead.isPending
+    // flips → the button becomes `disabled={isMarking}`. We must OBSERVE that
+    // disabled state before attempting the 2nd click — a forced/auto-waiting 2nd
+    // click defeats the guard: force bypasses actionability, and a long auto-wait
+    // outlives the 600ms PATCH (which re-enables the button on success, letting a
+    // queued click legitimately fire). Both race React renders, not the app's
+    // in-flight idempotency contract.
+    await button.click();
+    // In-flight guard is observable: the button goes disabled while pending.
+    await expect(button).toBeDisabled();
+    // Within the still-pending window, a 2nd click is swallowed. dispatchEvent
+    // bypasses Playwright's auto-wait so we evaluate the click NOW (button still
+    // disabled) instead of waiting for it to re-enable — a disabled <button>
+    // ignores a dispatched click natively, so no 2nd PATCH fires.
+    await button.dispatchEvent("click");
+    // Assert no 2nd PATCH fired *while still pending* (before the 600ms resolves
+    // and legitimately re-enables the button).
+    await expect.poll(() => patchCount, { timeout: 400 }).toBe(1);
+    expect(patchCount).toBe(1);
+    // Let the delayed PATCH settle so it doesn't leak into the next test.
+    await page.waitForTimeout(700);
+    expect(patchCount).toBe(1);
+  });
+
+  // --- D9: Persistence after reload (matrix row 11e) — A only (REAL) ------
+  // REAL mutation: permanently flips one seeded item to read. There is NO
+  // mark-unread API → afterAll cannot revert; restore the seed manually via:
+  //   cd server && yarn seed --clear && yarn seed
+  test("a marked item stays read after a full page reload", async ({
+    page
+  }) => {
+    await gotoNotifications(page);
+    const firstButton = markReadButtons(page).first();
+    await expect(firstButton).toBeVisible();
+    const firstArticle = page.locator("article").first();
+    const markedTitle = (await firstArticle.getAttribute("aria-label"))?.trim();
+    expect(markedTitle).toBeTruthy();
+
+    await firstButton.click();
+    // Wait for the item to leave the unread tab (invalidate → refetch).
+    await expect(page.getByText(markedTitle!, { exact: true })).toHaveCount(0, {
+      timeout: 15_000
+    });
+
+    // Reload: authoritative server state is refetched; the item must stay out
+    // of the (default) Unread tab.
+    await page.reload();
+    await expect(
+      page.getByRole("tab", { name: EN.unread, exact: true })
+    ).toHaveAttribute("data-state", "active");
+    await expect(page.getByText(markedTitle!, { exact: true })).toHaveCount(0);
+
+    // ...and it now appears on the Read tab.
+    await page.getByRole("tab", { name: EN.read, exact: true }).click();
+    await expect(
+      page.getByText(markedTitle!, { exact: true }).first()
+    ).toBeVisible();
+  });
+
+  test.afterAll(() => {
+    // TWO tests in this serial block fire REAL mark-read PATCHes that change
+    // seeded read-state: "mark single moves item out of unread..." and
+    // "a marked item stays read after a full page reload" (D9). There is NO
+    // mark-unread API, so read-state cannot be reverted programmatically. To
+    // restore the seed for the next run:
+    //   cd server && yarn seed --clear && yarn seed
+    // (Documented in docs/specs/notifications-api/e2e.md §5.)
+  });
+});
+
+// ===========================================================================
+// Backfill suite (Scenario Matrix NEW rows D1–D11). See
+// docs/specs/notifications-api/e2e.md §3 + design.md §6.
+// ===========================================================================
+
+// --- D1: Header bell badge + panel (matrix row 1b) — A only ---------------
+test.describe("Notifications — header bell + panel", () => {
+  // Gate A only: the panel exposes a mark-all mutation affordance; we assert
+  // its presence/visibility but never CLICK it, so no real mutation fires.
+  // Badge + count are pinned via intercept (read-only) so the assertion does
+  // not depend on live seed counts.
+  test("bell shows the unread badge and the panel lists recent items + mark-all", async ({
+    page
+  }) => {
+    await page.route(UNREAD_COUNT_RE, (route: Route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(responseEnvelope({ count: 3 }))
+      })
+    );
+    await page.route(LIST_RE, (route: Route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(
+          responseEnvelope({
+            items: [fakeItem(201), fakeItem(202)],
+            meta: { total: 2, page: 1, limit: 20, totalPages: 1 }
+          })
+        )
+      })
+    );
+
+    await gotoNotifications(page);
+
+    const bell = page.getByRole("button", { name: EN.bellLabel });
+    await expect(bell).toBeVisible();
+    // Badge text is the unread count; only rendered when count > 0.
+    await expect(bell.getByText("3", { exact: true })).toBeVisible();
+
+    await bell.click();
+    // Panel renders inside the Popover content (role="dialog"). Scope BOTH
+    // assertions to that dialog so the title (which also appears in the page
+    // list behind the panel) and the mark-all button (which also exists in the
+    // PageHeader) uniquely match the panel's own copy.
+    const panel = page.getByRole("dialog");
+    await expect(panel).toBeVisible();
+    // Panel (Popover content) lists the intercepted first-page items...
+    await expect(
+      panel.getByText("Intercepted notification 201", { exact: true })
+    ).toBeVisible();
+    // ...and exposes a "Mark all as read" affordance inside the panel.
+    await expect(
+      panel.getByRole("button", { name: EN.panelMarkAll })
+    ).toBeVisible();
+  });
+
+  test("bell badge is hidden when the unread count is zero", async ({
+    page
+  }) => {
+    await page.route(UNREAD_COUNT_RE, (route: Route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(responseEnvelope({ count: 0 }))
+      })
+    );
+    await page.goto("/notifications");
+    const bell = page.getByRole("button", { name: EN.bellLabel });
+    await expect(bell).toBeVisible();
+    // No numeric badge node rendered (AppHeader renders <Badge> only on > 0).
+    await expect(bell.getByText(/^\d+$/)).toHaveCount(0);
+  });
+});
+
+// --- D2: Per-tab empty state + null readAt (matrix rows 5a, 5c) — A+B ------
+test.describe("Notifications — per-tab empty + null states", () => {
+  test("Read tab renders the per-tab empty state when no read items exist", async ({
+    page
+  }) => {
+    // Only the read filter (isRead=true) returns empty; the unread filter still
+    // serves data so the page does not look globally empty. [EP] empty-set
+    // partition vs non-empty-set.
+    await page.route(LIST_RE, (route: Route) => {
+      const url = new URL(route.request().url());
+      const isReadParam = url.searchParams.get("isRead");
+      const empty = isReadParam === "true";
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(
+          responseEnvelope({
+            items: empty ? [] : [fakeItem(1)],
+            meta: {
+              total: empty ? 0 : 1,
+              page: 1,
+              limit: 20,
+              totalPages: empty ? 0 : 1
+            }
+          })
+        )
+      });
+    });
+
+    await gotoNotifications(page);
+    await page.getByRole("tab", { name: EN.read, exact: true }).click();
+    await expect(
+      page.getByRole("tab", { name: EN.read, exact: true })
+    ).toHaveAttribute("data-state", "active");
+    await expect(page.getByText(EN.empty)).toBeVisible();
+  });
+
+  test("an unread item with readAt:null renders without crashing", async ({
+    page
+  }) => {
+    // [EP] null-date path: fakeItem default is isRead:false, readAt:null.
+    const errors: string[] = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    await page.route(LIST_RE, (route: Route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(
+          responseEnvelope({
+            items: [fakeItem(1)],
+            meta: { total: 1, page: 1, limit: 20, totalPages: 1 }
+          })
+        )
+      })
+    );
+    await gotoNotifications(page);
+    await expect(
+      page.getByText("Intercepted notification 1", { exact: true })
+    ).toBeVisible();
+    expect(errors).toEqual([]);
+  });
+});
+
+// --- D3: Single full page → no "Load more" from start (row 6b) — A+B -------
+test("no Load more button when the dataset is a single full page", async ({
+  page
+}) => {
+  // [BVA] limit boundary: exactly 20 items but totalPages 1 →
+  // getNextPageParam returns undefined → hasNextPage false → button never
+  // rendered (distinct from row 6a where it disappears AFTER the last page).
+  const items = Array.from({ length: 20 }, (_, i) => fakeItem(i + 1));
+  await page.route(LIST_RE, (route: Route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify(
+        responseEnvelope({
+          items,
+          meta: { total: 20, page: 1, limit: 20, totalPages: 1 }
+        })
+      )
+    })
+  );
+  await gotoNotifications(page);
+  await expect(
+    page.getByText("Intercepted notification 1", { exact: true })
+  ).toBeVisible();
+  await expect(page.getByRole("button", { name: EN.loadMore })).toHaveCount(0);
+});
+
+// --- D4: Read-tab content assertion (matrix row 7) — A+B ------------------
+test("Read tab shows read seed titles and hides unread ones (and vice versa)", async ({
+  page
+}) => {
+  // [Decision Table] tab × isRead → expected subset. Real backend (seed has
+  // both read + unread rows). Read-only, no mutation.
+  await gotoNotifications(page);
+
+  // Unread tab (default): unread title present, read title absent.
+  await expect(
+    page.getByText(SEED_UNREAD_TITLE, { exact: true }).first()
+  ).toBeVisible();
+  await expect(page.getByText(SEED_READ_TITLE, { exact: true })).toHaveCount(0);
+
+  // Switch to Read tab: read title present, unread title absent.
+  await page.getByRole("tab", { name: EN.read, exact: true }).click();
+  await expect(
+    page.getByText(SEED_READ_TITLE, { exact: true }).first()
+  ).toBeVisible();
+  await expect(page.getByText(SEED_UNREAD_TITLE, { exact: true })).toHaveCount(
+    0
+  );
+});
+
+// --- D5: vi relative-time '/trước/' (matrix row 9 NEW) — A+B --------------
+test("vi locale renders relative time with the Vietnamese suffix 'trước'", async ({
+  page
+}) => {
+  // [Error Guessing] locale-leak: prove date-fns vi locale is wired (not the
+  // loose /ago|trước/ union) and that English "ago" never appears on /vi.
+  await gotoNotifications(page, "/vi");
+  await expect(page.getByText(/trước/).first()).toBeVisible();
+  await expect(page.getByText(/\bago\b/i)).toHaveCount(0);
+});
+
+// --- D6: Mark-read mutation failure (matrix row 10c) — A+B ----------------
+test("mark-read failure shows an error toast and leaves the item unread", async ({
+  page
+}) => {
+  // [Error Guessing] server-error on the mutate path. Seed-agnostic: serve one
+  // unread item via intercept, then fail the PATCH. invalidate-on-success means
+  // a FAILED mutation never flips the cache → item stays unread, no rollback.
+  await page.route(LIST_RE, (route: Route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify(
+        responseEnvelope({
+          items: [fakeItem(301)],
+          meta: { total: 1, page: 1, limit: 20, totalPages: 1 }
+        })
+      )
+    })
+  );
+  await page.route(MARK_READ_RE, (route: Route) =>
+    route.fulfill({
+      status: 500,
+      contentType: "application/json",
+      body: JSON.stringify({
+        code: "INTERNAL",
+        message: "boom",
+        timestamp: new Date().toISOString(),
+        path: "/api/v1/notifications/fake-301/read"
+      })
+    })
+  );
+
+  await gotoNotifications(page);
+  const button = markReadButtons(page).first();
+  await expect(button).toBeVisible();
+  await button.click();
+
+  // onError toast fires (sonner).
+  await expect(page.getByText(EN.toastMarkReadError)).toBeVisible();
+  // Item is still unread (cache untouched) and still has its mark-read button.
+  await expect(
+    page.getByText("Intercepted notification 301", { exact: true })
+  ).toBeVisible();
+  await expect(markReadButtons(page)).toHaveCount(1);
+});
+
+// --- D10: #announcer aria-live updates (matrix row 12 NEW) — A+B ----------
+test.describe("Notifications — announcer (aria-live)", () => {
+  test("tab change announces via the #announcer live region", async ({
+    page
+  }) => {
+    // [State Transition] read-only tab switch writes to the polite live region.
+    await gotoNotifications(page);
+    await page.getByRole("tab", { name: EN.read, exact: true }).click();
+    await expect(page.locator("#announcer")).toHaveText(
+      EN.announceTabChangedRead,
+      { timeout: 5_000 }
+    );
+  });
+
+  test("load-more announces via the #announcer live region", async ({
+    page
+  }) => {
+    const page1 = Array.from({ length: 20 }, (_, i) => fakeItem(i + 1));
+    const page2 = Array.from({ length: 3 }, (_, i) => fakeItem(i + 21));
+    await page.route(LIST_RE, (route: Route) => {
+      const url = new URL(route.request().url());
+      const isPage2 = url.searchParams.get("page") === "2";
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(
+          responseEnvelope({
+            items: isPage2 ? page2 : page1,
+            meta: { total: 23, page: isPage2 ? 2 : 1, limit: 20, totalPages: 2 }
+          })
+        )
+      });
+    });
+    await gotoNotifications(page);
+    await page.getByRole("button", { name: EN.loadMore }).click();
+    await expect(page.locator("#announcer")).toHaveText(
+      EN.announceLoadingMore,
+      { timeout: 5_000 }
+    );
+  });
+});
+
+// --- D11: Keyboard activation (Enter/Space) on mark-read (row 12) — A only -
+test.describe("Notifications — keyboard activation", () => {
+  for (const key of ["Enter", "Space"] as const) {
+    // [State Transition] CustomButton is a native <button>; both Enter and
+    // Space activate it. Measured at the PATCH-request layer via intercept so
+    // no real seed mutation occurs (assert PATCH fired, not a live badge).
+    test(`pressing ${key} on a focused mark-read button fires the mutation`, async ({
+      page
+    }) => {
+      let patchFired = false;
+      await page.route(LIST_RE, (route: Route) =>
+        route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify(
+            responseEnvelope({
+              items: [fakeItem(501)],
+              meta: { total: 1, page: 1, limit: 20, totalPages: 1 }
+            })
+          )
+        })
+      );
+      await page.route(MARK_READ_RE, (route: Route) => {
+        patchFired = true;
+        route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify(
+            responseEnvelope({ ...fakeItem(501, true), id: "fake-501" })
+          )
+        });
+      });
+
+      await gotoNotifications(page);
+      const button = markReadButtons(page).first();
+      await button.focus();
+      await expect(button).toBeFocused();
+      await page.keyboard.press(key);
+      await expect.poll(() => patchFired, { timeout: 5_000 }).toBe(true);
+    });
+  }
 });
 
 test.describe("Notifications — accessibility", () => {

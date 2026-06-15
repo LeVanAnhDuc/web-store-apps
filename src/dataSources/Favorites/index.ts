@@ -6,7 +6,7 @@ export const buildFavoritesFilterDefs = (
   labels: { category: string }
 ): ListFilterDef[] => [
   {
-    key: "category",
+    key: "categoryId",
     type: "select",
     label: labels.category,
     options: categoryOptions

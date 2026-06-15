@@ -4,7 +4,7 @@
   "toolbar": {
     "search": "Tìm kiếm",
     "searchPlaceholder": "Tìm theo tên hoặc email…",
-    "role": "Role",
+    "role": "Vai trò",
     "status": "Trạng thái",
     "all": "Tất cả",
     "clear": "Xóa bộ lọc"
@@ -19,7 +19,7 @@
   },
   "table": {
     "user": "Người dùng",
-    "role": "Role",
+    "role": "Vai trò",
     "status": "Trạng thái",
     "lastLoginAt": "Đăng nhập gần nhất",
     "createdAt": "Ngày tạo",
@@ -27,6 +27,7 @@
     "neverLoggedIn": "Chưa từng",
     "empty": "Không có người dùng phù hợp",
     "emptyDescription": "Thử điều chỉnh tìm kiếm hoặc xóa bộ lọc.",
+    "error": "Không thể tải danh sách người dùng. Vui lòng thử lại.",
     "rowMenuLabel": "Thao tác với người dùng"
   },
   "pagination": {
@@ -67,6 +68,10 @@
     "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
   },
   "announce": {
+    "loading": "Đang tải người dùng...",
+    "loaded": "Đã tải {total} người dùng",
+    "navigating": "Đang chuyển đến trang {page}",
+    "error": "Không thể tải danh sách người dùng. Vui lòng thử lại.",
     "passwordReset": "Đã gửi email đặt lại mật khẩu cho {name}.",
     "locked": "Đã khóa tài khoản của {name}.",
     "unlocked": "Đã mở khóa tài khoản của {name}.",

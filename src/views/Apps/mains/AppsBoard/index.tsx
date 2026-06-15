@@ -11,16 +11,17 @@ import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
 import ListPagination from "@/components/list/ListPagination";
-import AppCard from "../../components/AppCard";
+import AppCard from "@/components/AppCard";
 import AppCardSkeleton from "../../components/AppCardSkeleton";
 // hooks
-import { useListQuery } from "@/hooks";
+import { useListQuery, useToggleFavorite } from "@/hooks";
 import useApps from "../../hooks/useApps";
 import useAppCategories from "../../hooks/useAppCategories";
 // dataSources
 import { buildAppsFilterDefs } from "@/dataSources/Apps";
 // others
 import { cn } from "@/libs/utils";
+import { resolveCategoryLabel } from "@/utils";
 
 const PAGE_SIZE = 12;
 
@@ -81,6 +82,7 @@ const ViewToggle = ({
 const AppsBoard = () => {
   const t = useTranslations("apps");
   const tToolbar = useTranslations("apps.categories");
+  const tCat = useTranslations("common.categories");
 
   // view is a display preference — kept in local state, not URL
   const [view, setView] = useState<"grid" | "list">("grid");
@@ -88,8 +90,12 @@ const AppsBoard = () => {
   const { data: categories = [] } = useAppCategories();
 
   const categoryOptions = useMemo(
-    () => categories.map((cat) => ({ value: cat._id, label: cat.displayName })),
-    [categories]
+    () =>
+      categories.map((cat) => ({
+        value: cat._id,
+        label: resolveCategoryLabel(tCat, cat.slug, cat.displayName)
+      })),
+    [categories, tCat]
   );
 
   const filterDefs = useMemo(
@@ -110,6 +116,7 @@ const AppsBoard = () => {
   };
 
   const { data, isLoading, isError } = useApps(params);
+  const toggleFavorite = useToggleFavorite();
   const items = data?.items ?? [];
   const meta = data?.meta;
 
@@ -151,11 +158,29 @@ const AppsBoard = () => {
               key={app._id}
               id={app._id}
               displayName={app.displayName}
-              category={app.category}
+              category={
+                app.category
+                  ? resolveCategoryLabel(
+                      tCat,
+                      app.categorySlug ?? "",
+                      app.category
+                    )
+                  : null
+              }
               description={app.description}
               iconUrl={app.iconUrl}
               homeUrl={app.homeUrl}
+              isFavorite={app.isFavorite}
               openLabel={t("card.open")}
+              addFavoriteLabel={t("card.addFavorite")}
+              removeFavoriteLabel={t("card.removeFavorite")}
+              togglePending={toggleFavorite.isPending}
+              onToggleFavorite={() =>
+                toggleFavorite.mutate({
+                  appId: app._id,
+                  isFavorite: app.isFavorite
+                })
+              }
             />
           ))}
         </div>

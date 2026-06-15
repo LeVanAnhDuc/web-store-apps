@@ -13,6 +13,7 @@ import TryAnotherButton from "../../components/TryAnotherButton";
 // forms
 import { passwordStepFormProps } from "@/forms/Login";
 // hooks
+import { useSubmitGuard } from "@/hooks";
 import { usePasswordLogin } from "../../hooks/usePasswordLogin";
 // others
 import { Link } from "@/i18n/navigation";
@@ -29,6 +30,7 @@ const PasswordStepForm = ({
   translations: LoginMessages;
 }) => {
   const { login, isPending } = usePasswordLogin();
+  const { run, release } = useSubmitGuard();
   const methods = useForm<PasswordStepFormValues>({ ...passwordStepFormProps });
 
   const {
@@ -37,9 +39,10 @@ const PasswordStepForm = ({
   } = translations.form;
   const { forgotPassword } = translations.link;
 
-  const onSubmit = (data: PasswordStepFormValues) => {
-    login({ email, password: data[PASSWORD] });
-  };
+  const onSubmit = (data: PasswordStepFormValues) =>
+    run(() => {
+      login({ email, password: data[PASSWORD] }, { onSettled: release });
+    });
 
   return (
     <FormProvider {...methods}>

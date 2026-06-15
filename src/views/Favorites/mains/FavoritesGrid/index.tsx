@@ -3,7 +3,11 @@
 import { ArrowUpDown, ChevronDown } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+// types
+import type { FavoritesSortKey } from "@/types/Apps";
 // components
+import AppCard from "@/components/AppCard";
+import AppCardSkeleton from "@/views/Apps/components/AppCardSkeleton";
 import CustomButton from "@/components/CustomButton";
 import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
@@ -15,76 +19,63 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import FavoriteAppCard from "../../components/FavoriteAppCard";
 // hooks
-import { useListQuery } from "@/hooks";
+import { useListQuery, useToggleFavorite } from "@/hooks";
+import useFavorites from "../../hooks/useFavorites";
+import useAppCategories from "@/views/Apps/hooks/useAppCategories";
 // dataSources
 import { buildFavoritesFilterDefs } from "@/dataSources/Favorites";
 // others
-import { FAVORITE_APPS_MOCK, FAVORITE_CATEGORIES } from "@/mocks/Favorites";
-import type { FavoriteCategoryKey } from "@/mocks/Favorites";
+import { resolveCategoryLabel } from "@/utils";
+
+const FavoritesGridSkeleton = () => (
+  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {Array.from({ length: 6 }).map((_, idx) => (
+      <AppCardSkeleton key={`skeleton-${idx}`} />
+    ))}
+  </div>
+);
 
 const FavoritesGrid = () => {
   const t = useTranslations("favorites");
+  const tCat = useTranslations("common.categories");
 
-  const [sort, setSort] = useState<"recent" | "name" | "rating">("recent");
-  const [removed, setRemoved] = useState<string[]>([]);
+  // sort is a display preference — kept in local state, not URL
+  const [sort, setSort] = useState<FavoritesSortKey>("recent");
 
-  // Category options derived from FAVORITE_CATEGORIES (exclude "all" — that's the filterDef default)
+  const { data: categories = [] } = useAppCategories();
+
   const categoryOptions = useMemo(
     () =>
-      (
-        FAVORITE_CATEGORIES.filter((k) => k !== "all") as Exclude<
-          FavoriteCategoryKey,
-          "all"
-        >[]
-      ).map((key) => ({
-        value: key,
-        label: t(`categories.${key}`)
+      categories.map((cat) => ({
+        value: cat._id,
+        label: resolveCategoryLabel(tCat, cat.slug, cat.displayName)
       })),
-    [t]
+    [categories, tCat]
   );
 
   const filterDefs = useMemo(
     () =>
       buildFavoritesFilterDefs(categoryOptions, {
-        category: t("categories.all")
+        category: t("categories.groupLabel")
       }),
     [categoryOptions, t]
   );
 
   const query = useListQuery(filterDefs);
 
-  // Client-side filtering: use query.search (live value) for instant filtering
-  const filtered = useMemo(() => {
-    const q = query.search.trim().toLowerCase();
-    const categoryFilter = query.filters["category"] as
-      | Exclude<FavoriteCategoryKey, "all">
-      | undefined;
-
-    let list = FAVORITE_APPS_MOCK.filter((app) => !removed.includes(app.id));
-
-    if (categoryFilter) {
-      list = list.filter((app) => app.category === categoryFilter);
-    }
-    if (q) {
-      list = list.filter(
-        (app) =>
-          app.name.toLowerCase().includes(q) ||
-          app.description.toLowerCase().includes(q)
-      );
-    }
-    if (sort === "name")
-      return [...list].sort((a, b) => a.name.localeCompare(b.name));
-    if (sort === "rating") return [...list].sort((a, b) => b.rating - a.rating);
-    return list;
-  }, [query.search, query.filters, sort, removed]);
-
-  const hasActiveFilters = query.activeFilterCount > 0 || Boolean(query.search);
-
-  const handleRemove = (id: string) => {
-    setRemoved((prev) => [...prev, id]);
+  const params = {
+    sort,
+    ...(query.appliedSearch && { search: query.appliedSearch }),
+    ...(query.filters.categoryId && { categoryId: query.filters.categoryId })
   };
+
+  const { data, isLoading, isError } = useFavorites(params);
+  const toggleFavorite = useToggleFavorite();
+  const items = data?.items ?? [];
+
+  const hasActiveFilters =
+    query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   const SortDropdown = (
     <DropdownMenu>
@@ -106,9 +97,6 @@ const FavoritesGrid = () => {
         <DropdownMenuItem onClick={() => setSort("name")}>
           {t("sort.name")}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setSort("rating")}>
-          {t("sort.rating")}
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -123,26 +111,47 @@ const FavoritesGrid = () => {
         rightSlot={SortDropdown}
       />
       <ListContent
-        isLoading={false}
-        isEmpty={filtered.length === 0}
+        isLoading={isLoading}
+        isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
         onClearFilters={query.clearFilters}
-        skeleton={<></>}
+        skeleton={<FavoritesGridSkeleton />}
+        emptyTitle={t("empty")}
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((app) => (
-            <FavoriteAppCard
-              key={app.id}
-              name={app.name}
-              category={t(`categories.${app.category}`)}
+          {isError && (
+            <p className="text-destructive col-span-full text-sm" role="alert">
+              {t("error")}
+            </p>
+          )}
+          {items.map((app) => (
+            <AppCard
+              key={app._id}
+              id={app._id}
+              displayName={app.displayName}
+              category={
+                app.category
+                  ? resolveCategoryLabel(
+                      tCat,
+                      app.categorySlug ?? "",
+                      app.category
+                    )
+                  : null
+              }
               description={app.description}
-              rating={app.rating}
-              icon={app.icon}
-              iconBg={app.iconBg}
+              iconUrl={app.iconUrl}
+              homeUrl={app.homeUrl}
+              isFavorite={app.isFavorite}
               openLabel={t("card.open")}
-              reviewsLabel={t("card.reviews", { count: app.reviews })}
-              removeLabel={t("card.remove")}
-              onRemove={() => handleRemove(app.id)}
+              addFavoriteLabel={t("card.add")}
+              removeFavoriteLabel={t("card.remove")}
+              togglePending={toggleFavorite.isPending}
+              onToggleFavorite={() =>
+                toggleFavorite.mutate({
+                  appId: app._id,
+                  isFavorite: app.isFavorite
+                })
+              }
             />
           ))}
         </div>

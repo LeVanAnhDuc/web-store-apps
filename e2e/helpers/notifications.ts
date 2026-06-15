@@ -9,9 +9,22 @@ export const USER_EMAIL = process.env.E2E_USER_EMAIL ?? "user@test.com";
 export const USER_PASSWORD = process.env.E2E_USER_PASSWORD ?? "User@123";
 
 // Literal seed titles (BE seeder: server/src/database/seeders/data/notifications.ts).
-// The first three seed rows are unread; we assert one verbatim to prove the FE
-// renders the stored string, not an i18n key or enum.
-export const SEED_UNREAD_TITLE = "Unusual sign-in detected";
+// We assert these verbatim to prove the FE renders the stored string, not an
+// i18n key or enum.
+//
+// IMPORTANT — pick titles the mutation tests never consume. The real seed pads
+// to 26 rows by appending a UNIQUE "(#N)" suffix, with isRead = (N-1) % 2 === 0;
+// each "(#N)" title is therefore globally unique AND deterministically read or
+// unread. The serial mutation tests (mark-single, D9 persistence) permanently
+// flip the NEWEST unread item (`.first()` = top of list) to read with no
+// mark-unread API to revert (documented in the spec + afterAll). The bare
+// titles (items 1-3, newest) get eaten by that drift across runs, so we anchor
+// on OLD padded "(#N)" rows that sort to the bottom and are never clicked:
+//   - "Unusual sign-in detected (#22)" → seeded UNREAD (item #22, even N-1).
+//   - "Password changed" (bare item #4) → seeded READ; mutations only touch
+//     UNREAD rows, so this read row is never flipped. Its exact match never
+//     collides with the padded "Password changed (#11/#18/#25)" variants.
+export const SEED_UNREAD_TITLE = "Unusual sign-in detected (#22)";
 // A seed row that is seeded as read (4th item), used for read-tab assertions.
 export const SEED_READ_TITLE = "Password changed";
 

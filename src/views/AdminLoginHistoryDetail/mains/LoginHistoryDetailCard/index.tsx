@@ -1,6 +1,7 @@
 "use client";
 
 // libs
+import { useEffect } from "react";
 import { isAxiosError } from "axios";
 import { useTranslations } from "next-intl";
 // types
@@ -11,18 +12,33 @@ import EntityName from "@/components/EntityName";
 import LoginHistoryDetailSkeleton from "../../components/LoginHistoryDetailSkeleton";
 import DetailField from "../../components/DetailField";
 // hooks
+import { useAnnounce } from "@/hooks";
 import useAdminLoginHistoryDetail from "../../hooks/useAdminLoginHistoryDetail";
 // others
 import { formatDateTimeMedium } from "@/utils";
 
 const LoginHistoryDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("loginHistory.admin.detail");
+  const tAnnounce = useTranslations("loginHistory.admin.detail.announce");
   const tFields = useTranslations("loginHistory.admin.detail.fields");
   const tStatus = useTranslations("loginHistory.status");
   const tMethod = useTranslations("loginHistory.method");
   const tDevice = useTranslations("loginHistory.deviceType");
+  const { announce } = useAnnounce();
 
   const { data, isLoading, isError, error } = useAdminLoginHistoryDetail(id);
+
+  useEffect(() => {
+    if (isLoading) announce(tAnnounce("loading"));
+  }, [isLoading, announce, tAnnounce]);
+
+  useEffect(() => {
+    if (data) announce(tAnnounce("loaded"));
+  }, [data, announce, tAnnounce]);
+
+  useEffect(() => {
+    if (isError) announce(tAnnounce("error"));
+  }, [isError, announce, tAnnounce]);
 
   if (isLoading) return <LoginHistoryDetailSkeleton />;
 

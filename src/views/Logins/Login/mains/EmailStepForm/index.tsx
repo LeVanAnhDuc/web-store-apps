@@ -10,6 +10,7 @@ import NextButton from "../../components/NextButton";
 // forms
 import { emailStepFormProps } from "@/forms/Login";
 // hooks
+import { useSubmitGuard } from "@/hooks";
 import { useLoginEmail } from "../../hooks/useLoginEmail";
 // others
 import CONSTANTS from "@/constants";
@@ -23,10 +24,12 @@ const EmailStepForm = ({
 }) => {
   const methods = useForm<EmailStepFormValues>({ ...emailStepFormProps });
   const { checkEmail, isPending } = useLoginEmail();
+  const { run, release } = useSubmitGuard();
 
-  const onSubmit = (data: EmailStepFormValues) => {
-    checkEmail(data[EMAIL]);
-  };
+  const onSubmit = (data: EmailStepFormValues) =>
+    run(() => {
+      checkEmail(data[EMAIL], { onSettled: release });
+    });
 
   return (
     <FormProvider {...methods}>

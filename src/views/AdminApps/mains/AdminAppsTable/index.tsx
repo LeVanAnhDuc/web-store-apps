@@ -46,7 +46,7 @@ import {
 import { getAdminApps, getAdminAppCategories } from "@/requests/adminApps";
 // others
 import CONSTANTS from "@/constants";
-import { formatDateTimeShort } from "@/utils";
+import { formatDateTimeShort, resolveCategoryLabel } from "@/utils";
 
 const SKELETON_ROW_COUNT = 4;
 
@@ -70,6 +70,7 @@ const AdminAppsTable = () => {
   const tActions = useTranslations("adminApps.actions");
   const tStatus = useTranslations("adminApps.status");
   const tAnnounce = useTranslations("adminApps.announce");
+  const tCategory = useTranslations("common.categories");
   const { announce } = useAnnounce();
   const setStatusMutation = useSetAdminAppStatus();
 
@@ -95,8 +96,12 @@ const AdminAppsTable = () => {
   );
 
   const categoryOptions = useMemo(
-    () => categories.map((cat) => ({ value: cat._id, label: cat.name })),
-    [categories]
+    () =>
+      categories.map((cat) => ({
+        value: cat._id,
+        label: resolveCategoryLabel(tCategory, cat.slug, cat.name)
+      })),
+    [categories, tCategory]
   );
 
   const filterDefs = useMemo(
@@ -122,8 +127,14 @@ const AdminAppsTable = () => {
   });
 
   const categoryMap = useMemo(
-    () => new Map(categories.map((c) => [c._id, c.name])),
-    [categories]
+    () =>
+      new Map(
+        categories.map((c) => [
+          c._id,
+          resolveCategoryLabel(tCategory, c.slug, c.name)
+        ])
+      ),
+    [categories, tCategory]
   );
 
   const items = data?.items ?? [];
