@@ -102,9 +102,11 @@ test.describe("Favorites i18n (en + vi)", () => {
     await page.goto("/favorites");
     await waitForFavorites(page);
 
+    // Unified toolbar: accessible name is the generic list "Search"; the
+    // localized text lives in the placeholder attribute.
     await expect(
-      page.getByRole("textbox", { name: EN.searchPlaceholder })
-    ).toBeVisible();
+      page.getByRole("search").getByRole("textbox")
+    ).toHaveAttribute("placeholder", EN.searchPlaceholder);
     const sort = page.getByRole("button", { name: EN.sortLabel });
     await expect(sort).toBeVisible();
     await sort.click();
@@ -124,8 +126,8 @@ test.describe("Favorites i18n (en + vi)", () => {
     await waitForFavorites(page);
 
     await expect(
-      page.getByRole("textbox", { name: VI.searchPlaceholder })
-    ).toBeVisible();
+      page.getByRole("search").getByRole("textbox")
+    ).toHaveAttribute("placeholder", VI.searchPlaceholder);
     const sort = page.getByRole("button", { name: VI.sortLabel });
     await expect(sort).toBeVisible();
     await sort.click();

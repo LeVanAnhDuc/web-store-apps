@@ -100,7 +100,7 @@ test.describe("Favorites page (/favorites)", () => {
     await waitForFavorites(page);
     await expect(cardTitle(page, "Blog")).toBeVisible();
 
-    const search = page.getByRole("textbox", { name: "Search favorites..." });
+    const search = page.getByRole("search").getByRole("textbox");
     // Match.
     await search.fill("Notes");
     await waitForFavorites(page);
@@ -119,7 +119,12 @@ test.describe("Favorites page (/favorites)", () => {
     await expect(cardTitle(page, "Notes")).toBeVisible();
   });
 
-  test("category chip filters favorites and 'All' resets", async ({ page }) => {
+  // Unified migration: category pills were replaced by a Filters popover holding
+  // a category Select. Filter state lives in the URL (categoryId) and the active
+  // count shows as a badge on the Filters button.
+  test("category filter (Filters popover) narrows favorites and clears", async ({
+    page
+  }) => {
     await setFavorites([
       idByName.Blog,
       idByName.Notes,
@@ -128,23 +133,47 @@ test.describe("Favorites page (/favorites)", () => {
     await page.goto(FAVORITES_PATH);
     await waitForFavorites(page);
 
-    const group = page.getByRole("group", { name: "Filter by category" });
-    const chips = group.getByRole("button");
-    await expect(chips.first()).toBeVisible(); // "All" chip at index 0.
-
-    // Pick the first real category chip (skip "All") and apply it.
-    const realChip = chips.nth(1);
-    await expect(realChip).toBeVisible();
+    // Open the Filters popover and pick the first real category (after "All").
+    await page.getByRole("button", { name: /Filters/ }).click();
+    const popover = page.locator('[data-slot="popover-content"]');
+    await expect(popover).toBeVisible();
+    await popover.getByRole("combobox").first().click();
     const filtered = waitForFavorites(page);
-    await realChip.click();
+    await page.getByRole("option").nth(1).click();
     await filtered;
-    await expect(realChip).toHaveAttribute("aria-pressed", "true");
 
-    // "All" resets the category filter. It reverts to the initial query key,
-    // served from React Query cache (no network GET), so assert state directly.
-    await chips.first().click();
-    await expect(chips.first()).toHaveAttribute("aria-pressed", "true");
-    await expect(realChip).toHaveAttribute("aria-pressed", "false");
+    // Category id is reflected in the URL; the Filters button shows the active
+    // count badge.
+    await expect(page).toHaveURL(/categoryId=/);
+    await expect(page.getByRole("button", { name: /Filters/ })).toContainText(
+      "1"
+    );
+
+    // The Filters popover stays open after picking a category (only the inner
+    // Select closes, not the Popover). Clear all from the still-open popover →
+    // categoryId leaves the URL. (Re-clicking the Filters trigger here would
+    // TOGGLE the open popover shut and detach "Clear all".)
+    await expect(popover).toBeVisible();
+    await popover.getByRole("button", { name: /Clear all/i }).click();
+    await expect(page).not.toHaveURL(/categoryId=/);
+  });
+
+  // Unified migration: filter/search state is URL-driven, so a reload preserves
+  // the active search (the pre-migration favorites kept it in memory and reset).
+  test("search term persists in the URL and survives reload", async ({
+    page
+  }) => {
+    await setFavorites([idByName.Blog, idByName.Notes]);
+    await page.goto(`${FAVORITES_PATH}?search=Notes`);
+    await waitForFavorites(page);
+    await expect(cardTitle(page, "Notes")).toBeVisible();
+    await expect(cardTitle(page, "Blog")).toHaveCount(0);
+
+    await page.reload();
+    await waitForFavorites(page);
+    await expect(page).toHaveURL(/search=Notes/);
+    await expect(cardTitle(page, "Notes")).toBeVisible();
+    await expect(cardTitle(page, "Blog")).toHaveCount(0);
   });
 
   // --- Sort (Recent vs Name) ---

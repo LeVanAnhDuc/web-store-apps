@@ -25,10 +25,10 @@ test.describe("Favorites — AuthN", () => {
       await expect(
         page.getByRole("button", { name: /continue with email/i })
       ).toBeVisible({ timeout: 20_000 });
-      // The protected favorites chrome must NOT be present.
-      await expect(
-        page.getByRole("textbox", { name: "Search favorites..." })
-      ).toHaveCount(0);
+      // The protected favorites chrome must NOT be present. The unified list
+      // toolbar wraps its search in a role="search" landmark, so its absence is
+      // the reliable signal the favorites page did not render.
+      await expect(page.getByRole("search")).toHaveCount(0);
     } finally {
       await ctx.close();
     }
