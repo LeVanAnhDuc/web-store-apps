@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { FileText, Download } from "lucide-react";
 // components
-import { Button } from "@/components/ui/button";
 import CustomButton from "@/components/CustomButton";
 import CustomImage from "@/components/CustomImage";
 import {
@@ -81,7 +80,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
               <p className="text-muted-foreground text-xs">
                 {(att.size / 1024).toFixed(0)} KB
               </p>
-              <Button
+              <CustomButton
                 asChild
                 variant="link"
                 size="sm"
@@ -95,7 +94,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
                   <Download className="size-3" aria-hidden="true" />
                   {t("download")}
                 </a>
-              </Button>
+              </CustomButton>
             </div>
           );
         })}
