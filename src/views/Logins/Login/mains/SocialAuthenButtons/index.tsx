@@ -18,7 +18,7 @@ const SocialAuthenButtons = ({
       variant="outline"
       disabled
       fullWidth
-      className="border-input hover:bg-accent h-12 justify-between transition-colors duration-200"
+      className="border-input hover:bg-accent justify-between transition-colors duration-200"
     >
       <span className="flex items-center gap-3">
         <GoogleIcon className="size-5 shrink-0" />
@@ -33,7 +33,7 @@ const SocialAuthenButtons = ({
       variant="outline"
       disabled
       fullWidth
-      className="border-input hover:bg-accent h-12 justify-between transition-colors duration-200"
+      className="border-input hover:bg-accent justify-between transition-colors duration-200"
     >
       <span className="flex items-center gap-3">
         <FacebookIcon className="size-5 shrink-0" />
