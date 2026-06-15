@@ -49,6 +49,9 @@
     "passwordHidden": "Password is now hidden.",
     "languageChanged": "Language changed to {language}."
   },
+  "dateInput": {
+    "openCalendar": "Open calendar"
+  },
   "or": "or",
   "footer": {
     "help": "Help",

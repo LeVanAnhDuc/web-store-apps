@@ -49,6 +49,9 @@
     "passwordHidden": "Mật khẩu đã được ẩn.",
     "languageChanged": "Đã đổi ngôn ngữ sang {language}."
   },
+  "dateInput": {
+    "openCalendar": "Mở lịch"
+  },
   "or": "hoặc",
   "footer": {
     "help": "Trợ giúp",
