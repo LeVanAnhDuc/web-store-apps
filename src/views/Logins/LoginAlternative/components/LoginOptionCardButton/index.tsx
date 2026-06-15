@@ -38,7 +38,6 @@ const LoginOptionCardButton = ({
     <FadeSlideLeft delay={animationDelay}>
       <CustomButton
         variant="ghost"
-        size="lg"
         fullWidth
         onClick={handleClick}
         className={cn(

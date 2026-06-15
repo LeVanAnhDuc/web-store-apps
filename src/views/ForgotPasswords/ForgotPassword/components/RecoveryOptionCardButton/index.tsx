@@ -38,7 +38,6 @@ const RecoveryOptionCardButton = ({
     <FadeSlideLeft delay={animationDelay}>
       <CustomButton
         variant="ghost"
-        size="lg"
         fullWidth
         onClick={handleClick}
         className={cn(
