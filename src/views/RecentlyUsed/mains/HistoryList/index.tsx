@@ -77,7 +77,7 @@ const HistoryList = () => {
             variant="outline"
             iconLeft={<Trash2 className="size-3.5" aria-hidden="true" />}
             onClick={handleClear}
-            className="border-border text-destructive hover:text-destructive h-10"
+            className="border-border text-destructive hover:text-destructive"
           >
             {t("clear")}
           </CustomButton>

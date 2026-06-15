@@ -59,7 +59,7 @@ const NotificationItem = ({
       {!isRead ? (
         <CustomButton
           variant="ghost"
-          size="icon"
+          size="icon-sm"
           aria-label={markReadLabel}
           onClick={onMarkRead}
           disabled={isMarking}

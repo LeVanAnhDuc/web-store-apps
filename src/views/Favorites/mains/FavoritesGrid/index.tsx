@@ -99,7 +99,6 @@ const FavoritesGrid = () => {
                 iconRight={
                   <ChevronDown className="size-3.5" aria-hidden="true" />
                 }
-                className="h-10"
               >
                 {t("sort.label", { value: t(`sort.${sort}`) })}
               </CustomButton>
