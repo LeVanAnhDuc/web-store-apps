@@ -87,11 +87,10 @@ const LoginHistoryFilters = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <CustomButton
-            size="default"
+            size="sm"
             variant="outline"
             aria-label={`${tFilter("method")}: ${methodLabel}`}
             iconRight={<ChevronDown className="size-3.5" aria-hidden="true" />}
-            className="h-10"
           >
             {methodLabel}
           </CustomButton>
@@ -119,11 +118,10 @@ const LoginHistoryFilters = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <CustomButton
-            size="default"
+            size="sm"
             variant="outline"
             aria-label={`${tFilter("status")}: ${statusLabel}`}
             iconRight={<ChevronDown className="size-3.5" aria-hidden="true" />}
-            className="h-10"
           >
             {statusLabel}
           </CustomButton>
@@ -143,12 +141,11 @@ const LoginHistoryFilters = () => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <CustomButton
-            size="default"
+            size="sm"
             variant="outline"
             aria-label={`${tFilter("fromDate")} - ${tFilter("toDate")}: ${dateRangeLabel}`}
             iconLeft={<Calendar className="size-3.5" aria-hidden="true" />}
             iconRight={<ChevronDown className="size-3.5" aria-hidden="true" />}
-            className="h-10"
           >
             {dateRangeLabel}
           </CustomButton>
@@ -177,9 +174,8 @@ const LoginHistoryFilters = () => {
         className="ml-auto w-56"
       />
       <CustomButton
-        size="default"
+        size="sm"
         iconLeft={<Download className="size-3.5" aria-hidden="true" />}
-        className="h-10"
       >
         {tToolbar("export")}
       </CustomButton>

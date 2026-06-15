@@ -65,7 +65,6 @@ const AdminAppsToolbar = () => {
             onChange={(value) => updateParam("search", value)}
             placeholder={t("searchPlaceholder")}
             ariaLabel={t("search")}
-            inputClassName="h-12"
           />
         </div>
         <div className="space-y-1.5">
