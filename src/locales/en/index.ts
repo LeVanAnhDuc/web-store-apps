@@ -14,7 +14,6 @@ import loginHistory from "./loginHistory.json";
 import user from "./user.json";
 import profile from "./profile.json";
 import accountSettings from "./accountSettings.json";
-import security from "./security.json";
 import notifications from "./notifications.json";
 import billing from "./billing.json";
 import team from "./team.json";
@@ -41,7 +40,6 @@ const messages = {
   user,
   profile,
   accountSettings,
-  security,
   notifications,
   billing,
   team,
