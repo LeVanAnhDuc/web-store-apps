@@ -9,8 +9,7 @@ import {
   User,
   Settings,
   CreditCard,
-  Users,
-  Shield
+  Users
 } from "lucide-react";
 // others
 import CONSTANTS from "@/constants";
@@ -41,8 +40,7 @@ export type NavKey =
   | "profile"
   | "accountSettings"
   | "billing"
-  | "team"
-  | "security";
+  | "team";
 
 export type NavGroupKey = "discover" | "mine" | "settings";
 
@@ -79,8 +77,7 @@ export const NAV_GROUPS: readonly NavGroup[] = [
       { key: "profile", icon: User, href: ROUTES.PROFILE },
       { key: "accountSettings", icon: Settings, href: ROUTES.ACCOUNT_SETTINGS },
       { key: "billing", icon: CreditCard, href: ROUTES.BILLING },
-      { key: "team", icon: Users, href: ROUTES.TEAM },
-      { key: "security", icon: Shield, href: ROUTES.SECURITY }
+      { key: "team", icon: Users, href: ROUTES.TEAM }
     ]
   }
 ] as const;

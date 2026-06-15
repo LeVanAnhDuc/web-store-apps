@@ -36,8 +36,7 @@
       "profile": "Profile",
       "accountSettings": "Account Settings",
       "billing": "Billing",
-      "team": "Team",
-      "security": "Security"
+      "team": "Team"
     }
   },
   "notifications": {
