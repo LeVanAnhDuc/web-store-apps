@@ -62,12 +62,7 @@ const PasswordStepForm = ({
             label={tryAnother}
           />
         </div>
-        <CustomButton
-          type="submit"
-          loading={isPending}
-          className="h-12"
-          fullWidth
-        >
+        <CustomButton type="submit" loading={isPending} fullWidth>
           {signIn}
         </CustomButton>
         <div className="text-center">

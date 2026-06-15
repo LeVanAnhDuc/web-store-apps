@@ -52,7 +52,6 @@ const AdminEntitlementsToolbar = () => {
             onChange={(value) => updateParam("search", value)}
             placeholder={t("appSearchPlaceholder")}
             ariaLabel={t("appSearch")}
-            inputClassName="!h-12"
           />
         </div>
       </div>

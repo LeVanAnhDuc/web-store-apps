@@ -102,7 +102,6 @@ const ForgotPasswordResetForm = ({
           fullWidth
           loading={isResetting}
           disabled={isDisabled}
-          className="h-12"
         >
           {reset}
         </CustomButton>

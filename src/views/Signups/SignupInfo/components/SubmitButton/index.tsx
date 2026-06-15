@@ -10,12 +10,7 @@ const SubmitButton = ({
   loading?: boolean;
   fullWidth?: boolean;
 }) => (
-  <CustomButton
-    type="submit"
-    loading={loading}
-    fullWidth={fullWidth}
-    className="h-12"
-  >
+  <CustomButton type="submit" loading={loading} fullWidth={fullWidth}>
     {label}
   </CustomButton>
 );

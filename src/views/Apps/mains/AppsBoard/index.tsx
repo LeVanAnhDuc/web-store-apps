@@ -103,7 +103,6 @@ const AppsBoard = () => {
             aria-pressed={view === "grid"}
             onClick={() => handleViewChange("grid")}
             className={cn(
-              "size-10",
               view === "grid"
                 ? "bg-primary text-primary-foreground hover:bg-primary/90"
                 : "border-border bg-background hover:bg-muted text-muted-foreground border"
@@ -117,7 +116,6 @@ const AppsBoard = () => {
             aria-pressed={view === "list"}
             onClick={() => handleViewChange("list")}
             className={cn(
-              "size-10",
               view === "list"
                 ? "bg-primary text-primary-foreground hover:bg-primary/90"
                 : "border-border bg-background hover:bg-muted text-muted-foreground border"

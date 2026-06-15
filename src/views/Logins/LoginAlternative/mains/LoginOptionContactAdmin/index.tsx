@@ -29,7 +29,6 @@ const LoginOptionContactAdmin = ({
       <FadeSlideLeft delay={delay}>
         <CustomButton
           variant="ghost"
-          size="lg"
           fullWidth
           onClick={() => setOpen(true)}
           className={cn(

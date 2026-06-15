@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { format, isValid, parse } from "date-fns";
 import { CalendarIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 // types
 import type { Locale } from "date-fns";
 // components
@@ -42,6 +43,7 @@ const CustomDateInput = ({
   error?: boolean;
   displayFormat?: Parameters<typeof format>[1];
 }) => {
+  const t = useTranslations("common.dateInput");
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState(
     value ? format(value, displayFormat) : ""
@@ -110,7 +112,7 @@ const CustomDateInput = ({
               variant="ghost"
               size="icon-sm"
               disabled={disabled}
-              aria-label={placeholder}
+              aria-label={t("openCalendar")}
               className="absolute top-1/2 right-1.5 -translate-y-1/2"
             >
               <CalendarIcon className="size-4 opacity-60" />

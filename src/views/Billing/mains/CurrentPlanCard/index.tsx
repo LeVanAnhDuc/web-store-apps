@@ -58,10 +58,8 @@ const CurrentPlanCard = async () => {
           </ul>
         </div>
         <div className="flex flex-col items-end gap-2">
-          <CustomButton size="sm">{t("buttons.upgrade")}</CustomButton>
-          <CustomButton variant="outline" size="sm">
-            {t("buttons.cancel")}
-          </CustomButton>
+          <CustomButton>{t("buttons.upgrade")}</CustomButton>
+          <CustomButton variant="outline">{t("buttons.cancel")}</CustomButton>
         </div>
       </CardContent>
     </Card>

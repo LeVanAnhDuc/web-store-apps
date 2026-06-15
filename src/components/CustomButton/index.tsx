@@ -6,7 +6,7 @@ import type { VariantProps } from "class-variance-authority";
 import { Button as ButtonUI } from "@/components/ui/button";
 import { Spinner } from "../ui/spinner";
 // dataSources
-import { BUTTON_SIZE_TEXT_CLASSES } from "@/dataSources/Common";
+import { BUTTON_SIZE_CLASSES } from "@/dataSources/Common";
 // others
 import { cn } from "@/libs/utils";
 
@@ -14,7 +14,7 @@ const CustomButton = ({
   className,
   loading,
   variant = "default",
-  size = "lg",
+  size = "default",
   fullWidth,
   iconRight,
   iconLeft,
@@ -29,7 +29,7 @@ const CustomButton = ({
   <ButtonUI
     className={cn(
       "hover:cursor-pointer",
-      BUTTON_SIZE_TEXT_CLASSES[size ?? "lg"],
+      BUTTON_SIZE_CLASSES[size ?? "default"],
       {
         "w-full": fullWidth
       },
