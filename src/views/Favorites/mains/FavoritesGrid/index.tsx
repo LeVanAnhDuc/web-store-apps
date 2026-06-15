@@ -91,7 +91,7 @@ const FavoritesGrid = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <CustomButton
-                size="default"
+                size="sm"
                 variant="outline"
                 iconLeft={
                   <ArrowUpDown className="size-3.5" aria-hidden="true" />
