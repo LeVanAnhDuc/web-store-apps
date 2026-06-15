@@ -12,7 +12,7 @@ const CustomInput = React.forwardRef<
   <Input
     ref={ref}
     className={cn(
-      "border-input bg-background focus:border-ring focus:ring-ring h-12 rounded-lg px-4 transition-colors duration-200",
+      "border-input bg-background focus:border-ring focus:ring-ring h-10 rounded-lg px-4 transition-colors duration-200",
       className
     )}
     {...props}

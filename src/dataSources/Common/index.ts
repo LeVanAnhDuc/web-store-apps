@@ -15,11 +15,11 @@ export const DISABLED_CLASSES = "bg-muted text-muted-foreground";
 
 type ButtonSize = NonNullable<VariantProps<typeof buttonVariants>["size"]>;
 
-export const BUTTON_SIZE_TEXT_CLASSES: Record<ButtonSize, string> = {
-  sm: "text-xs",
-  default: "text-sm",
-  lg: "text-base",
-  icon: "",
-  "icon-sm": "",
-  "icon-lg": ""
+export const BUTTON_SIZE_CLASSES: Record<ButtonSize, string> = {
+  sm: "h-9 text-xs",
+  default: "h-10 text-sm",
+  lg: "h-12 text-base",
+  icon: "size-10",
+  "icon-sm": "size-9",
+  "icon-lg": "size-12"
 };
