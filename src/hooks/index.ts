@@ -8,6 +8,7 @@ import useAnnounce from "./useAnnounce";
 import useDelayedFlag from "./useDelayedFlag";
 import useUserInfo from "./useUserInfo";
 import useIsMobile from "./useIsMobile";
+import useSubmitGuard from "./useSubmitGuard";
 
 export {
   useFieldProps,
@@ -19,7 +20,8 @@ export {
   useAnnounce,
   useDelayedFlag,
   useUserInfo,
-  useIsMobile
+  useIsMobile,
+  useSubmitGuard
 };
 export { default as useDebouncedValue } from "./useDebouncedValue";
 export { default as useToggleFavorite } from "./useToggleFavorite";

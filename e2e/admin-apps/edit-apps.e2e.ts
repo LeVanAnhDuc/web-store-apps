@@ -563,41 +563,38 @@ test.describe("Admin Apps — mutation safety", () => {
     ).toBeVisible();
   });
 
-  // E2E-11a — double-submit → exactly one PATCH (button disabled while pending).
+  // E2E-11a — double-submit → exactly one PATCH.
   //
-  // FIXME (CONFIRMED APP BUG — do NOT change app code in tests): the live app
-  // fires TWO PATCH requests on a rapid double-submit. AdminAppsFormSheet relies
-  // SOLELY on `<CustomButton type="submit" loading={isPending} />` (which sets
-  // `disabled={loading || disabled}`) for double-submit protection. Because
-  // `isPending` only flips to true AFTER React flushes the post-mutate re-render,
-  // two clicks dispatched in the same tick — including a single native
-  // `dblclick`, i.e. a realistic fast user — both pass the actionability check
-  // before the button is disabled, so BOTH fire a PATCH. Verified live:
-  // patchCount === 2 for both `Promise.all([click, click])` and `dblclick()`.
-  // The two PATCHes are idempotent (same values) so no data corruption, but the
-  // single-submit guarantee this test asserts is NOT implemented. Proper fix is
-  // in app source (e.g. an in-flight ref guard in `onSubmit`, or dedupe in the
-  // update mutation hook) — out of scope for a test-only fix. Re-enable once the
-  // app guards the submit.
-  test.fixme(
-    "fires exactly one PATCH on rapid double-submit [ST]",
-    async ({ page }) => {
-      let patchCount = 0;
-      page.on("request", (req) => {
-        if (req.method() === "PATCH" && /\/admin\/apps\//.test(req.url()))
-          patchCount += 1;
-      });
+  // AdminAppsFormSheet's onSubmit is wrapped in a shared double-submit guard
+  // (useSubmitGuard): an in-flight ref is set synchronously on the first submit
+  // and only released in the mutation's onSettled, so a second click dispatched
+  // in the same tick (including a single native dblclick) is ignored before it
+  // can fire a second PATCH. We assert exactly one PATCH reaches the BE on a
+  // rapid double-click.
+  test("fires exactly one PATCH on rapid double-submit [ST]", async ({
+    page
+  }) => {
+    let patchCount = 0;
+    page.on("request", (req) => {
+      if (req.method() === "PATCH" && /\/admin\/apps\//.test(req.url()))
+        patchCount += 1;
+    });
 
-      await openEdit(page, TARGET_APP.displayName);
-      await page
-        .getByRole("textbox", { name: "Display Name" })
-        .fill("Blog (double e2e)");
-      const save = page.getByRole("button", { name: "Save Changes" });
-      await Promise.all([save.click(), save.click().catch(() => {})]);
-      await expect(page.getByText("App updated.").first()).toBeVisible();
-      expect(patchCount).toBe(1);
-    }
-  );
+    await openEdit(page, TARGET_APP.displayName);
+    await page
+      .getByRole("textbox", { name: "Display Name" })
+      .fill("Blog (double e2e)");
+    const save = page.getByRole("button", { name: "Save Changes" });
+    await Promise.all([save.click(), save.click().catch(() => {})]);
+    await expect(page.getByText("App updated.").first()).toBeVisible();
+    expect(patchCount).toBe(1);
+
+    // The single committed PATCH persisted "Blog (double e2e)". Self-revert the
+    // displayName so the next serial test (which reopens TARGET_APP by name and
+    // asserts the original "Blog" value) still finds the row. The describe-level
+    // afterAll only runs once at the very end.
+    await restoreApp(TARGET_APP.name, TARGET_APP.displayName, "active");
+  });
 
   // E2E-11b — navigate-away unsaved → no PATCH + reopen shows original values.
   test("discards unsaved edits and reopens with original values [Error Guessing]", async ({

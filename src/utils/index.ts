@@ -10,8 +10,10 @@ import type {
 import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
 import type { MyProfileResponse } from "@/types/User";
 import type { UpdatePersonalInfoFormValues } from "@/forms/UpdatePersonalInfo/validations";
+import type { Messages } from "@/types/libs";
 // dataSources
 import { CONTACT_CATEGORY_VALUES } from "@/dataSources/ContactAdmin";
+import { CATEGORY_LABEL_KEY } from "@/dataSources/Categories";
 // others
 import CONSTANTS from "@/constants";
 import { defaultLocale, locales } from "@/i18n/config";
@@ -214,6 +216,18 @@ export const buildPaginationPageNumbers = (
   if (page < totalPages - 2) result.push("dots");
   result.push(totalPages);
   return result;
+};
+
+type CategoryKey = keyof Messages["common"]["categories"];
+type CategoryTranslator = (key: CategoryKey) => string;
+
+export const resolveCategoryLabel = (
+  t: CategoryTranslator,
+  slug: string,
+  fallback: string
+): string => {
+  const key = CATEGORY_LABEL_KEY[slug] as CategoryKey | undefined;
+  return key ? t(key) : fallback;
 };
 
 export const mapProfileToFormValues = (

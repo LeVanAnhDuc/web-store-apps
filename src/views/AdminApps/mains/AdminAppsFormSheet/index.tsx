@@ -29,7 +29,7 @@ import FormResetEffect from "../../ghosts/FormResetEffect";
 // forms
 import { adminAppFormProps } from "@/forms/AdminApp";
 // hooks
-import { useAnnounce } from "@/hooks";
+import { useAnnounce, useSubmitGuard } from "@/hooks";
 import useCreateAdminApp from "../../hooks/useCreateAdminApp";
 import useUpdateAdminApp from "../../hooks/useUpdateAdminApp";
 // requests
@@ -69,38 +69,42 @@ const AdminAppsFormSheet = ({
   const createMutation = useCreateAdminApp();
   const updateMutation = useUpdateAdminApp();
   const isPending = createMutation.isPending || updateMutation.isPending;
+  const { run, release } = useSubmitGuard();
 
-  const onSubmit = (values: AdminAppFormValues) => {
-    if (isEdit && editingApp) {
-      updateMutation.mutate(
-        { id: editingApp._id, input: values },
-        {
-          onSuccess: (updated) => {
-            announce(tAnnounce("updated", { name: updated.displayName }));
-            onClose();
-          },
-          onError: (error) => {
-            const code = (error as AxiosError<ErrorResponsePattern>).response
-              ?.data?.code;
-            if (code === WEB_APP_NAME_EXISTS) {
-              methods.setError(NAME, { message: "exists" });
-            } else {
-              toast.error(tToast("error"));
+  const onSubmit = (values: AdminAppFormValues) =>
+    run(() => {
+      if (isEdit && editingApp) {
+        updateMutation.mutate(
+          { id: editingApp._id, input: values },
+          {
+            onSettled: release,
+            onSuccess: (updated) => {
+              announce(tAnnounce("updated", { name: updated.displayName }));
+              onClose();
+            },
+            onError: (error) => {
+              const code = (error as AxiosError<ErrorResponsePattern>).response
+                ?.data?.code;
+              if (code === WEB_APP_NAME_EXISTS) {
+                methods.setError(NAME, { message: "exists" });
+              } else {
+                toast.error(tToast("error"));
+              }
             }
           }
-        }
-      );
-      return;
-    }
-    createMutation.mutate(values, {
-      onSuccess: (created) => {
-        announce(tAnnounce("created", { name: created.displayName }));
-        onClose();
-        onCreated(created);
-      },
-      onError: () => toast.error(tToast("error"))
+        );
+        return;
+      }
+      createMutation.mutate(values, {
+        onSettled: release,
+        onSuccess: (created) => {
+          announce(tAnnounce("created", { name: created.displayName }));
+          onClose();
+          onCreated(created);
+        },
+        onError: () => toast.error(tToast("error"))
+      });
     });
-  };
 
   return (
     <Sheet open={open} onOpenChange={(o) => !o && onClose()}>

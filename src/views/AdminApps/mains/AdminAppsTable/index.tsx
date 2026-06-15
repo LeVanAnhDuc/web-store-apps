@@ -30,7 +30,7 @@ import { APP_STATUSES } from "@/dataSources/AdminApps";
 import { getAdminApps, getAdminAppCategories } from "@/requests/adminApps";
 // others
 import CONSTANTS from "@/constants";
-import { formatDateTimeShort } from "@/utils";
+import { formatDateTimeShort, resolveCategoryLabel } from "@/utils";
 
 const TABLE_COLUMN_COUNT = 7;
 const SKELETON_ROW_COUNT = 4;
@@ -48,6 +48,7 @@ const AdminAppsTable = ({
   onUnhide: (app: WebApp) => void;
 }) => {
   const t = useTranslations("adminApps.table");
+  const tCategory = useTranslations("common.categories");
   const searchParams = useSearchParams();
 
   const search = searchParams.get("search") ?? "";
@@ -70,7 +71,12 @@ const AdminAppsTable = ({
     queryFn: getAdminAppCategories
   });
 
-  const categoryMap = new Map(categories.map((c) => [c._id, c.name]));
+  const categoryMap = new Map(
+    categories.map((c) => [
+      c._id,
+      resolveCategoryLabel(tCategory, c.slug, c.name)
+    ])
+  );
 
   if (isLoading) {
     return (

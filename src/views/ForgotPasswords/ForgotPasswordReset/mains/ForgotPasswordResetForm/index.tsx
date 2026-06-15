@@ -12,6 +12,7 @@ import PasswordRequirements from "../../components/PasswordRequirements";
 // forms
 import { forgotPasswordResetFormProps } from "@/forms/ForgotPasswordReset";
 // hooks
+import { useSubmitGuard } from "@/hooks";
 import { useForgotPasswordReset } from "../../hooks/useForgotPasswordReset";
 // others
 import CONSTANTS from "@/constants";
@@ -53,10 +54,12 @@ const ForgotPasswordResetForm = ({
     reset: doReset,
     isResetting
   } = useForgotPasswordReset({ email, token, method, successMessage: success });
+  const { run, release } = useSubmitGuard();
 
-  const onSubmit = (data: ForgotPasswordResetFormValues) => {
-    doReset(data[NEW_PASSWORD]);
-  };
+  const onSubmit = (data: ForgotPasswordResetFormValues) =>
+    run(() => {
+      doReset(data[NEW_PASSWORD], { onSettled: release });
+    });
 
   if (isVerifying) {
     return (

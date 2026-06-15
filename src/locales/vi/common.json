@@ -3,6 +3,12 @@
     "name": "App Store",
     "description": "Ứng dụng Web App Store"
   },
+  "categories": {
+    "content": "Nội dung",
+    "tools": "Công cụ nội bộ",
+    "identity": "Định danh",
+    "productivity": "Năng suất"
+  },
   "userMenu": {
     "trigger": "Mở menu người dùng",
     "theme": "Giao diện",

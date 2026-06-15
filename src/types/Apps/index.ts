@@ -5,6 +5,7 @@ export interface UserApp {
   iconUrl: string | null;
   homeUrl: string;
   category: string | null;
+  categorySlug: string | null;
   isFavorite: boolean;
 }
 
@@ -30,6 +31,7 @@ export interface UserAppsQueryParams {
 export interface UserCategory {
   _id: string;
   displayName: string;
+  slug: string;
 }
 
 export type FavoritesSortKey = "recent" | "name";

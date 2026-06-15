@@ -549,7 +549,7 @@ test.describe("Change Password — session & security (Gate A only, isolated)", 
   // via API contexts (does not touch the shared browser session); runs LAST.
   test("revokes other-device refresh token after password change (ST invalid)", async () => {
     // Context #2 = "other device": log in BEFORE the change to capture a
-    // pre-change refresh token (iat < passwordChangedAt -> must be rejected).
+    // pre-change refresh token (older tokenVersion -> must be rejected).
     const otherDevice = await request.newContext({ baseURL: BASE_URL });
     const loginRes = await otherDevice.post("/api/v1/auth/login", {
       data: { email: LOGIN_EMAIL, password: DEFAULT_PASSWORD }
@@ -560,13 +560,9 @@ test.describe("Change Password — session & security (Gate A only, isolated)", 
     );
     expect(oldRefreshCookie).toBeTruthy();
 
-    // The BE guard rejects a token only when its `iat` (seconds) is STRICTLY
-    // less than `passwordChangedAt` (also floored to seconds) — see
-    // server password-not-changed.guard.ts. If the pre-change login and the
-    // change land in the same wall-clock second, iat === passwordChangedAtSec
-    // and the stale token would NOT be rejected (false negative). Wait just over
-    // a second so the captured token's iat is provably earlier than the change.
-    await new Promise((resolve) => setTimeout(resolve, 1100));
+    // Revocation is by tokenVersion now: the change bumps auth.tokenVersion, so
+    // the pre-change token (older version) is rejected regardless of timing — no
+    // same-second iat race, no wait needed. See password-not-changed.guard.ts.
 
     // Context #1 = current device: perform the real password change.
     const current = await request.newContext({ baseURL: BASE_URL });
