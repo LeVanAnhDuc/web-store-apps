@@ -62,7 +62,6 @@ const StringListField = ({
           variant="outline"
           onClick={handleAdd}
           disabled={disabled || !draft.trim()}
-          className="h-12"
           iconLeft={<Plus aria-hidden="true" />}
         >
           {addLabel || t("addUri")}
