@@ -42,7 +42,6 @@ const TeamMembersCard = () => {
         </CardDescription>
         <CardAction>
           <CustomButton
-            size="sm"
             iconLeft={<Plus className="size-3.5" aria-hidden="true" />}
           >
             {t("buttons.invite")}

@@ -19,7 +19,7 @@ const DangerZoneCard = () => {
           title: t("delete.title"),
           description: t("delete.description"),
           action: (
-            <CustomButton variant="destructive" size="sm">
+            <CustomButton variant="destructive">
               {t("delete.button")}
             </CustomButton>
           )
