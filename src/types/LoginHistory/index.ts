@@ -11,7 +11,6 @@ export type LoginHistoryDeviceType =
   | "UNKNOWN";
 type DeviceType = LoginHistoryDeviceType;
 type ClientType = "WEB" | "MOBILE_IOS" | "MOBILE_ANDROID";
-export type DateRangePreset = "today" | "7d" | "30d" | "90d" | "all";
 
 export interface LoginHistoryItem {
   _id: string;

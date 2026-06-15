@@ -4,7 +4,6 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { LayoutGrid } from "lucide-react";
 // types
 import type { EntitlementRow } from "@/types/AdminEntitlements";
 // components
@@ -16,37 +15,55 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
+import { Label } from "@/components/ui/label";
+import ListPageShell from "@/components/list/ListPageShell";
+import ListPageHeader from "@/components/list/ListPageHeader";
+import ListToolbar from "@/components/list/ListToolbar";
+import ListContent from "@/components/list/ListContent";
 import EntitlementStatusBadge from "../../components/EntitlementStatusBadge";
 import GrantToggleButton from "../../components/GrantToggleButton";
 import UserNotSelectedEmpty from "../../components/UserNotSelectedEmpty";
 import EntitlementsTableSkeleton from "../../components/EntitlementsTableSkeleton";
+import UserPickerSelect from "../../components/UserPickerSelect";
 import RoleChip from "@/views/AdminApps/components/RoleChip";
-import AdminEntitlementsToolbar from "../AdminEntitlementsToolbar";
 import AdminEntitlementsRevokeDialog from "../AdminEntitlementsRevokeDialog";
 // hooks
-import { useAnnounce } from "@/hooks";
+import { useAnnounce, useListQuery } from "@/hooks";
 import useAdminUserById from "../../hooks/useAdminUserById";
 import useEntitlementsByUser from "../../hooks/useEntitlementsByUser";
 import useGrantEntitlement from "../../hooks/useGrantEntitlement";
 // others
 import { formatDateTimeShort } from "@/utils";
-
-const TABLE_COLUMN_COUNT = 5;
+import { useRouter, usePathname } from "@/i18n/navigation";
 
 const AdminEntitlementsTable = () => {
-  const t = useTranslations("adminEntitlements.table");
+  const t = useTranslations("adminEntitlements");
+  const tTable = useTranslations("adminEntitlements.table");
   const tGrant = useTranslations("adminEntitlements.grantInfo");
-  const tEmptyApps = useTranslations("adminEntitlements.emptyApps");
+  const tToolbar = useTranslations("adminEntitlements.toolbar");
   const tAnnounce = useTranslations("adminEntitlements.announce");
   const { announce } = useAnnounce();
-  const searchParams = useSearchParams();
 
-  const userId = searchParams.get("userId");
-  const search = (searchParams.get("search") ?? "").toLowerCase();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const userId = searchParams.get("userId") ?? undefined;
+
+  const query = useListQuery([]);
+
+  const handleUserChange = (newUserId: string) => {
+    const next = new URLSearchParams(searchParams.toString());
+    if (newUserId) next.set("userId", newUserId);
+    else next.delete("userId");
+    // Reset search when switching users
+    next.delete("search");
+    router.push(`${pathname}?${next.toString()}`);
+  };
 
   const [revokeTarget, setRevokeTarget] = useState<EntitlementRow | null>(null);
 
-  const { data: user = null } = useAdminUserById(userId);
+  const { data: user = null } = useAdminUserById(userId ?? null);
   const { data: rows, isLoading } = useEntitlementsByUser(user?._id ?? null);
   const grantMutation = useGrantEntitlement();
 
@@ -67,54 +84,61 @@ const AdminEntitlementsTable = () => {
     );
   };
 
+  // Client-side filter — use query.search (live value) for instant filtering
   const filtered = (rows ?? []).filter((row) => {
-    if (!search) return true;
+    if (!query.search) return true;
+    const needle = query.search.toLowerCase();
     const hay =
       `${row.app.name} ${row.app.displayName} ${row.app.description ?? ""}`.toLowerCase();
-    return hay.includes(search);
+    return hay.includes(needle);
   });
 
+  const userPickerSlot = (
+    <div className="flex items-center gap-2">
+      <Label className="text-muted-foreground shrink-0 text-xs">
+        {tToolbar("user")}
+      </Label>
+      <UserPickerSelect
+        value={userId}
+        onValueChange={handleUserChange}
+        placeholder={tToolbar("userPlaceholder")}
+      />
+    </div>
+  );
+
   return (
-    <>
-      <AdminEntitlementsToolbar />
+    <ListPageShell>
+      <ListPageHeader title={t("title")} description={t("description")} />
+      <ListToolbar
+        query={query}
+        searchPlaceholder={tToolbar("appSearchPlaceholder")}
+        rightSlot={userPickerSlot}
+      />
       {!user ? (
         <UserNotSelectedEmpty />
-      ) : isLoading ? (
-        <EntitlementsTableSkeleton />
       ) : (
-        <div className="bg-card rounded-xl border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{t("app")}</TableHead>
-                <TableHead>{t("requiredRoles")}</TableHead>
-                <TableHead>{t("status")}</TableHead>
-                <TableHead>{t("grantInfo")}</TableHead>
-                <TableHead className="w-32 text-right">
-                  <span className="sr-only">{t("action")}</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filtered.length === 0 ? (
+        <ListContent
+          isLoading={isLoading}
+          isEmpty={filtered.length === 0}
+          hasActiveFilters={Boolean(query.search)}
+          onClearFilters={query.clearFilters}
+          skeleton={<EntitlementsTableSkeleton />}
+        >
+          <div className="bg-card rounded-xl border">
+            <Table>
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={TABLE_COLUMN_COUNT} className="py-16">
-                    <div className="flex flex-col items-center gap-2 text-center">
-                      <LayoutGrid
-                        className="text-muted-foreground size-8"
-                        aria-hidden="true"
-                      />
-                      <p className="text-foreground text-sm font-medium">
-                        {tEmptyApps("title")}
-                      </p>
-                      <p className="text-muted-foreground max-w-sm text-sm">
-                        {tEmptyApps("description")}
-                      </p>
-                    </div>
-                  </TableCell>
+                  <TableHead>{tTable("app")}</TableHead>
+                  <TableHead>{tTable("requiredRoles")}</TableHead>
+                  <TableHead>{tTable("status")}</TableHead>
+                  <TableHead>{tTable("grantInfo")}</TableHead>
+                  <TableHead className="w-32 text-right">
+                    <span className="sr-only">{tTable("action")}</span>
+                  </TableHead>
                 </TableRow>
-              ) : (
-                filtered.map((row) => {
+              </TableHeader>
+              <TableBody>
+                {filtered.map((row) => {
                   const isPending =
                     grantMutation.isPending &&
                     grantMutation.variables?.webAppId === row.app._id;
@@ -163,18 +187,18 @@ const AdminEntitlementsTable = () => {
                       </TableCell>
                     </TableRow>
                   );
-                })
-              )}
-            </TableBody>
-          </Table>
-        </div>
+                })}
+              </TableBody>
+            </Table>
+          </div>
+        </ListContent>
       )}
       <AdminEntitlementsRevokeDialog
         user={user}
         target={revokeTarget}
         onClose={() => setRevokeTarget(null)}
       />
-    </>
+    </ListPageShell>
   );
 };
 

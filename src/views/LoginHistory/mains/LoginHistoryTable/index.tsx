@@ -1,157 +1,111 @@
 "use client";
 
 // libs
-import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 // types
 import type { LoginHistoryQueryParams } from "@/types/LoginHistory";
 // components
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
   TableCaption,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow
 } from "@/components/ui/table";
-import CustomPagination from "@/components/CustomPagination";
+import ListPageShell from "@/components/list/ListPageShell";
+import ListToolbar from "@/components/list/ListToolbar";
+import ListContent from "@/components/list/ListContent";
+import ListPagination from "@/components/list/ListPagination";
 import LoginHistoryTableRow from "../../components/LoginHistoryTableRow";
-// ghosts
-import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
-import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
+import LoginHistoryTableSkeleton from "../../components/LoginHistoryTableSkeleton";
 // hooks
-import { useAnnounce } from "@/hooks";
-// requests
-import { getMyLoginHistory } from "@/requests/loginHistory";
+import { useListQuery } from "@/hooks";
+import useMyLoginHistory from "../../hooks/useMyLoginHistory";
+// dataSources
+import { buildLoginHistoryFilterDefs } from "@/dataSources/LoginHistory";
 // others
-import CONSTANTS from "@/constants";
-import { useRouter, usePathname } from "@/i18n/navigation";
 import { isLoginHistoryStatus, isLoginHistoryMethod } from "@/utils";
 
 const LoginHistoryTable = () => {
   const tTable = useTranslations("loginHistory.table");
-  const tHeader = useTranslations("loginHistory.tableHeader");
-  const tAnnounce = useTranslations("loginHistory.announce");
-  const tEmpty = useTranslations("loginHistory");
-  const { announce } = useAnnounce();
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-  const statusParam = searchParams.get("status");
-  const methodParam = searchParams.get("method");
-  const countryParam = searchParams.get("country");
-  const cityParam = searchParams.get("city");
-  const fromDateParam = searchParams.get("fromDate");
-  const toDateParam = searchParams.get("toDate");
-  const page = Number(searchParams.get("page") ?? 1);
+  const tStatus = useTranslations("loginHistory.status");
+  const tMethod = useTranslations("loginHistory.method");
+  const tFilters = useTranslations("loginHistory.filters");
+
+  const filterDefs = useMemo(
+    () =>
+      buildLoginHistoryFilterDefs(
+        (k) => tStatus(k as Parameters<typeof tStatus>[0]),
+        (k) => tMethod(k as Parameters<typeof tMethod>[0]),
+        (k) => tFilters(k as Parameters<typeof tFilters>[0])
+      ),
+    [tStatus, tMethod, tFilters]
+  );
+
+  const query = useListQuery(filterDefs);
+
   const params: LoginHistoryQueryParams = {
-    page,
+    page: query.page,
     limit: 10,
-    ...(isLoginHistoryStatus(statusParam) && { status: statusParam }),
-    ...(isLoginHistoryMethod(methodParam) && { method: methodParam }),
-    ...(countryParam && { country: countryParam }),
-    ...(cityParam && { city: cityParam }),
-    ...(fromDateParam && { fromDate: fromDateParam }),
-    ...(toDateParam && { toDate: toDateParam })
+    ...(isLoginHistoryStatus(query.filters.status) && {
+      status: query.filters.status
+    }),
+    ...(isLoginHistoryMethod(query.filters.method) && {
+      method: query.filters.method
+    }),
+    ...(query.filters.fromDate && { fromDate: query.filters.fromDate }),
+    ...(query.filters.toDate && { toDate: query.filters.toDate })
   };
-  const { data, isLoading } = useQuery({
-    queryKey: [CONSTANTS.QUERY_KEYS.LOGIN_HISTORY, params],
-    queryFn: () => getMyLoginHistory(params)
-  });
-  const handleGoToPage = (newPage: number) => {
-    announce(tAnnounce("navigating", { page: newPage }));
-    const next = new URLSearchParams(searchParams.toString());
-    next.set("page", String(newPage));
-    router.push(`${pathname}?${next.toString()}`);
-  };
-  if (isLoading) {
-    return (
-      <>
-        <TableLoadingAnnouncer
-          isLoading={isLoading}
-          message={tAnnounce("loading")}
-        />
-        <div className="bg-card rounded-xl border p-6">
-          <div className="flex flex-col gap-3">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Skeleton key={`skeleton-${i}`} className="h-10 rounded-lg" />
-            ))}
-          </div>
-        </div>
-      </>
-    );
-  }
+
+  const { data, isLoading } = useMyLoginHistory(params);
   const items = data?.items ?? [];
   const meta = data?.meta;
-  const total = meta?.total ?? 0;
-  const start = total === 0 ? 0 : (page - 1) * (meta?.limit ?? 10) + 1;
-  const end = Math.min(page * (meta?.limit ?? 10), total);
-  const totalPages = meta?.totalPages ?? 1;
+
+  const hasActiveFilters =
+    query.activeFilterCount > 0 || Boolean(query.appliedSearch);
+
   return (
-    <>
-      <TableLoadedAnnouncer
-        total={meta?.total}
-        message={
-          meta?.total !== undefined
-            ? tAnnounce("loaded", { total: meta.total })
-            : ""
-        }
-      />
-      <div className="bg-card flex flex-col overflow-hidden rounded-xl border">
-        <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-4">
-          <h3
-            id="login-history-table-title"
-            className="text-foreground text-base font-semibold"
-          >
-            {tHeader("title")}
-          </h3>
-          <span className="text-muted-foreground text-xs" aria-live="polite">
-            {tHeader("summary", { start, end, total })}
-          </span>
-        </div>
-        <Table aria-labelledby="login-history-table-title">
-          <TableCaption className="sr-only">{tHeader("title")}</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>{tTable("createdAt")}</TableHead>
-              <TableHead>{tTable("method")}</TableHead>
-              <TableHead>{tTable("status")}</TableHead>
-              <TableHead>{tTable("deviceType")}</TableHead>
-              <TableHead>{tTable("ip")}</TableHead>
-              <TableHead>{tTable("country")}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {items.length === 0 ? (
+    <ListPageShell>
+      <ListToolbar query={query} filterDefs={filterDefs} showSearch={false} />
+      <ListContent
+        isLoading={isLoading}
+        isEmpty={items.length === 0}
+        hasActiveFilters={hasActiveFilters}
+        onClearFilters={query.clearFilters}
+        skeleton={<LoginHistoryTableSkeleton />}
+        emptyTitle={tTable("empty")}
+      >
+        <div className="bg-card rounded-xl border">
+          <Table>
+            <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
+            <TableHeader>
               <TableRow>
-                <TableCell
-                  colSpan={6}
-                  className="text-muted-foreground py-12 text-center"
-                >
-                  {tEmpty("tableEmpty")}
-                </TableCell>
+                <TableHead scope="col">{tTable("createdAt")}</TableHead>
+                <TableHead scope="col">{tTable("method")}</TableHead>
+                <TableHead scope="col">{tTable("status")}</TableHead>
+                <TableHead scope="col">{tTable("deviceType")}</TableHead>
+                <TableHead scope="col">{tTable("ip")}</TableHead>
+                <TableHead scope="col">{tTable("country")}</TableHead>
               </TableRow>
-            ) : (
-              items.map((item) => (
+            </TableHeader>
+            <TableBody>
+              {items.map((item) => (
                 <LoginHistoryTableRow key={item._id} item={item} />
-              ))
-            )}
-          </TableBody>
-        </Table>
-        {meta && totalPages > 1 && (
-          <div className="bg-muted/30 border-t px-5 py-3">
-            <CustomPagination
-              page={page}
-              totalPages={totalPages}
-              onPageChange={handleGoToPage}
-            />
-          </div>
-        )}
-      </div>
-    </>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </ListContent>
+      <ListPagination
+        page={meta?.page ?? query.page}
+        totalPages={meta?.totalPages ?? 1}
+        total={meta?.total ?? 0}
+        onPageChange={query.setPage}
+        loading={isLoading}
+      />
+    </ListPageShell>
   );
 };
 
