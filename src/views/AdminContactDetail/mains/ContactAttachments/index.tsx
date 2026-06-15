@@ -8,6 +8,7 @@ import { FileText, Download } from "lucide-react";
 // components
 import CustomButton from "@/components/CustomButton";
 import CustomImage from "@/components/CustomImage";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -80,7 +81,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
               <p className="text-muted-foreground text-xs">
                 {(att.size / 1024).toFixed(0)} KB
               </p>
-              <CustomButton
+              <Button
                 asChild
                 variant="link"
                 size="sm"
@@ -94,7 +95,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
                   <Download className="size-3" aria-hidden="true" />
                   {t("download")}
                 </a>
-              </CustomButton>
+              </Button>
             </div>
           );
         })}
