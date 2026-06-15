@@ -33,7 +33,6 @@ const SearchFilter = ({
             onChange={field.onChange}
             placeholder={placeholder}
             ariaLabel={label}
-            inputClassName="!h-12"
           />
         </FormItem>
       )}
