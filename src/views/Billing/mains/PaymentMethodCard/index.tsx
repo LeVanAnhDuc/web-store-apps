@@ -28,7 +28,6 @@ const PaymentMethodCard = () => {
         <CardAction>
           <CustomButton
             variant="outline"
-            size="sm"
             iconLeft={<Plus className="size-3.5" aria-hidden="true" />}
           >
             {t("buttons.add")}

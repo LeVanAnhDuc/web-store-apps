@@ -34,7 +34,6 @@ const ResendButton = ({
       loading={isResending}
       variant="outline"
       fullWidth
-      className="h-12"
     >
       {isResending
         ? labels.sending

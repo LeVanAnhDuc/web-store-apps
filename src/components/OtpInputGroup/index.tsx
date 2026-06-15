@@ -38,7 +38,7 @@ const OtpInputGroup = ({
             <InputOTPSlot
               key={`slot-${index}`}
               index={index}
-              className="h-14 w-12 text-xl"
+              className="h-12 w-12 text-xl"
             />
           ))}
         </InputOTPGroup>
