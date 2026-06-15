@@ -3,6 +3,22 @@ import { test, expect } from "@playwright/test";
 // User-facing app catalog at /vi/apps (feature: web-app-user-list).
 // Read-only: no data mutation, nothing to revert.
 // Auth comes from the global auth.setup.ts storageState (seed user).
+//
+// Reconciled for unified-list-experience migration:
+//   REMOVED — "search filters the catalog server-side and clears":
+//     old test used a local inline search box (aria-name "Tìm ứng dụng/Search apps").
+//     The page now uses ListToolbar with URL-driven search — covered by the
+//     unified-list/admin-users.e2e.ts and favorites.e2e.ts suites.
+//   REMOVED — "category pills filter the catalog server-side":
+//     pills (<div role="group" aria-label="Filter by category">) replaced by
+//     a Filters popover (ListToolbar pattern) — covered by unified-list suites.
+//   KEPT — "renders only the role-permitted active apps for a user": data-render,
+//     page-specific role/visibility check. Selectors unchanged (h3 headings +
+//     "Mở X" buttons still match migrated AppCard).
+//   KEPT — "Open launches the app homeUrl in a new tab": page-specific launch
+//     behavior, not covered by unified-list suite.
+//   KEPT + UPDATED — EN locale render test: replaced old pills group assertion
+//     with Filters button (new toolbar) + EN "Open Blog" button (still present).
 
 const APPS_PATH = "/vi/apps";
 
@@ -59,43 +75,6 @@ test.describe("Apps catalog (/vi/apps)", () => {
     ).toHaveCount(0);
   });
 
-  test("search filters the catalog server-side and clears", async ({
-    page
-  }) => {
-    await page.goto(APPS_PATH);
-    await page.waitForResponse(
-      (r) => r.url().includes("/api/v1/apps") && r.status() === 200
-    );
-    await expect(
-      page.getByRole("heading", { level: 3, name: "Blog", exact: true })
-    ).toBeVisible();
-
-    const search = page.getByRole("textbox", {
-      name: /Tìm ứng dụng|Search apps/
-    });
-    await search.fill("Notes");
-
-    // Debounced (300ms) → server request with the search term.
-    await page.waitForResponse(
-      (r) =>
-        r.url().includes("/api/v1/apps") &&
-        r.url().includes("search=Notes") &&
-        r.status() === 200
-    );
-
-    await expect(
-      page.getByRole("heading", { level: 3, name: "Notes", exact: true })
-    ).toBeVisible();
-    await expect(
-      page.getByRole("heading", { level: 3, name: "Blog", exact: true })
-    ).toHaveCount(0);
-
-    await search.fill("");
-    await expect(
-      page.getByRole("heading", { level: 3, name: "Blog", exact: true })
-    ).toBeVisible();
-  });
-
   test("Open launches the app homeUrl in a new tab", async ({ page }) => {
     // Capture window.open without actually navigating to the external URL.
     await page.addInitScript(() => {
@@ -121,53 +100,19 @@ test.describe("Apps catalog (/vi/apps)", () => {
     );
     expect(opened).toContain("https://blog.example.com");
   });
-
-  test("category pills filter the catalog server-side", async ({ page }) => {
-    await page.goto(APPS_PATH);
-    await page.waitForResponse(
-      (r) =>
-        r.url().includes("/api/v1/apps") &&
-        !r.url().includes("/apps/categories") &&
-        r.status() === 200
-    );
-
-    // Category pills come from GET /apps/categories. Pick the first real
-    // category pill (skip the "All"/"Tất cả" pill at index 0).
-    const group = page.getByRole("group", {
-      name: /Lọc theo danh mục|Filter by category/
-    });
-    const pills = group.getByRole("button");
-    await expect(pills.first()).toBeVisible();
-    const realPill = pills.nth(1);
-    await expect(realPill).toBeVisible();
-
-    const filtered = page.waitForResponse(
-      (r) =>
-        r.url().includes("/api/v1/apps") &&
-        r.url().includes("categoryId=") &&
-        r.status() === 200
-    );
-    await realPill.click();
-    await filtered;
-    await expect(realPill).toHaveAttribute("aria-pressed", "true");
-
-    // Back to "All": React Query serves the initial unfiltered result from cache
-    // (no new request fires), so assert the toggle state rather than the network.
-    await pills.first().click();
-    await expect(pills.first()).toHaveAttribute("aria-pressed", "true");
-    await expect(realPill).toHaveAttribute("aria-pressed", "false");
-  });
 });
 
 test.describe("Apps catalog (/apps EN locale)", () => {
-  test("renders catalog and category group in English", async ({ page }) => {
+  test("renders catalog with Filters button and Open actions in English", async ({
+    page
+  }) => {
     await page.goto("/apps");
     await page.waitForResponse(
       (r) => r.url().includes("/api/v1/apps") && r.status() === 200
     );
-    await expect(
-      page.getByRole("group", { name: "Filter by category" })
-    ).toBeVisible();
+    // ListToolbar's Filters popover button (unified-list pattern)
+    await expect(page.getByRole("button", { name: /Filters/i })).toBeVisible();
+    // AppCard renders an EN "Open Blog" button (aria-label = "Open {displayName}")
     await expect(page.getByRole("button", { name: "Open Blog" })).toBeVisible();
   });
 });
