@@ -7,14 +7,14 @@ import { useTranslations } from "next-intl";
 import CustomButton from "@/components/CustomButton";
 import SearchInput from "@/components/SearchInput";
 import CustomPagination from "@/components/CustomPagination";
-import AppCard from "../../components/AppCard";
+import AppCard from "@/components/AppCard";
 import AppCardSkeleton from "../../components/AppCardSkeleton";
 import CategoryFilter from "../../components/CategoryFilter";
 // ghosts
 import TableLoadingAnnouncer from "@/ghosts/TableLoadingAnnouncer";
 import TableLoadedAnnouncer from "@/ghosts/TableLoadedAnnouncer";
 // hooks
-import { useAnnounce, useDebouncedValue } from "@/hooks";
+import { useAnnounce, useDebouncedValue, useToggleFavorite } from "@/hooks";
 // others
 import useApps from "../../hooks/useApps";
 import useAppCategories from "../../hooks/useAppCategories";
@@ -32,6 +32,7 @@ const AppsBoard = () => {
   const [page, setPage] = useState(1);
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
   const { data: categories } = useAppCategories();
+  const toggleFavorite = useToggleFavorite();
   const debouncedSearch = useDebouncedValue(search, 300);
   const { data, isLoading, isError } = useApps({
     page,
@@ -162,7 +163,17 @@ const AppsBoard = () => {
                 description={app.description}
                 iconUrl={app.iconUrl}
                 homeUrl={app.homeUrl}
+                isFavorite={app.isFavorite}
                 openLabel={t("card.open")}
+                addFavoriteLabel={t("card.addFavorite")}
+                removeFavoriteLabel={t("card.removeFavorite")}
+                togglePending={toggleFavorite.isPending}
+                onToggleFavorite={() =>
+                  toggleFavorite.mutate({
+                    appId: app._id,
+                    isFavorite: app.isFavorite
+                  })
+                }
               />
             ))}
       </div>
