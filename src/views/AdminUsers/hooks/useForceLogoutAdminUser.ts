@@ -11,8 +11,7 @@ const useForceLogoutAdminUser = () => {
     mutationFn: forceLogoutAdminUser,
     onSuccess: () => {
       toast.success(tToast("forceLogoutSuccess"));
-    },
-    onError: () => toast.error(tToast("error"))
+    }
   });
 };
 

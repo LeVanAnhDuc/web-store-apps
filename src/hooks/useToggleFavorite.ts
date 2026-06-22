@@ -2,7 +2,6 @@
 // libs
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 // types
 import type {
   PaginatedUserAppsResponse,
@@ -69,7 +68,6 @@ const useToggleFavorite = () => {
       context?.prevFavs?.forEach(([key, data]) =>
         queryClient.setQueryData(key, data)
       );
-      toast.error(t("toast.error"));
       announce(t("announce.error"));
     },
     onSuccess: (_data, { isFavorite }) => {

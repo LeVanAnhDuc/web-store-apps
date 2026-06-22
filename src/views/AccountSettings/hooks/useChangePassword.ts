@@ -18,7 +18,7 @@ export const useChangePassword = () => {
   const t = useTranslations("accountSettings.changePassword");
   const { announce } = useAnnounce();
 
-  const { mutate, isPending } = useMutation({
+  return useMutation({
     mutationFn: (payload: ChangePasswordFormValues) => changePassword(payload),
     onMutate: () => {
       announce(t("announce.saving"));
@@ -30,6 +30,4 @@ export const useChangePassword = () => {
       toast.success(t("toast.success"));
     }
   });
-
-  return { changePassword: mutate, isPending };
 };

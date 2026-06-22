@@ -4,7 +4,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 // types
 import type { AxiosError } from "axios";
 import type {
@@ -50,7 +49,6 @@ const AdminAppsFormSheet = ({
 }) => {
   const t = useTranslations("adminApps.form");
   const tActions = useTranslations("adminApps.actions");
-  const tToast = useTranslations("adminApps.toast");
   const tAnnounce = useTranslations("adminApps.announce");
   const { announce } = useAnnounce();
   const isEdit = editingApp !== null;
@@ -87,8 +85,6 @@ const AdminAppsFormSheet = ({
                 ?.data?.code;
               if (code === WEB_APP_NAME_EXISTS) {
                 methods.setError(NAME, { message: "exists" });
-              } else {
-                toast.error(tToast("error"));
               }
             }
           }
@@ -101,8 +97,7 @@ const AdminAppsFormSheet = ({
           announce(tAnnounce("created", { name: created.displayName }));
           onClose();
           onCreated(created);
-        },
-        onError: () => toast.error(tToast("error"))
+        }
       });
     });
 

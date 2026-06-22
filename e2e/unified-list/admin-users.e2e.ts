@@ -1,5 +1,9 @@
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
+import {
+  USER_EMAIL as E2E_USER_EMAIL,
+  USER_PASSWORD as E2E_USER_PASSWORD
+} from "../helpers/env";
 
 // Admin Users list — unified-list-experience E2E.
 // Tests the Admin Users table after migration to ListPageShell + useListQuery.
@@ -81,8 +85,8 @@ test.describe("Admin Users — authZ (role × route)", () => {
       await page.context().clearCookies();
       const res = await page.request.post("/api/v1/auth/login", {
         data: {
-          email: process.env.E2E_USER_EMAIL ?? USER_EMAIL,
-          password: process.env.E2E_USER_PASSWORD ?? "User@123"
+          email: E2E_USER_EMAIL,
+          password: E2E_USER_PASSWORD
         }
       });
       // If login succeeds, navigate; if user is role=user, AuthGuard blocks /admin/*

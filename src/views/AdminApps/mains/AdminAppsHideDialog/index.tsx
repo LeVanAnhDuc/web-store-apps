@@ -4,6 +4,7 @@
 import { useTranslations } from "next-intl";
 // types
 import type { WebApp } from "@/types/AdminApps";
+import { APP_STATUS } from "@/types/AdminApps";
 // components
 import CustomButton from "@/components/CustomButton";
 import {
@@ -34,7 +35,7 @@ const AdminAppsHideDialog = ({
   const handleConfirm = () => {
     if (!target) return;
     mutation.mutate(
-      { id: target._id, status: "inactive" },
+      { id: target._id, status: APP_STATUS.INACTIVE },
       {
         onSuccess: () => {
           announce(tAnnounce("hidden", { name: target.displayName }));

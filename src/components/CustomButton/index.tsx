@@ -5,10 +5,19 @@ import type { VariantProps } from "class-variance-authority";
 // components
 import { Button as ButtonUI } from "@/components/ui/button";
 import { Spinner } from "../ui/spinner";
-// dataSources
-import { BUTTON_SIZE_CLASSES } from "@/dataSources/Common";
 // others
 import { cn } from "@/libs/utils";
+
+type ButtonSize = NonNullable<VariantProps<typeof buttonVariants>["size"]>;
+
+const BUTTON_SIZE_CLASSES: Record<ButtonSize, string> = {
+  sm: "h-9 text-xs",
+  default: "h-10 text-sm",
+  lg: "h-12 text-base",
+  icon: "size-10",
+  "icon-sm": "size-9",
+  "icon-lg": "size-12"
+};
 
 const CustomButton = ({
   className,

@@ -5,6 +5,7 @@ import { Pencil, MoreHorizontal, Eye, EyeOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 // types
 import type { WebApp } from "@/types/AdminApps";
+import { APP_STATUS } from "@/types/AdminApps";
 // components
 import CustomButton from "@/components/CustomButton";
 import {
@@ -26,7 +27,7 @@ const AppRowActions = ({
   onUnhide: (app: WebApp) => void;
 }) => {
   const t = useTranslations("adminApps.actions");
-  const isActive = app.status === "active";
+  const isActive = app.status === APP_STATUS.ACTIVE;
 
   return (
     <DropdownMenu>

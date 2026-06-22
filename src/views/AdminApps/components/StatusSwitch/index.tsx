@@ -2,6 +2,7 @@
 
 // types
 import type { AdminAppFormValues } from "@/types/AdminApps";
+import { APP_STATUS } from "@/types/AdminApps";
 // components
 import {
   FormControl,
@@ -36,9 +37,11 @@ const StatusSwitch = ({
           </FormLabel>
           <FormControl>
             <Switch
-              checked={field.value === "active"}
+              checked={field.value === APP_STATUS.ACTIVE}
               onCheckedChange={(checked) =>
-                field.onChange(checked ? "active" : "inactive")
+                field.onChange(
+                  checked ? APP_STATUS.ACTIVE : APP_STATUS.INACTIVE
+                )
               }
               disabled={disabled}
             />

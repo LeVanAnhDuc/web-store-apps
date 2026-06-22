@@ -21,7 +21,7 @@ export const useSignupComplete = () => {
   const tAnnounce = useTranslations("signup.announce");
   const { announce } = useAnnounce();
 
-  const { mutate: complete, isPending } = useMutation({
+  return useMutation({
     mutationFn: completeSignup,
     onMutate: () => {
       announce(tAnnounce("completing"));
@@ -32,6 +32,4 @@ export const useSignupComplete = () => {
       router.push(HOME);
     }
   });
-
-  return { complete, isPending };
 };

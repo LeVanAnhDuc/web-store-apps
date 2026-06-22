@@ -1,3 +1,8 @@
+// types
+import type { SortOrder } from "@/constants/list";
+
+export type { SortOrder };
+
 export type ContactStatus = "new" | "processing" | "resolved";
 export type ContactCategory =
   | "account"
@@ -47,22 +52,9 @@ export interface UserContactItem {
   createdAt: string;
 }
 
-export interface ContactMeta {
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
+export type PaginatedContactsResponse = Paginated<ContactListItem>;
 
-export interface PaginatedContactsResponse {
-  items: ContactListItem[];
-  meta: ContactMeta;
-}
-
-export interface PaginatedUserContactsResponse {
-  items: UserContactItem[];
-  meta: ContactMeta;
-}
+export type PaginatedUserContactsResponse = Paginated<UserContactItem>;
 
 export interface AdminContactQuery {
   page?: number;
@@ -77,12 +69,12 @@ export interface AdminContactQuery {
   fromDate?: string;
   toDate?: string;
   sortBy?: "createdAt" | "priority" | "status" | "category";
-  sortOrder?: "asc" | "desc";
+  sortOrder?: SortOrder;
 }
 
 export interface MyContactsQuery {
   page?: number;
   limit?: number;
   sortBy?: "createdAt";
-  sortOrder?: "asc" | "desc";
+  sortOrder?: SortOrder;
 }

@@ -9,17 +9,7 @@ export interface UserApp {
   isFavorite: boolean;
 }
 
-export interface UserAppsMeta {
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
-
-export interface PaginatedUserAppsResponse {
-  items: UserApp[];
-  meta: UserAppsMeta;
-}
+export type PaginatedUserAppsResponse = Paginated<UserApp>;
 
 export interface UserAppsQueryParams {
   page?: number;

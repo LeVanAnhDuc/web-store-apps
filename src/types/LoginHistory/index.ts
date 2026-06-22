@@ -1,3 +1,8 @@
+// types
+import type { SortOrder } from "@/constants/list";
+
+export type { SortOrder };
+
 export type LoginHistoryStatus = "success" | "failed";
 export type LoginHistoryMethod =
   | "password"
@@ -38,22 +43,10 @@ export interface LoginHistoryAdminItem extends LoginHistoryItem {
 
 export type LoginHistoryAdminDetailItem = LoginHistoryAdminItem;
 
-export interface LoginHistoryMeta {
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
+export type PaginatedLoginHistoryResponse = Paginated<LoginHistoryItem>;
 
-export interface PaginatedLoginHistoryResponse {
-  items: LoginHistoryItem[];
-  meta: LoginHistoryMeta;
-}
-
-export interface PaginatedAdminLoginHistoryResponse {
-  items: LoginHistoryAdminItem[];
-  meta: LoginHistoryMeta;
-}
+export type PaginatedAdminLoginHistoryResponse =
+  Paginated<LoginHistoryAdminItem>;
 
 export interface LoginHistoryQueryParams {
   page?: number;
@@ -69,7 +62,7 @@ export interface LoginHistoryQueryParams {
   fromDate?: string;
   toDate?: string;
   sortBy?: "createdAt" | "method" | "status" | "country";
-  sortOrder?: "asc" | "desc";
+  sortOrder?: SortOrder;
 }
 
 export interface AdminLoginHistoryQueryParams

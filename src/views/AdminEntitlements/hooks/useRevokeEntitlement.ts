@@ -16,8 +16,7 @@ const useRevokeEntitlement = () => {
         queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_ENTITLEMENTS, variables.userId]
       });
       toast.success(tToast("revokeSuccess"));
-    },
-    onError: () => toast.error(tToast("error"))
+    }
   });
 };
 

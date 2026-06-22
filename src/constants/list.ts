@@ -17,7 +17,13 @@ const LIST = {
     "last90",
     "custom"
   ] as const,
-  SEARCH_DEBOUNCE_MS: 300
+  SEARCH_DEBOUNCE_MS: 300,
+  DEFAULT_PAGE: 1,
+  DEFAULT_PAGE_SIZE: 12,
+  MAX_PAGE_SIZE: 100
 } as const;
+
+export const SORT_ORDER = { ASC: "asc", DESC: "desc" } as const;
+export type SortOrder = (typeof SORT_ORDER)[keyof typeof SORT_ORDER];
 
 export default LIST;

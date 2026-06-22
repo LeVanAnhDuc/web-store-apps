@@ -1,7 +1,8 @@
 // types
 import type { AuthenticationRole } from "@/types/User";
 
-export type AppStatus = "active" | "inactive";
+export const APP_STATUS = { ACTIVE: "active", INACTIVE: "inactive" } as const;
+export type AppStatus = (typeof APP_STATUS)[keyof typeof APP_STATUS];
 
 export interface WebAppCategory {
   _id: string;

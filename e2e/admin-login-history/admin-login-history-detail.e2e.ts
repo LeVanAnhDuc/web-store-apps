@@ -1,5 +1,9 @@
 import { test, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
+import {
+  USER_EMAIL as NON_ADMIN_EMAIL,
+  USER_PASSWORD as NON_ADMIN_PASSWORD
+} from "../helpers/env";
 
 // Read-only admin feature. Runs under the `admin` Playwright project
 // (playwright.config.ts maps `admin-login-history/` → `admin` project with
@@ -349,9 +353,6 @@ test.describe("Admin Login History — authZ (non-admin)", () => {
   // No storageState: we authenticate a fresh non-admin via the API below, so
   // this test does not depend on the (potentially stale) user.json fixture.
   test.use({ storageState: { cookies: [], origins: [] } });
-
-  const NON_ADMIN_EMAIL = process.env.E2E_USER_EMAIL ?? "user@test.com";
-  const NON_ADMIN_PASSWORD = process.env.E2E_USER_PASSWORD ?? "User@123";
 
   test("non-admin is denied the login-history detail API with 403", async ({
     request

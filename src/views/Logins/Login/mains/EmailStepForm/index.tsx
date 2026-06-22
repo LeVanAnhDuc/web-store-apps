@@ -23,7 +23,7 @@ const EmailStepForm = ({
   labels: { email: string; next: string };
 }) => {
   const methods = useForm<EmailStepFormValues>({ ...emailStepFormProps });
-  const { checkEmail, isPending } = useLoginEmail();
+  const { mutate: checkEmail, isPending } = useLoginEmail();
   const { run, release } = useSubmitGuard();
 
   const onSubmit = (data: EmailStepFormValues) =>

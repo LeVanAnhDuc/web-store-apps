@@ -1,9 +1,10 @@
 import type { APIRequestContext } from "@playwright/test";
 import { request } from "@playwright/test";
-
-const EMAIL = process.env.E2E_ADMIN_EMAIL ?? "admin@test.com";
-const PASSWORD = process.env.E2E_ADMIN_PASSWORD ?? "Admin@123";
-const BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3000";
+import {
+  BASE_URL,
+  ADMIN_EMAIL as EMAIL,
+  ADMIN_PASSWORD as PASSWORD
+} from "./env";
 
 type AppDto = {
   _id: string;

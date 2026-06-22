@@ -26,8 +26,7 @@ const useSetAdminAppStatus = () => {
           ? tToast("hidden")
           : tToast("reactivated")
       );
-    },
-    onError: () => toast.error(tToast("error"))
+    }
   });
 };
 

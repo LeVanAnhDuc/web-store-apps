@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import CustomButton from "@/components/CustomButton";
 import NotificationGroups from "../../components/NotificationGroups";
+import NotificationGroupsSkeleton from "../../components/NotificationGroups/NotificationGroupsSkeleton";
 // hooks
 import { useAnnounce } from "@/hooks";
 import useNotifications from "../../hooks/useNotifications";
@@ -63,9 +64,7 @@ const NotificationList = () => {
         </div>
         <TabsContent value={tab} className="m-0">
           {isLoading ? (
-            <p className="text-muted-foreground px-5 py-6 text-sm">
-              {tStates("loading")}
-            </p>
+            <NotificationGroupsSkeleton />
           ) : isError ? (
             <p className="text-destructive px-5 py-6 text-sm">
               {tStates("error")}

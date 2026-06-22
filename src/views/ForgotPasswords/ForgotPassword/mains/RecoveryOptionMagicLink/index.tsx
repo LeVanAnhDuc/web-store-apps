@@ -3,7 +3,6 @@
 // libs
 import { Mail } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 // components
 import RecoveryOptionCardButton from "../../components/RecoveryOptionCardButton";
@@ -20,13 +19,11 @@ const RecoveryOptionMagicLink = ({
   email,
   title,
   description,
-  errorMessage,
   delay
 }: {
   email: string;
   title: string;
   description: string;
-  errorMessage: string;
   delay?: number;
 }) => {
   const tAnnounce = useTranslations("forgotPassword.announce");
@@ -36,10 +33,7 @@ const RecoveryOptionMagicLink = ({
     mutationFn: () => sendForgotPasswordMagicLink(email),
     onMutate: () => announce(tAnnounce("sendingLink")),
     onSuccess: () => announce(tAnnounce("linkSent")),
-    onError: () => {
-      announce(tAnnounce("linkSendError"));
-      toast.error(errorMessage);
-    }
+    onError: () => announce(tAnnounce("linkSendError"))
   });
 
   return (

@@ -1,6 +1,8 @@
 // types
-import type { LucideIcon } from "lucide-react";
-import type { ApiNotificationType } from "@/types/Notification";
+import type {
+  ApiNotificationType,
+  NotificationVisual
+} from "@/types/Notification";
 // libs
 import {
   ShieldAlert,
@@ -11,12 +13,6 @@ import {
   CircleX,
   Megaphone
 } from "lucide-react";
-
-export interface NotificationVisual {
-  icon: LucideIcon;
-  iconBg: string;
-  iconColor: string;
-}
 
 export const NOTIFICATION_VISUALS: Record<
   ApiNotificationType,

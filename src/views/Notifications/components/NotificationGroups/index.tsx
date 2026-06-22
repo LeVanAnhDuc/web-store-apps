@@ -2,13 +2,18 @@
 
 // types
 import type { ApiNotification } from "@/types/Notification";
+import { NOTIF_GROUP, type NotifGroup } from "@/types/Notification";
 // components
 import NotificationItem from "../NotificationItem";
 import GroupHeader from "../GroupHeader";
 // others
-import { groupOf, relativeTime, type NotifGroup } from "@/utils/notifications";
+import { groupOf, relativeTime } from "@/utils/notifications";
 
-const GROUP_ORDER: NotifGroup[] = ["today", "yesterday", "earlier"];
+const GROUP_ORDER: NotifGroup[] = [
+  NOTIF_GROUP.TODAY,
+  NOTIF_GROUP.YESTERDAY,
+  NOTIF_GROUP.EARLIER
+];
 
 const NotificationGroups = ({
   items,

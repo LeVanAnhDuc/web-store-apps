@@ -22,12 +22,11 @@ import { buildAppsFilterDefs } from "@/dataSources/Apps";
 // others
 import { cn } from "@/libs/utils";
 import { resolveCategoryLabel } from "@/utils";
-
-const PAGE_SIZE = 12;
+import CONSTANTS from "@/constants";
 
 const AppsBoardSkeleton = () => (
   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    {Array.from({ length: PAGE_SIZE }).map((_, idx) => (
+    {Array.from({ length: CONSTANTS.LIST.DEFAULT_PAGE_SIZE }).map((_, idx) => (
       <AppCardSkeleton key={`skeleton-${idx}`} />
     ))}
   </div>
@@ -107,21 +106,29 @@ const AppsBoard = () => {
   );
 
   const query = useListQuery(filterDefs);
+  const {
+    page,
+    appliedSearch,
+    filters,
+    activeFilterCount,
+    clearFilters,
+    setPage
+  } = query;
 
   const params = {
-    page: query.page,
-    limit: PAGE_SIZE,
-    ...(query.appliedSearch && { search: query.appliedSearch }),
-    ...(query.filters.categoryId && { categoryId: query.filters.categoryId })
+    page,
+    limit: CONSTANTS.LIST.DEFAULT_PAGE_SIZE,
+    ...(appliedSearch && { search: appliedSearch }),
+    ...(filters.categoryId && { categoryId: filters.categoryId })
   };
 
   const { data, isLoading, isError } = useApps(params);
-  const toggleFavorite = useToggleFavorite();
+  const { isPending: togglePending, mutate: mutateToggle } =
+    useToggleFavorite();
   const items = data?.items ?? [];
   const meta = data?.meta;
 
-  const hasActiveFilters =
-    query.activeFilterCount > 0 || Boolean(query.appliedSearch);
+  const hasActiveFilters = activeFilterCount > 0 || Boolean(appliedSearch);
 
   return (
     <ListPageShell>
@@ -136,7 +143,7 @@ const AppsBoard = () => {
         isLoading={isLoading}
         isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
-        onClearFilters={query.clearFilters}
+        onClearFilters={clearFilters}
         skeleton={<AppsBoardSkeleton />}
         emptyTitle={t("empty")}
       >
@@ -174,9 +181,9 @@ const AppsBoard = () => {
               openLabel={t("card.open")}
               addFavoriteLabel={t("card.addFavorite")}
               removeFavoriteLabel={t("card.removeFavorite")}
-              togglePending={toggleFavorite.isPending}
+              togglePending={togglePending}
               onToggleFavorite={() =>
-                toggleFavorite.mutate({
+                mutateToggle({
                   appId: app._id,
                   isFavorite: app.isFavorite
                 })
@@ -186,10 +193,10 @@ const AppsBoard = () => {
         </div>
       </ListContent>
       <ListPagination
-        page={meta?.page ?? query.page}
+        page={meta?.page ?? page}
         totalPages={meta?.totalPages ?? 1}
         total={meta?.total ?? 0}
-        onPageChange={query.setPage}
+        onPageChange={setPage}
         loading={isLoading}
       />
     </ListPageShell>

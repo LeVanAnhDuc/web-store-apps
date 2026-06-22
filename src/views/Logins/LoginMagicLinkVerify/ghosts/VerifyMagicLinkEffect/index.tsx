@@ -12,7 +12,7 @@ const VerifyMagicLinkEffect = ({
   email: string;
   token: string;
 }) => {
-  const { verifyMagicLink } = useMagicLinkVerify();
+  const { mutate: verifyMagicLink } = useMagicLinkVerify();
 
   useEffect(() => {
     verifyMagicLink({ email, token });

@@ -18,14 +18,12 @@ const MagicLinkForm = ({
 }) => {
   const {
     button: { resend, resendIn, sending, tryOther },
-    resendSuccess,
-    sendError
+    resendSuccess
   } = translations.form.magicLink;
 
   const { sendMagicLink, isSending, countdown, canResend } = useMagicLinkLogin({
     email,
-    resendSuccessMessage: resendSuccess,
-    sendErrorMessage: sendError
+    resendSuccessMessage: resendSuccess
   });
 
   return (

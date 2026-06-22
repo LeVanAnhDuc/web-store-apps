@@ -1,5 +1,6 @@
 // types
 import type { AdminAppFormValues } from "@/types/AdminApps";
+import { APP_STATUS } from "@/types/AdminApps";
 // others
 import CONSTANTS from "@/constants";
 
@@ -12,7 +13,7 @@ export const initialAdminAppData: AdminAppFormValues = {
   iconUrl: "",
   homeUrl: "",
   categoryId: "",
-  status: "active",
+  status: APP_STATUS.ACTIVE,
   requiredRoles: [AUTHENTICATION_ROLES.USER],
   redirectUris: []
 };

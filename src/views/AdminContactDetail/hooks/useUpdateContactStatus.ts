@@ -22,8 +22,7 @@ const useUpdateContactStatus = (id: string) => {
         queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_CONTACT_LIST]
       });
       toast.success(t("success"));
-    },
-    onError: () => toast.error(t("error"))
+    }
   });
 };
 

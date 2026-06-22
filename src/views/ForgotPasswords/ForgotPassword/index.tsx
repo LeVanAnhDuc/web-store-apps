@@ -32,7 +32,6 @@ const ForgotPassword = async ({
   const { description, otp, magicLink, twoFactor, contactAdmin, changeEmail } =
     translations.form.options;
   const { unavailable } = translations.badge;
-  const { otp: otpMessages, magicLink: magicLinkMessages } = translations.form;
 
   return (
     <AuthStepLayout
@@ -45,14 +44,12 @@ const ForgotPassword = async ({
           email={decodedEmail}
           title={otp.title}
           description={otp.description}
-          errorMessage={otpMessages.sendError}
           delay={0}
         />
         <RecoveryOptionMagicLink
           email={decodedEmail}
           title={magicLink.title}
           description={magicLink.description}
-          errorMessage={magicLinkMessages.sendError}
           delay={ANIMATION_DELAY_STEP}
         />
         <RecoveryOptionTwoFactor

@@ -11,6 +11,7 @@
   "viewGrid": "Dạng lưới",
   "viewList": "Dạng danh sách",
   "pagination": { "page": "Trang", "of": "trên", "results": "kết quả" },
+  "table": { "empty": "Không có dữ liệu", "comingSoon": "Sắp ra mắt" },
   "dateRange": {
     "label": "Khoảng thời gian",
     "all": "Tất cả",

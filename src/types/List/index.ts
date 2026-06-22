@@ -1,3 +1,8 @@
+// types
+import type { SortOrder } from "@/constants/list";
+
+export type { SortOrder };
+
 export type ListFilterOption = { value: string; label: string };
 
 export type ListFilterDef =
@@ -19,12 +24,12 @@ export interface ListQueryState {
   filters: Record<string, string>;
   page: number;
   sortBy?: string;
-  sortOrder?: "asc" | "desc";
+  sortOrder?: SortOrder;
   activeFilterCount: number;
   setSearch: (value: string) => void;
   setFilter: (key: string, value: string) => void;
   setDateRange: (preset: string, fromDate?: string, toDate?: string) => void;
   clearFilters: () => void;
   setPage: (page: number) => void;
-  setSort: (sortBy: string, sortOrder: "asc" | "desc") => void;
+  setSort: (sortBy: string, sortOrder: SortOrder) => void;
 }

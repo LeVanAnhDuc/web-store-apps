@@ -16,8 +16,7 @@ const useGrantEntitlement = () => {
         queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_ENTITLEMENTS, variables.userId]
       });
       toast.success(tToast("grantSuccess"));
-    },
-    onError: () => toast.error(tToast("error"))
+    }
   });
 };
 

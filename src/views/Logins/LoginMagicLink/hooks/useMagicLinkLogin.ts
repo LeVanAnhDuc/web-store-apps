@@ -15,12 +15,10 @@ const { RESEND_COUNTDOWN } = CONSTANTS.LOGIN;
 
 export const useMagicLinkLogin = ({
   email,
-  resendSuccessMessage,
-  sendErrorMessage
+  resendSuccessMessage
 }: {
   email: string;
   resendSuccessMessage: string;
-  sendErrorMessage: string;
 }) => {
   const tAnnounce = useTranslations("login.announce");
   const { announce } = useAnnounce();
@@ -42,7 +40,6 @@ export const useMagicLinkLogin = ({
     },
     onError: () => {
       announce(tAnnounce("linkSendError"));
-      toast.error(sendErrorMessage);
     }
   });
 

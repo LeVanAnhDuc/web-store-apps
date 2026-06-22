@@ -1,9 +1,11 @@
 import type { APIRequestContext, Page } from "@playwright/test";
 import { request, expect } from "@playwright/test";
-
-const EMAIL = process.env.E2E_USER_EMAIL ?? "user@test.com";
-const DEFAULT_PASSWORD = process.env.E2E_USER_PASSWORD ?? "User@123";
-const BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3000";
+import {
+  BASE_URL,
+  USER_AUTH_FILE as AUTH_FILE,
+  USER_EMAIL as EMAIL,
+  USER_PASSWORD as DEFAULT_PASSWORD
+} from "./env";
 
 const CHANGE_PASSWORD_PATH = "/auth/change-password";
 
@@ -63,8 +65,6 @@ export async function mockChangePassword(
     });
   });
 }
-
-const AUTH_FILE = "e2e/.auth/user.json";
 
 /**
  * Re-establishes the shared auth storageState after a REAL password change.

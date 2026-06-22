@@ -1,6 +1,17 @@
+// libs
+import type { LucideIcon } from "lucide-react";
+
 export type NotificationListTabValue = "unread" | "read";
 
 export type NotificationPanelTab = "all" | "unread";
+
+export const NOTIF_GROUP = {
+  TODAY: "today",
+  YESTERDAY: "yesterday",
+  EARLIER: "earlier"
+} as const;
+
+export type NotifGroup = (typeof NOTIF_GROUP)[keyof typeof NOTIF_GROUP];
 
 export type ApiNotificationType =
   | "LOGIN_ANOMALY"
@@ -22,13 +33,16 @@ export interface ApiNotification {
   createdAt: string;
 }
 
-export interface NotificationListResponse {
-  items: ApiNotification[];
-  meta: { total: number; page: number; limit: number; totalPages: number };
-}
+export type NotificationListResponse = Paginated<ApiNotification>;
 
 export interface NotificationListParams {
   page?: number;
   limit?: number;
   isRead?: boolean;
+}
+
+export interface NotificationVisual {
+  icon: LucideIcon;
+  iconBg: string;
+  iconColor: string;
 }

@@ -39,14 +39,12 @@ const LoginAlternative = async ({
           email={decodedEmail}
           title={magicLink.title}
           description={magicLink.description}
-          errorMessage={form.magicLink.sendError}
           delay={0}
         />
         <LoginOptionOtp
           email={decodedEmail}
           title={otp.title}
           description={otp.description}
-          errorMessage={form.otp.sendError}
           delay={ANIMATION_DELAY_STEP}
         />
         <LoginOptionPassword

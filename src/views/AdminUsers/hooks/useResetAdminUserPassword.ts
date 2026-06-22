@@ -11,8 +11,7 @@ const useResetAdminUserPassword = () => {
     mutationFn: resetAdminUserPassword,
     onSuccess: () => {
       toast.success(tToast("resetSuccess"));
-    },
-    onError: () => toast.error(tToast("error"))
+    }
   });
 };
 

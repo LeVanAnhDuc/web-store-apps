@@ -12,6 +12,7 @@ import type {
   AppStatus,
   WebApp
 } from "@/types/AdminApps";
+import { APP_STATUS } from "@/types/AdminApps";
 // components
 import {
   Table,
@@ -21,7 +22,6 @@ import {
   TableHeader,
   TableRow
 } from "@/components/ui/table";
-import { Skeleton } from "@/components/ui/skeleton";
 import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
@@ -31,6 +31,7 @@ import CustomButton from "@/components/CustomButton";
 import AppStatusBadge from "../../components/AppStatusBadge";
 import RoleChip from "../../components/RoleChip";
 import AppRowActions from "../../components/AppRowActions";
+import AdminAppsLoading from "../../components/AdminAppsLoading";
 import AdminAppsFormSheet from "../AdminAppsFormSheet";
 import AdminAppsHideDialog from "../AdminAppsHideDialog";
 import AdminAppsSecretDialog from "../AdminAppsSecretDialog";
@@ -48,20 +49,8 @@ import { getAdminApps, getAdminAppCategories } from "@/requests/adminApps";
 import CONSTANTS from "@/constants";
 import { formatDateTimeShort, resolveCategoryLabel } from "@/utils";
 
-const SKELETON_ROW_COUNT = 4;
-
 const isAppStatus = (value: unknown): value is AppStatus =>
   typeof value === "string" && APP_STATUSES.includes(value as AppStatus);
-
-const AppsTableSkeleton = () => (
-  <div className="bg-card rounded-xl border p-4">
-    <div className="flex flex-col gap-2">
-      {Array.from({ length: SKELETON_ROW_COUNT }).map((_, i) => (
-        <Skeleton key={`skeleton-${i}`} className="h-12 rounded-lg" />
-      ))}
-    </div>
-  </div>
-);
 
 const AdminAppsTable = () => {
   const t = useTranslations("adminApps");
@@ -161,7 +150,7 @@ const AdminAppsTable = () => {
 
   const handleUnhide = (app: WebApp) =>
     setStatusMutation.mutate(
-      { id: app._id, status: "active" },
+      { id: app._id, status: APP_STATUS.ACTIVE },
       {
         onSuccess: () =>
           announce(tAnnounce("reactivated", { name: app.displayName }))
@@ -196,7 +185,7 @@ const AdminAppsTable = () => {
         isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
         onClearFilters={query.clearFilters}
-        skeleton={<AppsTableSkeleton />}
+        skeleton={<AdminAppsLoading />}
         emptyTitle={tTable("empty")}
         emptyDescription={tTable("emptyCta")}
       >

@@ -29,7 +29,7 @@ const PasswordStepForm = ({
   email: string;
   translations: LoginMessages;
 }) => {
-  const { login, isPending } = usePasswordLogin();
+  const { mutate: login, isPending } = usePasswordLogin();
   const { run, release } = useSubmitGuard();
   const methods = useForm<PasswordStepFormValues>({ ...passwordStepFormProps });
 

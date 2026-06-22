@@ -8,11 +8,13 @@ import {
   reestablishStorageState,
   trackPatch
 } from "../helpers/changePassword";
+import {
+  BASE_URL,
+  USER_EMAIL as LOGIN_EMAIL,
+  USER_PASSWORD as DEFAULT_PASSWORD
+} from "../helpers/env";
 
-const DEFAULT_PASSWORD = process.env.E2E_USER_PASSWORD ?? "User@123";
 const NEW_PASSWORD = "NewPass@123";
-const BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3000";
-const LOGIN_EMAIL = process.env.E2E_USER_EMAIL ?? "user@test.com";
 
 // Real i18n strings (do NOT guess — sourced from
 // src/locales/{en,vi}/accountSettings.json -> accountSettings.changePassword

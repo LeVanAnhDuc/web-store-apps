@@ -1,5 +1,9 @@
 import { test, expect, request as playwrightRequest } from "@playwright/test";
 import type { Page, APIRequestContext } from "@playwright/test";
+import {
+  USER_EMAIL as NON_ADMIN_EMAIL,
+  USER_PASSWORD as NON_ADMIN_PASSWORD
+} from "../helpers/env";
 
 // AuthZ coverage: a logged-in NON-admin must not gain access to admin data.
 // Runs under the `chromium` project (regular-user storageState `user.json`).
@@ -35,9 +39,6 @@ import type { Page, APIRequestContext } from "@playwright/test";
 // FOLLOW-UP (flagged, not fixed here): the missing FE role guard is an
 // authorization gap — direct navigation renders the admin shell before the BE
 // 403 lands. Tracked in docs/specs/e2e-coverage-backfill.
-
-const NON_ADMIN_EMAIL = process.env.E2E_USER_EMAIL ?? "user@test.com";
-const NON_ADMIN_PASSWORD = process.env.E2E_USER_PASSWORD ?? "User@123";
 
 // Seeded admin-only data that a non-admin must never see rendered.
 const ADMIN_DATA_MARKER = "admin@test.com";

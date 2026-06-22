@@ -3,7 +3,6 @@
 // libs
 import { FormProvider, useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { toast } from "sonner";
 // types
 import type { AxiosError } from "axios";
 import type { ChangePasswordFormValues } from "@/forms/ChangePassword/validations";
@@ -51,7 +50,7 @@ const ChangePasswordCard = () => {
     ...changePasswordFormProps
   });
 
-  const { changePassword, isPending } = useChangePassword();
+  const { mutate: changePassword, isPending } = useChangePassword();
   const { run, release } = useSubmitGuard();
 
   const onSubmit = (data: ChangePasswordFormValues) =>
@@ -65,8 +64,6 @@ const ChangePasswordCard = () => {
           const fieldError = code ? FIELD_ERROR_MAP[code] : undefined;
           if (fieldError) {
             methods.setError(fieldError.field, { message: fieldError.message });
-          } else {
-            toast.error(t("toast.error"));
           }
         }
       });

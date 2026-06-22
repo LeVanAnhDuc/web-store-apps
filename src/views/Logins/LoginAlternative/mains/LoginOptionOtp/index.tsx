@@ -3,7 +3,6 @@
 // libs
 import { Smartphone } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 // components
 import LoginOptionCardButton from "../../components/LoginOptionCardButton";
@@ -20,13 +19,11 @@ const LoginOptionOtp = ({
   email,
   title,
   description,
-  errorMessage,
   delay
 }: {
   email: string;
   title: string;
   description: string;
-  errorMessage: string;
   delay?: number;
 }) => {
   const tAnnounce = useTranslations("login.announce");
@@ -36,10 +33,7 @@ const LoginOptionOtp = ({
     mutationFn: () => sendLoginOtp(email),
     onMutate: () => announce(tAnnounce("sendingCode")),
     onSuccess: () => announce(tAnnounce("codeSent")),
-    onError: () => {
-      announce(tAnnounce("codeSendError"));
-      toast.error(errorMessage);
-    }
+    onError: () => announce(tAnnounce("codeSendError"))
   });
 
   return (

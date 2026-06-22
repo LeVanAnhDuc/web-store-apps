@@ -14,7 +14,8 @@
     "cancel": "Hủy",
     "createSubmit": "Đăng ký",
     "updateSubmit": "Lưu thay đổi",
-    "copy": "Sao chép"
+    "copy": "Sao chép",
+    "copied": "Đã sao chép"
   },
   "toolbar": {
     "search": "Tìm kiếm",

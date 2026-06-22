@@ -62,7 +62,6 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
       queryClient.setQueryData([CONSTANTS.QUERY_KEYS.MY_PROFILE], updated);
       toast.success(t("toast.success"));
     },
-    onError: () => toast.error(t("toast.error")),
     onSettled: () => release()
   });
 

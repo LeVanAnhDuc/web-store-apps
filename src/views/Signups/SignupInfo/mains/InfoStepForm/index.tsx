@@ -32,7 +32,7 @@ const InfoStepForm = ({
   translations: SignupMessages;
 }) => {
   const methods = useForm<SignupInfoFormValues>({ ...signupInfoFormProps });
-  const { complete, isPending } = useSignupComplete();
+  const { mutate: complete, isPending } = useSignupComplete();
   const { run, release } = useSubmitGuard();
 
   const {

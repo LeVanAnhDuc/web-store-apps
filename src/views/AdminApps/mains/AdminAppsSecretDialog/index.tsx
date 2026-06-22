@@ -29,15 +29,6 @@ const AdminAppsSecretDialog = ({
   const tActions = useTranslations("adminApps.actions");
   const { announce } = useAnnounce();
 
-  const handleCopy = async (value: string) => {
-    try {
-      await navigator.clipboard.writeText(value);
-    } catch {
-      // clipboard may be unavailable; announce still fires
-    }
-    announce(t("announce.copied"));
-  };
-
   return (
     <Dialog open={app !== null} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>
@@ -51,13 +42,15 @@ const AdminAppsSecretDialog = ({
               label={t("clientIdLabel")}
               value={app.clientId}
               copyLabel={tActions("copy")}
-              onCopy={() => handleCopy(app.clientId)}
+              copiedLabel={tActions("copied")}
+              onCopySuccess={() => announce(t("announce.copied"))}
             />
             <SecretField
               label={t("clientSecretLabel")}
               value={app.clientSecret}
               copyLabel={tActions("copy")}
-              onCopy={() => handleCopy(app.clientSecret)}
+              copiedLabel={tActions("copied")}
+              onCopySuccess={() => announce(t("announce.copied"))}
             />
             <p className="text-destructive text-sm font-medium">
               {t("warning")}

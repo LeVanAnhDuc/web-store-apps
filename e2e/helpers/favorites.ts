@@ -12,9 +12,8 @@ import { request } from "@playwright/test";
 // ZERO favorites; every test that adds a favorite must remove it again so the
 // shared user state stays clean (idempotent revert in afterAll).
 
-export const BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3000";
-export const USER_EMAIL = process.env.E2E_USER_EMAIL ?? "user@test.com";
-export const USER_PASSWORD = process.env.E2E_USER_PASSWORD ?? "User@123";
+import { BASE_URL, USER_EMAIL, USER_PASSWORD } from "./env";
+export { BASE_URL, USER_EMAIL, USER_PASSWORD };
 
 // Seeded, user-visible, ACTIVE apps (server seeder data/web-apps.ts). The auth
 // user has the `user` role, so these three are the catalog they can favorite.

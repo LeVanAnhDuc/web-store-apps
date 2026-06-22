@@ -1,32 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
-import fs from "node:fs";
-import path from "node:path";
-
-function resolveBaseUrl(): string {
-  if (process.env.E2E_BASE_URL) return process.env.E2E_BASE_URL;
-  const feature = path.basename(process.cwd());
-  let dir = process.cwd();
-  for (let i = 0; i < 6; i += 1) {
-    const stateFile = path.join(dir, ".worktree-state.json");
-    if (fs.existsSync(stateFile)) {
-      try {
-        const state = JSON.parse(fs.readFileSync(stateFile, "utf8")) as Record<
-          string,
-          { clientPort?: number }
-        >;
-        const port = state[feature]?.clientPort;
-        if (port) return `http://localhost:${port}`;
-      } catch {
-        /* fall through to default */
-      }
-      break;
-    }
-    const parent = path.dirname(dir);
-    if (parent === dir) break;
-    dir = parent;
-  }
-  return "http://localhost:3000";
-}
+import { resolveBaseUrl } from "./e2e/helpers/env";
 
 const BASE_URL = resolveBaseUrl();
 

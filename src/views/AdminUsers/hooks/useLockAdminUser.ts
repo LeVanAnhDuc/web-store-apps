@@ -16,8 +16,7 @@ const useLockAdminUser = () => {
         queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_USERS_LIST]
       });
       toast.success(tToast("lockSuccess"));
-    },
-    onError: () => toast.error(tToast("error"))
+    }
   });
 };
 

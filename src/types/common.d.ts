@@ -11,6 +11,18 @@ interface ResponseMeta {
   pagination?: PaginationMeta;
 }
 
+interface PaginationInfo {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+interface Paginated<T> {
+  items: T[];
+  meta: PaginationInfo;
+}
+
 interface ResponsePattern<T> {
   timestamp: string;
   path: string;

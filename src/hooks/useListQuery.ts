@@ -5,12 +5,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 // types
-import type { ListFilterDef, ListQueryState } from "@/types/List";
+import type { ListFilterDef, ListQueryState, SortOrder } from "@/types/List";
 // hooks
 import { useAnnounce, useDebouncedValue } from "@/hooks";
 // others
 import { useRouter, usePathname } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
+import { SORT_ORDER } from "@/constants/list";
 
 const { LIST } = CONSTANTS;
 
@@ -30,8 +31,8 @@ const useListQuery = (filterDefs: ListFilterDef[] = []): ListQueryState => {
   const page = parsePage(searchParams.get(LIST.PARAM.PAGE));
   const sortBy = searchParams.get(LIST.PARAM.SORT_BY) ?? undefined;
   const sortOrderRaw = searchParams.get(LIST.PARAM.SORT_ORDER);
-  const sortOrder =
-    sortOrderRaw === "asc" || sortOrderRaw === "desc"
+  const sortOrder: SortOrder | undefined =
+    sortOrderRaw === SORT_ORDER.ASC || sortOrderRaw === SORT_ORDER.DESC
       ? sortOrderRaw
       : undefined;
 
@@ -151,7 +152,7 @@ const useListQuery = (filterDefs: ListFilterDef[] = []): ListQueryState => {
   );
 
   const setSort = useCallback(
-    (by: string, order: "asc" | "desc") => {
+    (by: string, order: SortOrder) => {
       push((p) => {
         p.set(LIST.PARAM.SORT_BY, by);
         p.set(LIST.PARAM.SORT_ORDER, order);

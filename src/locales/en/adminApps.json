@@ -14,7 +14,8 @@
     "cancel": "Cancel",
     "createSubmit": "Register",
     "updateSubmit": "Save Changes",
-    "copy": "Copy"
+    "copy": "Copy",
+    "copied": "Copied"
   },
   "toolbar": {
     "search": "Search",

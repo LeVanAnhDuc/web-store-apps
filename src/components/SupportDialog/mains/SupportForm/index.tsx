@@ -25,7 +25,9 @@ const SupportForm = ({
   emailPrefilled: boolean;
   onSubmitted: (ticketNumber: string) => void;
 }) => {
-  const { submit, isPending } = useSupportSubmit({ onSuccess: onSubmitted });
+  const { mutate: submit, isPending } = useSupportSubmit({
+    onSuccess: onSubmitted
+  });
 
   const methods = useForm<SupportFormValues>({
     ...supportFormProps,

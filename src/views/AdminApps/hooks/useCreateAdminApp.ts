@@ -19,8 +19,7 @@ const useCreateAdminApp = () => {
       });
       queryClient.invalidateQueries({ queryKey: [CONSTANTS.QUERY_KEYS.APPS] });
       toast.success(tToast("createSuccess"));
-    },
-    onError: () => toast.error(tToast("error"))
+    }
   });
 };
 

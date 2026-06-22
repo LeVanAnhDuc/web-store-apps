@@ -11,6 +11,7 @@
   "viewGrid": "Grid view",
   "viewList": "List view",
   "pagination": { "page": "Page", "of": "of", "results": "results" },
+  "table": { "empty": "No data", "comingSoon": "Coming soon" },
   "dateRange": {
     "label": "Date range",
     "all": "All time",

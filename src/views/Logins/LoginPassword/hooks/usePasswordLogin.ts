@@ -16,7 +16,7 @@ export const usePasswordLogin = () => {
   const tAnnounce = useTranslations("login.announce");
   const { announce } = useAnnounce();
 
-  const { mutate: login, isPending } = useMutation({
+  return useMutation({
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       loginWithPassword(email, password),
     onMutate: () => {
@@ -28,6 +28,4 @@ export const usePasswordLogin = () => {
       redirectAfterLogin();
     }
   });
-
-  return { login, isPending };
 };

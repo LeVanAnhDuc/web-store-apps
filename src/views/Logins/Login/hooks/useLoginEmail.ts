@@ -13,7 +13,7 @@ const { LOGIN_PASSWORD, SIGNUP_OTP } = CONSTANTS.ROUTES;
 export const useLoginEmail = () => {
   const router = useRouter();
 
-  const { mutate: checkEmail, isPending } = useMutation({
+  return useMutation({
     mutationFn: async (email: string) => {
       const result = await checkEmailAvailability(email);
       if (result.available) {
@@ -29,6 +29,4 @@ export const useLoginEmail = () => {
       }
     }
   });
-
-  return { checkEmail, isPending };
 };
