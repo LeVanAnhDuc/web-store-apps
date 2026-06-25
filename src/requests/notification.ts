@@ -7,6 +7,7 @@ import type {
 // others
 import axiosInstance from "@/libs/axios";
 import CONSTANTS from "@/constants";
+import { generatePath } from "@/utils";
 
 const { END_POINTS } = CONSTANTS;
 
@@ -30,7 +31,7 @@ export const markNotificationRead = async (
   id: string
 ): Promise<ApiNotification> => {
   const res = await axiosInstance.patch<ResponsePattern<ApiNotification>>(
-    END_POINTS.NOTIFICATION_READ(id)
+    generatePath(END_POINTS.NOTIFICATION_READ, { id })
   );
   return res.data.data;
 };

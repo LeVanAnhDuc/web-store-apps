@@ -222,3 +222,21 @@ export const mapProfileToFormValues = (
     gender: profile.gender ?? ""
   };
 };
+
+/**
+ * Thay placeholder `:param` trong template endpoint bằng giá trị thực (kiểu react-router).
+ * `generatePath("/posts/:id/comments/:commentId", { id: 123, commentId: 456 })`
+ *   → `/posts/123/comments/456`
+ * Throw khi thiếu param; encode từng giá trị bằng encodeURIComponent.
+ */
+export const generatePath = (
+  template: string,
+  params: Record<string, string | number> = {}
+): string =>
+  template.replace(/:([A-Za-z0-9_]+)/g, (_, key) => {
+    const value = params[key];
+    if (value === undefined || value === null) {
+      throw new Error(`generatePath: missing param "${key}" for "${template}"`);
+    }
+    return encodeURIComponent(String(value));
+  });

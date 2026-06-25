@@ -10,6 +10,7 @@ import type {
 // others
 import axiosInstance from "@/libs/axios";
 import CONSTANTS from "@/constants";
+import { generatePath } from "@/utils";
 
 const { END_POINTS } = CONSTANTS;
 
@@ -43,6 +44,6 @@ export const getAdminLoginHistoryDetail = async (
 ): Promise<LoginHistoryAdminDetailItem> => {
   const response = await axiosInstance.get<
     ResponsePattern<LoginHistoryAdminDetailItem>
-  >(`${END_POINTS.ADMIN_LOGIN_HISTORY}/${id}`);
+  >(generatePath(END_POINTS.ADMIN_LOGIN_HISTORY_BY_ID, { id }));
   return response.data.data;
 };

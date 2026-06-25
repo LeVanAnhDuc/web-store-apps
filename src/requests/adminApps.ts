@@ -11,6 +11,7 @@ import type {
 // others
 import axiosInstance from "@/libs/axios";
 import CONSTANTS from "@/constants";
+import { generatePath } from "@/utils";
 
 const { END_POINTS } = CONSTANTS;
 
@@ -44,7 +45,7 @@ export const updateAdminApp = async (
   input: AdminAppUpdateInput
 ): Promise<WebApp> => {
   const response = await axiosInstance.patch<ResponsePattern<WebApp>>(
-    `${END_POINTS.ADMIN_APPS}/${id}`,
+    generatePath(END_POINTS.ADMIN_APP_BY_ID, { id }),
     input
   );
   return response.data.data;
@@ -55,7 +56,7 @@ export const setAdminAppStatus = async (
   status: AppStatus
 ): Promise<WebApp> => {
   const response = await axiosInstance.patch<ResponsePattern<WebApp>>(
-    `${END_POINTS.ADMIN_APPS}/${id}`,
+    generatePath(END_POINTS.ADMIN_APP_BY_ID, { id }),
     { status }
   );
   return response.data.data;
