@@ -1,17 +1,11 @@
 // types
-import type { LucideIcon } from "lucide-react";
+import type {
+  PaymentMethodMock,
+  InvoiceMock,
+  UsageStatMock
+} from "@/types/Billing";
 // libs
 import { CreditCard } from "lucide-react";
-
-export interface PaymentMethodMock {
-  id: string;
-  brand: "visa" | "mastercard";
-  brandLabel: string;
-  last4: string;
-  expires: string;
-  isDefault: boolean;
-  icon: LucideIcon;
-}
 
 export const PAYMENT_METHODS_MOCK: readonly PaymentMethodMock[] = [
   {
@@ -33,16 +27,6 @@ export const PAYMENT_METHODS_MOCK: readonly PaymentMethodMock[] = [
     icon: CreditCard
   }
 ] as const;
-
-export type InvoiceStatus = "paid" | "pending" | "failed";
-
-export interface InvoiceMock {
-  id: string;
-  date: string;
-  description: string;
-  amount: string;
-  status: InvoiceStatus;
-}
 
 export const INVOICES_MOCK: readonly InvoiceMock[] = [
   {
@@ -74,12 +58,6 @@ export const INVOICES_MOCK: readonly InvoiceMock[] = [
     status: "paid"
   }
 ] as const;
-
-export interface UsageStatMock {
-  key: "totalPatches" | "totalBranches" | "apiCalls";
-  value: string;
-  ratio: number;
-}
 
 export const USAGE_STATS_MOCK: readonly UsageStatMock[] = [
   { key: "totalPatches", value: "8", ratio: 0.32 },

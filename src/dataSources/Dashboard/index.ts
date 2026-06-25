@@ -1,5 +1,6 @@
 // types
-import type { LucideIcon } from "lucide-react";
+import type { NavGroup, SortOption } from "@/types/Dashboard";
+// libs
 import {
   Home,
   LayoutGrid,
@@ -15,45 +16,6 @@ import {
 import CONSTANTS from "@/constants";
 
 const { ROUTES } = CONSTANTS;
-
-export interface App {
-  id: string;
-  name: string;
-  description: string;
-  icon: LucideIcon;
-  category: string;
-  rating: number;
-  downloads: string;
-  colorClass: string;
-  gradientClass: string;
-  lastUsed?: Date;
-  featured?: boolean;
-  tags: string[];
-}
-
-export type NavKey =
-  | "home"
-  | "apps"
-  | "loginHistory"
-  | "favorites"
-  | "recentlyUsed"
-  | "profile"
-  | "accountSettings"
-  | "billing"
-  | "team";
-
-export type NavGroupKey = "discover" | "mine" | "settings";
-
-export interface NavItem {
-  key: NavKey;
-  icon: LucideIcon;
-  href: string;
-}
-
-export interface NavGroup {
-  key: NavGroupKey;
-  items: readonly NavItem[];
-}
 
 export const NAV_GROUPS: readonly NavGroup[] = [
   {
@@ -88,8 +50,6 @@ export const SORT_OPTIONS = [
   { value: "downloads" },
   { value: "name" }
 ] as const;
-
-export type SortOption = (typeof SORT_OPTIONS)[number]["value"];
 
 export const getSortLabel = (
   t: (key: SortOption) => string,

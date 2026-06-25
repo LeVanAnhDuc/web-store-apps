@@ -2,7 +2,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 // types
 import type { UseFormProps } from "react-hook-form";
-import type { UpdatePersonalInfoFormValues } from "./validations";
+import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 // forms
 import { initialUpdatePersonalInfoData } from "./data";
 import { updatePersonalInfoValidation } from "./validations";

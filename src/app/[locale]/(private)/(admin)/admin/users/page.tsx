@@ -1,7 +1,7 @@
 // libs
 import { getTranslations } from "next-intl/server";
 // types
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "@/types/I18n";
 // views
 import AdminUsers from "@/views/AdminUsers";
 

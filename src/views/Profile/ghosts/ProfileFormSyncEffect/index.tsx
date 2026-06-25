@@ -3,7 +3,7 @@
 // libs
 import { useFormContext } from "react-hook-form";
 // types
-import type { UpdatePersonalInfoFormValues } from "@/forms/UpdatePersonalInfo/validations";
+import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 import type { MyProfileResponse } from "@/types/User";
 // hooks
 import { useUpdateEffect } from "@/hooks";

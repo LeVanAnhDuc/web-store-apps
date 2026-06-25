@@ -4,7 +4,7 @@
 import { useTranslations } from "next-intl";
 // types
 import type { Control } from "react-hook-form";
-import type { UpdatePersonalInfoFormValues } from "@/forms/UpdatePersonalInfo/validations";
+import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 // components
 import {
   FormControl,

@@ -3,6 +3,8 @@
 // libs
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+// types
+import type { NotificationPrefKey } from "@/types/Profile";
 // components
 import {
   Card,
@@ -15,10 +17,7 @@ import NotificationToggleRow from "../../components/NotificationToggleRow";
 // hooks
 import { useAnnounce } from "@/hooks";
 // others
-import {
-  NOTIFICATION_PREFS_MOCK,
-  type NotificationPrefKey
-} from "@/mocks/Profile";
+import { NOTIFICATION_PREFS_MOCK } from "@/mocks/Profile";
 
 const NotificationPreferencesCard = () => {
   const t = useTranslations("profile.notificationPreferences");

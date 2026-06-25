@@ -1,7 +1,10 @@
 // types
+import type LIST from "@/constants/list";
 import type { SORT_ORDER } from "@/constants/list";
 
 export type SortOrder = (typeof SORT_ORDER)[keyof typeof SORT_ORDER];
+
+export type DateRangePreset = (typeof LIST.DATE_PRESETS)[number];
 
 export type ListFilterOption = { value: string; label: string };
 

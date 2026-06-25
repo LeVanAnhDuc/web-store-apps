@@ -1,3 +1,5 @@
+// types
+import type { RecentApp, RecentGroupKey } from "@/types/RecentlyUsed";
 // libs
 import {
   FileText,
@@ -10,21 +12,6 @@ import {
   GraduationCap,
   Image as ImageIcon
 } from "lucide-react";
-// types
-import type { LucideIcon } from "lucide-react";
-
-export type RecentGroupKey = "today" | "yesterday" | "thisWeek" | "earlier";
-
-export interface RecentApp {
-  id: string;
-  name: string;
-  category: string;
-  group: RecentGroupKey;
-  time: string;
-  icon: LucideIcon;
-  iconColor: string;
-  iconBg: string;
-}
 
 export const RECENT_GROUP_DOTS: Record<RecentGroupKey, string> = {
   today: "bg-success",

@@ -3,6 +3,8 @@
 // libs
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+// types
+import type { ConnectedAccountKey } from "@/types/Profile";
 // components
 import {
   Card,
@@ -15,10 +17,7 @@ import ConnectedAccountRow from "../../components/ConnectedAccountRow";
 // hooks
 import { useAnnounce } from "@/hooks";
 // others
-import {
-  CONNECTED_ACCOUNTS_MOCK,
-  type ConnectedAccountKey
-} from "@/mocks/Profile";
+import { CONNECTED_ACCOUNTS_MOCK } from "@/mocks/Profile";
 
 const ConnectedAccountsCard = () => {
   const t = useTranslations("profile.connectedAccounts");

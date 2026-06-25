@@ -1,5 +1,5 @@
 // types
-import type { InvoiceStatus } from "@/mocks/Billing";
+import type { InvoiceStatus } from "@/types/Billing";
 // components
 import { Badge } from "@/components/ui/badge";
 // others

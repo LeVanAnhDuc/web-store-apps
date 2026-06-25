@@ -1,4 +1,5 @@
-export type ColorVariant = "primary" | "info" | "success" | "cream";
+// types
+import type { ColorVariant } from "@/types/Color";
 
 export const COLOR_VARIANT_CLASSES: Record<ColorVariant, string> = {
   primary: "bg-primary/10 group-hover:bg-primary/20 text-primary",

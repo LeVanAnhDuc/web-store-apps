@@ -7,7 +7,7 @@ import { hasLocale, useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 // types
-import { localeNames, type Locale } from "@/i18n/config";
+import type { Locale } from "@/types/I18n";
 // components
 import {
   DropdownMenuPortal,
@@ -18,6 +18,7 @@ import {
 // hooks
 import { useAnnounce } from "@/hooks";
 // others
+import { localeNames } from "@/i18n/config";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/libs/utils";

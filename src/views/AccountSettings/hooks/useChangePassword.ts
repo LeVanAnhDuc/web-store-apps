@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 // types
-import type { ChangePasswordFormValues } from "@/forms/ChangePassword/validations";
+import type { ChangePasswordFormValues } from "@/types/ChangePassword";
 // hooks
 import { useAnnounce } from "@/hooks";
 // stores

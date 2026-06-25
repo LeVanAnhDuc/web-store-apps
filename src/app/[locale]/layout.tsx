@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 // types
 import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "@/types/I18n";
 // components
 import { Toaster } from "@/components/ui/sonner";
 import SessionGate from "@/layouts/SessionGate";

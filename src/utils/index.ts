@@ -8,7 +8,7 @@ import type {
 } from "@/types/LoginHistory";
 import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
 import type { MyProfileResponse } from "@/types/User";
-import type { UpdatePersonalInfoFormValues } from "@/forms/UpdatePersonalInfo/validations";
+import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 import type { Messages } from "@/types/libs";
 // dataSources
 import { CONTACT_CATEGORY_VALUES } from "@/dataSources/ContactAdmin";

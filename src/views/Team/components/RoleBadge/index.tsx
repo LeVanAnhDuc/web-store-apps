@@ -1,5 +1,5 @@
 // types
-import type { TeamRole } from "@/mocks/Team";
+import type { TeamRole } from "@/types/Team";
 // components
 import { Badge } from "@/components/ui/badge";
 // others
