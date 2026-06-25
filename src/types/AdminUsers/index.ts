@@ -1,6 +1,6 @@
 // types
 import type { AuthenticationRole } from "@/types/User";
-import type { SortOrder } from "@/constants/list";
+import type { SortOrder } from "@/types/List";
 
 export interface AdminUser {
   _id: string;

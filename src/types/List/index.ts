@@ -1,7 +1,7 @@
 // types
-import type { SortOrder } from "@/constants/list";
+import type { SORT_ORDER } from "@/constants/list";
 
-export type { SortOrder };
+export type SortOrder = (typeof SORT_ORDER)[keyof typeof SORT_ORDER];
 
 export type ListFilterOption = { value: string; label: string };
 

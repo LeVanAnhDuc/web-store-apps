@@ -4,8 +4,6 @@ import { enUS, vi } from "date-fns/locale";
 // types
 import { NOTIF_GROUP, type NotifGroup } from "@/types/Notification";
 
-export type { NotifGroup };
-
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 export const relativeTime = (iso: string, locale: string): string =>
