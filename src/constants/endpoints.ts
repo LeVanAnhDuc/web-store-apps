@@ -13,7 +13,7 @@ const END_POINTS = {
   AUTH_SIGNUP_VERIFY_OTP: "/auth/signup/verify-otp",
   AUTH_SIGNUP_RESEND_OTP: "/auth/signup/resend-otp",
   AUTH_SIGNUP_COMPLETE: "/auth/signup/complete",
-  AUTH_SIGNUP_CHECK_EMAIL: "/auth/signup/check-email",
+  AUTH_SIGNUP_CHECK_EMAIL: "/auth/signup/check-email/:email",
 
   // Forgot Password
   AUTH_FORGOT_PASSWORD_OTP_SEND: "/auth/forgot-password/otp/send",
@@ -28,24 +28,28 @@ const END_POINTS = {
 
   // Users
   USERS_ME: "/users/me",
-  USERS_BY_ID: "/users",
+  USER_BY_ID: "/users/:id",
 
   // Contact
   CONTACT_SUBMIT: "/contact/submit",
   ADMIN_CONTACTS: "/admin/contacts",
+  ADMIN_CONTACT_BY_ID: "/admin/contacts/:id",
+  ADMIN_CONTACT_STATUS: "/admin/contacts/:id/status",
 
   // Login History
   LOGIN_HISTORY: "/login-history",
   LOGIN_HISTORY_STATS: "/login-history/stats",
   ADMIN_LOGIN_HISTORY: "/admin/login-history",
+  ADMIN_LOGIN_HISTORY_BY_ID: "/admin/login-history/:id",
 
   // App Registry
   APPS: "/apps",
   APP_CATEGORIES: "/apps/categories",
   ADMIN_APPS: "/admin/apps",
+  ADMIN_APP_BY_ID: "/admin/apps/:id",
   ADMIN_APP_CATEGORIES: "/admin/apps/categories",
   FAVORITES: "/users/me/favorites",
-  FAVORITE_TOGGLE: (appId: string) => `/users/me/favorites/${appId}`,
+  FAVORITE_BY_APP_ID: "/users/me/favorites/:appId",
 
   // Users (admin)
   ADMIN_USERS: "/admin/users",
@@ -54,7 +58,7 @@ const END_POINTS = {
   NOTIFICATIONS: "/notifications",
   NOTIFICATIONS_UNREAD_COUNT: "/notifications/unread-count",
   NOTIFICATIONS_READ_ALL: "/notifications/read-all",
-  NOTIFICATION_READ: (id: string) => `/notifications/${id}/read`
+  NOTIFICATION_READ: "/notifications/:id/read"
 };
 
 export default END_POINTS;

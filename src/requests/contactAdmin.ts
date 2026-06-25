@@ -8,6 +8,7 @@ import type {
 // others
 import axiosInstance from "@/libs/axios";
 import CONSTANTS from "@/constants";
+import { generatePath } from "@/utils";
 
 const { END_POINTS } = CONSTANTS;
 
@@ -24,7 +25,7 @@ export const getAdminContactDetail = async (
   id: string
 ): Promise<ContactDetailItem> => {
   const response = await axiosInstance.get<ResponsePattern<ContactDetailItem>>(
-    `${END_POINTS.ADMIN_CONTACTS}/${id}`
+    generatePath(END_POINTS.ADMIN_CONTACT_BY_ID, { id })
   );
   return response.data.data;
 };
@@ -33,7 +34,10 @@ export const updateContactStatus = async (
   id: string,
   status: ContactStatus
 ): Promise<void> => {
-  await axiosInstance.patch(`${END_POINTS.ADMIN_CONTACTS}/${id}/status`, {
-    status
-  });
+  await axiosInstance.patch(
+    generatePath(END_POINTS.ADMIN_CONTACT_STATUS, { id }),
+    {
+      status
+    }
+  );
 };

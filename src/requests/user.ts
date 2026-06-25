@@ -7,6 +7,7 @@ import type {
 // others
 import axiosInstance from "@/libs/axios";
 import CONSTANTS from "@/constants";
+import { generatePath } from "@/utils";
 
 const { END_POINTS } = CONSTANTS;
 
@@ -31,6 +32,6 @@ export const getPublicProfile = async (
 ): Promise<PublicProfileResponse> => {
   const response = await axiosInstance.get<
     ResponsePattern<PublicProfileResponse>
-  >(`${END_POINTS.USERS_BY_ID}/${id}`);
+  >(generatePath(END_POINTS.USER_BY_ID, { id }));
   return response.data.data;
 };

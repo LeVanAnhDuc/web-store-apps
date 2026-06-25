@@ -10,6 +10,7 @@ import type {
 // others
 import axiosInstance from "@/libs/axios";
 import CONSTANTS from "@/constants";
+import { generatePath } from "@/utils";
 
 const { END_POINTS } = CONSTANTS;
 
@@ -54,7 +55,7 @@ export const checkEmailAvailability = async (
   email: string
 ): Promise<CheckEmailResponse> => {
   const response = await axiosInstance.get<ResponsePattern<CheckEmailResponse>>(
-    `${END_POINTS.AUTH_SIGNUP_CHECK_EMAIL}/${encodeURIComponent(email)}`
+    generatePath(END_POINTS.AUTH_SIGNUP_CHECK_EMAIL, { email })
   );
   return response.data.data;
 };
