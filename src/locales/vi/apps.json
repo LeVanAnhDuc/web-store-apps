@@ -19,11 +19,6 @@
   },
   "empty": "Không tìm thấy ứng dụng nào.",
   "error": "Không thể tải ứng dụng. Vui lòng thử lại.",
-  "pagination": {
-    "summary": "Hiển thị {shown} trên {total} ứng dụng",
-    "previous": "Trước",
-    "next": "Sau"
-  },
   "announce": {
     "viewModeChanged": "Đã chuyển sang {mode}.",
     "pageChanged": "Đã tải trang {page}.",
