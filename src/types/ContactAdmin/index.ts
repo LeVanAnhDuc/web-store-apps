@@ -1,7 +1,5 @@
 // types
-import type { SortOrder } from "@/constants/list";
-
-export type { SortOrder };
+import type { SortOrder } from "@/types/List";
 
 export type ContactStatus = "new" | "processing" | "resolved";
 export type ContactCategory =
