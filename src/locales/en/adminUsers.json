@@ -30,11 +30,6 @@
     "error": "Could not load users. Please try again.",
     "rowMenuLabel": "User actions"
   },
-  "pagination": {
-    "page": "Page",
-    "of": "of",
-    "results": "users"
-  },
   "actions": {
     "resetPassword": "Reset password",
     "lock": "Lock account",

@@ -19,11 +19,6 @@
   },
   "empty": "No apps found.",
   "error": "Could not load apps. Please try again.",
-  "pagination": {
-    "summary": "Showing {shown} of {total} apps",
-    "previous": "Previous",
-    "next": "Next"
-  },
   "announce": {
     "viewModeChanged": "View mode changed to {mode}.",
     "pageChanged": "Page {page} loaded.",

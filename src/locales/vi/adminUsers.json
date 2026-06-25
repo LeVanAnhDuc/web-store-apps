@@ -30,11 +30,6 @@
     "error": "Không thể tải danh sách người dùng. Vui lòng thử lại.",
     "rowMenuLabel": "Thao tác với người dùng"
   },
-  "pagination": {
-    "page": "Trang",
-    "of": "/",
-    "results": "người dùng"
-  },
   "actions": {
     "resetPassword": "Đặt lại mật khẩu",
     "lock": "Khóa tài khoản",

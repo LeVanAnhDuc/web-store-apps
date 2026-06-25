@@ -80,13 +80,6 @@
     "TABLET": "Máy tính bảng",
     "UNKNOWN": "Không rõ"
   },
-  "pagination": {
-    "previous": "Trước",
-    "next": "Tiếp",
-    "page": "Trang",
-    "of": "trong",
-    "results": "kết quả"
-  },
   "admin": {
     "title": "Toàn bộ lịch sử đăng nhập",
     "description": "Xem lịch sử đăng nhập của tất cả người dùng",

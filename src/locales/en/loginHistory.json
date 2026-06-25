@@ -80,13 +80,6 @@
     "TABLET": "Tablet",
     "UNKNOWN": "Unknown"
   },
-  "pagination": {
-    "previous": "Previous",
-    "next": "Next",
-    "page": "Page",
-    "of": "of",
-    "results": "results"
-  },
   "admin": {
     "title": "All Login History",
     "description": "View all users' login activity",
