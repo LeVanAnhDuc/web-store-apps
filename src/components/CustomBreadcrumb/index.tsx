@@ -3,6 +3,8 @@
 // libs
 import { Fragment } from "react";
 import { useTranslations } from "next-intl";
+// types
+import type { CustomBreadcrumbItem } from "@/types/CustomBreadcrumb";
 // components
 import {
   Breadcrumb,
@@ -16,11 +18,6 @@ import {
 import { Link } from "@/i18n/navigation";
 
 type Namespace = NonNullable<Parameters<typeof useTranslations>[0]>;
-
-export type CustomBreadcrumbItem = {
-  key: string;
-  href?: string;
-};
 
 const CustomBreadcrumb = ({
   items,

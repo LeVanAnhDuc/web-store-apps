@@ -1,20 +1,14 @@
 // types
-import type { SupportFormValues } from "@/types/Support";
+import type {
+  SupportFormValues,
+  SubmitSupportResponse,
+  SubmitSupportPayload
+} from "@/types/Support";
 // others
 import axiosInstance from "@/libs/axios";
 import CONSTANTS from "@/constants";
 
 const { END_POINTS } = CONSTANTS;
-
-type SubmitSupportResponse = {
-  ticketNumber: string;
-};
-
-type SubmitSupportPayload = {
-  subject: string;
-  message: string;
-  email?: string;
-};
 
 export const submitSupport = async (
   data: SupportFormValues

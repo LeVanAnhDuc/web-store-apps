@@ -3,3 +3,13 @@ export interface SupportFormValues {
   subject: string;
   message: string;
 }
+
+export interface SubmitSupportResponse {
+  ticketNumber: string;
+}
+
+export interface SubmitSupportPayload {
+  subject: string;
+  message: string;
+  email?: string;
+}

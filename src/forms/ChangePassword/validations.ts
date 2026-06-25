@@ -18,5 +18,3 @@ export const changePasswordValidation = z
     message: "mismatch",
     path: [CONFIRM_PASSWORD]
   });
-
-export type ChangePasswordFormValues = z.infer<typeof changePasswordValidation>;

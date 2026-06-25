@@ -46,7 +46,3 @@ export const updatePersonalInfoValidation = z.object({
     .optional()
     .or(z.literal(""))
 });
-
-export type UpdatePersonalInfoFormValues = z.infer<
-  typeof updatePersonalInfoValidation
->;

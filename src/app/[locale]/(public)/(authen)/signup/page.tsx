@@ -1,7 +1,7 @@
 // libs
 import { redirect } from "next/navigation";
 // types
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "@/types/I18n";
 
 export default async function SignupPage({
   params

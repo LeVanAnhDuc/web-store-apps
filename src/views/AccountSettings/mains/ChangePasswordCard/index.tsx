@@ -5,7 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 // types
 import type { AxiosError } from "axios";
-import type { ChangePasswordFormValues } from "@/forms/ChangePassword/validations";
+import type { ChangePasswordFormValues } from "@/types/ChangePassword";
 // components
 import {
   Card,

@@ -1,9 +1,7 @@
 // types
-import type LIST from "@/constants/list";
+import type { DateRangePreset } from "@/types/List";
 // others
 import { formatYmdLocal } from "@/utils";
-
-export type DateRangePreset = (typeof LIST.DATE_PRESETS)[number];
 
 export const computeDateRange = (
   preset: DateRangePreset

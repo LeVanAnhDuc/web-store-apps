@@ -7,7 +7,7 @@ import { vi, enUS } from "date-fns/locale";
 import { useLocale, useTranslations } from "next-intl";
 // types
 import type { Control } from "react-hook-form";
-import type { UpdatePersonalInfoFormValues } from "@/forms/UpdatePersonalInfo/validations";
+import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 // components
 import { FormField, FormItem } from "@/components/ui/form";
 import CustomDateInput from "@/components/CustomDateInput";

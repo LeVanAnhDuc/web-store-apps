@@ -1,3 +1,6 @@
+// types
+import type { Locale } from "@/types/I18n";
+
 const LOCALES = {
   EN: "en",
   VI: "vi"
@@ -6,8 +9,6 @@ const LOCALES = {
 export const locales = Object.values(LOCALES);
 
 export const defaultLocale = LOCALES.EN;
-
-export type Locale = (typeof locales)[number];
 
 export const localeNames: Record<Locale, string> = {
   [LOCALES.EN]: "English",

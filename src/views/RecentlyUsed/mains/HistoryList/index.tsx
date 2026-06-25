@@ -4,7 +4,7 @@ import { Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 // types
-import type { RecentApp, RecentGroupKey } from "@/mocks/RecentlyUsed";
+import type { RecentApp, RecentGroupKey } from "@/types/RecentlyUsed";
 // components
 import CustomButton from "@/components/CustomButton";
 import PageTitle from "@/components/PageTitle";

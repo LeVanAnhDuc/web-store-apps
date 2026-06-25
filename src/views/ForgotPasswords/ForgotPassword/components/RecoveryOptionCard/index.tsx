@@ -1,6 +1,6 @@
 // types
 import type { LucideIcon } from "lucide-react";
-import type { ColorVariant } from "@/dataSources/Common";
+import type { ColorVariant } from "@/types/Color";
 // dataSources
 import { COLOR_VARIANT_CLASSES, DISABLED_CLASSES } from "@/dataSources/Common";
 // others

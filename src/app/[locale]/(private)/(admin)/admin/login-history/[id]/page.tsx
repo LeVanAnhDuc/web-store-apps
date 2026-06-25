@@ -2,7 +2,7 @@
 import { getTranslations } from "next-intl/server";
 // types
 import type { Metadata } from "next";
-import type { Locale } from "@/i18n/config";
+import type { Locale } from "@/types/I18n";
 // views
 import AdminLoginHistoryDetail from "@/views/AdminLoginHistoryDetail";
 

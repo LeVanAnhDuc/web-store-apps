@@ -4,6 +4,8 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
+// types
+import type { TeamMemberMock } from "@/types/Team";
 // components
 import {
   Card,
@@ -18,7 +20,7 @@ import TeamMemberRow from "../../components/TeamMemberRow";
 // hooks
 import { useAnnounce } from "@/hooks";
 // others
-import { TEAM_MEMBERS_MOCK, type TeamMemberMock } from "@/mocks/Team";
+import { TEAM_MEMBERS_MOCK } from "@/mocks/Team";
 
 const TeamMembersCard = () => {
   const t = useTranslations("team.members");

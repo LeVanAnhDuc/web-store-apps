@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 // types
-import type { UpdatePersonalInfoFormValues } from "@/forms/UpdatePersonalInfo/validations";
+import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 import type {
   GenderEnum,
   MyProfileResponse,

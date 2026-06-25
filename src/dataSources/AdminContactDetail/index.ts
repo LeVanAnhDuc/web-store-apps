@@ -1,5 +1,5 @@
 // types
-import type { CustomBreadcrumbItem } from "@/components/CustomBreadcrumb";
+import type { CustomBreadcrumbItem } from "@/types/CustomBreadcrumb";
 // others
 import CONSTANTS from "@/constants";
 

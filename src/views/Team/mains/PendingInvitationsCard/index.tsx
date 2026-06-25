@@ -3,6 +3,8 @@
 // libs
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+// types
+import type { PendingInvitationMock } from "@/types/Team";
 // components
 import {
   Card,
@@ -15,10 +17,7 @@ import PendingInvitationRow from "../../components/PendingInvitationRow";
 // hooks
 import { useAnnounce } from "@/hooks";
 // others
-import {
-  PENDING_INVITATIONS_MOCK,
-  type PendingInvitationMock
-} from "@/mocks/Team";
+import { PENDING_INVITATIONS_MOCK } from "@/mocks/Team";
 
 const PendingInvitationsCard = () => {
   const t = useTranslations("team.pending");

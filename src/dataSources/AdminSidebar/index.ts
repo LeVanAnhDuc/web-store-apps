@@ -1,5 +1,5 @@
 // types
-import type { LucideIcon } from "lucide-react";
+import type { AdminNavGroup } from "@/types/AdminSidebar";
 // libs
 import {
   LayoutDashboard,
@@ -13,27 +13,6 @@ import {
 import CONSTANTS from "@/constants";
 
 const { ROUTES } = CONSTANTS;
-
-export type AdminNavKey =
-  | "dashboard"
-  | "users"
-  | "loginHistory"
-  | "contacts"
-  | "apps"
-  | "entitlements";
-
-export type AdminNavGroupKey = "overview" | "identity" | "apps";
-
-export interface AdminNavItem {
-  key: AdminNavKey;
-  icon: LucideIcon;
-  href: string;
-}
-
-export interface AdminNavGroup {
-  key: AdminNavGroupKey;
-  items: readonly AdminNavItem[];
-}
 
 export const ADMIN_NAV_GROUPS: readonly AdminNavGroup[] = [
   {

@@ -1,5 +1,5 @@
 // types
-import type { ChangePasswordFormValues } from "./validations";
+import type { ChangePasswordFormValues } from "@/types/ChangePassword";
 // others
 import CONSTANTS from "@/constants";
 

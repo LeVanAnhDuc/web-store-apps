@@ -1,5 +1,5 @@
 // types
-import type { TeamRole } from "@/mocks/Team";
+import type { TeamRole } from "@/types/Team";
 // components
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import CustomButton from "@/components/CustomButton";

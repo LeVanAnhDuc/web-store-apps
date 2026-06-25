@@ -2,7 +2,7 @@
 
 // types
 import type { LucideIcon } from "lucide-react";
-import type { ColorVariant } from "@/dataSources/Common";
+import type { ColorVariant } from "@/types/Color";
 // components
 import LoginOptionCard from "../LoginOptionCard";
 import CustomButton from "@/components/CustomButton";

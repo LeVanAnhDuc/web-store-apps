@@ -1,24 +1,11 @@
 // types
-import type { LucideIcon } from "lucide-react";
+import type { AdminDashboardCard } from "@/types/AdminDashboard";
 // libs
 import { LayoutGrid, ShieldCheck, Users, Inbox, History } from "lucide-react";
 // others
 import CONSTANTS from "@/constants";
 
 const { ROUTES } = CONSTANTS;
-
-export type AdminDashboardCardKey =
-  | "apps"
-  | "entitlements"
-  | "users"
-  | "contacts"
-  | "loginHistory";
-
-export interface AdminDashboardCard {
-  key: AdminDashboardCardKey;
-  icon: LucideIcon;
-  href: string;
-}
 
 export const ADMIN_DASHBOARD_CARDS: readonly AdminDashboardCard[] = [
   { key: "apps", icon: LayoutGrid, href: ROUTES.ADMIN_APPS },

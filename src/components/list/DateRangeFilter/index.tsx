@@ -2,6 +2,8 @@
 
 // libs
 import { useTranslations } from "next-intl";
+// types
+import type { DateRangePreset } from "@/types/List";
 // components
 import {
   Select,
@@ -11,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import CustomSelectTrigger from "@/components/CustomSelectTrigger";
 // others
-import { computeDateRange, type DateRangePreset } from "@/utils/listDateRange";
+import { computeDateRange } from "@/utils/listDateRange";
 import CONSTANTS from "@/constants";
 
 const { LIST } = CONSTANTS;

@@ -1,6 +1,6 @@
 // types
 import type { LoginTokenResponse } from "@/types/Login";
-import type { ChangePasswordFormValues } from "@/forms/ChangePassword/validations";
+import type { ChangePasswordFormValues } from "@/types/ChangePassword";
 // others
 import axiosInstance from "@/libs/axios";
 import CONSTANTS from "@/constants";

@@ -1,20 +1,11 @@
 // types
-import type { LucideIcon } from "lucide-react";
+import type {
+  TeamMemberMock,
+  PendingInvitationMock,
+  RoleDefinitionMock
+} from "@/types/Team";
 // libs
 import { Crown, Shield, User } from "lucide-react";
-
-export type TeamRole = "owner" | "admin" | "member";
-
-export interface TeamMemberMock {
-  id: string;
-  fullName: string;
-  email: string;
-  role: TeamRole;
-  initials: string;
-  avatarFromColor: string;
-  avatarToColor: string;
-  isYou: boolean;
-}
 
 export const TEAM_MEMBERS_MOCK: readonly TeamMemberMock[] = [
   {
@@ -49,13 +40,6 @@ export const TEAM_MEMBERS_MOCK: readonly TeamMemberMock[] = [
   }
 ] as const;
 
-export interface PendingInvitationMock {
-  id: string;
-  email: string;
-  role: TeamRole;
-  sentAt: string;
-}
-
 export const PENDING_INVITATIONS_MOCK: readonly PendingInvitationMock[] = [
   {
     id: "inv-1",
@@ -70,13 +54,6 @@ export const PENDING_INVITATIONS_MOCK: readonly PendingInvitationMock[] = [
     sentAt: "Yesterday"
   }
 ] as const;
-
-export interface RoleDefinitionMock {
-  key: TeamRole;
-  icon: LucideIcon;
-  iconBg: string;
-  iconColor: string;
-}
 
 export const ROLE_DEFINITIONS_MOCK: readonly RoleDefinitionMock[] = [
   {
