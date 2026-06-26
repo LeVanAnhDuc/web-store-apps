@@ -10,13 +10,6 @@ import { useToggleFavorite } from "@/hooks";
 // others
 import useHomeApps from "../../hooks/useHomeApps";
 
-const GRADIENTS = [
-  "bg-gradient-to-br from-primary to-primary/60",
-  "bg-gradient-to-br from-info to-info/60",
-  "bg-gradient-to-br from-warning to-warning/60",
-  "bg-gradient-to-br from-success to-success/60"
-];
-
 const QuickAccessSection = () => {
   const t = useTranslations("home.quickAccess");
   const tCard = useTranslations("apps.card");
@@ -53,7 +46,7 @@ const QuickAccessSection = () => {
         </p>
       ) : (
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {items.map((app, idx) => (
+          {items.map((app) => (
             <QuickAccessCard
               key={app._id}
               id={app._id}
@@ -61,7 +54,6 @@ const QuickAccessSection = () => {
               category={app.category}
               iconUrl={app.iconUrl}
               homeUrl={app.homeUrl}
-              gradient={GRADIENTS[idx % GRADIENTS.length]}
               isFavorite={app.isFavorite}
               addFavoriteLabel={tCard("addFavorite")}
               removeFavoriteLabel={tCard("removeFavorite")}

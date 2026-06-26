@@ -46,7 +46,7 @@ const GreetingSection = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <Card className="from-card to-primary/5 flex flex-row items-center justify-between gap-6 rounded-2xl border bg-gradient-to-b p-8 md:p-10">
+      <Card className="bg-card flex flex-row items-center justify-between gap-6 rounded-2xl border p-8 md:p-10">
         <div className="flex flex-col gap-3">
           <HeroTitle>{greeting}, Anh Duc</HeroTitle>
           <p className="text-muted-foreground text-sm font-medium">
@@ -57,10 +57,10 @@ const GreetingSection = () => {
           </p>
         </div>
         <div
-          className="from-primary/40 to-primary hidden size-32 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-br lg:flex xl:size-40"
+          className="bg-muted hidden size-32 shrink-0 items-center justify-center rounded-3xl lg:flex xl:size-40"
           aria-hidden="true"
         >
-          <LayoutGrid className="text-primary-foreground size-14 xl:size-20" />
+          <LayoutGrid className="text-foreground size-14 xl:size-20" />
         </div>
       </Card>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -157,7 +157,7 @@ const GreetingSection = () => {
           ))}
         </ul>
       </Card>
-      <Card className="border-warning/50 from-warning/15 to-warning/5 flex items-center justify-between gap-4 rounded-2xl border bg-gradient-to-r p-4">
+      <Card className="border-warning/50 bg-card flex items-center justify-between gap-4 rounded-2xl border p-4">
         <div className="flex items-center gap-3.5">
           <div
             className="bg-warning/25 flex size-11 items-center justify-center rounded-xl"
@@ -176,7 +176,7 @@ const GreetingSection = () => {
         </div>
         <CustomButton
           size="sm"
-          className="bg-warning text-warning-foreground hover:bg-warning/90 shrink-0"
+          className="shrink-0"
           iconLeft={<Trophy className="size-3.5" aria-hidden="true" />}
         >
           {t("achievement.cta")}

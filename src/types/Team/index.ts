@@ -9,8 +9,6 @@ export interface TeamMemberMock {
   email: string;
   role: TeamRole;
   initials: string;
-  avatarFromColor: string;
-  avatarToColor: string;
   isYou: boolean;
 }
 

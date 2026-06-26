@@ -14,8 +14,6 @@ export const TEAM_MEMBERS_MOCK: readonly TeamMemberMock[] = [
     email: "anhducle@email.com",
     role: "owner",
     initials: "AL",
-    avatarFromColor: "from-cream",
-    avatarToColor: "to-primary",
     isYou: true
   },
   {
@@ -24,8 +22,6 @@ export const TEAM_MEMBERS_MOCK: readonly TeamMemberMock[] = [
     email: "minh.nguyen@example.com",
     role: "admin",
     initials: "MN",
-    avatarFromColor: "from-info",
-    avatarToColor: "to-primary",
     isYou: false
   },
   {
@@ -34,8 +30,6 @@ export const TEAM_MEMBERS_MOCK: readonly TeamMemberMock[] = [
     email: "tran.le@example.com",
     role: "member",
     initials: "TL",
-    avatarFromColor: "from-warning",
-    avatarToColor: "to-cream",
     isYou: false
   }
 ] as const;

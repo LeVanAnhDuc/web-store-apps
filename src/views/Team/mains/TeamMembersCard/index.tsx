@@ -57,8 +57,6 @@ const TeamMembersCard = () => {
             fullName={member.fullName}
             email={member.email}
             initials={member.initials}
-            avatarFromColor={member.avatarFromColor}
-            avatarToColor={member.avatarToColor}
             role={member.role}
             roleLabel={t(`roles.${member.role}`)}
             removeLabel={t("buttons.remove")}
