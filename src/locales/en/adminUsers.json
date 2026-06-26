@@ -65,7 +65,6 @@
   "announce": {
     "loading": "Loading users...",
     "loaded": "{total} users loaded",
-    "navigating": "Navigating to page {page}",
     "error": "Could not load users. Please try again.",
     "passwordReset": "Password reset email sent to {name}.",
     "locked": "{name}'s account locked.",

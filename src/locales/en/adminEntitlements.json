@@ -4,7 +4,6 @@
   "toolbar": {
     "user": "User",
     "userPlaceholder": "Select a user…",
-    "appSearch": "Search apps",
     "appSearchPlaceholder": "Filter by app name or description…",
     "clear": "Clear filters"
   },
@@ -53,9 +52,7 @@
     "error": "Something went wrong. Please try again."
   },
   "announce": {
-    "userSelected": "Loaded entitlements for {name}.",
     "granted": "Granted access to {appName} for {userName}.",
-    "revoked": "Revoked access to {appName} for {userName}.",
-    "revokeDialogOpened": "Confirm revoke access to {appName}."
+    "revoked": "Revoked access to {appName} for {userName}."
   }
 }

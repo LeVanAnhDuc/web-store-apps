@@ -33,8 +33,7 @@
   },
   "sidebar": {
     "collapse": "Thu gọn thanh bên",
-    "expand": "Mở rộng thanh bên",
-    "closeMobile": "Đóng menu điều hướng"
+    "expand": "Mở rộng thanh bên"
   },
   "passwordInput": {
     "show": "Hiện mật khẩu",

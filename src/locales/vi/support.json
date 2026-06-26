@@ -23,7 +23,6 @@
       "submitting": "Đang gửi..."
     },
     "errors": {
-      "rateLimitExceeded": "Quá nhiều yêu cầu. Vui lòng thử lại sau vài phút.",
       "generic": "Không gửi được yêu cầu. Vui lòng thử lại."
     }
   },

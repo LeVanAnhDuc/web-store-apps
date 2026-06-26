@@ -26,7 +26,6 @@
   "announce": {
     "filtersApplied": "Filters applied.",
     "filtersCleared": "Filters cleared.",
-    "pageChanged": "Navigating to page {page}",
-    "resultsLoaded": "{total} results loaded"
+    "pageChanged": "Navigating to page {page}"
   }
 }

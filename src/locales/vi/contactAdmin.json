@@ -37,8 +37,7 @@
         "fromDate": "Từ ngày",
         "toDate": "Đến ngày",
         "all": "Tất cả",
-        "clear": "Xóa",
-        "apply": "Áp dụng"
+        "clear": "Xóa"
       },
       "status": {
         "new": "Mới",
@@ -48,7 +47,6 @@
     },
     "detail": {
       "title": "Chi tiết liên hệ",
-      "back": "Quay lại danh sách",
       "breadcrumb": {
         "list": "Hộp thư liên hệ",
         "current": "Chi tiết"
@@ -85,14 +83,9 @@
     }
   },
   "announce": {
-    "filterApplied": "Đã áp dụng bộ lọc.",
-    "filterCleared": "Đã xóa bộ lọc.",
     "statusUpdating": "Đang cập nhật trạng thái...",
     "statusUpdated": "Cập nhật trạng thái thành công.",
-    "statusError": "Cập nhật trạng thái thất bại.",
-    "categoryUpdating": "Đang cập nhật danh mục...",
-    "categoryUpdated": "Cập nhật danh mục thành công.",
-    "categoryError": "Cập nhật danh mục thất bại."
+    "statusError": "Cập nhật trạng thái thất bại."
   },
   "myContacts": {
     "title": "Yêu cầu của tôi",

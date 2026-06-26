@@ -11,10 +11,6 @@
     "loading": "Đang tải thông báo...",
     "error": "Không thể tải thông báo."
   },
-  "toast": {
-    "markReadError": "Không thể đánh dấu đã đọc.",
-    "markAllError": "Không thể đánh dấu tất cả đã đọc."
-  },
   "tabs": {
     "unread": "Chưa đọc",
     "read": "Đã đọc"

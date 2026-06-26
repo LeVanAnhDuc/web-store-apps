@@ -14,8 +14,7 @@
       "member": "Thành viên"
     },
     "announce": {
-      "removed": "Đã xóa thành viên.",
-      "invited": "Đã gửi lời mời."
+      "removed": "Đã xóa thành viên."
     }
   },
   "pending": {

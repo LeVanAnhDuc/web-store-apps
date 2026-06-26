@@ -4,7 +4,6 @@
   "toolbar": {
     "user": "Người dùng",
     "userPlaceholder": "Chọn người dùng…",
-    "appSearch": "Tìm ứng dụng",
     "appSearchPlaceholder": "Lọc theo tên hoặc mô tả ứng dụng…",
     "clear": "Xóa bộ lọc"
   },
@@ -53,9 +52,7 @@
     "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
   },
   "announce": {
-    "userSelected": "Đã tải phân quyền của {name}.",
     "granted": "Đã cấp quyền truy cập {appName} cho {userName}.",
-    "revoked": "Đã thu hồi quyền truy cập {appName} của {userName}.",
-    "revokeDialogOpened": "Xác nhận thu hồi quyền truy cập {appName}."
+    "revoked": "Đã thu hồi quyền truy cập {appName} của {userName}."
   }
 }

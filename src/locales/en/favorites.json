@@ -13,8 +13,6 @@
   "empty": "You haven't favorited any apps yet.",
   "error": "Could not load favorites. Please try again.",
   "announce": {
-    "categoryChanged": "Filtered favorites by {category}.",
-    "sortChanged": "Sorted by {sort}.",
     "added": "Added to favorites.",
     "removed": "Removed from favorites.",
     "error": "Failed to update favorites."

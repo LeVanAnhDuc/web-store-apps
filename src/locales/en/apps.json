@@ -20,9 +20,7 @@
   "empty": "No apps found.",
   "error": "Could not load apps. Please try again.",
   "announce": {
-    "viewModeChanged": "View mode changed to {mode}.",
     "pageChanged": "Page {page} loaded.",
-    "categoryChanged": "Filtered by {category}.",
     "loading": "Loading apps...",
     "loaded": "{total} apps loaded."
   }

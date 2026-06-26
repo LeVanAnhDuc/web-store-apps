@@ -21,7 +21,6 @@
     "description": "Khu vực quản trị này đã được khởi tạo nhưng chưa hoàn thiện thiết kế. Giao diện đầy đủ sẽ ra mắt ở phase kế tiếp."
   },
   "announce": {
-    "enteredAdmin": "Đã vào bảng quản trị.",
     "exitedAdmin": "Đã trở về trang người dùng."
   }
 }

@@ -65,7 +65,6 @@
   "announce": {
     "loading": "Đang tải người dùng...",
     "loaded": "Đã tải {total} người dùng",
-    "navigating": "Đang chuyển đến trang {page}",
     "error": "Không thể tải danh sách người dùng. Vui lòng thử lại.",
     "passwordReset": "Đã gửi email đặt lại mật khẩu cho {name}.",
     "locked": "Đã khóa tài khoản của {name}.",

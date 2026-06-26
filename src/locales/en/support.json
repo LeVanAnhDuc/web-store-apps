@@ -23,7 +23,6 @@
       "submitting": "Sending..."
     },
     "errors": {
-      "rateLimitExceeded": "Too many requests. Please try again in a few minutes.",
       "generic": "Failed to send support request. Please try again."
     }
   },

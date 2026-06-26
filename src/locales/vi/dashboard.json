@@ -11,8 +11,7 @@
   "welcome": {
     "greeting": "Chào mừng trở lại!",
     "title": "Khám phá ứng dụng tuyệt vời",
-    "description": "Khám phá bộ sưu tập ứng dụng được tuyển chọn để nâng cao năng suất và sáng tạo của bạn.",
-    "exploreButton": "Khám phá nổi bật"
+    "description": "Khám phá bộ sưu tập ứng dụng được tuyển chọn để nâng cao năng suất và sáng tạo của bạn."
   },
   "recentlyUsed": {
     "title": "Sử dụng gần đây",
@@ -44,7 +43,6 @@
     "markAllRead": "Đánh dấu tất cả đã đọc",
     "all": "Tất cả",
     "unread": "Chưa đọc",
-    "mentions": "Đề cập",
     "viewAll": "Xem tất cả thông báo",
     "viewAllAnnounce": "Đang chuyển đến trang tất cả thông báo."
   },
