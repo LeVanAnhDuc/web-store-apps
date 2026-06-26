@@ -141,9 +141,6 @@
     "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
   },
   "announce": {
-    "formOpened": "Đã mở form đăng ký ứng dụng.",
-    "formClosed": "Đã đóng form đăng ký ứng dụng.",
-    "editOpened": "Đang chỉnh sửa ứng dụng {name}.",
     "created": "Đã đăng ký ứng dụng {name}.",
     "updated": "Đã cập nhật ứng dụng {name}.",
     "hidden": "Đã tạm dừng ứng dụng {name}.",

@@ -20,9 +20,7 @@
   "empty": "Không tìm thấy ứng dụng nào.",
   "error": "Không thể tải ứng dụng. Vui lòng thử lại.",
   "announce": {
-    "viewModeChanged": "Đã chuyển sang {mode}.",
     "pageChanged": "Đã tải trang {page}.",
-    "categoryChanged": "Đã lọc theo {category}.",
     "loading": "Đang tải ứng dụng...",
     "loaded": "Đã tải {total} ứng dụng."
   }

@@ -141,9 +141,6 @@
     "error": "Something went wrong. Please try again."
   },
   "announce": {
-    "formOpened": "App registration form opened.",
-    "formClosed": "App registration form closed.",
-    "editOpened": "Editing app {name}.",
     "created": "App {name} registered.",
     "updated": "App {name} updated.",
     "hidden": "App {name} hidden.",

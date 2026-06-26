@@ -11,8 +11,7 @@
   "welcome": {
     "greeting": "Welcome back!",
     "title": "Discover Amazing Apps",
-    "description": "Explore our curated collection of apps designed to boost your productivity and creativity.",
-    "exploreButton": "Explore Featured"
+    "description": "Explore our curated collection of apps designed to boost your productivity and creativity."
   },
   "recentlyUsed": {
     "title": "Recently Used",
@@ -44,7 +43,6 @@
     "markAllRead": "Mark all as read",
     "all": "All",
     "unread": "Unread",
-    "mentions": "Mentions",
     "viewAll": "View all notifications",
     "viewAllAnnounce": "Navigating to all notifications."
   },

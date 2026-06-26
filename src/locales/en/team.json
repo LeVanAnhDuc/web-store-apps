@@ -14,8 +14,7 @@
       "member": "Member"
     },
     "announce": {
-      "removed": "Member removed.",
-      "invited": "Invitation sent."
+      "removed": "Member removed."
     }
   },
   "pending": {

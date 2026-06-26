@@ -77,7 +77,6 @@
       "disconnect": "Ngắt liên kết"
     },
     "announce": {
-      "connecting": "Đang liên kết tài khoản...",
       "connected": "Đã liên kết tài khoản.",
       "disconnected": "Đã ngắt liên kết tài khoản."
     }

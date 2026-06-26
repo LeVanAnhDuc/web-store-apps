@@ -33,8 +33,7 @@
   },
   "sidebar": {
     "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar",
-    "closeMobile": "Close navigation menu"
+    "expand": "Expand sidebar"
   },
   "passwordInput": {
     "show": "Show password",

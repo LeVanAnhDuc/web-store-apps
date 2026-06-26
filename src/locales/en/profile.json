@@ -77,7 +77,6 @@
       "disconnect": "Disconnect"
     },
     "announce": {
-      "connecting": "Connecting account...",
       "connected": "Account connected.",
       "disconnected": "Account disconnected."
     }

@@ -21,7 +21,6 @@
     "description": "This admin area is scaffolded but not yet designed. The full UI will land in an upcoming phase."
   },
   "announce": {
-    "enteredAdmin": "Entered admin console.",
     "exitedAdmin": "Returned to user dashboard."
   }
 }

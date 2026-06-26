@@ -47,7 +47,6 @@
       "instruction": "Please enter the 6-digit code sent to your email",
       "verifying": "Verifying...",
       "resendSuccess": "OTP code has been resent!",
-      "sendError": "Failed to send OTP code. Please try again.",
       "button": {
         "resend": "Resend OTP code",
         "resendIn": "Resend in {seconds}s",
@@ -69,7 +68,6 @@
         "description": "Check your spam or junk folder"
       },
       "resendSuccess": "Magic link has been resent!",
-      "sendError": "Failed to send magic link. Please try again.",
       "linkInvalid": "Magic link is invalid or expired.",
       "button": {
         "resend": "Resend magic link",

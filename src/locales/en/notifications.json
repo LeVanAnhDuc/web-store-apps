@@ -11,10 +11,6 @@
     "loading": "Loading notifications...",
     "error": "Couldn't load notifications."
   },
-  "toast": {
-    "markReadError": "Could not mark as read.",
-    "markAllError": "Could not mark all as read."
-  },
   "tabs": {
     "unread": "Unread",
     "read": "Read"

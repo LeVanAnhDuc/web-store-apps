@@ -13,8 +13,6 @@
   "empty": "Bạn chưa yêu thích ứng dụng nào.",
   "error": "Không tải được danh sách yêu thích. Vui lòng thử lại.",
   "announce": {
-    "categoryChanged": "Đã lọc yêu thích theo {category}.",
-    "sortChanged": "Đã sắp xếp theo {sort}.",
     "added": "Đã thêm vào yêu thích.",
     "removed": "Đã xóa khỏi yêu thích.",
     "error": "Cập nhật yêu thích thất bại."

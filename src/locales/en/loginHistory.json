@@ -7,23 +7,16 @@
     "failed": "Failed"
   },
   "toolbar": {
-    "allMethods": "All Methods",
-    "allStatus": "All Status",
     "search": "Search logs...",
     "export": "Export"
   },
   "dateRange": {
     "today": "Today",
-    "7d": "Last 7 days",
-    "30d": "Last 30 days",
-    "90d": "Last 90 days",
     "all": "All time"
   },
   "tableHeader": {
-    "title": "Recent Login Activity",
-    "summary": "Showing {start}–{end} of {total} records"
+    "title": "Recent Login Activity"
   },
-  "tableEmpty": "No login history found",
   "table": {
     "caption": "Admin login audit history",
     "method": "Method",
@@ -61,8 +54,7 @@
     "userId": "User ID",
     "ip": "IP Address",
     "all": "All",
-    "clear": "Clear",
-    "apply": "Apply"
+    "clear": "Clear"
   },
   "status": {
     "success": "Success",
@@ -123,9 +115,6 @@
   "announce": {
     "loading": "Loading data...",
     "loaded": "{total} results loaded",
-    "statsLoaded": "Stats loaded: {total} logins",
-    "navigating": "Navigating to page {page}",
-    "filterApplied": "Filters applied.",
-    "filterCleared": "Filters cleared."
+    "statsLoaded": "Stats loaded: {total} logins"
   }
 }

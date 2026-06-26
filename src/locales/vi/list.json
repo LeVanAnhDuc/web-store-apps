@@ -26,7 +26,6 @@
   "announce": {
     "filtersApplied": "Đã áp dụng bộ lọc.",
     "filtersCleared": "Đã xóa bộ lọc.",
-    "pageChanged": "Chuyển đến trang {page}",
-    "resultsLoaded": "Đã tải {total} kết quả"
+    "pageChanged": "Chuyển đến trang {page}"
   }
 }
