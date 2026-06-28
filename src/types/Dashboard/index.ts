@@ -11,7 +11,6 @@ export interface App {
   rating: number;
   downloads: string;
   colorClass: string;
-  gradientClass: string;
   lastUsed?: Date;
   featured?: boolean;
   tags: string[];

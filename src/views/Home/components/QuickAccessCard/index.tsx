@@ -5,8 +5,6 @@ import type { ReactNode } from "react";
 import CustomButton from "@/components/CustomButton";
 import CustomImage from "@/components/CustomImage";
 import FavoriteButton from "@/components/FavoriteButton";
-// others
-import { cn } from "@/libs/utils";
 
 const QuickAccessCard = ({
   id,
@@ -14,7 +12,6 @@ const QuickAccessCard = ({
   category,
   iconUrl,
   homeUrl,
-  gradient,
   isFavorite,
   addFavoriteLabel,
   removeFavoriteLabel,
@@ -26,7 +23,6 @@ const QuickAccessCard = ({
   category: string | null;
   iconUrl: string | null;
   homeUrl: string;
-  gradient: string;
   isFavorite: boolean;
   addFavoriteLabel: string;
   removeFavoriteLabel: string;
@@ -56,33 +52,27 @@ const QuickAccessCard = ({
         size="default"
         onClick={handleOpen}
         aria-label={category ? `${name}, ${category}` : name}
-        className={cn(
-          "flex h-[140px] w-full cursor-pointer flex-col items-start justify-start gap-2.5 rounded-xl p-6 text-left whitespace-normal transition-opacity hover:opacity-90",
-          gradient
-        )}
+        className="bg-muted flex h-[140px] w-full cursor-pointer flex-col items-start justify-start gap-2.5 rounded-xl p-6 text-left whitespace-normal transition-opacity hover:opacity-90"
       >
         <div
-          className="bg-primary-foreground/15 text-primary-foreground flex size-10 items-center justify-center overflow-hidden rounded-xl text-base font-semibold"
+          className="bg-background text-foreground flex size-10 items-center justify-center overflow-hidden rounded-xl text-base font-semibold"
           aria-hidden="true"
         >
           {icon}
         </div>
         <span
-          className="text-primary-foreground text-base font-bold"
+          className="text-foreground text-base font-bold"
           aria-hidden="true"
         >
           {name}
         </span>
         {category && (
-          <span
-            className="text-primary-foreground/80 text-xs"
-            aria-hidden="true"
-          >
+          <span className="text-muted-foreground text-xs" aria-hidden="true">
             {category}
           </span>
         )}
       </CustomButton>
-      <div className="text-primary-foreground [&_svg]:text-primary-foreground/80 absolute top-3 right-3">
+      <div className="text-muted-foreground [&_svg]:text-muted-foreground absolute top-3 right-3">
         <FavoriteButton
           isFavorite={isFavorite}
           pending={togglePending}

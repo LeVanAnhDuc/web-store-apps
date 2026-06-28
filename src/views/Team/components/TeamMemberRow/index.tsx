@@ -4,15 +4,11 @@ import type { TeamRole } from "@/types/Team";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import CustomButton from "@/components/CustomButton";
 import RoleBadge from "../RoleBadge";
-// others
-import { cn } from "@/libs/utils";
 
 const TeamMemberRow = ({
   fullName,
   email,
   initials,
-  avatarFromColor,
-  avatarToColor,
   role,
   roleLabel,
   removeLabel,
@@ -22,8 +18,6 @@ const TeamMemberRow = ({
   fullName: string;
   email: string;
   initials: string;
-  avatarFromColor: string;
-  avatarToColor: string;
   role: TeamRole;
   roleLabel: string;
   removeLabel: string;
@@ -32,13 +26,7 @@ const TeamMemberRow = ({
 }) => (
   <div className="border-border flex flex-wrap items-center gap-4 border-b px-6 py-4 last:border-b-0">
     <Avatar className="size-10 shrink-0">
-      <AvatarFallback
-        className={cn(
-          "bg-gradient-to-br text-xs font-semibold text-white",
-          avatarFromColor,
-          avatarToColor
-        )}
-      >
+      <AvatarFallback className="bg-muted text-foreground text-xs font-semibold">
         {initials}
       </AvatarFallback>
     </Avatar>

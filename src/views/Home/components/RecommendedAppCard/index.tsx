@@ -7,8 +7,6 @@ import { Card } from "@/components/ui/card";
 import CustomButton from "@/components/CustomButton";
 import CustomImage from "@/components/CustomImage";
 import FavoriteButton from "@/components/FavoriteButton";
-// others
-import { cn } from "@/libs/utils";
 
 const RecommendedAppCard = ({
   id,
@@ -16,7 +14,6 @@ const RecommendedAppCard = ({
   category,
   iconUrl,
   homeUrl,
-  gradient,
   openLabel,
   isFavorite,
   addFavoriteLabel,
@@ -29,7 +26,6 @@ const RecommendedAppCard = ({
   category: string | null;
   iconUrl: string | null;
   homeUrl: string;
-  gradient: string;
   openLabel: string;
   isFavorite: boolean;
   addFavoriteLabel: string;
@@ -48,10 +44,7 @@ const RecommendedAppCard = ({
       data-app-id={id}
     >
       <div
-        className={cn(
-          "flex h-24 items-center justify-center overflow-hidden rounded-xl text-2xl font-semibold",
-          gradient
-        )}
+        className="bg-muted text-foreground flex h-24 items-center justify-center overflow-hidden rounded-xl text-2xl font-semibold"
         aria-hidden="true"
       >
         {iconUrl ? (

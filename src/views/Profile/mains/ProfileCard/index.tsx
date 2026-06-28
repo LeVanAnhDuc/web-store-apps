@@ -27,7 +27,7 @@ const ProfileCard = () => {
         <div className="flex items-end gap-5">
           <Avatar className="ring-card size-20 shrink-0 ring-4">
             <AvatarImage src={userInfo.avatar ?? ""} alt={userInfo.fullName} />
-            <AvatarFallback className="from-cream to-primary text-primary-foreground bg-gradient-to-br text-xl font-bold">
+            <AvatarFallback className="bg-muted text-foreground text-xl font-bold">
               {userInfo.initials}
             </AvatarFallback>
           </Avatar>
