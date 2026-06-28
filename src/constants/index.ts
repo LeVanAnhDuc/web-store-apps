@@ -5,6 +5,8 @@ import END_POINTS from "./endpoints";
 import ERROR_CODES from "./errorCodes";
 import QUERY_KEYS from "./queryKeys";
 import AUTHENTICATION_ROLES from "./roles";
+import APP_STATUS from "./appStatus";
+import NOTIF_GROUP from "./notifGroup";
 import FORGOT_PASSWORD from "./pages/forgotPassword";
 import SUPPORT from "./pages/support";
 import LOGIN from "./pages/login";
@@ -20,6 +22,8 @@ const CONSTANTS = {
   ERROR_CODES,
   QUERY_KEYS,
   AUTHENTICATION_ROLES,
+  APP_STATUS,
+  NOTIF_GROUP,
   FORGOT_PASSWORD,
   SUPPORT,
   LOGIN,

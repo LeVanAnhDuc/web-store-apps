@@ -12,7 +12,6 @@ import type {
   AppStatus,
   WebApp
 } from "@/types/AdminApps";
-import { APP_STATUS } from "@/types/AdminApps";
 // components
 import {
   Table,
@@ -150,7 +149,7 @@ const AdminAppsTable = () => {
 
   const handleUnhide = (app: WebApp) =>
     setStatusMutation.mutate(
-      { id: app._id, status: APP_STATUS.ACTIVE },
+      { id: app._id, status: CONSTANTS.APP_STATUS.ACTIVE },
       {
         onSuccess: () =>
           announce(tAnnounce("reactivated", { name: app.displayName }))
