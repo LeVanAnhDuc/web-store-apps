@@ -1,3 +1,6 @@
+// others
+import PAGINATION from "./pagination";
+
 const LIST = {
   ALL_VALUE: "__all",
   PARAM: {
@@ -18,9 +21,7 @@ const LIST = {
     "custom"
   ] as const,
   SEARCH_DEBOUNCE_MS: 300,
-  DEFAULT_PAGE: 1,
-  DEFAULT_PAGE_SIZE: 12,
-  MAX_PAGE_SIZE: 100
+  ...PAGINATION
 } as const;
 
 export const SORT_ORDER = { ASC: "asc", DESC: "desc" } as const;

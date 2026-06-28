@@ -13,6 +13,7 @@ import LOGIN from "./pages/login";
 import SIGNUP from "./pages/signup";
 import USER_PROFILE from "./pages/userProfile";
 import LIST from "./list";
+import PAGINATION from "./pagination";
 
 const CONSTANTS = {
   ROUTES,
@@ -29,7 +30,8 @@ const CONSTANTS = {
   LOGIN,
   SIGNUP,
   USER_PROFILE,
-  LIST
+  LIST,
+  PAGINATION
 };
 
 export default CONSTANTS;
