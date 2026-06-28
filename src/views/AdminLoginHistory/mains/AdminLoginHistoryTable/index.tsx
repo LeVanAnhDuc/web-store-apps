@@ -65,7 +65,7 @@ const AdminLoginHistoryTable = () => {
 
   const params: AdminLoginHistoryQueryParams = {
     page: query.page,
-    limit: 20,
+    limit: CONSTANTS.LIST.DEFAULT_PAGE_SIZE,
     ...(isLoginHistoryStatus(query.filters.status) && {
       status: query.filters.status
     }),
