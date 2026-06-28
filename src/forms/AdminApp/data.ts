@@ -1,10 +1,9 @@
 // types
 import type { AdminAppFormValues } from "@/types/AdminApps";
-import { APP_STATUS } from "@/types/AdminApps";
 // others
 import CONSTANTS from "@/constants";
 
-const { AUTHENTICATION_ROLES } = CONSTANTS;
+const { AUTHENTICATION_ROLES, APP_STATUS } = CONSTANTS;
 
 export const initialAdminAppData: AdminAppFormValues = {
   name: "",

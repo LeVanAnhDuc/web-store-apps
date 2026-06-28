@@ -1,18 +1,18 @@
 "use client";
 
 // types
-import type { ApiNotification } from "@/types/Notification";
-import { NOTIF_GROUP, type NotifGroup } from "@/types/Notification";
+import type { ApiNotification, NotifGroup } from "@/types/Notification";
 // components
 import NotificationItem from "../NotificationItem";
 import GroupHeader from "../GroupHeader";
 // others
+import CONSTANTS from "@/constants";
 import { groupOf, relativeTime } from "@/utils/notifications";
 
 const GROUP_ORDER: NotifGroup[] = [
-  NOTIF_GROUP.TODAY,
-  NOTIF_GROUP.YESTERDAY,
-  NOTIF_GROUP.EARLIER
+  CONSTANTS.NOTIF_GROUP.TODAY,
+  CONSTANTS.NOTIF_GROUP.YESTERDAY,
+  CONSTANTS.NOTIF_GROUP.EARLIER
 ];
 
 const NotificationGroups = ({

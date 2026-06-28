@@ -1,7 +1,5 @@
 // libs
 import * as z from "zod";
-// types
-import { APP_STATUS } from "@/types/AdminApps";
 // others
 import CONSTANTS from "@/constants";
 
@@ -17,6 +15,7 @@ const {
   REDIRECT_URIS
 } = CONSTANTS.FIELD_NAMES.ADMIN_APP_FIELD_NAMES;
 const { USER, ADMIN } = CONSTANTS.AUTHENTICATION_ROLES;
+const { ACTIVE, INACTIVE } = CONSTANTS.APP_STATUS;
 
 const NAME_MIN = 2;
 const NAME_MAX = 64;
@@ -55,7 +54,7 @@ export const adminAppValidation = z.object({
   [ICON_URL]: optionalUrl,
   [HOME_URL]: requiredUrl,
   [CATEGORY_ID]: z.string().min(1, { message: "required" }),
-  [STATUS]: z.enum([APP_STATUS.ACTIVE, APP_STATUS.INACTIVE]),
+  [STATUS]: z.enum([ACTIVE, INACTIVE]),
   [REQUIRED_ROLES]: z
     .array(z.enum([USER, ADMIN]))
     .min(1, { message: "required" }),

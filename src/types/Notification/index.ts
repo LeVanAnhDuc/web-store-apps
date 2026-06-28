@@ -1,15 +1,11 @@
 // libs
 import type { LucideIcon } from "lucide-react";
+// others
+import type NOTIF_GROUP from "@/constants/notifGroup";
 
 export type NotificationListTabValue = "unread" | "read";
 
 export type NotificationPanelTab = "all" | "unread";
-
-export const NOTIF_GROUP = {
-  TODAY: "today",
-  YESTERDAY: "yesterday",
-  EARLIER: "earlier"
-} as const;
 
 export type NotifGroup = (typeof NOTIF_GROUP)[keyof typeof NOTIF_GROUP];
 

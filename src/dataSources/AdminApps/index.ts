@@ -1,12 +1,11 @@
 // types
 import type { AppStatus } from "@/types/AdminApps";
-import { APP_STATUS } from "@/types/AdminApps";
 import type { AuthenticationRole } from "@/types/User";
 import type { ListFilterDef, ListFilterOption } from "@/types/List";
 // others
 import CONSTANTS from "@/constants";
 
-const { AUTHENTICATION_ROLES } = CONSTANTS;
+const { AUTHENTICATION_ROLES, APP_STATUS } = CONSTANTS;
 
 export const APP_STATUSES: readonly AppStatus[] = [
   APP_STATUS.ACTIVE,
