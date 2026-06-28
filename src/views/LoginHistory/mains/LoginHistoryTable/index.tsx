@@ -26,6 +26,7 @@ import useMyLoginHistory from "../../hooks/useMyLoginHistory";
 // dataSources
 import { buildLoginHistoryFilterDefs } from "@/dataSources/LoginHistory";
 // others
+import CONSTANTS from "@/constants";
 import { isLoginHistoryStatus, isLoginHistoryMethod } from "@/utils";
 
 const LoginHistoryTable = () => {
@@ -48,7 +49,7 @@ const LoginHistoryTable = () => {
 
   const params: LoginHistoryQueryParams = {
     page: query.page,
-    limit: 10,
+    limit: CONSTANTS.LIST.DEFAULT_PAGE_SIZE,
     ...(isLoginHistoryStatus(query.filters.status) && {
       status: query.filters.status
     }),

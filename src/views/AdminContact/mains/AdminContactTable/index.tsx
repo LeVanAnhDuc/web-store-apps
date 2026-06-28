@@ -38,7 +38,6 @@ import CONSTANTS from "@/constants";
 import { formatDateShort, isContactStatus, isContactCategory } from "@/utils";
 
 const { ADMIN_CONTACT } = CONSTANTS.ROUTES;
-const DEFAULT_PAGE_SIZE = 20;
 
 const AdminContactTable = () => {
   const tPage = useTranslations("contactAdmin.admin.list");
@@ -70,7 +69,7 @@ const AdminContactTable = () => {
 
   const params: AdminContactQuery = {
     page: query.page,
-    limit: DEFAULT_PAGE_SIZE,
+    limit: CONSTANTS.LIST.DEFAULT_PAGE_SIZE,
     ...(query.appliedSearch && { search: query.appliedSearch }),
     ...(isContactStatus(query.filters.status) && {
       status: query.filters.status
