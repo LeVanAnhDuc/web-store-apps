@@ -48,7 +48,7 @@ test.describe("Profile/Account merge — happy path", () => {
   test("renders all six sections on /profile in one page", async ({ page }) => {
     await page.goto("/profile");
     await expect(
-      page.getByRole("heading", { name: EN.title })
+      page.getByRole("heading", { name: EN.title, exact: true })
     ).toBeVisible();
     for (const name of [
       EN.personalInfo,
@@ -66,7 +66,9 @@ test.describe("Profile/Account merge — happy path", () => {
 test.describe("Profile/Account merge — page identity", () => {
   test("page title is 'Account' (not the old 'Profile')", async ({ page }) => {
     await page.goto("/profile");
-    await expect(page.getByRole("heading", { name: EN.title })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: EN.title, exact: true })
+    ).toBeVisible();
     await expect(
       page.getByRole("heading", { name: EN.navProfileOld, exact: true })
     ).toHaveCount(0);
@@ -97,7 +99,9 @@ test.describe("Profile/Account merge — i18n", () => {
   }) => {
     const errors = collectConsoleErrors(page);
     await page.goto("/profile");
-    await expect(page.getByRole("heading", { name: EN.title })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: EN.title, exact: true })
+    ).toBeVisible();
     await expect(
       page.getByRole("heading", { name: EN.changePassword })
     ).toBeVisible();
@@ -112,7 +116,9 @@ test.describe("Profile/Account merge — i18n", () => {
   }) => {
     const errors = collectConsoleErrors(page);
     await page.goto("/vi/profile");
-    await expect(page.getByRole("heading", { name: VI.title })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: VI.title, exact: true })
+    ).toBeVisible();
     await expect(
       page.getByRole("heading", { name: VI.changePassword })
     ).toBeVisible();
@@ -149,7 +155,9 @@ test.describe("Profile/Account merge — nav integrity", () => {
     page
   }) => {
     await page.goto("/profile");
-    await expect(page.getByRole("heading", { name: EN.title })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: EN.title, exact: true })
+    ).toBeVisible();
 
     const settingsNav = page
       .getByRole("navigation", { name: EN.settingsGroup })
