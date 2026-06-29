@@ -1,7 +1,10 @@
 // libs
+import { formatDistanceToNow } from "date-fns";
+import { enUS, vi } from "date-fns/locale";
 import { toast } from "sonner";
 // types
 import type { Locale } from "next-intl";
+import type { DateTimeVariant, DateTimeValue } from "@/types/DateTime";
 import type {
   LoginHistoryStatus,
   LoginHistoryMethod
@@ -67,6 +70,43 @@ export const getCurrentLocale = (): Locale => {
   } catch {
     return defaultLocale;
   }
+};
+
+const INVALID_DATE_DISPLAY = "—";
+
+const DATE_LONG_OPTS: Intl.DateTimeFormatOptions = { dateStyle: "long" };
+const DATETIME_OPTS: Intl.DateTimeFormatOptions = {
+  dateStyle: "medium",
+  timeStyle: "short"
+};
+
+const toValidDate = (value: DateTimeValue): Date | null => {
+  if (value === null || value === undefined || value === "") return null;
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
+};
+
+export const formatDateTime = (
+  value: DateTimeValue,
+  variant: DateTimeVariant,
+  locale: Locale,
+  options?: { timeZone?: string }
+): string => {
+  const date = toValidDate(value);
+  if (!date) return INVALID_DATE_DISPLAY;
+
+  if (variant === "relative") {
+    return formatDistanceToNow(date, {
+      addSuffix: true,
+      locale: locale === "vi" ? vi : enUS
+    });
+  }
+
+  const intlOptions = variant === "dateLong" ? DATE_LONG_OPTS : DATETIME_OPTS;
+  return new Intl.DateTimeFormat(locale, {
+    ...intlOptions,
+    ...(options?.timeZone ? { timeZone: options.timeZone } : {})
+  }).format(date);
 };
 
 export const formatLastUsed = (date: Date): string => {
