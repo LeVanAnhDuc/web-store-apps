@@ -19,7 +19,6 @@ const ROUTES = {
   LOGIN_HISTORY: "/login-history",
   PROFILE: "/profile",
   BILLING: "/billing",
-  TEAM: "/team",
   NOTIFICATIONS: "/notifications",
   ADMIN_DASHBOARD: "/admin",
   ADMIN_APPS: "/admin/apps",

@@ -15,7 +15,6 @@ import user from "./user.json";
 import account from "./account.json";
 import notifications from "./notifications.json";
 import billing from "./billing.json";
-import team from "./team.json";
 import admin from "./admin.json";
 import adminDashboard from "./adminDashboard.json";
 import adminApps from "./adminApps.json";
@@ -41,7 +40,6 @@ const messages = {
   account,
   notifications,
   billing,
-  team,
   admin,
   adminDashboard,
   adminApps,

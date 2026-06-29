@@ -16,7 +16,6 @@ const EN = {
   settingsGroup: "Settings",
   navAccount: "Account",
   navBilling: "Billing",
-  navTeam: "Team",
   navAccountSettings: "Account Settings",
   navProfileOld: "Profile"
 } as const;
@@ -152,7 +151,7 @@ test.describe("Profile/Account merge — route removal", () => {
 
 // --- F2 — Nav integrity: Account present, Account Settings/Profile gone ----
 test.describe("Profile/Account merge — nav integrity", () => {
-  test("settings nav has Account/Billing/Team, no Account Settings", async ({
+  test("settings nav has Account/Billing, no Account Settings", async ({
     page
   }) => {
     await page.goto("/profile");
@@ -170,9 +169,6 @@ test.describe("Profile/Account merge — nav integrity", () => {
     ).toBeVisible();
     await expect(
       settingsNav.getByRole("link", { name: EN.navBilling })
-    ).toBeVisible();
-    await expect(
-      settingsNav.getByRole("link", { name: EN.navTeam })
     ).toBeVisible();
     await expect(
       settingsNav.getByRole("link", { name: EN.navAccountSettings })
