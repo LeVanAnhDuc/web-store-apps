@@ -12,6 +12,7 @@ import favorites from "./favorites.json";
 import recentlyUsed from "./recentlyUsed.json";
 import loginHistory from "./loginHistory.json";
 import user from "./user.json";
+import account from "./account.json";
 import profile from "./profile.json";
 import accountSettings from "./accountSettings.json";
 import notifications from "./notifications.json";
@@ -39,6 +40,7 @@ const messages = {
   recentlyUsed,
   loginHistory,
   user,
+  account,
   profile,
   accountSettings,
   notifications,

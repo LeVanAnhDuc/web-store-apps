@@ -13,7 +13,7 @@ import useUserInfo from "@/hooks/useUserInfo";
 import { PROFILE_STATS_MOCK } from "@/mocks/Profile";
 
 const ProfileCard = () => {
-  const t = useTranslations("profile");
+  const t = useTranslations("account");
   const userInfo = useUserInfo();
 
   if (!userInfo) return null;

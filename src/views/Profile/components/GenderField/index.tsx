@@ -30,8 +30,8 @@ const GenderField = ({
   control: Control<UpdatePersonalInfoFormValues>;
   isPending: boolean;
 }) => {
-  const t = useTranslations("profile.personalInfo");
-  const tGender = useTranslations("profile.personalInfo.genderOptions");
+  const t = useTranslations("account.personalInfo");
+  const tGender = useTranslations("account.personalInfo.genderOptions");
 
   return (
     <FormField

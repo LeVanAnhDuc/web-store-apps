@@ -22,7 +22,7 @@ const PhoneField = ({
   control: Control<UpdatePersonalInfoFormValues>;
   isPending: boolean;
 }) => {
-  const t = useTranslations("profile.personalInfo");
+  const t = useTranslations("account.personalInfo");
 
   return (
     <FormField

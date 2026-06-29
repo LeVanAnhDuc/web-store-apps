@@ -43,7 +43,7 @@ import CONSTANTS from "@/constants";
 import { mapProfileToFormValues } from "@/utils";
 
 const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
-  const t = useTranslations("profile.personalInfo");
+  const t = useTranslations("account.personalInfo");
   const { announce } = useAnnounce();
   const queryClient = useQueryClient();
 
