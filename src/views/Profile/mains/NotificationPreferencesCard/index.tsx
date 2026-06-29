@@ -20,7 +20,7 @@ import { useAnnounce } from "@/hooks";
 import { NOTIFICATION_PREFS_MOCK } from "@/mocks/Profile";
 
 const NotificationPreferencesCard = () => {
-  const t = useTranslations("profile.notificationPreferences");
+  const t = useTranslations("account.notificationPreferences");
   const { announce } = useAnnounce();
   const [statuses, setStatuses] = useState<
     Record<NotificationPrefKey, boolean>

@@ -8,7 +8,6 @@ import {
   Star,
   Clock,
   User,
-  Settings,
   CreditCard
 } from "lucide-react";
 // others
@@ -36,7 +35,6 @@ export const NAV_GROUPS: readonly NavGroup[] = [
     key: "settings",
     items: [
       { key: "profile", icon: User, href: ROUTES.PROFILE },
-      { key: "accountSettings", icon: Settings, href: ROUTES.ACCOUNT_SETTINGS },
       { key: "billing", icon: CreditCard, href: ROUTES.BILLING }
     ]
   }

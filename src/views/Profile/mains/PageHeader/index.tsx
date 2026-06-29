@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import PageTitle from "@/components/PageTitle";
 
 const PageHeader = async () => {
-  const t = await getTranslations("profile");
+  const t = await getTranslations("account");
   return (
     <div className="flex flex-col gap-1.5">
       <PageTitle id="profile-page-title">{t("title")}</PageTitle>

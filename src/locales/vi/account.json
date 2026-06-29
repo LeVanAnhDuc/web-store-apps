@@ -1,6 +1,6 @@
 {
-  "title": "Hồ sơ",
-  "description": "Quản lý thông tin cá nhân và tùy chọn của bạn",
+  "title": "Tài khoản",
+  "description": "Quản lý hồ sơ, tùy chọn và bảo mật tài khoản",
   "card": {
     "edit": "Chỉnh sửa hồ sơ",
     "stats": {
@@ -101,6 +101,35 @@
     "announce": {
       "enabled": "Đã bật {name}.",
       "disabled": "Đã tắt {name}."
+    }
+  },
+  "changePassword": {
+    "title": "Đổi mật khẩu",
+    "description": "Cập nhật mật khẩu dùng để đăng nhập vào tài khoản",
+    "fields": {
+      "currentPassword": "Mật khẩu hiện tại",
+      "newPassword": "Mật khẩu mới",
+      "confirmPassword": "Xác nhận mật khẩu mới"
+    },
+    "placeholders": {
+      "currentPassword": "Nhập mật khẩu hiện tại",
+      "newPassword": "Nhập mật khẩu mới",
+      "confirmPassword": "Nhập lại mật khẩu mới"
+    },
+    "buttons": {
+      "cancel": "Hủy",
+      "save": "Cập nhật mật khẩu"
+    },
+    "tooltips": {
+      "noChanges": "Chưa có thay đổi nào để lưu"
+    },
+    "toast": {
+      "success": "Đã cập nhật mật khẩu thành công",
+      "error": "Không thể cập nhật mật khẩu"
+    },
+    "announce": {
+      "saving": "Đang cập nhật mật khẩu...",
+      "saved": "Đã cập nhật mật khẩu."
     }
   },
   "dangerZone": {

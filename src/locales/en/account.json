@@ -1,6 +1,6 @@
 {
-  "title": "Profile",
-  "description": "Manage your personal information and preferences",
+  "title": "Account",
+  "description": "Manage your profile, preferences, and account security",
   "card": {
     "edit": "Edit Profile",
     "stats": {
@@ -101,6 +101,35 @@
     "announce": {
       "enabled": "{name} enabled.",
       "disabled": "{name} disabled."
+    }
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "description": "Update the password used to sign in to your account",
+    "fields": {
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password"
+    },
+    "placeholders": {
+      "currentPassword": "Enter current password",
+      "newPassword": "Enter new password",
+      "confirmPassword": "Re-enter new password"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "save": "Update Password"
+    },
+    "tooltips": {
+      "noChanges": "No changes to save"
+    },
+    "toast": {
+      "success": "Password updated successfully",
+      "error": "Failed to update password"
+    },
+    "announce": {
+      "saving": "Updating password...",
+      "saved": "Password updated."
     }
   },
   "dangerZone": {

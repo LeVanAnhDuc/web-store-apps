@@ -20,7 +20,7 @@ import { useAnnounce } from "@/hooks";
 import { CONNECTED_ACCOUNTS_MOCK } from "@/mocks/Profile";
 
 const ConnectedAccountsCard = () => {
-  const t = useTranslations("profile.connectedAccounts");
+  const t = useTranslations("account.connectedAccounts");
   const { announce } = useAnnounce();
   const [statuses, setStatuses] = useState<
     Record<ConnectedAccountKey, boolean>

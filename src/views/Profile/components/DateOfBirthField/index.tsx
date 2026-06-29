@@ -23,7 +23,7 @@ const DateOfBirthField = ({
   isPending: boolean;
 }) => {
   const locale = useLocale();
-  const t = useTranslations("profile.personalInfo");
+  const t = useTranslations("account.personalInfo");
   const dateLocale = locale === "vi" ? vi : enUS;
   const { minDate, maxDate } = useMemo(() => getDateOfBirthBounds(), []);
 

@@ -23,7 +23,6 @@ export type NavKey =
   | "favorites"
   | "recentlyUsed"
   | "profile"
-  | "accountSettings"
   | "billing";
 
 export type NavGroupKey = "discover" | "mine" | "settings";

@@ -14,7 +14,7 @@ import {
 import CustomButton from "@/components/CustomButton";
 
 const DangerZoneCard = () => {
-  const t = useTranslations("profile.dangerZone");
+  const t = useTranslations("account.dangerZone");
   const items: { title: string; description: string; action: ReactNode }[] = [
     {
       title: t("delete.title"),

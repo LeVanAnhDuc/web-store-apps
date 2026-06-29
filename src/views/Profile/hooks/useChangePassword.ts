@@ -15,7 +15,7 @@ import { changePassword } from "@/requests/changePassword";
 
 export const useChangePassword = () => {
   const setTokens = useAuthStore((state) => state.setTokens);
-  const t = useTranslations("accountSettings.changePassword");
+  const t = useTranslations("account.changePassword");
   const { announce } = useAnnounce();
 
   return useMutation({

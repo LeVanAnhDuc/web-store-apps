@@ -45,7 +45,7 @@ const FIELD_ERROR_MAP: Record<
 };
 
 const ChangePasswordCard = () => {
-  const t = useTranslations("accountSettings.changePassword");
+  const t = useTranslations("account.changePassword");
   const methods = useForm<ChangePasswordFormValues>({
     ...changePasswordFormProps
   });
