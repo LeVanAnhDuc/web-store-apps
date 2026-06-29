@@ -18,7 +18,6 @@ const ROUTES = {
   RECENTLY_USED: "/recently-used",
   LOGIN_HISTORY: "/login-history",
   PROFILE: "/profile",
-  ACCOUNT_SETTINGS: "/account-settings",
   BILLING: "/billing",
   TEAM: "/team",
   NOTIFICATIONS: "/notifications",
