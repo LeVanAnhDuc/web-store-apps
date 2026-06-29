@@ -21,12 +21,15 @@ const FormatTime = ({
 
   const iso = toValidDate(value)?.toISOString();
 
-  const text = formatDateTime(
-    value,
-    variant,
-    locale,
-    mounted ? undefined : { timeZone: "UTC" }
-  );
+  const text =
+    !mounted && variant === "relative"
+      ? "—"
+      : formatDateTime(
+          value,
+          variant,
+          locale,
+          mounted ? undefined : { timeZone: "UTC" }
+        );
 
   return (
     <time dateTime={iso} suppressHydrationWarning>

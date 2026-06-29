@@ -19,13 +19,17 @@ const useFormatTime = () => {
   const mounted = useHasMounted();
 
   return useCallback(
-    (variant: DateTimeVariant, value: DateTimeValue): string =>
-      formatDateTime(
+    (variant: DateTimeVariant, value: DateTimeValue): string => {
+      // Relative text depends on "now"; before mount, server-now vs client-now
+      // could diverge → hydration mismatch. Defer to a stable placeholder.
+      if (!mounted && variant === "relative") return "—";
+      return formatDateTime(
         value,
         variant,
         locale,
         mounted ? undefined : { timeZone: "UTC" }
-      ),
+      );
+    },
     [locale, mounted]
   );
 };
