@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
 // E2E — Profile/Account merge. Scenario Matrix:
 // docs/specs/profile-account-merge/e2e.md. Read-only / no mutation
@@ -28,7 +29,7 @@ const VI = {
 
 const NOT_FOUND_TEXT = /this page could not be found|404|not found/i;
 
-const collectConsoleErrors = (page: import("@playwright/test").Page) => {
+const collectConsoleErrors = (page: Page) => {
   const errors: string[] = [];
   page.on("console", (msg) => {
     if (msg.type() === "error") errors.push(msg.text());
