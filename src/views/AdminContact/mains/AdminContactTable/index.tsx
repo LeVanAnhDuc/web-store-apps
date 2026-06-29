@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/table";
 import CustomBadge from "@/components/CustomBadge";
 import CustomButton from "@/components/CustomButton";
+import FormatTime from "@/components/FormatTime";
 import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
@@ -35,7 +36,7 @@ import {
 // others
 import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
-import { formatDateShort, isContactStatus, isContactCategory } from "@/utils";
+import { isContactStatus, isContactCategory } from "@/utils";
 
 const { ADMIN_CONTACT } = CONSTANTS.ROUTES;
 
@@ -157,7 +158,7 @@ const AdminContactTable = () => {
                     {item.attachmentCount > 0 ? item.attachmentCount : "—"}
                   </TableCell>
                   <TableCell className="text-muted-foreground text-xs">
-                    {formatDateShort(item.createdAt)}
+                    <FormatTime value={item.createdAt} variant="dateLong" />
                   </TableCell>
                   <TableCell>
                     <CustomButton

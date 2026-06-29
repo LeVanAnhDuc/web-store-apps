@@ -14,6 +14,7 @@ import {
 import CustomBadge from "@/components/CustomBadge";
 import CustomSelectTrigger from "@/components/CustomSelectTrigger";
 import ContactDetailSkeleton from "../../components/ContactDetailSkeleton";
+import FormatTime from "@/components/FormatTime";
 // hooks
 import { useAnnounce } from "@/hooks";
 import useAdminContactDetail from "../../hooks/useAdminContactDetail";
@@ -21,7 +22,6 @@ import useUpdateContactStatus from "../../hooks/useUpdateContactStatus";
 // dataSources
 import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
 // others
-import { formatDateTimeMedium } from "@/utils";
 
 const ContactDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("contactAdmin.admin.detail");
@@ -52,7 +52,7 @@ const ContactDetailCard = ({ id }: { id: string }) => {
             {contact.ticketNumber}
           </h2>
           <p className="text-muted-foreground text-sm">
-            {formatDateTimeMedium(contact.createdAt)}
+            <FormatTime value={contact.createdAt} variant="datetime" />
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -114,7 +114,7 @@ const ContactDetailCard = ({ id }: { id: string }) => {
             {t("fields.updatedAt")}
           </dt>
           <dd className="mt-1 text-sm">
-            {formatDateTimeMedium(contact.updatedAt)}
+            <FormatTime value={contact.updatedAt} variant="datetime" />
           </dd>
         </div>
         <div className="sm:col-span-2">

@@ -34,6 +34,7 @@ import AdminAppsLoading from "../../components/AdminAppsLoading";
 import AdminAppsFormSheet from "../AdminAppsFormSheet";
 import AdminAppsHideDialog from "../AdminAppsHideDialog";
 import AdminAppsSecretDialog from "../AdminAppsSecretDialog";
+import FormatTime from "@/components/FormatTime";
 // hooks
 import { useListQuery, useAnnounce } from "@/hooks";
 import useSetAdminAppStatus from "../../hooks/useSetAdminAppStatus";
@@ -46,7 +47,7 @@ import {
 import { getAdminApps, getAdminAppCategories } from "@/requests/adminApps";
 // others
 import CONSTANTS from "@/constants";
-import { formatDateTimeShort, resolveCategoryLabel } from "@/utils";
+import { resolveCategoryLabel } from "@/utils";
 
 const isAppStatus = (value: unknown): value is AppStatus =>
   typeof value === "string" && APP_STATUSES.includes(value as AppStatus);
@@ -233,7 +234,7 @@ const AdminAppsTable = () => {
                     {app.redirectUris.length}
                   </TableCell>
                   <TableCell className="text-muted-foreground text-xs">
-                    {formatDateTimeShort(app.updatedAt)}
+                    <FormatTime value={app.updatedAt} variant="datetime" />
                   </TableCell>
                   <TableCell className="text-right">
                     <AppRowActions
