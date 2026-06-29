@@ -10,6 +10,10 @@ import useHasMounted from "./useHasMounted";
 // others
 import { formatDateTime } from "@/utils";
 
+/**
+ * Returns a locale-bound formatter. Callback arg order is (variant, value)
+ * — intentionally variant-first for readable call sites, e.g. ft("relative", iso).
+ */
 const useFormatTime = () => {
   const locale = useLocale();
   const mounted = useHasMounted();

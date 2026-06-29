@@ -7,7 +7,7 @@ import type { DateTimeVariant, DateTimeValue } from "@/types/DateTime";
 // hooks
 import { useHasMounted } from "@/hooks";
 // others
-import { formatDateTime } from "@/utils";
+import { formatDateTime, toValidDate } from "@/utils";
 
 const FormatTime = ({
   value,
@@ -19,14 +19,7 @@ const FormatTime = ({
   const locale = useLocale();
   const mounted = useHasMounted();
 
-  const parsed =
-    value === null || value === undefined || value === ""
-      ? null
-      : new Date(value);
-  const iso =
-    parsed && !Number.isNaN(parsed.getTime())
-      ? parsed.toISOString()
-      : undefined;
+  const iso = toValidDate(value)?.toISOString();
 
   const text = formatDateTime(
     value,
