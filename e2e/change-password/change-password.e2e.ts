@@ -17,7 +17,7 @@ import {
 const NEW_PASSWORD = "NewPass@123";
 
 // Real i18n strings (do NOT guess — sourced from
-// src/locales/{en,vi}/accountSettings.json -> accountSettings.changePassword
+// src/locales/{en,vi}/account.json -> account.changePassword
 // and src/locales/{en,vi}/common.json -> validation.*).
 const EN = {
   heading: "Change Password",
@@ -36,11 +36,11 @@ const EN_ERR = {
 
 const VI = {
   heading: "Đổi mật khẩu",
-  // src/locales/vi/accountSettings.json -> changePassword.fields.*
+  // src/locales/vi/account.json -> account.changePassword.fields.*
   currentPasswordLabel: "Mật khẩu hiện tại",
   newPasswordLabel: "Mật khẩu mới",
   confirmPasswordLabel: "Xác nhận mật khẩu mới",
-  // accountSettings.changePassword.buttons.save (vi)
+  // account.changePassword.buttons.save (vi)
   save: "Cập nhật mật khẩu",
   // common.validation.currentPassword.wrongCurrentPassword (vi)
   wrongCurrentError: "Mật khẩu hiện tại không đúng"
@@ -80,7 +80,7 @@ test.describe.configure({ mode: "serial" });
 // ---------------------------------------------------------------------------
 test.describe("Change Password — UI & validation (Gate A+B)", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/account-settings");
+    await page.goto("/profile");
     await expect(page.getByRole("heading", { name: EN.heading })).toBeVisible();
   });
 
@@ -269,7 +269,7 @@ test.describe("Change Password — UI & validation (Gate A+B)", () => {
 
   // [i18n] vi render: heading renders the Vietnamese string.
   test("renders the form in Vietnamese on the /vi route", async ({ page }) => {
-    await page.goto("/vi/account-settings");
+    await page.goto("/vi/profile");
     await expect(page.getByRole("heading", { name: VI.heading })).toBeVisible();
   });
 
@@ -280,7 +280,7 @@ test.describe("Change Password — UI & validation (Gate A+B)", () => {
   test("shows the Vietnamese wrong-current error on the /vi route", async ({
     page
   }) => {
-    await page.goto("/vi/account-settings");
+    await page.goto("/vi/profile");
     await expect(page.getByRole("heading", { name: VI.heading })).toBeVisible();
     await mockChangePassword(page, {
       status: 400,
@@ -320,7 +320,7 @@ test.describe("Change Password — UI & validation (Gate A+B)", () => {
     await saveButton(page).click();
     await expect(page.getByText(EN.toastError)).toBeVisible();
     await expect(newPassword(page)).toHaveValue(NEW_PASSWORD);
-    await expect(page).toHaveURL(/\/account-settings/);
+    await expect(page).toHaveURL(/\/profile/);
     await page.unroute(CHANGE_PASSWORD_GLOB);
   });
 
@@ -360,7 +360,7 @@ test.describe("Change Password — UI & validation (Gate A+B)", () => {
     if (pendingRoute) await (pendingRoute as Route).abort();
     await page.unroute(CHANGE_PASSWORD_GLOB);
     // Leave a known-good authenticated page for the next serial test.
-    await page.goto("/account-settings");
+    await page.goto("/profile");
     await expect(page.getByRole("heading", { name: EN.heading })).toBeVisible();
   });
 
@@ -411,7 +411,7 @@ test.describe("Change Password — UI & validation (Gate A+B)", () => {
 // ---------------------------------------------------------------------------
 test.describe("Change Password — happy path & boundary (Gate A only, mutating)", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/account-settings");
+    await page.goto("/profile");
     await expect(page.getByRole("heading", { name: EN.heading })).toBeVisible();
   });
 
@@ -423,7 +423,7 @@ test.describe("Change Password — happy path & boundary (Gate A only, mutating)
 
   // [NEW] success-handling on a 200 (FE side).
   // MOCKED (page.route 200) — asserts the FE's success handling: toast success
-  // and the form stays on /account-settings, WITHOUT a real PATCH. The true
+  // and the form stays on /profile, WITHOUT a real PATCH. The true
   // server-side session-survival across reload is covered by the happy-path test
   // below (real token rotation); here we only assert the FE's reaction to a 200,
   // so we deliberately do NOT reload (a reload after a fake-200 would race the
@@ -440,7 +440,7 @@ test.describe("Change Password — happy path & boundary (Gate A only, mutating)
     await confirmPassword(page).fill(NEW_PASSWORD);
     await saveButton(page).click();
     await expect(page.getByText(EN.toastSuccess)).toBeVisible();
-    await expect(page).toHaveURL(/\/account-settings/);
+    await expect(page).toHaveURL(/\/profile/);
     await page.unroute(CHANGE_PASSWORD_GLOB);
   });
 
@@ -483,11 +483,11 @@ test.describe("Change Password — happy path & boundary (Gate A only, mutating)
     await confirmPassword(page).fill(NEW_PASSWORD);
     await saveButton(page).click();
     await expect(page.getByText(EN.toastSuccess)).toBeVisible();
-    await expect(page).toHaveURL(/\/account-settings/);
+    await expect(page).toHaveURL(/\/profile/);
     // [ST valid] reload after the real change: the rotated session survives.
     await page.reload();
     await expect(page.getByRole("heading", { name: EN.heading })).toBeVisible();
-    await expect(page).toHaveURL(/\/account-settings/);
+    await expect(page).toHaveURL(/\/profile/);
     // The real change revoked the auth.setup refresh token; re-capture a fresh
     // one (now at NEW_PASSWORD) for the shared storageState file.
     await reestablishStorageState(page, NEW_PASSWORD);
@@ -520,7 +520,7 @@ test.describe("Change Password — session & security (Gate A only, isolated)", 
   // attempt the second click, and lets us count PATCHes without consuming the
   // real rate-limit bucket or mutating the real password.
   test("fires exactly one PATCH on rapid double-submit", async ({ page }) => {
-    await page.goto("/account-settings");
+    await page.goto("/profile");
     await expect(page.getByRole("heading", { name: EN.heading })).toBeVisible();
     let patchCount = 0;
     page.on("request", (r) => {
@@ -645,7 +645,7 @@ test.describe("Change Password — authentication (Gate A+B / A only)", () => {
     const ctx = await browser.newContext({ storageState: undefined });
     await ctx.clearCookies();
     const freshPage = await ctx.newPage();
-    await freshPage.goto("/account-settings");
+    await freshPage.goto("/profile");
     await expect(freshPage).toHaveURL(/\/login/);
     await ctx.close();
   });
