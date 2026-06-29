@@ -21,7 +21,6 @@ import useAdminContactDetail from "../../hooks/useAdminContactDetail";
 import useUpdateContactStatus from "../../hooks/useUpdateContactStatus";
 // dataSources
 import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
-// others
 
 const ContactDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("contactAdmin.admin.detail");
