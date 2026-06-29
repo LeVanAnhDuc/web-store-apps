@@ -27,6 +27,7 @@ import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
 import ListPagination from "@/components/list/ListPagination";
 import LoginHistoryTableSkeleton from "../../components/LoginHistoryTableSkeleton";
+import FormatTime from "@/components/FormatTime";
 // hooks
 import { useListQuery } from "@/hooks";
 import useAdminLoginHistory from "../../hooks/useAdminLoginHistory";
@@ -34,11 +35,7 @@ import useAdminLoginHistory from "../../hooks/useAdminLoginHistory";
 import { buildLoginHistoryFilterDefs } from "@/dataSources/LoginHistory";
 // others
 import { useRouter } from "@/i18n/navigation";
-import {
-  formatDateTimeShort,
-  isLoginHistoryStatus,
-  isLoginHistoryMethod
-} from "@/utils";
+import { isLoginHistoryStatus, isLoginHistoryMethod } from "@/utils";
 import CONSTANTS from "@/constants";
 
 const { ADMIN_LOGIN_HISTORY } = CONSTANTS.ROUTES;
@@ -153,7 +150,7 @@ const AdminLoginHistoryTable = () => {
                     )}
                   </TableCell>
                   <TableCell className="text-muted-foreground text-xs">
-                    {formatDateTimeShort(item.createdAt)}
+                    <FormatTime value={item.createdAt} variant="datetime" />
                   </TableCell>
                   <TableCell>
                     <CustomButton

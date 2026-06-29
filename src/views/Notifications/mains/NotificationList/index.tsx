@@ -2,7 +2,7 @@
 
 // libs
 import { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 // types
 import type { NotificationListTabValue } from "@/types/Notification";
 // components
@@ -17,7 +17,6 @@ import useNotifications from "../../hooks/useNotifications";
 import useMarkNotificationRead from "../../hooks/useMarkNotificationRead";
 
 const NotificationList = () => {
-  const locale = useLocale();
   const t = useTranslations("notifications");
   const tGroups = useTranslations("notifications.groups");
   const tStates = useTranslations("notifications.states");
@@ -76,7 +75,6 @@ const NotificationList = () => {
           ) : (
             <NotificationGroups
               items={items}
-              locale={locale}
               groupLabels={{
                 today: tGroups("today"),
                 yesterday: tGroups("yesterday"),

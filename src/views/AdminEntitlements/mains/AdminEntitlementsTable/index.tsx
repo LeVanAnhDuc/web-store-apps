@@ -27,13 +27,13 @@ import EntitlementsTableSkeleton from "../../components/EntitlementsTableSkeleto
 import UserPickerSelect from "../../components/UserPickerSelect";
 import RoleChip from "@/views/AdminApps/components/RoleChip";
 import AdminEntitlementsRevokeDialog from "../AdminEntitlementsRevokeDialog";
+import FormatTime from "@/components/FormatTime";
 // hooks
 import { useAnnounce, useListQuery } from "@/hooks";
 import useAdminUserById from "../../hooks/useAdminUserById";
 import useEntitlementsByUser from "../../hooks/useEntitlementsByUser";
 import useGrantEntitlement from "../../hooks/useGrantEntitlement";
 // others
-import { formatDateTimeShort } from "@/utils";
 import { useRouter, usePathname } from "@/i18n/navigation";
 
 const AdminEntitlementsTable = () => {
@@ -171,7 +171,10 @@ const AdminEntitlementsTable = () => {
                             {row.entitlement.grantedBy.replace("user_", "")}
                             {" · "}
                             {tGrant("on")}{" "}
-                            {formatDateTimeShort(row.entitlement.grantedAt)}
+                            <FormatTime
+                              value={row.entitlement.grantedAt}
+                              variant="datetime"
+                            />
                           </span>
                         ) : (
                           tGrant("neverGranted")

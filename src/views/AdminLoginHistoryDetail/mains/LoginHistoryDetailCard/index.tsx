@@ -8,6 +8,7 @@ import type { LoginHistoryMethod } from "@/types/LoginHistory";
 // components
 import CustomBadge from "@/components/CustomBadge";
 import EntityName from "@/components/EntityName";
+import FormatTime from "@/components/FormatTime";
 import LoginHistoryDetailSkeleton from "../../components/LoginHistoryDetailSkeleton";
 import DetailField from "../../components/DetailField";
 // ghosts
@@ -15,7 +16,6 @@ import LoginHistoryDetailAnnouncer from "../../ghosts/LoginHistoryDetailAnnounce
 // hooks
 import useAdminLoginHistoryDetail from "../../hooks/useAdminLoginHistoryDetail";
 // others
-import { formatDateTimeMedium } from "@/utils";
 
 const LoginHistoryDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("loginHistory.admin.detail");
@@ -75,7 +75,7 @@ const LoginHistoryDetailCard = ({ id }: { id: string }) => {
           <div>
             <EntityName>{data.usernameAttempted}</EntityName>
             <p className="text-muted-foreground text-sm">
-              {formatDateTimeMedium(data.createdAt)}
+              <FormatTime value={data.createdAt} variant="datetime" />
             </p>
           </div>
           <CustomBadge

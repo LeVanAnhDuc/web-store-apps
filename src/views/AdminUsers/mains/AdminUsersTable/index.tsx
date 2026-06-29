@@ -31,13 +31,13 @@ import UsersTableSkeleton from "../../components/UsersTableSkeleton";
 import AdminUsersResetPasswordDialog from "../AdminUsersResetPasswordDialog";
 import AdminUsersLockDialog from "../AdminUsersLockDialog";
 import AdminUsersForceLogoutDialog from "../AdminUsersForceLogoutDialog";
+import FormatTime from "@/components/FormatTime";
 // hooks
 import { useListQuery } from "@/hooks";
 import useAdminUsersList from "../../hooks/useAdminUsersList";
 // dataSources
 import { buildAdminUsersFilterDefs } from "@/dataSources/AdminUsers";
 // others
-import { formatDateTimeShort } from "@/utils";
 import CONSTANTS from "@/constants";
 
 const { AUTHENTICATION_ROLES } = CONSTANTS;
@@ -137,12 +137,14 @@ const AdminUsersTable = () => {
                     <UserStatusBadge isActive={user.isActive} />
                   </TableCell>
                   <TableCell className="text-muted-foreground text-xs">
-                    {user.lastLoginAt
-                      ? formatDateTimeShort(user.lastLoginAt)
-                      : tTable("neverLoggedIn")}
+                    {user.lastLoginAt ? (
+                      <FormatTime value={user.lastLoginAt} variant="datetime" />
+                    ) : (
+                      tTable("neverLoggedIn")
+                    )}
                   </TableCell>
                   <TableCell className="text-muted-foreground text-xs">
-                    {formatDateTimeShort(user.createdAt)}
+                    <FormatTime value={user.createdAt} variant="datetime" />
                   </TableCell>
                   <TableCell className="text-right">
                     <UserRowActions

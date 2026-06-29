@@ -5,9 +5,11 @@ import type { ApiNotification, NotifGroup } from "@/types/Notification";
 // components
 import NotificationItem from "../NotificationItem";
 import GroupHeader from "../GroupHeader";
+// hooks
+import { useFormatTime } from "@/hooks";
 // others
 import CONSTANTS from "@/constants";
-import { groupOf, relativeTime } from "@/utils/notifications";
+import { groupOf } from "@/utils/notifications";
 
 const GROUP_ORDER: NotifGroup[] = [
   CONSTANTS.NOTIF_GROUP.TODAY,
@@ -17,19 +19,18 @@ const GROUP_ORDER: NotifGroup[] = [
 
 const NotificationGroups = ({
   items,
-  locale,
   groupLabels,
   markReadLabel,
   onMarkRead,
   isMarking
 }: {
   items: ApiNotification[];
-  locale: string;
   groupLabels: Record<NotifGroup, string>;
   markReadLabel: string;
   onMarkRead: (id: string) => void;
   isMarking: boolean;
 }) => {
+  const ft = useFormatTime();
   const now = Date.now();
   const grouped: Record<NotifGroup, ApiNotification[]> = {
     today: [],
@@ -50,7 +51,7 @@ const NotificationGroups = ({
                 type={n.type}
                 title={n.title}
                 message={n.message}
-                timestamp={relativeTime(n.createdAt, locale)}
+                timestamp={ft("relative", n.createdAt)}
                 isRead={n.isRead}
                 markReadLabel={markReadLabel}
                 onMarkRead={() => onMarkRead(n.id)}

@@ -7,10 +7,10 @@ import type {
 } from "@/types/LoginHistory";
 // components
 import { TableCell, TableRow } from "@/components/ui/table";
+import FormatTime from "@/components/FormatTime";
 // dataSources
 import { LOGIN_HISTORY_METHOD_COLOR } from "@/dataSources/LoginHistory";
 // others
-import { formatDateTimeShort } from "@/utils";
 import { cn } from "@/libs/utils";
 
 const LoginHistoryTableRow = ({ item }: { item: LoginHistoryItem }) => {
@@ -19,7 +19,7 @@ const LoginHistoryTableRow = ({ item }: { item: LoginHistoryItem }) => {
   return (
     <TableRow>
       <TableCell className="font-medium">
-        {formatDateTimeShort(item.createdAt)}
+        <FormatTime value={item.createdAt} variant="datetime" />
       </TableCell>
       <TableCell
         className={cn("font-medium", LOGIN_HISTORY_METHOD_COLOR[item.method])}
