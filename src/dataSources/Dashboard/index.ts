@@ -9,8 +9,7 @@ import {
   Clock,
   User,
   Settings,
-  CreditCard,
-  Users
+  CreditCard
 } from "lucide-react";
 // others
 import CONSTANTS from "@/constants";
@@ -38,8 +37,7 @@ export const NAV_GROUPS: readonly NavGroup[] = [
     items: [
       { key: "profile", icon: User, href: ROUTES.PROFILE },
       { key: "accountSettings", icon: Settings, href: ROUTES.ACCOUNT_SETTINGS },
-      { key: "billing", icon: CreditCard, href: ROUTES.BILLING },
-      { key: "team", icon: Users, href: ROUTES.TEAM }
+      { key: "billing", icon: CreditCard, href: ROUTES.BILLING }
     ]
   }
 ] as const;

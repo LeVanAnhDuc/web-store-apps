@@ -20,7 +20,6 @@ const ROUTES = {
   PROFILE: "/profile",
   ACCOUNT_SETTINGS: "/account-settings",
   BILLING: "/billing",
-  TEAM: "/team",
   NOTIFICATIONS: "/notifications",
   ADMIN_DASHBOARD: "/admin",
   ADMIN_APPS: "/admin/apps",

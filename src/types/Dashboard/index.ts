@@ -24,8 +24,7 @@ export type NavKey =
   | "recentlyUsed"
   | "profile"
   | "accountSettings"
-  | "billing"
-  | "team";
+  | "billing";
 
 export type NavGroupKey = "discover" | "mine" | "settings";
 

@@ -44,8 +44,7 @@ const VI = {
   settingsGroup: "Cài đặt",
   navProfile: "Hồ sơ",
   navAccountSettings: "Cài đặt tài khoản",
-  navBilling: "Thanh toán",
-  navTeam: "Nhóm"
+  navBilling: "Thanh toán"
 } as const;
 
 // Strings that the cleanup REMOVED from /account-settings. After the trim these
@@ -94,14 +93,16 @@ test.describe("Account Settings Cleanup — F1 route removal", () => {
 
 // ---------------------------------------------------------------------------
 // F2 — Nav integrity (matrix F2). The sidebar "Settings" group must list
-// Profile / Account Settings / Billing / Team and must NOT contain a "Security"
-// link. Links render as anchors inside a SidebarMenu whose accessible name is
-// the localized group label (aria-label="Settings"). Scope the assertions to
-// that group so the "Account Settings" nav link is not confused with the page
-// heading. A remaining link is clicked to prove it still navigates.
+// Profile / Account Settings / Billing and must NOT contain a "Security" link
+// (route removed by this cleanup) nor a "Team" link (route removed by the
+// remove-team-feature change). Links render as anchors inside a SidebarMenu
+// whose accessible name is the localized group label (aria-label="Settings").
+// Scope the assertions to that group so the "Account Settings" nav link is not
+// confused with the page heading. A remaining link is clicked to prove it still
+// navigates.
 // ---------------------------------------------------------------------------
 test.describe("Account Settings Cleanup — F2 nav integrity", () => {
-  test("settings nav lists Profile/Account Settings/Billing/Team without Security", async ({
+  test("settings nav lists Profile/Account Settings/Billing without Security or Team", async ({
     page
   }) => {
     await page.goto("/account-settings");
@@ -124,14 +125,14 @@ test.describe("Account Settings Cleanup — F2 nav integrity", () => {
     await expect(
       settingsNav.getByRole("link", { name: EN.navBilling })
     ).toBeVisible();
-    await expect(
-      settingsNav.getByRole("link", { name: EN.navTeam })
-    ).toBeVisible();
 
-    // No "Security" link anywhere in the settings group (the nav item was
-    // removed along with the route).
+    // Neither "Security" nor "Team" appears in the settings group — both nav
+    // items were removed along with their routes.
     await expect(
       settingsNav.getByRole("link", { name: EN.navSecurity })
+    ).toHaveCount(0);
+    await expect(
+      settingsNav.getByRole("link", { name: EN.navTeam })
     ).toHaveCount(0);
   });
 
