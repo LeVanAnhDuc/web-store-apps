@@ -2,7 +2,7 @@
 
 // libs
 import { useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 // types
 import type { NotificationPanelTab } from "@/types/Notification";
 // components
@@ -10,22 +10,21 @@ import CustomButton from "@/components/CustomButton";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 // hooks
-import { useAnnounce } from "@/hooks";
+import { useAnnounce, useFormatTime } from "@/hooks";
 import useNotifications from "@/views/Notifications/hooks/useNotifications";
 import useUnreadCount from "@/views/Notifications/hooks/useUnreadCount";
 import useMarkAllRead from "@/views/Notifications/hooks/useMarkAllRead";
 // others
 import { NOTIFICATION_VISUALS } from "@/dataSources/Notifications";
-import { relativeTime } from "@/utils/notifications";
 import { cn } from "@/libs/utils";
 import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 
 const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
   const router = useRouter();
-  const locale = useLocale();
   const t = useTranslations("dashboard.notifications");
   const { announce } = useAnnounce();
+  const ft = useFormatTime();
   const [activeTab, setActiveTab] = useState<NotificationPanelTab>("all");
 
   const { data } = useNotifications(activeTab === "unread" ? false : undefined);
@@ -116,7 +115,7 @@ const NotificationPanel = ({ onNavigate }: { onNavigate?: () => void }) => {
                     {item.title}
                   </span>
                   <span className="text-muted-foreground shrink-0 text-xs">
-                    {relativeTime(item.createdAt, locale)}
+                    {ft("relative", item.createdAt)}
                   </span>
                 </div>
                 <p className="text-muted-foreground mt-1 text-sm leading-snug">

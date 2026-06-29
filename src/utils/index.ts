@@ -109,18 +109,6 @@ export const formatDateTime = (
   }).format(date);
 };
 
-export const formatLastUsed = (date: Date): string => {
-  const now = new Date();
-  const diff = now.getTime() - date.getTime();
-  const minutes = Math.floor(diff / 60000);
-  const hours = Math.floor(diff / 3600000);
-  const days = Math.floor(diff / 86400000);
-
-  if (minutes < 60) return `${minutes}m ago`;
-  if (hours < 24) return `${hours}h ago`;
-  return `${days}d ago`;
-};
-
 export const parseDownloads = (downloads: string): number => {
   const num = parseInt(downloads.replace(/[^0-9]/g, ""), 10);
   if (downloads.includes("K")) return num * 1000;
@@ -159,26 +147,6 @@ export function popCallbackUrl(): string | null {
   if (url) sessionStorage.removeItem(CALLBACK_URL);
   return url;
 }
-
-export const formatDateShort = (iso: string): string =>
-  new Date(iso).toLocaleDateString(undefined, { dateStyle: "short" });
-
-export const formatDateTimeShort = (iso: string): string =>
-  new Date(iso).toLocaleString(undefined, {
-    dateStyle: "short",
-    timeStyle: "short"
-  });
-
-export const formatDateTimeMedium = (iso: string): string =>
-  new Date(iso).toLocaleString(undefined, {
-    dateStyle: "medium",
-    timeStyle: "short"
-  });
-
-export const formatDateLong = (iso: string | null): string | null =>
-  iso
-    ? new Date(iso).toLocaleDateString(undefined, { dateStyle: "long" })
-    : null;
 
 export const parseLocalDate = (iso: string): Date => {
   const [year, month, day] = iso.split("T")[0].split("-").map(Number);
