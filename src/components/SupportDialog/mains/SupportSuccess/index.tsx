@@ -5,13 +5,14 @@ import { CheckCircle2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
+import ShortId from "@/components/ShortId";
 
 const SupportSuccess = ({
-  ticketNumber,
+  id,
   onSubmitAnother,
   onClose
 }: {
-  ticketNumber: string;
+  id: string;
   onSubmitAnother: () => void;
   onClose: () => void;
 }) => {
@@ -29,7 +30,9 @@ const SupportSuccess = ({
         <p className="text-muted-foreground text-xs tracking-wide uppercase">
           {t("ticketLabel")}
         </p>
-        <p className="font-mono text-base font-semibold">{ticketNumber}</p>
+        <p className="text-base font-semibold">
+          <ShortId value={id} />
+        </p>
         <p className="text-muted-foreground text-xs">{t("saveTicketNote")}</p>
       </div>
       <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">

@@ -30,7 +30,7 @@ const SupportDialog = ({
   const t = useTranslations("support.dialog");
   const userInfo = useUserInfo();
   const [mode, setMode] = useState<Mode>("form");
-  const [ticketNumber, setTicketNumber] = useState<string | null>(null);
+  const [id, setId] = useState<string | null>(null);
 
   const isLoggedIn = userInfo !== null;
   const resolvedEmail = isLoggedIn ? userInfo.email : (initialEmail ?? "");
@@ -40,18 +40,18 @@ const SupportDialog = ({
   const handleOpenChange = (next: boolean) => {
     if (!next) {
       setMode("form");
-      setTicketNumber(null);
+      setId(null);
     }
     onOpenChange(next);
   };
 
-  const handleSubmitted = (ticket: string) => {
-    setTicketNumber(ticket);
+  const handleSubmitted = (nextId: string) => {
+    setId(nextId);
     setMode("success");
   };
 
   const handleSubmitAnother = () => {
-    setTicketNumber(null);
+    setId(null);
     setMode("form");
   };
 
@@ -73,7 +73,7 @@ const SupportDialog = ({
           />
         ) : (
           <SupportSuccess
-            ticketNumber={ticketNumber ?? ""}
+            id={id ?? ""}
             onSubmitAnother={handleSubmitAnother}
             onClose={handleClose}
           />
