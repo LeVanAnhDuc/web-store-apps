@@ -1,7 +1,6 @@
 "use client";
 
 // libs
-import { isAxiosError } from "axios";
 import { useTranslations } from "next-intl";
 // types
 import type { LoginHistoryMethod } from "@/types/LoginHistory";
@@ -9,7 +8,8 @@ import type { LoginHistoryMethod } from "@/types/LoginHistory";
 import CustomBadge from "@/components/CustomBadge";
 import EntityName from "@/components/EntityName";
 import FormatTime from "@/components/FormatTime";
-import LoginHistoryDetailSkeleton from "../../components/LoginHistoryDetailSkeleton";
+import LoginHistoryDetailLoading from "../../components/LoginHistoryDetailLoading";
+import LoginHistoryDetailError from "../../components/LoginHistoryDetailError";
 import DetailField from "../../components/DetailField";
 // ghosts
 import LoginHistoryDetailAnnouncer from "../../ghosts/LoginHistoryDetailAnnouncer";
@@ -26,37 +26,9 @@ const LoginHistoryDetailCard = ({ id }: { id: string }) => {
 
   const { data, isLoading, isError, error } = useAdminLoginHistoryDetail(id);
 
-  if (isLoading) {
-    return (
-      <>
-        <LoginHistoryDetailAnnouncer
-          isLoading={true}
-          hasData={false}
-          isError={false}
-        />
-        <LoginHistoryDetailSkeleton />
-      </>
-    );
-  }
+  if (isLoading) return <LoginHistoryDetailLoading />;
 
-  if (isError) {
-    const status = isAxiosError(error) ? error.response?.status : undefined;
-    const isMissing = status === 404 || status === 400;
-    return (
-      <>
-        <LoginHistoryDetailAnnouncer
-          isLoading={false}
-          hasData={false}
-          isError={true}
-        />
-        <div className="bg-card rounded-xl border p-6">
-          <p className="text-destructive text-sm" role="alert">
-            {isMissing ? t("notFound") : t("error")}
-          </p>
-        </div>
-      </>
-    );
-  }
+  if (isError) return <LoginHistoryDetailError error={error} />;
 
   if (!data) return null;
 
