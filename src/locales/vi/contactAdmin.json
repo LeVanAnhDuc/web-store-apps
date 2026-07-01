@@ -1,14 +1,4 @@
 {
-  "form": {
-    "category": {
-      "account": "Vấn đề tài khoản",
-      "technical": "Lỗi kỹ thuật",
-      "feature": "Yêu cầu tính năng",
-      "billing": "Thanh toán",
-      "security": "Bảo mật",
-      "other": "Khác"
-    }
-  },
   "admin": {
     "list": {
       "title": "Yêu cầu liên hệ",
@@ -18,7 +8,6 @@
         "ticketNumber": "Mã ticket",
         "email": "Email",
         "subject": "Tiêu đề",
-        "category": "Danh mục",
         "status": "Trạng thái",
         "attachments": "Tệp",
         "createdAt": "Ngày tạo",
@@ -29,11 +18,9 @@
       "filters": {
         "title": "Bộ lọc",
         "status": "Trạng thái",
-        "category": "Danh mục",
         "email": "Email",
-        "ticketNumber": "Mã ticket",
         "search": "Tìm kiếm",
-        "searchPlaceholder": "Tìm theo tiêu đề, email, mã ticket...",
+        "searchPlaceholder": "Tìm theo tiêu đề, email...",
         "fromDate": "Từ ngày",
         "toDate": "Đến ngày",
         "all": "Tất cả",
@@ -55,7 +42,6 @@
         "ticketNumber": "Mã ticket",
         "email": "Email",
         "subject": "Tiêu đề",
-        "category": "Danh mục",
         "status": "Trạng thái",
         "ipAddress": "Địa chỉ IP",
         "userId": "Mã người dùng",
@@ -68,11 +54,6 @@
         "label": "Cập nhật trạng thái",
         "success": "Cập nhật trạng thái thành công",
         "error": "Cập nhật trạng thái thất bại"
-      },
-      "updateCategory": {
-        "label": "Cập nhật danh mục",
-        "success": "Cập nhật danh mục thành công",
-        "error": "Cập nhật danh mục thất bại"
       },
       "attachments": {
         "empty": "Không có tệp đính kèm",
@@ -93,7 +74,6 @@
     "table": {
       "ticketNumber": "Mã ticket",
       "subject": "Tiêu đề",
-      "category": "Danh mục",
       "status": "Trạng thái",
       "attachments": "Tệp",
       "createdAt": "Ngày tạo",
