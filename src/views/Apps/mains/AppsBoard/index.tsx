@@ -4,6 +4,8 @@
 import { LayoutGrid, List } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+// types
+import type { UserCategory } from "@/types/Apps";
 // components
 import CustomButton from "@/components/CustomButton";
 import ListPageShell from "@/components/list/ListPageShell";
@@ -78,7 +80,11 @@ const ViewToggle = ({
   );
 };
 
-const AppsBoard = () => {
+const AppsBoard = ({
+  categories: serverCategories
+}: {
+  categories: UserCategory[] | null;
+}) => {
   const t = useTranslations("apps");
   const tToolbar = useTranslations("apps.categories");
   const tCat = useTranslations("common.categories");
@@ -86,7 +92,10 @@ const AppsBoard = () => {
   // view is a display preference — kept in local state, not URL
   const [view, setView] = useState<"grid" | "list">("grid");
 
-  const { data: categories = [] } = useAppCategories();
+  const { data: fallbackCategories = [] } = useAppCategories({
+    enabled: serverCategories == null
+  });
+  const categories = serverCategories ?? fallbackCategories;
 
   const categoryOptions = useMemo(
     () =>

@@ -4,6 +4,8 @@ import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/types/I18n";
 // components
 import Apps from "@/views/Apps";
+// requests
+import { getServerAppCategories } from "@/requests/server/apps";
 
 export async function generateMetadata({
   params
@@ -18,4 +20,9 @@ export async function generateMetadata({
   };
 }
 
-export default Apps;
+const AppsPage = async () => {
+  const categories = await getServerAppCategories();
+  return <Apps categories={categories} />;
+};
+
+export default AppsPage;
