@@ -35,8 +35,7 @@
     "detail": {
       "title": "Chi tiết liên hệ",
       "breadcrumb": {
-        "list": "Hộp thư liên hệ",
-        "current": "Chi tiết"
+        "list": "Hộp thư liên hệ"
       },
       "fields": {
         "ticketNumber": "Mã ticket",

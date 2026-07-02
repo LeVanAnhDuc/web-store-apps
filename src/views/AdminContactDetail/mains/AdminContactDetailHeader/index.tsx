@@ -4,14 +4,14 @@ import { getTranslations } from "next-intl/server";
 import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import PageTitle from "@/components/PageTitle";
 // dataSources
-import { ADMIN_CONTACT_DETAIL_BREADCRUMB } from "@/dataSources/AdminContactDetail";
+import { buildAdminContactDetailBreadcrumb } from "@/dataSources/AdminContactDetail";
 
-const AdminContactDetailHeader = async () => {
+const AdminContactDetailHeader = async ({ id }: { id: string }) => {
   const t = await getTranslations("contactAdmin.admin.detail");
   return (
     <div className="flex flex-col gap-3">
       <CustomBreadcrumb
-        items={ADMIN_CONTACT_DETAIL_BREADCRUMB}
+        items={buildAdminContactDetailBreadcrumb(id)}
         namespace="contactAdmin.admin.detail.breadcrumb"
       />
       <PageTitle>{t("title")}</PageTitle>

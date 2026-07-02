@@ -35,8 +35,7 @@
     "detail": {
       "title": "Contact Detail",
       "breadcrumb": {
-        "list": "Contact Inbox",
-        "current": "Detail"
+        "list": "Contact Inbox"
       },
       "fields": {
         "ticketNumber": "Ticket Number",
