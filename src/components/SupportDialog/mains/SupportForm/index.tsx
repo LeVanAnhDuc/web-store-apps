@@ -23,7 +23,7 @@ const SupportForm = ({
   initialEmail: string;
   emailReadOnly: boolean;
   emailPrefilled: boolean;
-  onSubmitted: (ticketNumber: string) => void;
+  onSubmitted: (id: string) => void;
 }) => {
   const { mutate: submit, isPending } = useSupportSubmit({
     onSuccess: onSubmitted

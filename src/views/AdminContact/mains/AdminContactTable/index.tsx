@@ -19,6 +19,7 @@ import {
 import CustomBadge from "@/components/CustomBadge";
 import CustomButton from "@/components/CustomButton";
 import FormatTime from "@/components/FormatTime";
+import ShortId from "@/components/ShortId";
 import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
@@ -36,7 +37,7 @@ import {
 // others
 import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
-import { isContactStatus, isContactCategory } from "@/utils";
+import { isContactStatus } from "@/utils";
 
 const { ADMIN_CONTACT } = CONSTANTS.ROUTES;
 
@@ -44,7 +45,6 @@ const AdminContactTable = () => {
   const tPage = useTranslations("contactAdmin.admin.list");
   const tTable = useTranslations("contactAdmin.admin.list.table");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
-  const tCategory = useTranslations("contactAdmin.form.category");
   const tFilters = useTranslations("contactAdmin.admin.list.filters");
   const tList = useTranslations("list");
 
@@ -52,18 +52,14 @@ const AdminContactTable = () => {
     () =>
       buildAdminContactFilterDefs(
         (k) => tStatus(k as Parameters<typeof tStatus>[0]),
-        (k) => tCategory(k as Parameters<typeof tCategory>[0]),
         {
           status: tFilters("status"),
-          category: tFilters("category"),
           email: tFilters("email"),
-          ticketNumber: tFilters("ticketNumber"),
           dateRange: tList("dateRange.label"),
-          emailPh: tFilters("email"),
-          ticketPh: tFilters("ticketNumber")
+          emailPh: tFilters("email")
         }
       ),
-    [tStatus, tCategory, tFilters, tList]
+    [tStatus, tFilters, tList]
   );
 
   const query = useListQuery(filterDefs);
@@ -75,13 +71,7 @@ const AdminContactTable = () => {
     ...(isContactStatus(query.filters.status) && {
       status: query.filters.status
     }),
-    ...(isContactCategory(query.filters.category) && {
-      category: query.filters.category
-    }),
     ...(query.filters.email && { email: query.filters.email }),
-    ...(query.filters.ticketNumber && {
-      ticketNumber: query.filters.ticketNumber
-    }),
     ...(query.filters.fromDate && { fromDate: query.filters.fromDate }),
     ...(query.filters.toDate && { toDate: query.filters.toDate })
   };
@@ -122,7 +112,6 @@ const AdminContactTable = () => {
                 <TableHead scope="col">{tTable("ticketNumber")}</TableHead>
                 <TableHead scope="col">{tTable("email")}</TableHead>
                 <TableHead scope="col">{tTable("subject")}</TableHead>
-                <TableHead scope="col">{tTable("category")}</TableHead>
                 <TableHead scope="col">{tTable("status")}</TableHead>
                 <TableHead scope="col">{tTable("attachments")}</TableHead>
                 <TableHead scope="col">{tTable("createdAt")}</TableHead>
@@ -135,16 +124,13 @@ const AdminContactTable = () => {
               {items.map((item) => (
                 <TableRow key={item._id}>
                   <TableCell className="font-mono text-xs font-medium">
-                    {item.ticketNumber}
+                    <ShortId value={item._id} />
                   </TableCell>
                   <TableCell className="text-muted-foreground">
                     {item.email ?? "—"}
                   </TableCell>
                   <TableCell className="max-w-[200px] truncate">
                     {item.subject}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {tCategory(item.category)}
                   </TableCell>
                   <TableCell>
                     <CustomBadge

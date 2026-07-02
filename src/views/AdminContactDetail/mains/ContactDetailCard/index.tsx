@@ -15,6 +15,7 @@ import CustomBadge from "@/components/CustomBadge";
 import CustomSelectTrigger from "@/components/CustomSelectTrigger";
 import ContactDetailSkeleton from "../../components/ContactDetailSkeleton";
 import FormatTime from "@/components/FormatTime";
+import ShortId from "@/components/ShortId";
 // hooks
 import { useAnnounce } from "@/hooks";
 import useAdminContactDetail from "../../hooks/useAdminContactDetail";
@@ -25,7 +26,6 @@ import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
 const ContactDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("contactAdmin.admin.detail");
   const tStatus = useTranslations("contactAdmin.admin.list.status");
-  const tCategory = useTranslations("contactAdmin.form.category");
   const tAnnounce = useTranslations("contactAdmin.announce");
   const { announce } = useAnnounce();
 
@@ -48,7 +48,7 @@ const ContactDetailCard = ({ id }: { id: string }) => {
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
           <h2 className="font-mono text-lg font-bold">
-            {contact.ticketNumber}
+            <ShortId value={contact._id} />
           </h2>
           <p className="text-muted-foreground text-sm">
             <FormatTime value={contact.createdAt} variant="datetime" />
@@ -96,12 +96,6 @@ const ContactDetailCard = ({ id }: { id: string }) => {
             <dd className="mt-1 font-mono text-xs">{contact.userId}</dd>
           </div>
         )}
-        <div>
-          <dt className="text-muted-foreground mb-1 text-xs font-medium tracking-wide uppercase">
-            {t("fields.category")}
-          </dt>
-          <dd className="mt-1 text-sm">{tCategory(contact.category)}</dd>
-        </div>
         <div>
           <dt className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
             {t("fields.ipAddress")}

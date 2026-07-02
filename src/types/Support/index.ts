@@ -5,7 +5,7 @@ export interface SupportFormValues {
 }
 
 export interface SubmitSupportResponse {
-  ticketNumber: string;
+  id: string;
 }
 
 export interface SubmitSupportPayload {

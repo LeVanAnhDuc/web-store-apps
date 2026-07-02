@@ -14,7 +14,7 @@ import { submitSupport } from "@/requests/support";
 const useSupportSubmit = ({
   onSuccess
 }: {
-  onSuccess: (ticketNumber: string) => void;
+  onSuccess: (id: string) => void;
 }) => {
   const tAnnounce = useTranslations("support.announce");
   const { announce } = useAnnounce();
@@ -25,8 +25,8 @@ const useSupportSubmit = ({
       announce(tAnnounce("submitting"));
     },
     onSuccess: (response) => {
-      announce(tAnnounce("success", { ticketNumber: response.ticketNumber }));
-      onSuccess(response.ticketNumber);
+      announce(tAnnounce("success", { ticketNumber: response.id.slice(0, 6) }));
+      onSuccess(response.id);
     },
     onError: (error: AxiosError) => {
       if (error.response?.status === 429) {

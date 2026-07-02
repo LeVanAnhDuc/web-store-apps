@@ -9,12 +9,11 @@ import type {
   LoginHistoryStatus,
   LoginHistoryMethod
 } from "@/types/LoginHistory";
-import type { ContactStatus, ContactCategory } from "@/types/ContactAdmin";
+import type { ContactStatus } from "@/types/ContactAdmin";
 import type { MyProfileResponse } from "@/types/User";
 import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 import type { Messages } from "@/types/libs";
 // dataSources
-import { CONTACT_CATEGORY_VALUES } from "@/dataSources/ContactAdmin";
 import { CATEGORY_LABEL_KEY } from "@/dataSources/Categories";
 // others
 import CONSTANTS from "@/constants";
@@ -181,11 +180,6 @@ export const isLoginHistoryMethod = (
 
 export const isContactStatus = (value: string | null): value is ContactStatus =>
   value !== null && (CONTACT_STATUSES as string[]).includes(value);
-
-export const isContactCategory = (
-  value: string | null
-): value is ContactCategory =>
-  value !== null && (CONTACT_CATEGORY_VALUES as string[]).includes(value);
 
 export const buildPaginationPageNumbers = (
   page: number,

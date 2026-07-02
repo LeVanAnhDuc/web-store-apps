@@ -2,13 +2,6 @@
 import type { SortOrder } from "@/types/List";
 
 export type ContactStatus = "new" | "processing" | "resolved";
-export type ContactCategory =
-  | "account"
-  | "technical"
-  | "feature"
-  | "billing"
-  | "security"
-  | "other";
 export type Priority = "low" | "medium" | "high";
 
 export interface ContactAttachmentResponse {
@@ -21,10 +14,8 @@ export interface ContactAttachmentResponse {
 
 export interface ContactListItem {
   _id: string;
-  ticketNumber: string;
   email: string | null;
   subject: string;
-  category: ContactCategory;
   priority: Priority;
   status: ContactStatus;
   userId: string | null;
@@ -41,9 +32,7 @@ export interface ContactDetailItem extends ContactListItem {
 
 export interface UserContactItem {
   _id: string;
-  ticketNumber: string;
   subject: string;
-  category: ContactCategory;
   priority: Priority;
   status: ContactStatus;
   attachmentCount: number;
@@ -58,15 +47,13 @@ export interface AdminContactQuery {
   page?: number;
   limit?: number;
   status?: ContactStatus;
-  category?: ContactCategory;
   priority?: Priority;
   email?: string;
-  ticketNumber?: string;
   userId?: string;
   search?: string;
   fromDate?: string;
   toDate?: string;
-  sortBy?: "createdAt" | "priority" | "status" | "category";
+  sortBy?: "createdAt" | "priority" | "status";
   sortOrder?: SortOrder;
 }
 

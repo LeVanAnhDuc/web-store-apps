@@ -1,14 +1,4 @@
 {
-  "form": {
-    "category": {
-      "account": "Account issues",
-      "technical": "Technical errors",
-      "feature": "Feature requests",
-      "billing": "Billing",
-      "security": "Security",
-      "other": "Other"
-    }
-  },
   "admin": {
     "list": {
       "title": "Contact Requests",
@@ -18,7 +8,6 @@
         "ticketNumber": "Ticket",
         "email": "Email",
         "subject": "Subject",
-        "category": "Category",
         "status": "Status",
         "attachments": "Files",
         "createdAt": "Date",
@@ -29,11 +18,9 @@
       "filters": {
         "title": "Filters",
         "status": "Status",
-        "category": "Category",
         "email": "Email",
-        "ticketNumber": "Ticket Number",
         "search": "Search",
-        "searchPlaceholder": "Search by subject, email, ticket...",
+        "searchPlaceholder": "Search by subject, email...",
         "fromDate": "From Date",
         "toDate": "To Date",
         "all": "All",
@@ -55,7 +42,6 @@
         "ticketNumber": "Ticket Number",
         "email": "Email",
         "subject": "Subject",
-        "category": "Category",
         "status": "Status",
         "ipAddress": "IP Address",
         "userId": "User ID",
@@ -68,11 +54,6 @@
         "label": "Update Status",
         "success": "Status updated successfully",
         "error": "Failed to update status"
-      },
-      "updateCategory": {
-        "label": "Update Category",
-        "success": "Category updated successfully",
-        "error": "Failed to update category"
       },
       "attachments": {
         "empty": "No attachments",
@@ -93,7 +74,6 @@
     "table": {
       "ticketNumber": "Ticket",
       "subject": "Subject",
-      "category": "Category",
       "status": "Status",
       "attachments": "Files",
       "createdAt": "Date",
