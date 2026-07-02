@@ -80,7 +80,9 @@ const stubContactApis = async (
   );
 };
 
-test.describe("Admin Contact — ShortId ticket + category removal", () => {
+const FILES_COLUMN_RE = /files|tệp/i;
+
+test.describe("Admin Contact — list ShortId / detail full id / category + Files removal", () => {
   // Row 1 Happy / Row 8 Data rendering [EP: 24-hex _id → first 6 chars + "..."].
   test("list renders the ShortId ticket cell, not empty and not the full id", async ({
     page
@@ -105,6 +107,17 @@ test.describe("Admin Contact — ShortId ticket + category removal", () => {
       page.getByRole("columnheader", { name: /category|danh mục/i })
     ).toHaveCount(0);
     await expect(page.getByText("contactAdmin.form.category")).toHaveCount(0);
+  });
+
+  // Row 4 Validation / removal check — Files/attachments column no longer
+  // exists in the admin list table (removed this branch).
+  test("list has no Files/attachments column header", async ({ page }) => {
+    await stubContactApis(page);
+    await page.goto("/admin/contact");
+    await expect(page.getByText(SHORT_ID_RE).first()).toBeVisible();
+    await expect(
+      page.getByRole("columnheader", { name: FILES_COLUMN_RE })
+    ).toHaveCount(0);
   });
 
   // Row 5 Empty/removal — filter toolbar no longer offers category or
@@ -135,8 +148,10 @@ test.describe("Admin Contact — ShortId ticket + category removal", () => {
     await expect(panel.getByText(/^Mã ticket$/i)).toHaveCount(0);
   });
 
-  // Row 1/8 Detail — ShortId renders in the detail header; no category field.
-  test("detail page renders the ShortId ticket and has no category field", async ({
+  // Row 1/8 Detail — full raw _id renders in the detail card heading (no
+  // longer shortened); breadcrumb current item also shows the full id; no
+  // category field.
+  test("detail page renders the FULL ticket id in the card heading, breadcrumb shows full id, and has no category field", async ({
     page
   }) => {
     await stubContactApis(page);
@@ -144,9 +159,28 @@ test.describe("Admin Contact — ShortId ticket + category removal", () => {
     await expect(
       page.getByRole("heading", { name: /Contact Detail/i })
     ).toBeVisible();
-    const ticketHeading = page.getByText(SHORT_ID_RE).first();
+    // Detail card heading (h2) now shows the full 24-hex _id, not the
+    // ShortId "012345..." truncated form.
+    const ticketHeading = page.getByRole("heading", {
+      level: 2,
+      name: VALID_ID
+    });
     await expect(ticketHeading).toBeVisible();
-    await expect(ticketHeading).toHaveText("012345...");
+    await expect(ticketHeading).toHaveText(VALID_ID);
+    await expect(page.getByText(SHORT_ID_RE)).toHaveCount(0);
+    // Breadcrumb current (last) item shows the full id, not "Detail"/"Chi
+    // tiết" — BreadcrumbPage renders <span role="link" aria-current="page">.
+    // NOTE: Playwright's getByRole(role, { current }) filter does not match
+    // aria-current on role="link" in this Playwright version (verified: it
+    // returns every link in the tree, not just the current one) — flagging
+    // as a Playwright/role-mapping quirk, not an app bug. Scoping to the
+    // breadcrumb nav landmark + exact text is the reliable equivalent.
+    const breadcrumbCurrent = page
+      .getByRole("navigation", { name: "breadcrumb" })
+      .getByText(VALID_ID, { exact: true });
+    await expect(breadcrumbCurrent).toBeVisible();
+    await expect(breadcrumbCurrent).toHaveText(VALID_ID);
+    await expect(breadcrumbCurrent).not.toHaveText(/detail|chi tiết/i);
     await expect(page.getByText(/category|danh mục/i)).toHaveCount(0);
   });
 
@@ -163,8 +197,22 @@ test.describe("Admin Contact — ShortId ticket + category removal", () => {
     await expect(
       page.getByRole("columnheader", { name: /category/i })
     ).toHaveCount(0);
+    await expect(
+      page.getByRole("columnheader", { name: FILES_COLUMN_RE })
+    ).toHaveCount(0);
     await expect(page.getByText("contactAdmin.form.category")).toHaveCount(0);
     await expect(page.getByText(/contactAdmin\.admin\.list/)).toHaveCount(0);
+
+    // en locale detail: full id in card heading + breadcrumb current item.
+    await page.goto(`/admin/contact/${VALID_ID}`);
+    await expect(
+      page.getByRole("heading", { level: 2, name: VALID_ID })
+    ).toBeVisible();
+    const breadcrumbCurrentEn = page
+      .getByRole("navigation", { name: "breadcrumb" })
+      .getByText(VALID_ID, { exact: true });
+    await expect(breadcrumbCurrentEn).toHaveText(VALID_ID);
+    await expect(breadcrumbCurrentEn).not.toHaveText(/detail/i);
   });
 
   test("vi locale: ticket renders and category is absent, no missing-key leak", async ({
@@ -178,8 +226,22 @@ test.describe("Admin Contact — ShortId ticket + category removal", () => {
     await expect(
       page.getByRole("columnheader", { name: /danh mục/i })
     ).toHaveCount(0);
+    await expect(
+      page.getByRole("columnheader", { name: FILES_COLUMN_RE })
+    ).toHaveCount(0);
     await expect(page.getByText("contactAdmin.form.category")).toHaveCount(0);
     await expect(page.getByText(/contactAdmin\.admin\.list/)).toHaveCount(0);
+
+    // vi locale detail: full id in card heading + breadcrumb current item.
+    await page.goto(`/vi/admin/contact/${VALID_ID}`);
+    await expect(
+      page.getByRole("heading", { level: 2, name: VALID_ID })
+    ).toBeVisible();
+    const breadcrumbCurrentVi = page
+      .getByRole("navigation", { name: "breadcrumb" })
+      .getByText(VALID_ID, { exact: true });
+    await expect(breadcrumbCurrentVi).toHaveText(VALID_ID);
+    await expect(breadcrumbCurrentVi).not.toHaveText(/chi tiết/i);
   });
 });
 
