@@ -11,7 +11,9 @@ const ShortId = ({
   className?: string;
 }) => (
   <span className={cn("font-mono", className)} title={value}>
-    {value.slice(0, SHORT_ID_LENGTH)}...
+    {value.length > SHORT_ID_LENGTH
+      ? `${value.slice(0, SHORT_ID_LENGTH)}...`
+      : value}
   </span>
 );
 
