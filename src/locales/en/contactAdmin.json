@@ -9,7 +9,6 @@
         "email": "Email",
         "subject": "Subject",
         "status": "Status",
-        "attachments": "Files",
         "createdAt": "Date",
         "actions": "Actions",
         "empty": "No contact requests found",

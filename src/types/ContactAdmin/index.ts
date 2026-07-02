@@ -19,7 +19,6 @@ export interface ContactListItem {
   priority: Priority;
   status: ContactStatus;
   userId: string | null;
-  attachmentCount: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -35,7 +34,6 @@ export interface UserContactItem {
   subject: string;
   priority: Priority;
   status: ContactStatus;
-  attachmentCount: number;
   createdAt: string;
 }
 
