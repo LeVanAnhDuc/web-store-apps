@@ -1,7 +1,7 @@
 "use client";
 
 // libs
-import { useEffect, useId, useState, type KeyboardEvent } from "react";
+import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
 // types
 import type { UserApp } from "@/types/Apps";
@@ -26,6 +26,7 @@ const HeaderSearch = () => {
   const router = useRouter();
   const { announce } = useAnnounce();
   const listId = useId();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
@@ -104,6 +105,7 @@ const HeaderSearch = () => {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverAnchor asChild>
         <SearchInput
+          ref={inputRef}
           value={query}
           onChange={setQuery}
           placeholder={t("searchPlaceholder")}
@@ -125,6 +127,16 @@ const HeaderSearch = () => {
         align="start"
         className="w-[var(--radix-popover-trigger-width)] p-2"
         onOpenAutoFocus={(e) => e.preventDefault()}
+        onInteractOutside={(e) => {
+          const target = e.detail.originalEvent.target;
+          if (
+            inputRef.current &&
+            target instanceof Node &&
+            inputRef.current.contains(target)
+          ) {
+            e.preventDefault();
+          }
+        }}
       >
         <ResultList
           items={items}
