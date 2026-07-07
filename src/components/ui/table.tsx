@@ -4,9 +4,10 @@ import { cn } from "@/libs/utils";
 
 const Table = React.forwardRef<
   HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
+  React.HTMLAttributes<HTMLTableElement> & { containerClassName?: string }
+>(({ className, containerClassName, ...props }, ref) => (
+  // PROJECT-PATCH: expose containerClassName to bound the scroll container for full-height sticky-scroll tables (see docs/adr/0001)
+  <div className={cn("relative w-full overflow-auto", containerClassName)}>
     <table
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}

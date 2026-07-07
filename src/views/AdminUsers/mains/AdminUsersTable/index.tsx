@@ -23,6 +23,7 @@ import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
+import ListTableCard from "@/components/list/ListTableCard";
 import ListPagination from "@/components/list/ListPagination";
 import UserRoleBadge from "../../components/UserRoleBadge";
 import UserStatusBadge from "../../components/UserStatusBadge";
@@ -87,7 +88,7 @@ const AdminUsersTable = () => {
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   return (
-    <ListPageShell>
+    <ListPageShell fullHeight>
       <ListPageHeader title={t("title")} description={t("description")} />
       <ListToolbar
         query={query}
@@ -95,6 +96,7 @@ const AdminUsersTable = () => {
         searchPlaceholder={tToolbar("searchPlaceholder")}
       />
       <ListContent
+        fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
@@ -103,8 +105,8 @@ const AdminUsersTable = () => {
         emptyTitle={tTable("empty")}
         emptyDescription={tTable("emptyDescription")}
       >
-        <div className="bg-card rounded-xl border">
-          <Table>
+        <ListTableCard>
+          <Table containerClassName="md:h-full">
             <TableHeader>
               <TableRow>
                 <TableHead>{tTable("user")}</TableHead>
@@ -158,7 +160,7 @@ const AdminUsersTable = () => {
               ))}
             </TableBody>
           </Table>
-        </div>
+        </ListTableCard>
       </ListContent>
       <ListPagination
         page={meta?.page ?? query.page}

@@ -24,6 +24,7 @@ import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
+import ListTableCard from "@/components/list/ListTableCard";
 import ListPagination from "@/components/list/ListPagination";
 import ContactTableSkeleton from "../../components/ContactTableSkeleton";
 // hooks
@@ -86,7 +87,7 @@ const AdminContactTable = () => {
   const router = useRouter();
 
   return (
-    <ListPageShell>
+    <ListPageShell fullHeight>
       <ListPageHeader
         title={tPage("title")}
         description={tPage("description")}
@@ -97,6 +98,7 @@ const AdminContactTable = () => {
         searchPlaceholder={tFilters("searchPlaceholder")}
       />
       <ListContent
+        fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
@@ -104,8 +106,8 @@ const AdminContactTable = () => {
         skeleton={<ContactTableSkeleton />}
         emptyTitle={tTable("empty")}
       >
-        <div className="bg-card rounded-xl border">
-          <Table>
+        <ListTableCard>
+          <Table containerClassName="md:h-full">
             <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
             <TableHeader>
               <TableRow>
@@ -160,7 +162,7 @@ const AdminContactTable = () => {
               ))}
             </TableBody>
           </Table>
-        </div>
+        </ListTableCard>
       </ListContent>
       <ListPagination
         page={meta?.page ?? query.page}
