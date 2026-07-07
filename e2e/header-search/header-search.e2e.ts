@@ -104,6 +104,13 @@ test.describe("Header search (AppHeader combobox)", () => {
     await expect(listbox(page)).toBeVisible();
     await expect(input).toHaveAttribute("aria-expanded", "true");
 
+    // Clicking the (already-open, focused) input must NOT close-then-reopen it —
+    // PopoverAnchor's outside-interaction dismiss is suppressed for the input.
+    await input.click();
+    await page.waitForTimeout(300);
+    await expect(listbox(page)).toBeVisible();
+    await expect(input).toHaveAttribute("aria-expanded", "true");
+
     await input.press("Escape");
     await expect(listbox(page)).toBeHidden();
     await input.click();
