@@ -154,6 +154,66 @@ test.describe("Admin Login History — list + detail", () => {
     ).toBeVisible();
   });
 
+  // Row 4 EP [country="LOCAL"] + Row 8 DT [city sentinel → country-label only] +
+  // Row 9 i18n (en). Loopback/private login → BE emits country=city="LOCAL" +
+  // normalized ip. Detail must show the localized "Local" label, never the raw
+  // sentinel string, and the normalized loopback IP.
+  test("country=LOCAL renders the localized Local label, not the raw sentinel (en)", async ({
+    page
+  }) => {
+    await fulfillDetail(page, {
+      ...FAILED_RECORD,
+      country: "LOCAL",
+      city: "LOCAL",
+      ip: "127.0.0.1"
+    });
+    await page.goto(detailUrl(VALID_ID));
+    await expect(
+      page.getByRole("heading", { name: /Login Attempt Detail/i })
+    ).toBeVisible();
+    await expect(page.getByText("Local", { exact: true })).toBeVisible();
+    await expect(page.getByText("LOCAL", { exact: true })).toHaveCount(0);
+    await expect(page.getByText("127.0.0.1")).toBeVisible();
+  });
+
+  // Row 4 EP [country="UNKNOWN"] + Row 8 DT + Row 9 i18n (en). Public IP with a
+  // real geoip miss → BE emits country=city="UNKNOWN". Distinct sentinel from
+  // LOCAL — must map to its own localized label, never the raw enum.
+  test("country=UNKNOWN renders the localized Unknown label, not the raw sentinel (en)", async ({
+    page
+  }) => {
+    await fulfillDetail(page, {
+      ...FAILED_RECORD,
+      country: "UNKNOWN",
+      city: "UNKNOWN"
+    });
+    await page.goto(detailUrl(VALID_ID));
+    await expect(
+      page.getByRole("heading", { name: /Login Attempt Detail/i })
+    ).toBeVisible();
+    await expect(page.getByText("Unknown", { exact: true })).toBeVisible();
+    await expect(page.getByText("UNKNOWN", { exact: true })).toHaveCount(0);
+  });
+
+  // Row 4 EP [country="LOCAL"] + Row 9 i18n (vi). Same LOCAL stub under the vi
+  // locale — label must be the vi translation "Nội bộ (Local)", never the raw
+  // "LOCAL" sentinel.
+  test("country=LOCAL renders the vi label 'Nội bộ (Local)', not the raw sentinel", async ({
+    page
+  }) => {
+    await fulfillDetail(page, {
+      ...FAILED_RECORD,
+      country: "LOCAL",
+      city: "LOCAL",
+      ip: "127.0.0.1"
+    });
+    await page.goto(`/vi${detailUrl(VALID_ID)}`);
+    await expect(
+      page.getByText("Nội bộ (Local)", { exact: true })
+    ).toBeVisible();
+    await expect(page.getByText("LOCAL", { exact: true })).toHaveCount(0);
+  });
+
   // Row 4 Validation [BVA: non-ObjectID "not-a-valid-id" → 400 → notFound branch].
   test("an invalid id shows the not-found UI", async ({ page }) => {
     await page.goto("/admin/login-history/not-a-valid-id");

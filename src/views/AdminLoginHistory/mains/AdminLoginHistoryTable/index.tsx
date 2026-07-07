@@ -35,7 +35,11 @@ import useAdminLoginHistory from "../../hooks/useAdminLoginHistory";
 import { buildLoginHistoryFilterDefs } from "@/dataSources/LoginHistory";
 // others
 import { useRouter } from "@/i18n/navigation";
-import { isLoginHistoryStatus, isLoginHistoryMethod } from "@/utils";
+import {
+  formatLoginLocation,
+  isLoginHistoryStatus,
+  isLoginHistoryMethod
+} from "@/utils";
 import CONSTANTS from "@/constants";
 
 const { ADMIN_LOGIN_HISTORY } = CONSTANTS.ROUTES;
@@ -46,6 +50,7 @@ const AdminLoginHistoryTable = () => {
   const tStatus = useTranslations("loginHistory.status");
   const tMethod = useTranslations("loginHistory.method");
   const tFilters = useTranslations("loginHistory.filters");
+  const tLocation = useTranslations("loginHistory.location");
   const router = useRouter();
 
   const filterDefs = useMemo(
@@ -133,9 +138,7 @@ const AdminLoginHistoryTable = () => {
                       {item.ip}
                     </span>
                     <span className="text-muted-foreground block text-xs">
-                      {item.city !== "UNKNOWN"
-                        ? `${item.city}, ${item.country}`
-                        : item.country}
+                      {formatLoginLocation(item.city, item.country, tLocation)}
                     </span>
                   </TableCell>
                   <TableCell>

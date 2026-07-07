@@ -16,6 +16,7 @@ import LoginHistoryDetailAnnouncer from "../../ghosts/LoginHistoryDetailAnnounce
 // hooks
 import useAdminLoginHistoryDetail from "../../hooks/useAdminLoginHistoryDetail";
 // others
+import { formatLoginLocation } from "@/utils";
 
 const LoginHistoryDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("loginHistory.admin.detail");
@@ -23,6 +24,7 @@ const LoginHistoryDetailCard = ({ id }: { id: string }) => {
   const tStatus = useTranslations("loginHistory.status");
   const tMethod = useTranslations("loginHistory.method");
   const tDevice = useTranslations("loginHistory.deviceType");
+  const tLocation = useTranslations("loginHistory.location");
 
   const { data, isLoading, isError, error } = useAdminLoginHistoryDetail(id);
 
@@ -32,8 +34,7 @@ const LoginHistoryDetailCard = ({ id }: { id: string }) => {
 
   if (!data) return null;
 
-  const location =
-    data.city !== "UNKNOWN" ? `${data.city}, ${data.country}` : data.country;
+  const location = formatLoginLocation(data.city, data.country, tLocation);
 
   return (
     <>

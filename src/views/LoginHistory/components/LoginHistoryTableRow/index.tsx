@@ -12,10 +12,12 @@ import FormatTime from "@/components/FormatTime";
 import { LOGIN_HISTORY_METHOD_COLOR } from "@/dataSources/LoginHistory";
 // others
 import { cn } from "@/libs/utils";
+import { formatLoginLocation } from "@/utils";
 
 const LoginHistoryTableRow = ({ item }: { item: LoginHistoryItem }) => {
   const tStatus = useTranslations("loginHistory.status");
   const tMethod = useTranslations("loginHistory.method");
+  const tLocation = useTranslations("loginHistory.location");
   return (
     <TableRow>
       <TableCell className="font-medium">
@@ -54,9 +56,7 @@ const LoginHistoryTableRow = ({ item }: { item: LoginHistoryItem }) => {
         {item.ip}
       </TableCell>
       <TableCell>
-        {item.city !== "UNKNOWN"
-          ? `${item.city}, ${item.country}`
-          : item.country}
+        {formatLoginLocation(item.city, item.country, tLocation)}
       </TableCell>
     </TableRow>
   );
