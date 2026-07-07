@@ -33,7 +33,7 @@ const ListPagination = ({
         page={page}
         totalPages={totalPages}
         onPageChange={onPageChange}
-        className="w-auto justify-end"
+        className="mx-0 w-auto justify-end"
       />
     </div>
   );
