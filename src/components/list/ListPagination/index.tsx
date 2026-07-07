@@ -22,7 +22,7 @@ const ListPagination = ({
   const t = useTranslations("list.pagination");
   if (totalPages <= 1) return null;
   return (
-    <div className="flex items-center justify-between gap-2">
+    <div className="flex flex-nowrap items-center justify-between gap-2">
       <p className="text-muted-foreground flex items-center gap-2 text-sm">
         {loading && <Spinner className="size-3.5" aria-hidden="true" />}
         <span>
@@ -33,6 +33,7 @@ const ListPagination = ({
         page={page}
         totalPages={totalPages}
         onPageChange={onPageChange}
+        className="w-auto justify-end"
       />
     </div>
   );

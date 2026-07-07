@@ -13,36 +13,26 @@ import type {
   WebApp
 } from "@/types/AdminApps";
 // components
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from "@/components/ui/table";
 import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
-import ListTableCard from "@/components/list/ListTableCard";
+import ListTable from "@/components/list/ListTable";
 import ListPagination from "@/components/list/ListPagination";
 import CustomButton from "@/components/CustomButton";
-import AppStatusBadge from "../../components/AppStatusBadge";
-import RoleChip from "../../components/RoleChip";
 import AppRowActions from "../../components/AppRowActions";
 import AdminAppsLoading from "../../components/AdminAppsLoading";
 import AdminAppsFormSheet from "../AdminAppsFormSheet";
 import AdminAppsHideDialog from "../AdminAppsHideDialog";
 import AdminAppsSecretDialog from "../AdminAppsSecretDialog";
-import FormatTime from "@/components/FormatTime";
 // hooks
 import { useListQuery, useAnnounce } from "@/hooks";
 import useSetAdminAppStatus from "../../hooks/useSetAdminAppStatus";
 // dataSources
 import {
   APP_STATUSES,
-  buildAdminAppsFilterDefs
+  buildAdminAppsFilterDefs,
+  buildAdminAppsColumns
 } from "@/dataSources/AdminApps";
 // requests
 import { getAdminApps, getAdminAppCategories } from "@/requests/adminApps";
@@ -131,6 +121,15 @@ const AdminAppsTable = () => {
   const hasActiveFilters =
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
+  const columns = useMemo(
+    () =>
+      buildAdminAppsColumns(
+        (k) => tTable(k as Parameters<typeof tTable>[0]),
+        categoryMap
+      ),
+    [tTable, categoryMap]
+  );
+
   const handleCreate = () => {
     setEditingApp(null);
     setFormOpen(true);
@@ -191,66 +190,20 @@ const AdminAppsTable = () => {
         emptyTitle={tTable("empty")}
         emptyDescription={tTable("emptyCta")}
       >
-        <ListTableCard>
-          <Table containerClassName="md:h-full">
-            <TableHeader>
-              <TableRow>
-                <TableHead>{tTable("app")}</TableHead>
-                <TableHead>{tTable("category")}</TableHead>
-                <TableHead>{tTable("status")}</TableHead>
-                <TableHead>{tTable("roles")}</TableHead>
-                <TableHead>{tTable("redirectUris")}</TableHead>
-                <TableHead>{tTable("updatedAt")}</TableHead>
-                <TableHead className="w-12 text-right">
-                  <span className="sr-only">{tTable("actions")}</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {items.map((app) => (
-                <TableRow key={app._id}>
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span className="text-foreground font-medium">
-                        {app.displayName}
-                      </span>
-                      <span className="text-muted-foreground font-mono text-xs">
-                        {app.name}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">
-                    {categoryMap.get(app.categoryId) ?? "—"}
-                  </TableCell>
-                  <TableCell>
-                    <AppStatusBadge status={app.status} />
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex flex-wrap gap-1">
-                      {app.requiredRoles.map((role) => (
-                        <RoleChip key={role} role={role} />
-                      ))}
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">
-                    {app.redirectUris.length}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-xs">
-                    <FormatTime value={app.updatedAt} variant="datetime" />
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <AppRowActions
-                      app={app}
-                      onEdit={handleEdit}
-                      onHide={handleHide}
-                      onUnhide={handleUnhide}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </ListTableCard>
+        <ListTable
+          columns={columns}
+          rows={items}
+          getRowKey={(r) => r._id}
+          rowActions={(app) => (
+            <AppRowActions
+              app={app}
+              onEdit={handleEdit}
+              onHide={handleHide}
+              onUnhide={handleUnhide}
+            />
+          )}
+          actionsLabel={tTable("actions")}
+        />
       </ListContent>
       <ListPagination
         page={query.page}

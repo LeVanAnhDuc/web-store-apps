@@ -41,7 +41,8 @@
     "anomalyNo": "Không",
     "ipLocation": "IP & Vị trí",
     "action": "Thao tác",
-    "viewDetail": "Xem"
+    "viewDetail": "Xem",
+    "viewDetailFor": "Xem chi tiết cho {name}"
   },
   "filters": {
     "title": "Bộ lọc",

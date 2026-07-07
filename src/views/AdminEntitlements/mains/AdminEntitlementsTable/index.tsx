@@ -1,39 +1,30 @@
 "use client";
 
 // libs
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 // types
 import type { EntitlementRow } from "@/types/AdminEntitlements";
 // components
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from "@/components/ui/table";
 import { Label } from "@/components/ui/label";
 import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
-import ListTableCard from "@/components/list/ListTableCard";
-import EntitlementStatusBadge from "../../components/EntitlementStatusBadge";
+import ListTable from "@/components/list/ListTable";
 import GrantToggleButton from "../../components/GrantToggleButton";
 import UserNotSelectedEmpty from "../../components/UserNotSelectedEmpty";
 import EntitlementsTableSkeleton from "../../components/EntitlementsTableSkeleton";
 import UserPickerSelect from "../../components/UserPickerSelect";
-import RoleChip from "@/views/AdminApps/components/RoleChip";
 import AdminEntitlementsRevokeDialog from "../AdminEntitlementsRevokeDialog";
-import FormatTime from "@/components/FormatTime";
 // hooks
 import { useAnnounce, useListQuery } from "@/hooks";
 import useAdminUserById from "../../hooks/useAdminUserById";
 import useEntitlementsByUser from "../../hooks/useEntitlementsByUser";
 import useGrantEntitlement from "../../hooks/useGrantEntitlement";
+// dataSources
+import { buildAdminEntitlementsColumns } from "@/dataSources/AdminEntitlements";
 // others
 import { useRouter, usePathname } from "@/i18n/navigation";
 
@@ -94,6 +85,15 @@ const AdminEntitlementsTable = () => {
     return hay.includes(needle);
   });
 
+  const columns = useMemo(
+    () =>
+      buildAdminEntitlementsColumns(
+        (k) => tTable(k as Parameters<typeof tTable>[0]),
+        (k) => tGrant(k as Parameters<typeof tGrant>[0])
+      ),
+    [tTable, tGrant]
+  );
+
   const userPickerSlot = (
     <div className="flex items-center gap-2">
       <Label className="text-muted-foreground shrink-0 text-xs">
@@ -126,76 +126,25 @@ const AdminEntitlementsTable = () => {
           onClearFilters={query.clearFilters}
           skeleton={<EntitlementsTableSkeleton />}
         >
-          <ListTableCard>
-            <Table containerClassName="md:h-full">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{tTable("app")}</TableHead>
-                  <TableHead>{tTable("requiredRoles")}</TableHead>
-                  <TableHead>{tTable("status")}</TableHead>
-                  <TableHead>{tTable("grantInfo")}</TableHead>
-                  <TableHead className="w-32 text-right">
-                    <span className="sr-only">{tTable("action")}</span>
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filtered.map((row) => {
-                  const isPending =
-                    grantMutation.isPending &&
-                    grantMutation.variables?.webAppId === row.app._id;
-                  return (
-                    <TableRow key={row.app._id}>
-                      <TableCell>
-                        <div className="flex flex-col">
-                          <span className="text-foreground font-medium">
-                            {row.app.displayName}
-                          </span>
-                          <span className="text-muted-foreground font-mono text-xs">
-                            {row.app.name}
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex flex-wrap gap-1">
-                          {row.app.requiredRoles.map((role) => (
-                            <RoleChip key={role} role={role} />
-                          ))}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <EntitlementStatusBadge status={row.status} />
-                      </TableCell>
-                      <TableCell className="text-muted-foreground text-xs">
-                        {row.entitlement ? (
-                          <span>
-                            {tGrant("by")}{" "}
-                            {row.entitlement.grantedBy.replace("user_", "")}
-                            {" · "}
-                            {tGrant("on")}{" "}
-                            <FormatTime
-                              value={row.entitlement.grantedAt}
-                              variant="datetime"
-                            />
-                          </span>
-                        ) : (
-                          tGrant("neverGranted")
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <GrantToggleButton
-                          status={row.status}
-                          onGrant={() => handleGrant(row)}
-                          onRevokeRequest={() => setRevokeTarget(row)}
-                          isPending={isPending}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </ListTableCard>
+          <ListTable
+            columns={columns}
+            rows={filtered}
+            getRowKey={(r) => r.app._id}
+            rowActions={(row) => {
+              const isPending =
+                grantMutation.isPending &&
+                grantMutation.variables?.webAppId === row.app._id;
+              return (
+                <GrantToggleButton
+                  status={row.status}
+                  onGrant={() => handleGrant(row)}
+                  onRevokeRequest={() => setRevokeTarget(row)}
+                  isPending={isPending}
+                />
+              );
+            }}
+            actionsLabel={tTable("action")}
+          />
         </ListContent>
       )}
       <AdminEntitlementsRevokeDialog
