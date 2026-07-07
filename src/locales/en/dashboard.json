@@ -6,7 +6,18 @@
     "searchPlaceholder": "Search apps...",
     "menuToggleLabel": "Toggle navigation menu",
     "searchLabel": "Open search",
-    "notificationsLabel": "Notifications"
+    "notificationsLabel": "Notifications",
+    "suggestedLabel": "Suggested apps",
+    "resultsLabel": "Apps",
+    "noResults": "No apps found",
+    "noResultsHint": "Try a different keyword",
+    "viewAll": "View All",
+    "openLabel": "Open",
+    "announce": {
+      "results": "{count} apps found",
+      "noResults": "No apps found",
+      "opened": "Opening {name}"
+    }
   },
   "welcome": {
     "greeting": "Welcome back!",
