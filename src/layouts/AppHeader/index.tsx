@@ -6,7 +6,6 @@ import { Bell, Menu, Search, Shield, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
-import SearchInput from "@/components/SearchInput";
 import UserMenu from "@/components/UserMenu";
 import Logo from "@/components/Logo";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +15,7 @@ import {
   PopoverTrigger
 } from "@/components/ui/popover";
 import NotificationPanel from "./components/NotificationPanel";
+import HeaderSearch from "./components/HeaderSearch";
 // hooks
 import { useAnnounce } from "@/hooks";
 import useUnreadCount from "@/views/Notifications/hooks/useUnreadCount";
@@ -33,7 +33,6 @@ const AppHeader = ({
   const tAdmin = useTranslations("admin");
   const { announce } = useAnnounce();
   const pathname = usePathname();
-  const [searchValue, setSearchValue] = useState("");
   const [notifOpen, setNotifOpen] = useState(false);
 
   const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
@@ -77,13 +76,7 @@ const AppHeader = ({
           </Badge>
         )}
       </div>
-      <SearchInput
-        value={searchValue}
-        onChange={setSearchValue}
-        placeholder={t("searchPlaceholder")}
-        ariaLabel={t("searchLabel")}
-        className="mx-4 hidden max-w-md flex-1 md:block"
-      />
+      <HeaderSearch />
       <div className="flex items-center gap-2">
         <CustomButton
           variant="ghost"
