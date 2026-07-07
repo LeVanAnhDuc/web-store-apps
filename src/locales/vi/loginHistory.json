@@ -66,6 +66,10 @@
     "magic-link": "Magic Link",
     "forgot-password": "Quên mật khẩu"
   },
+  "location": {
+    "local": "Nội bộ (Local)",
+    "unknown": "Không xác định"
+  },
   "deviceType": {
     "DESKTOP": "Máy tính",
     "MOBILE": "Di động",

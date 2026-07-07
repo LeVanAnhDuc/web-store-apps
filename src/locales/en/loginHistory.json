@@ -66,6 +66,10 @@
     "magic-link": "Magic Link",
     "forgot-password": "Forgot Password"
   },
+  "location": {
+    "local": "Local",
+    "unknown": "Unknown"
+  },
   "deviceType": {
     "DESKTOP": "Desktop",
     "MOBILE": "Mobile",

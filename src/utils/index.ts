@@ -178,6 +178,25 @@ export const isLoginHistoryMethod = (
 ): value is LoginHistoryMethod =>
   value !== null && (LOGIN_HISTORY_METHODS as string[]).includes(value);
 
+const LOGIN_LOCATION_SENTINELS = ["UNKNOWN", "LOCAL"];
+
+export const formatLoginLocation = (
+  city: string,
+  country: string,
+  t: (key: "local" | "unknown") => string
+): string => {
+  const countryLabel =
+    country === "LOCAL"
+      ? t("local")
+      : country === "UNKNOWN"
+        ? t("unknown")
+        : country;
+  if (LOGIN_LOCATION_SENTINELS.includes(city)) {
+    return countryLabel;
+  }
+  return `${city}, ${countryLabel}`;
+};
+
 export const isContactStatus = (value: string | null): value is ContactStatus =>
   value !== null && (CONTACT_STATUSES as string[]).includes(value);
 
