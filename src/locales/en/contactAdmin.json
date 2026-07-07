@@ -9,7 +9,6 @@
         "email": "Email",
         "subject": "Subject",
         "status": "Status",
-        "attachments": "Files",
         "createdAt": "Date",
         "actions": "Actions",
         "empty": "No contact requests found",
@@ -35,8 +34,7 @@
     "detail": {
       "title": "Contact Detail",
       "breadcrumb": {
-        "list": "Contact Inbox",
-        "current": "Detail"
+        "list": "Contact Inbox"
       },
       "fields": {
         "ticketNumber": "Ticket Number",

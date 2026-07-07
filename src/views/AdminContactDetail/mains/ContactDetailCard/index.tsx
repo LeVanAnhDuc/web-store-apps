@@ -15,7 +15,6 @@ import CustomBadge from "@/components/CustomBadge";
 import CustomSelectTrigger from "@/components/CustomSelectTrigger";
 import ContactDetailSkeleton from "../../components/ContactDetailSkeleton";
 import FormatTime from "@/components/FormatTime";
-import ShortId from "@/components/ShortId";
 // hooks
 import { useAnnounce } from "@/hooks";
 import useAdminContactDetail from "../../hooks/useAdminContactDetail";
@@ -47,9 +46,7 @@ const ContactDetailCard = ({ id }: { id: string }) => {
     <div className="bg-card rounded-xl border p-6">
       <div className="mb-6 flex items-center justify-between gap-4">
         <div>
-          <h2 className="font-mono text-lg font-bold">
-            <ShortId value={contact._id} />
-          </h2>
+          <h2 className="font-mono text-lg font-bold">{contact._id}</h2>
           <p className="text-muted-foreground text-sm">
             <FormatTime value={contact.createdAt} variant="datetime" />
           </p>

@@ -113,7 +113,6 @@ const AdminContactTable = () => {
                 <TableHead scope="col">{tTable("email")}</TableHead>
                 <TableHead scope="col">{tTable("subject")}</TableHead>
                 <TableHead scope="col">{tTable("status")}</TableHead>
-                <TableHead scope="col">{tTable("attachments")}</TableHead>
                 <TableHead scope="col">{tTable("createdAt")}</TableHead>
                 <TableHead scope="col">
                   <span className="sr-only">{tTable("actions")}</span>
@@ -139,9 +138,6 @@ const AdminContactTable = () => {
                     >
                       {tStatus(item.status)}
                     </CustomBadge>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-center">
-                    {item.attachmentCount > 0 ? item.attachmentCount : "—"}
                   </TableCell>
                   <TableCell className="text-muted-foreground text-xs">
                     <FormatTime value={item.createdAt} variant="dateLong" />

@@ -9,7 +9,6 @@
         "email": "Email",
         "subject": "Tiêu đề",
         "status": "Trạng thái",
-        "attachments": "Tệp",
         "createdAt": "Ngày tạo",
         "actions": "Thao tác",
         "empty": "Không tìm thấy yêu cầu liên hệ nào",
@@ -35,8 +34,7 @@
     "detail": {
       "title": "Chi tiết liên hệ",
       "breadcrumb": {
-        "list": "Hộp thư liên hệ",
-        "current": "Chi tiết"
+        "list": "Hộp thư liên hệ"
       },
       "fields": {
         "ticketNumber": "Mã ticket",

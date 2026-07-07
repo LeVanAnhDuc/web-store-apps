@@ -34,7 +34,7 @@ const CustomBreadcrumb = ({
       <BreadcrumbList>
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
-          const label = t(item.key as Parameters<typeof t>[0]);
+          const label = item.label ?? t(item.key as Parameters<typeof t>[0]);
           return (
             <Fragment key={item.key}>
               <BreadcrumbItem>
