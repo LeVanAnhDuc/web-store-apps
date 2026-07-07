@@ -63,6 +63,7 @@ const ResultList = ({
           {items.map((app, index) => (
             <ResultRow
               key={app._id}
+              id={`${listId}-option-${index}`}
               app={app}
               openLabel={labels.open}
               isActive={index === activeIndex}

@@ -8,11 +8,13 @@ import CustomImage from "@/components/CustomImage";
 import { cn } from "@/libs/utils";
 
 const ResultRow = ({
+  id,
   app,
   openLabel,
   isActive,
   onSelect
 }: {
+  id: string;
   app: UserApp;
   openLabel: string;
   isActive: boolean;
@@ -21,6 +23,7 @@ const ResultRow = ({
   const initial = app.displayName.charAt(0).toUpperCase();
   return (
     <div
+      id={id}
       role="option"
       aria-selected={isActive}
       aria-label={`${openLabel} ${app.displayName}`}

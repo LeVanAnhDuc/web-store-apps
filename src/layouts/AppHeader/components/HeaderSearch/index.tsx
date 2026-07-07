@@ -53,7 +53,7 @@ const HeaderSearch = () => {
     } else {
       announce(t("announce.results", { count: items.length }));
     }
-  }, [open, isLoading, items.length, hasQuery, announce, t]);
+  }, [open, isLoading, items.length, announce, t]);
 
   const handleNavigateToApps = () => {
     router.push(
@@ -113,6 +113,9 @@ const HeaderSearch = () => {
           aria-expanded={open}
           aria-controls={listId}
           aria-haspopup="listbox"
+          aria-activedescendant={
+            activeIndex >= 0 ? `${listId}-option-${activeIndex}` : undefined
+          }
           onFocus={handleFocus}
           onKeyDown={handleKeyDown}
         />
