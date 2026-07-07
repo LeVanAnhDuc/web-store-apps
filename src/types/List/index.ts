@@ -1,3 +1,5 @@
+// libs
+import type { ReactNode } from "react";
 // types
 import type LIST from "@/constants/list";
 import type { SORT_ORDER } from "@/constants/list";
@@ -35,4 +37,16 @@ export interface ListQueryState {
   clearFilters: () => void;
   setPage: (page: number) => void;
   setSort: (sortBy: string, sortOrder: SortOrder) => void;
+}
+
+export type ColumnAlign = "left" | "center" | "right";
+
+export interface ListColumn<T> {
+  id: string;
+  header: ReactNode;
+  align?: ColumnAlign;
+  cell: (row: T) => ReactNode;
+  headerClassName?: string;
+  cellClassName?: string;
+  srOnlyHeader?: boolean;
 }

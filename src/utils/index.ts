@@ -13,6 +13,7 @@ import type { ContactStatus } from "@/types/ContactAdmin";
 import type { MyProfileResponse } from "@/types/User";
 import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 import type { Messages } from "@/types/libs";
+import type { ColumnAlign } from "@/types/List";
 // dataSources
 import { CATEGORY_LABEL_KEY } from "@/dataSources/Categories";
 // others
@@ -261,3 +262,10 @@ export const generatePath = (
     }
     return encodeURIComponent(String(value));
   });
+
+export const alignClass = (align?: ColumnAlign) =>
+  align === "center"
+    ? "text-center"
+    : align === "right"
+      ? "text-right"
+      : "text-left";

@@ -45,9 +45,7 @@ const ListContent = ({
     children
   );
   if (!fullHeight) return <>{content}</>;
-  return (
-    <div className="md:flex md:min-h-0 md:flex-1 md:flex-col">{content}</div>
-  );
+  return <div className="md:flex md:min-h-0 md:flex-col">{content}</div>;
 };
 
 export default ListContent;

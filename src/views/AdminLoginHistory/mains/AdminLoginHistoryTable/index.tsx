@@ -3,44 +3,26 @@
 // libs
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { ChevronRight } from "lucide-react";
 // types
-import type {
-  AdminLoginHistoryQueryParams,
-  LoginHistoryMethod
-} from "@/types/LoginHistory";
+import type { AdminLoginHistoryQueryParams } from "@/types/LoginHistory";
 // components
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from "@/components/ui/table";
-import CustomBadge from "@/components/CustomBadge";
-import CustomButton from "@/components/CustomButton";
 import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
-import ListTableCard from "@/components/list/ListTableCard";
 import ListPagination from "@/components/list/ListPagination";
+import ListTable from "@/components/list/ListTable";
 import LoginHistoryTableSkeleton from "../../components/LoginHistoryTableSkeleton";
-import FormatTime from "@/components/FormatTime";
 // hooks
 import { useListQuery } from "@/hooks";
 import useAdminLoginHistory from "../../hooks/useAdminLoginHistory";
 // dataSources
-import { buildLoginHistoryFilterDefs } from "@/dataSources/LoginHistory";
-// others
-import { useRouter } from "@/i18n/navigation";
 import {
-  formatLoginLocation,
-  isLoginHistoryStatus,
-  isLoginHistoryMethod
-} from "@/utils";
+  buildAdminLoginHistoryColumns,
+  buildLoginHistoryFilterDefs
+} from "@/dataSources/LoginHistory";
+// others
+import { isLoginHistoryStatus, isLoginHistoryMethod } from "@/utils";
 import CONSTANTS from "@/constants";
 
 const { ADMIN_LOGIN_HISTORY } = CONSTANTS.ROUTES;
@@ -52,7 +34,6 @@ const AdminLoginHistoryTable = () => {
   const tMethod = useTranslations("loginHistory.method");
   const tFilters = useTranslations("loginHistory.filters");
   const tLocation = useTranslations("loginHistory.location");
-  const router = useRouter();
 
   const filterDefs = useMemo(
     () =>
@@ -62,6 +43,17 @@ const AdminLoginHistoryTable = () => {
         (k) => tFilters(k as Parameters<typeof tFilters>[0])
       ),
     [tStatus, tMethod, tFilters]
+  );
+
+  const columns = useMemo(
+    () =>
+      buildAdminLoginHistoryColumns(
+        (k) => tTable(k as Parameters<typeof tTable>[0]),
+        (k) => tMethod(k as Parameters<typeof tMethod>[0]),
+        (k) => tStatus(k as Parameters<typeof tStatus>[0]),
+        (k) => tLocation(k as Parameters<typeof tLocation>[0])
+      ),
+    [tTable, tMethod, tStatus, tLocation]
   );
 
   const query = useListQuery(filterDefs);
@@ -102,80 +94,16 @@ const AdminLoginHistoryTable = () => {
         skeleton={<LoginHistoryTableSkeleton />}
         emptyTitle={tTable("empty")}
       >
-        <ListTableCard>
-          <Table containerClassName="md:h-full">
-            <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead scope="col">{tTable("usernameAttempted")}</TableHead>
-                <TableHead scope="col">{tTable("method")}</TableHead>
-                <TableHead scope="col">{tTable("status")}</TableHead>
-                <TableHead scope="col">{tTable("ipLocation")}</TableHead>
-                <TableHead scope="col">{tTable("isAnomaly")}</TableHead>
-                <TableHead scope="col">{tTable("createdAt")}</TableHead>
-                <TableHead scope="col">
-                  <span className="sr-only">{tTable("action")}</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {items.map((item) => (
-                <TableRow key={item._id}>
-                  <TableCell>{item.usernameAttempted}</TableCell>
-                  <TableCell>
-                    {tMethod(item.method as LoginHistoryMethod)}
-                  </TableCell>
-                  <TableCell>
-                    <CustomBadge
-                      variant={
-                        item.status === "success" ? "success" : "warning"
-                      }
-                      className="text-xs"
-                    >
-                      {tStatus(item.status)}
-                    </CustomBadge>
-                  </TableCell>
-                  <TableCell>
-                    <span className="text-muted-foreground block font-mono text-xs">
-                      {item.ip}
-                    </span>
-                    <span className="text-muted-foreground block text-xs">
-                      {formatLoginLocation(item.city, item.country, tLocation)}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    {item.isAnomaly ? (
-                      <CustomBadge variant="warning" className="text-xs">
-                        {tTable("anomalyYes")}
-                      </CustomBadge>
-                    ) : (
-                      <span className="text-muted-foreground text-xs">
-                        {tTable("anomalyNo")}
-                      </span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-xs">
-                    <FormatTime value={item.createdAt} variant="datetime" />
-                  </TableCell>
-                  <TableCell>
-                    <CustomButton
-                      variant="ghost"
-                      size="sm"
-                      iconRight={
-                        <ChevronRight className="size-4" aria-hidden="true" />
-                      }
-                      onClick={() =>
-                        router.push(`${ADMIN_LOGIN_HISTORY}/${item._id}`)
-                      }
-                    >
-                      {tTable("viewDetail")}
-                    </CustomButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </ListTableCard>
+        <ListTable
+          columns={columns}
+          rows={items}
+          getRowKey={(r) => r._id}
+          caption={tTable("caption")}
+          getRowHref={(r) => `${ADMIN_LOGIN_HISTORY}/${r._id}`}
+          rowLabel={(r) =>
+            tTable("viewDetailFor", { name: r.usernameAttempted })
+          }
+        />
       </ListContent>
       <ListPagination
         page={meta?.page ?? query.page}

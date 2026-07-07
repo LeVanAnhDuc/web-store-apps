@@ -12,7 +12,8 @@
         "createdAt": "Date",
         "actions": "Actions",
         "empty": "No contact requests found",
-        "viewDetail": "View"
+        "viewDetail": "View",
+        "viewDetailFor": "View details for ticket {id}"
       },
       "filters": {
         "title": "Filters",

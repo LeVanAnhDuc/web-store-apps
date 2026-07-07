@@ -41,7 +41,8 @@
     "anomalyNo": "No",
     "ipLocation": "IP & Location",
     "action": "Actions",
-    "viewDetail": "View"
+    "viewDetail": "View",
+    "viewDetailFor": "View details for {name}"
   },
   "filters": {
     "title": "Filters",

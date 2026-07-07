@@ -11,33 +11,25 @@ import type {
 } from "@/types/AdminUsers";
 import type { AuthenticationRole } from "@/types/User";
 // components
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from "@/components/ui/table";
 import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
-import ListTableCard from "@/components/list/ListTableCard";
+import ListTable from "@/components/list/ListTable";
 import ListPagination from "@/components/list/ListPagination";
-import UserRoleBadge from "../../components/UserRoleBadge";
-import UserStatusBadge from "../../components/UserStatusBadge";
 import UserRowActions from "../../components/UserRowActions";
 import UsersTableSkeleton from "../../components/UsersTableSkeleton";
 import AdminUsersResetPasswordDialog from "../AdminUsersResetPasswordDialog";
 import AdminUsersLockDialog from "../AdminUsersLockDialog";
 import AdminUsersForceLogoutDialog from "../AdminUsersForceLogoutDialog";
-import FormatTime from "@/components/FormatTime";
 // hooks
 import { useListQuery } from "@/hooks";
 import useAdminUsersList from "../../hooks/useAdminUsersList";
 // dataSources
-import { buildAdminUsersFilterDefs } from "@/dataSources/AdminUsers";
+import {
+  buildAdminUsersColumns,
+  buildAdminUsersFilterDefs
+} from "@/dataSources/AdminUsers";
 // others
 import CONSTANTS from "@/constants";
 
@@ -66,6 +58,12 @@ const AdminUsersTable = () => {
     [tRole, tStatus, tToolbar]
   );
   const query = useListQuery(filterDefs);
+
+  const columns = useMemo(
+    () =>
+      buildAdminUsersColumns((k) => tTable(k as Parameters<typeof tTable>[0])),
+    [tTable]
+  );
 
   const params: AdminUsersQueryParams = {
     page: query.page,
@@ -105,62 +103,20 @@ const AdminUsersTable = () => {
         emptyTitle={tTable("empty")}
         emptyDescription={tTable("emptyDescription")}
       >
-        <ListTableCard>
-          <Table containerClassName="md:h-full">
-            <TableHeader>
-              <TableRow>
-                <TableHead>{tTable("user")}</TableHead>
-                <TableHead>{tTable("role")}</TableHead>
-                <TableHead>{tTable("status")}</TableHead>
-                <TableHead>{tTable("lastLoginAt")}</TableHead>
-                <TableHead>{tTable("createdAt")}</TableHead>
-                <TableHead className="w-12 text-right">
-                  <span className="sr-only">{tTable("actions")}</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {items.map((user) => (
-                <TableRow key={user._id}>
-                  <TableCell>
-                    <div className="flex flex-col">
-                      <span className="text-foreground font-medium">
-                        {user.fullName}
-                      </span>
-                      <span className="text-muted-foreground text-xs">
-                        {user.email}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <UserRoleBadge role={user.role} />
-                  </TableCell>
-                  <TableCell>
-                    <UserStatusBadge isActive={user.isActive} />
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-xs">
-                    {user.lastLoginAt ? (
-                      <FormatTime value={user.lastLoginAt} variant="datetime" />
-                    ) : (
-                      tTable("neverLoggedIn")
-                    )}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-xs">
-                    <FormatTime value={user.createdAt} variant="datetime" />
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <UserRowActions
-                      user={user}
-                      onResetPassword={setResetTarget}
-                      onLockToggle={setLockTarget}
-                      onForceLogout={setForceLogoutTarget}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </ListTableCard>
+        <ListTable
+          columns={columns}
+          rows={items}
+          getRowKey={(r) => r._id}
+          rowActions={(user) => (
+            <UserRowActions
+              user={user}
+              onResetPassword={setResetTarget}
+              onLockToggle={setLockTarget}
+              onForceLogout={setForceLogoutTarget}
+            />
+          )}
+          actionsLabel={tTable("actions")}
+        />
       </ListContent>
       <ListPagination
         page={meta?.page ?? query.page}

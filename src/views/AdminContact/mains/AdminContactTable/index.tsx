@@ -2,29 +2,15 @@
 
 // libs
 import { useMemo } from "react";
-import { ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 // types
 import type { AdminContactQuery } from "@/types/ContactAdmin";
 // components
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from "@/components/ui/table";
-import CustomBadge from "@/components/CustomBadge";
-import CustomButton from "@/components/CustomButton";
-import FormatTime from "@/components/FormatTime";
-import ShortId from "@/components/ShortId";
 import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
-import ListTableCard from "@/components/list/ListTableCard";
+import ListTable from "@/components/list/ListTable";
 import ListPagination from "@/components/list/ListPagination";
 import ContactTableSkeleton from "../../components/ContactTableSkeleton";
 // hooks
@@ -32,11 +18,10 @@ import { useListQuery } from "@/hooks";
 import useAdminContactList from "../../hooks/useAdminContactList";
 // dataSources
 import {
-  CONTACT_STATUS_VARIANT,
+  buildAdminContactColumns,
   buildAdminContactFilterDefs
 } from "@/dataSources/ContactAdmin";
 // others
-import { useRouter } from "@/i18n/navigation";
 import CONSTANTS from "@/constants";
 import { isContactStatus } from "@/utils";
 
@@ -65,6 +50,15 @@ const AdminContactTable = () => {
 
   const query = useListQuery(filterDefs);
 
+  const columns = useMemo(
+    () =>
+      buildAdminContactColumns(
+        (k) => tTable(k as Parameters<typeof tTable>[0]),
+        (k) => tStatus(k as Parameters<typeof tStatus>[0])
+      ),
+    [tTable, tStatus]
+  );
+
   const params: AdminContactQuery = {
     page: query.page,
     limit: CONSTANTS.LIST.DEFAULT_PAGE_SIZE,
@@ -83,8 +77,6 @@ const AdminContactTable = () => {
 
   const hasActiveFilters =
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
-
-  const router = useRouter();
 
   return (
     <ListPageShell fullHeight>
@@ -106,63 +98,14 @@ const AdminContactTable = () => {
         skeleton={<ContactTableSkeleton />}
         emptyTitle={tTable("empty")}
       >
-        <ListTableCard>
-          <Table containerClassName="md:h-full">
-            <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead scope="col">{tTable("ticketNumber")}</TableHead>
-                <TableHead scope="col">{tTable("email")}</TableHead>
-                <TableHead scope="col">{tTable("subject")}</TableHead>
-                <TableHead scope="col">{tTable("status")}</TableHead>
-                <TableHead scope="col">{tTable("createdAt")}</TableHead>
-                <TableHead scope="col">
-                  <span className="sr-only">{tTable("actions")}</span>
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {items.map((item) => (
-                <TableRow key={item._id}>
-                  <TableCell className="font-mono text-xs font-medium">
-                    <ShortId value={item._id} />
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {item.email ?? "—"}
-                  </TableCell>
-                  <TableCell className="max-w-[200px] truncate">
-                    {item.subject}
-                  </TableCell>
-                  <TableCell>
-                    <CustomBadge
-                      variant={CONTACT_STATUS_VARIANT[item.status]}
-                      className="text-xs"
-                    >
-                      {tStatus(item.status)}
-                    </CustomBadge>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-xs">
-                    <FormatTime value={item.createdAt} variant="dateLong" />
-                  </TableCell>
-                  <TableCell>
-                    <CustomButton
-                      variant="ghost"
-                      size="sm"
-                      iconRight={
-                        <ChevronRight className="size-4" aria-hidden="true" />
-                      }
-                      onClick={() =>
-                        router.push(`${ADMIN_CONTACT}/${item._id}`)
-                      }
-                    >
-                      {tTable("viewDetail")}
-                    </CustomButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </ListTableCard>
+        <ListTable
+          columns={columns}
+          rows={items}
+          getRowKey={(r) => r._id}
+          getRowHref={(r) => `${ADMIN_CONTACT}/${r._id}`}
+          rowLabel={(r) => tTable("viewDetailFor", { id: r._id })}
+          caption={tTable("caption")}
+        />
       </ListContent>
       <ListPagination
         page={meta?.page ?? query.page}
