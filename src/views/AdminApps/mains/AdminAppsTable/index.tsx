@@ -25,6 +25,7 @@ import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
+import ListTableCard from "@/components/list/ListTableCard";
 import ListPagination from "@/components/list/ListPagination";
 import CustomButton from "@/components/CustomButton";
 import AppStatusBadge from "../../components/AppStatusBadge";
@@ -160,7 +161,7 @@ const AdminAppsTable = () => {
   const handleCloseSecret = () => setCreatedApp(null);
 
   return (
-    <ListPageShell>
+    <ListPageShell fullHeight>
       <ListPageHeader
         title={t("title")}
         description={t("description")}
@@ -181,6 +182,7 @@ const AdminAppsTable = () => {
         )}
       />
       <ListContent
+        fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
@@ -189,8 +191,8 @@ const AdminAppsTable = () => {
         emptyTitle={tTable("empty")}
         emptyDescription={tTable("emptyCta")}
       >
-        <div className="bg-card rounded-xl border">
-          <Table>
+        <ListTableCard>
+          <Table containerClassName="md:h-full">
             <TableHeader>
               <TableRow>
                 <TableHead>{tTable("app")}</TableHead>
@@ -248,7 +250,7 @@ const AdminAppsTable = () => {
               ))}
             </TableBody>
           </Table>
-        </div>
+        </ListTableCard>
       </ListContent>
       <ListPagination
         page={query.page}

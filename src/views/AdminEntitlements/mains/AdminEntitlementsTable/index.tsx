@@ -20,6 +20,7 @@ import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
+import ListTableCard from "@/components/list/ListTableCard";
 import EntitlementStatusBadge from "../../components/EntitlementStatusBadge";
 import GrantToggleButton from "../../components/GrantToggleButton";
 import UserNotSelectedEmpty from "../../components/UserNotSelectedEmpty";
@@ -107,7 +108,7 @@ const AdminEntitlementsTable = () => {
   );
 
   return (
-    <ListPageShell>
+    <ListPageShell fullHeight>
       <ListPageHeader title={t("title")} description={t("description")} />
       <ListToolbar
         query={query}
@@ -118,14 +119,15 @@ const AdminEntitlementsTable = () => {
         <UserNotSelectedEmpty />
       ) : (
         <ListContent
+          fullHeight
           isLoading={isLoading}
           isEmpty={filtered.length === 0}
           hasActiveFilters={Boolean(query.search)}
           onClearFilters={query.clearFilters}
           skeleton={<EntitlementsTableSkeleton />}
         >
-          <div className="bg-card rounded-xl border">
-            <Table>
+          <ListTableCard>
+            <Table containerClassName="md:h-full">
               <TableHeader>
                 <TableRow>
                   <TableHead>{tTable("app")}</TableHead>
@@ -193,7 +195,7 @@ const AdminEntitlementsTable = () => {
                 })}
               </TableBody>
             </Table>
-          </div>
+          </ListTableCard>
         </ListContent>
       )}
       <AdminEntitlementsRevokeDialog

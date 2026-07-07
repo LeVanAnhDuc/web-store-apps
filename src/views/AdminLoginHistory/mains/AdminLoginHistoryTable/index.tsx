@@ -25,6 +25,7 @@ import ListPageShell from "@/components/list/ListPageShell";
 import ListPageHeader from "@/components/list/ListPageHeader";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
+import ListTableCard from "@/components/list/ListTableCard";
 import ListPagination from "@/components/list/ListPagination";
 import LoginHistoryTableSkeleton from "../../components/LoginHistoryTableSkeleton";
 import FormatTime from "@/components/FormatTime";
@@ -81,13 +82,14 @@ const AdminLoginHistoryTable = () => {
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   return (
-    <ListPageShell>
+    <ListPageShell fullHeight>
       <ListPageHeader
         title={tAdmin("title")}
         description={tAdmin("description")}
       />
       <ListToolbar query={query} filterDefs={filterDefs} showSearch={false} />
       <ListContent
+        fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
@@ -95,8 +97,8 @@ const AdminLoginHistoryTable = () => {
         skeleton={<LoginHistoryTableSkeleton />}
         emptyTitle={tTable("empty")}
       >
-        <div className="bg-card rounded-xl border">
-          <Table>
+        <ListTableCard>
+          <Table containerClassName="md:h-full">
             <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
             <TableHeader>
               <TableRow>
@@ -170,7 +172,7 @@ const AdminLoginHistoryTable = () => {
               ))}
             </TableBody>
           </Table>
-        </div>
+        </ListTableCard>
       </ListContent>
       <ListPagination
         page={meta?.page ?? query.page}

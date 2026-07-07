@@ -15,6 +15,7 @@ const ListContent = ({
   emptyDescription,
   emptyIcon,
   emptyAction,
+  fullHeight = false,
   children
 }: {
   isLoading: boolean;
@@ -26,21 +27,27 @@ const ListContent = ({
   emptyDescription?: string;
   emptyIcon?: ReactNode;
   emptyAction?: ReactNode;
+  fullHeight?: boolean;
   children: ReactNode;
 }) => {
-  if (isLoading) return <>{skeleton}</>;
-  if (isEmpty)
-    return (
-      <ListEmptyState
-        hasActiveFilters={hasActiveFilters}
-        onClearFilters={onClearFilters}
-        title={emptyTitle}
-        description={emptyDescription}
-        icon={emptyIcon}
-        action={emptyAction}
-      />
-    );
-  return <>{children}</>;
+  const content = isLoading ? (
+    skeleton
+  ) : isEmpty ? (
+    <ListEmptyState
+      hasActiveFilters={hasActiveFilters}
+      onClearFilters={onClearFilters}
+      title={emptyTitle}
+      description={emptyDescription}
+      icon={emptyIcon}
+      action={emptyAction}
+    />
+  ) : (
+    children
+  );
+  if (!fullHeight) return <>{content}</>;
+  return (
+    <div className="md:flex md:min-h-0 md:flex-1 md:flex-col">{content}</div>
+  );
 };
 
 export default ListContent;

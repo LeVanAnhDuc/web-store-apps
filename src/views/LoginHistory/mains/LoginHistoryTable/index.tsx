@@ -17,6 +17,7 @@ import {
 import ListPageShell from "@/components/list/ListPageShell";
 import ListToolbar from "@/components/list/ListToolbar";
 import ListContent from "@/components/list/ListContent";
+import ListTableCard from "@/components/list/ListTableCard";
 import ListPagination from "@/components/list/ListPagination";
 import LoginHistoryTableRow from "../../components/LoginHistoryTableRow";
 import LoginHistoryTableSkeleton from "../../components/LoginHistoryTableSkeleton";
@@ -68,9 +69,10 @@ const LoginHistoryTable = () => {
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   return (
-    <ListPageShell>
+    <ListPageShell fullHeight>
       <ListToolbar query={query} filterDefs={filterDefs} showSearch={false} />
       <ListContent
+        fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
@@ -78,8 +80,8 @@ const LoginHistoryTable = () => {
         skeleton={<LoginHistoryTableSkeleton />}
         emptyTitle={tTable("empty")}
       >
-        <div className="bg-card rounded-xl border">
-          <Table>
+        <ListTableCard>
+          <Table containerClassName="md:h-full">
             <TableCaption className="sr-only">{tTable("caption")}</TableCaption>
             <TableHeader>
               <TableRow>
@@ -97,7 +99,7 @@ const LoginHistoryTable = () => {
               ))}
             </TableBody>
           </Table>
-        </div>
+        </ListTableCard>
       </ListContent>
       <ListPagination
         page={meta?.page ?? query.page}
