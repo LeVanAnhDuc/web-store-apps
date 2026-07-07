@@ -10,8 +10,8 @@ import SearchInput from "@/components/SearchInput";
 import CustomButton from "@/components/CustomButton";
 import {
   Popover,
-  PopoverContent,
-  PopoverTrigger
+  PopoverAnchor,
+  PopoverContent
 } from "@/components/ui/popover";
 import ResultList from "./mains/ResultList";
 // hooks
@@ -68,7 +68,7 @@ const HeaderSearch = () => {
     setOpen(false);
   };
 
-  const handleFocus = () => {
+  const handleOpen = () => {
     setOpen(true);
   };
 
@@ -102,7 +102,7 @@ const HeaderSearch = () => {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverAnchor asChild>
         <SearchInput
           value={query}
           onChange={setQuery}
@@ -116,13 +116,14 @@ const HeaderSearch = () => {
           aria-activedescendant={
             activeIndex >= 0 ? `${listId}-option-${activeIndex}` : undefined
           }
-          onFocus={handleFocus}
+          onFocus={handleOpen}
+          onClick={handleOpen}
           onKeyDown={handleKeyDown}
         />
-      </PopoverTrigger>
+      </PopoverAnchor>
       <PopoverContent
         align="start"
-        className="w-[--radix-popover-trigger-width] p-2"
+        className="w-[var(--radix-popover-trigger-width)] p-2"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <ResultList

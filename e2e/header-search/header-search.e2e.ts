@@ -84,6 +84,32 @@ test.describe("Header search (AppHeader combobox)", () => {
     await expect(optionFor(page, /Blog/)).toBeVisible();
   });
 
+  // --- Regression: single click opens AND keeps the popover open -----------
+  // Guards the double-toggle bug: PopoverTrigger's built-in click-toggle fought
+  // the onFocus-open, so the first click opened then immediately closed. Fixed
+  // by using PopoverAnchor (no click-toggle) + explicit focus/click open.
+  test("single click opens the popover and it stays open [regression: no toggle-close]", async ({
+    page
+  }) => {
+    const initial = waitForAppsList(page);
+    await page.goto("/");
+    await initial;
+
+    const input = searchBox(page);
+    const suggested = waitForAppsList(page);
+    await input.click();
+    await suggested;
+    await expect(listbox(page)).toBeVisible();
+    await page.waitForTimeout(300);
+    await expect(listbox(page)).toBeVisible();
+    await expect(input).toHaveAttribute("aria-expanded", "true");
+
+    await input.press("Escape");
+    await expect(listbox(page)).toBeHidden();
+    await input.click();
+    await expect(listbox(page)).toBeVisible();
+  });
+
   // --- Row 2: AuthN ---------------------------------------------------------
   test("unauthenticated visit does not render the header search [AuthN]", async ({
     browser
