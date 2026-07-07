@@ -6,7 +6,18 @@
     "searchPlaceholder": "Tìm kiếm ứng dụng...",
     "menuToggleLabel": "Hiện/ẩn menu điều hướng",
     "searchLabel": "Mở tìm kiếm",
-    "notificationsLabel": "Thông báo"
+    "notificationsLabel": "Thông báo",
+    "suggestedLabel": "Ứng dụng gợi ý",
+    "resultsLabel": "Ứng dụng",
+    "noResults": "Không tìm thấy ứng dụng",
+    "noResultsHint": "Thử từ khoá khác",
+    "viewAll": "Xem tất cả",
+    "openLabel": "Mở",
+    "announce": {
+      "results": "{count} ứng dụng",
+      "noResults": "Không tìm thấy ứng dụng",
+      "opened": "Đang mở {name}"
+    }
   },
   "welcome": {
     "greeting": "Chào mừng trở lại!",
