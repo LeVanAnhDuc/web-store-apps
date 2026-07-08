@@ -15,7 +15,6 @@
     "fields": {
       "firstName": "Họ",
       "lastName": "Tên",
-      "email": "Email",
       "phone": "Số điện thoại",
       "address": "Địa chỉ",
       "dateOfBirth": "Ngày sinh",
@@ -24,7 +23,6 @@
     "placeholders": {
       "firstName": "Nhập họ",
       "lastName": "Nhập tên",
-      "email": "name@example.com",
       "phone": "+84 90 000 0000",
       "address": "Nhập địa chỉ của bạn",
       "dateOfBirth": "Chọn ngày sinh",
@@ -52,55 +50,6 @@
     "announce": {
       "saving": "Đang lưu hồ sơ...",
       "saved": "Đã lưu hồ sơ."
-    }
-  },
-  "connectedAccounts": {
-    "title": "Tài khoản liên kết",
-    "description": "Quản lý các tài khoản và phương thức đăng nhập đã liên kết",
-    "providers": {
-      "google": {
-        "name": "Google",
-        "email": "anhducle@gmail.com"
-      },
-      "github": {
-        "name": "GitHub",
-        "email": "@anhducle"
-      },
-      "twitter": {
-        "name": "Twitter / X",
-        "email": "Chưa liên kết"
-      }
-    },
-    "connected": "Đã liên kết",
-    "buttons": {
-      "connect": "Liên kết",
-      "disconnect": "Ngắt liên kết"
-    },
-    "announce": {
-      "connected": "Đã liên kết tài khoản.",
-      "disconnected": "Đã ngắt liên kết tài khoản."
-    }
-  },
-  "notificationPreferences": {
-    "title": "Tùy chọn thông báo",
-    "description": "Chọn cách bạn muốn nhận thông báo",
-    "items": {
-      "email": {
-        "title": "Thông báo qua Email",
-        "description": "Nhận cập nhật và hoạt động trong hộp thư của bạn"
-      },
-      "push": {
-        "title": "Thông báo đẩy",
-        "description": "Cảnh báo trình duyệt và máy tính cho các sự kiện quan trọng"
-      },
-      "marketing": {
-        "title": "Email tiếp thị",
-        "description": "Tin tức sản phẩm, mẹo và ưu đãi quảng cáo"
-      }
-    },
-    "announce": {
-      "enabled": "Đã bật {name}.",
-      "disabled": "Đã tắt {name}."
     }
   },
   "changePassword": {

@@ -43,22 +43,26 @@ const expectNoMissingMessage = (errors: string[]) => {
   expect(offending, offending.join("\n")).toHaveLength(0);
 };
 
-// --- Row 1 — Happy path: all six cards on one /profile page ---------------
+// --- Row 1 — Happy path: remaining cards render; trimmed sections absent --
+// profile-trim removed Connected Accounts + Notification Preferences.
+// See docs/specs/profile-trim/.
 test.describe("Profile/Account merge — happy path", () => {
-  test("renders all six sections on /profile in one page", async ({ page }) => {
+  test("renders remaining sections on /profile in one page", async ({
+    page
+  }) => {
     await page.goto("/profile");
     await expect(
       page.getByRole("heading", { name: EN.title, exact: true })
     ).toBeVisible();
-    for (const name of [
-      EN.personalInfo,
-      EN.connectedAccounts,
-      EN.notificationPreferences,
-      EN.changePassword,
-      EN.dangerZone
-    ]) {
+    for (const name of [EN.personalInfo, EN.changePassword, EN.dangerZone]) {
       await expect(page.getByRole("heading", { name })).toBeVisible();
     }
+    await expect(
+      page.getByRole("heading", { name: EN.connectedAccounts })
+    ).toHaveCount(0);
+    await expect(
+      page.getByRole("heading", { name: EN.notificationPreferences })
+    ).toHaveCount(0);
   });
 });
 

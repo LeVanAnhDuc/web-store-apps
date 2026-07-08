@@ -19,10 +19,8 @@ import {
   CardDescription,
   CardHeader
 } from "@/components/ui/card";
-import { FormItem, FormLabel } from "@/components/ui/form";
 import CardSectionTitle from "@/components/CardSectionTitle";
 import CustomButton from "@/components/CustomButton";
-import CustomInput from "@/components/CustomInput";
 import CustomTooltip from "@/components/CustomTooltip";
 import FirstNameField from "@/views/Profile/components/FirstNameField";
 import LastNameField from "@/views/Profile/components/LastNameField";
@@ -111,19 +109,8 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
               <LastNameField control={methods.control} isPending={isPending} />
             </div>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <FormItem>
-                <FormLabel htmlFor="profile-email">
-                  {t("fields.email")}
-                </FormLabel>
-                <CustomInput
-                  id="profile-email"
-                  value={profile.email}
-                  readOnly
-                  disabled
-                  aria-readonly="true"
-                />
-              </FormItem>
               <PhoneField control={methods.control} isPending={isPending} />
+              <GenderField control={methods.control} isPending={isPending} />
             </div>
             <AddressField control={methods.control} isPending={isPending} />
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -131,7 +118,6 @@ const PersonalInfoForm = ({ profile }: { profile: MyProfileResponse }) => {
                 control={methods.control}
                 isPending={isPending}
               />
-              <GenderField control={methods.control} isPending={isPending} />
             </div>
             <div className="border-border flex justify-end gap-3 border-t pt-5">
               <CustomTooltip content={cancelDisabledReason}>

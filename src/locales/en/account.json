@@ -15,7 +15,6 @@
     "fields": {
       "firstName": "First Name",
       "lastName": "Last Name",
-      "email": "Email",
       "phone": "Phone",
       "address": "Address",
       "dateOfBirth": "Date of Birth",
@@ -24,7 +23,6 @@
     "placeholders": {
       "firstName": "Enter your first name",
       "lastName": "Enter your last name",
-      "email": "name@example.com",
       "phone": "+1 (555) 000-0000",
       "address": "Enter your address",
       "dateOfBirth": "Select date of birth",
@@ -52,55 +50,6 @@
     "announce": {
       "saving": "Saving profile...",
       "saved": "Profile saved successfully."
-    }
-  },
-  "connectedAccounts": {
-    "title": "Connected Accounts",
-    "description": "Manage your linked accounts and login methods",
-    "providers": {
-      "google": {
-        "name": "Google",
-        "email": "anhducle@gmail.com"
-      },
-      "github": {
-        "name": "GitHub",
-        "email": "@anhducle"
-      },
-      "twitter": {
-        "name": "Twitter / X",
-        "email": "Not connected"
-      }
-    },
-    "connected": "Connected",
-    "buttons": {
-      "connect": "Connect",
-      "disconnect": "Disconnect"
-    },
-    "announce": {
-      "connected": "Account connected.",
-      "disconnected": "Account disconnected."
-    }
-  },
-  "notificationPreferences": {
-    "title": "Notification Preferences",
-    "description": "Choose how you want to be notified",
-    "items": {
-      "email": {
-        "title": "Email Notifications",
-        "description": "Receive updates and activity in your inbox"
-      },
-      "push": {
-        "title": "Push Notifications",
-        "description": "Browser and desktop alerts for important events"
-      },
-      "marketing": {
-        "title": "Marketing Emails",
-        "description": "Product news, tips, and promotional offers"
-      }
-    },
-    "announce": {
-      "enabled": "{name} enabled.",
-      "disabled": "{name} disabled."
     }
   },
   "changePassword": {
