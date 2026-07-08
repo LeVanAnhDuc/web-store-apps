@@ -42,7 +42,7 @@ const AdminShell = ({ children }: { children: React.ReactNode }) => {
           <div
             id="main-content"
             tabIndex={-1}
-            className="flex min-h-0 flex-1 flex-col p-6 lg:p-8"
+            className="flex flex-1 flex-col p-6 lg:p-8"
           >
             {children}
           </div>
