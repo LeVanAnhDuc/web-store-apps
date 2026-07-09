@@ -1,6 +1,7 @@
 // types
 import type { ContactListItem, ContactStatus } from "@/types/ContactAdmin";
 import type { ListColumn, ListFilterDef } from "@/types/List";
+import type { ContactAdminMessages, LeafKeyOf } from "@/types/libs";
 // components
 import CustomBadge from "@/components/CustomBadge";
 import FormatTime from "@/components/FormatTime";
@@ -31,7 +32,9 @@ export const CONTACT_STATUS_VARIANT: Record<
 };
 
 export const buildAdminContactFilterDefs = (
-  tStatus: (k: string) => string,
+  tStatus: (
+    key: LeafKeyOf<ContactAdminMessages["admin"]["list"]["status"]>
+  ) => string,
   labels: {
     status: string;
     email: string;
@@ -58,8 +61,12 @@ export const buildAdminContactFilterDefs = (
 ];
 
 export const buildAdminContactColumns = (
-  tTable: (k: string) => string,
-  tStatus: (k: string) => string
+  tTable: (
+    key: LeafKeyOf<ContactAdminMessages["admin"]["list"]["table"]>
+  ) => string,
+  tStatus: (
+    key: LeafKeyOf<ContactAdminMessages["admin"]["list"]["status"]>
+  ) => string
 ): ListColumn<ContactListItem>[] => [
   {
     id: "ticketNumber",

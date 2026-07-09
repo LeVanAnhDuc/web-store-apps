@@ -86,11 +86,7 @@ const AdminEntitlementsTable = () => {
   });
 
   const columns = useMemo(
-    () =>
-      buildAdminEntitlementsColumns(
-        (k) => tTable(k as Parameters<typeof tTable>[0]),
-        (k) => tGrant(k as Parameters<typeof tGrant>[0])
-      ),
+    () => buildAdminEntitlementsColumns(tTable, tGrant),
     [tTable, tGrant]
   );
 

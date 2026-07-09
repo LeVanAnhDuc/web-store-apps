@@ -2,6 +2,7 @@
 import type { AppStatus, WebApp } from "@/types/AdminApps";
 import type { AuthenticationRole } from "@/types/User";
 import type { ListColumn, ListFilterDef, ListFilterOption } from "@/types/List";
+import type { AdminAppsMessages, LeafKeyOf } from "@/types/libs";
 // components
 import FormatTime from "@/components/FormatTime";
 import AppStatusBadge from "@/views/AdminApps/components/AppStatusBadge";
@@ -41,7 +42,7 @@ export const buildAdminAppsFilterDefs = (
 ];
 
 export const buildAdminAppsColumns = (
-  tTable: (k: string) => string,
+  tTable: (key: LeafKeyOf<AdminAppsMessages["table"]>) => string,
   categoryMap: Map<string, string>
 ): ListColumn<WebApp>[] => [
   {

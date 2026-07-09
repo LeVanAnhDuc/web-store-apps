@@ -70,7 +70,7 @@ const AdminAppsTable = () => {
     () =>
       APP_STATUSES.map((s) => ({
         value: s,
-        label: tStatus(s as Parameters<typeof tStatus>[0])
+        label: tStatus(s)
       })),
     [tStatus]
   );
@@ -87,8 +87,8 @@ const AdminAppsTable = () => {
   const filterDefs = useMemo(
     () =>
       buildAdminAppsFilterDefs(statusOptions, categoryOptions, {
-        status: tToolbar("status" as Parameters<typeof tToolbar>[0]),
-        category: tToolbar("category" as Parameters<typeof tToolbar>[0])
+        status: tToolbar("status"),
+        category: tToolbar("category")
       }),
     [statusOptions, categoryOptions, tToolbar]
   );
@@ -122,11 +122,7 @@ const AdminAppsTable = () => {
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   const columns = useMemo(
-    () =>
-      buildAdminAppsColumns(
-        (k) => tTable(k as Parameters<typeof tTable>[0]),
-        categoryMap
-      ),
+    () => buildAdminAppsColumns(tTable, categoryMap),
     [tTable, categoryMap]
   );
 
@@ -176,9 +172,7 @@ const AdminAppsTable = () => {
       <ListToolbar
         query={query}
         filterDefs={filterDefs}
-        searchPlaceholder={tToolbar(
-          "searchPlaceholder" as Parameters<typeof tToolbar>[0]
-        )}
+        searchPlaceholder={tToolbar("searchPlaceholder")}
       />
       <ListContent
         fullHeight

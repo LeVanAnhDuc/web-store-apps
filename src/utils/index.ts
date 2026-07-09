@@ -12,7 +12,7 @@ import type {
 import type { ContactStatus } from "@/types/ContactAdmin";
 import type { MyProfileResponse } from "@/types/User";
 import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
-import type { Messages } from "@/types/libs";
+import type { LeafKeyOf, Messages } from "@/types/libs";
 import type { ColumnAlign } from "@/types/List";
 // dataSources
 import { CATEGORY_LABEL_KEY } from "@/dataSources/Categories";
@@ -184,7 +184,7 @@ const LOGIN_LOCATION_SENTINELS: string[] = Object.values(LOCATION_SENTINEL);
 export const formatLoginLocation = (
   city: string,
   country: string,
-  t: (key: "local" | "unknown") => string
+  t: (key: LeafKeyOf<Messages["loginHistory"]["location"]>) => string
 ): string => {
   const countryLabel =
     country === LOCATION_SENTINEL.LOCAL
