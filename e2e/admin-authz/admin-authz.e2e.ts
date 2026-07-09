@@ -122,3 +122,55 @@ test.describe("Admin routes — non-admin authorization", () => {
     });
   }
 });
+
+// ---------------------------------------------------------------------------
+// Lock/unlock endpoints — AuthZ denial (non-admin) + AuthN denial (no token).
+//
+// [DT] role × endpoint: non-admin → 403 on BOTH /lock and /unlock. Guard order
+// confirmed by design.md: adminGuard rejects a non-admin BEFORE the service's
+// self-lock check ever runs, so a non-admin targeting ANY id (including their
+// own) still gets 403 AUTH_ADMIN_ONLY — never ADMIN_CANNOT_LOCK_SELF. A
+// placeholder ObjectId-shaped id is used since the guard short-circuits before
+// existence/format validation of the target.
+// ---------------------------------------------------------------------------
+const PLACEHOLDER_ID = "aaaaaaaaaaaaaaaaaaaaaaaa";
+
+test.describe("Admin lock/unlock — non-admin authorization (403)", () => {
+  test("non-admin PATCH /admin/users/:id/lock → 403 AUTH_ADMIN_ONLY", async () => {
+    const res = await apiContext.patch(
+      `/api/v1/admin/users/${PLACEHOLDER_ID}/lock`,
+      { headers: { Authorization: `Bearer ${nonAdminToken}` } }
+    );
+    expect(res.status()).toBe(403);
+    const body = (await res.json()) as { code?: string };
+    expect(body.code).toBe("AUTH_ADMIN_ONLY");
+  });
+
+  test("non-admin PATCH /admin/users/:id/unlock → 403 AUTH_ADMIN_ONLY", async () => {
+    const res = await apiContext.patch(
+      `/api/v1/admin/users/${PLACEHOLDER_ID}/unlock`,
+      { headers: { Authorization: `Bearer ${nonAdminToken}` } }
+    );
+    expect(res.status()).toBe(403);
+    const body = (await res.json()) as { code?: string };
+    expect(body.code).toBe("AUTH_ADMIN_ONLY");
+  });
+});
+
+test.describe("Admin lock/unlock — AuthN denial (no token)", () => {
+  test("token-less PATCH /admin/users/:id/lock → 401 AUTH_MISSING_TOKEN", async ({
+    baseURL
+  }) => {
+    const tokenLessContext = await playwrightRequest.newContext({ baseURL });
+    try {
+      const res = await tokenLessContext.patch(
+        `/api/v1/admin/users/${PLACEHOLDER_ID}/lock`
+      );
+      expect(res.status()).toBe(401);
+      const body = (await res.json()) as { code?: string };
+      expect(body.code).toBe("AUTH_MISSING_TOKEN");
+    } finally {
+      await tokenLessContext.dispose();
+    }
+  });
+});
