@@ -26,4 +26,6 @@ const LIST = {
 
 export const SORT_ORDER = { ASC: "asc", DESC: "desc" } as const;
 
+export const COLUMN_BREAKPOINT = { SM: "sm", MD: "md", LG: "lg" } as const;
+
 export default LIST;

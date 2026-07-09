@@ -13,11 +13,12 @@ import type { ContactStatus } from "@/types/ContactAdmin";
 import type { MyProfileResponse } from "@/types/User";
 import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 import type { LeafKeyOf, Messages } from "@/types/libs";
-import type { ColumnAlign } from "@/types/List";
+import type { ColumnAlign, ColumnBreakpoint } from "@/types/List";
 // dataSources
 import { CATEGORY_LABEL_KEY } from "@/dataSources/Categories";
 // others
 import CONSTANTS from "@/constants";
+import { COLUMN_BREAKPOINT } from "@/constants/list";
 import { defaultLocale, locales } from "@/i18n/config";
 
 const { CALLBACK_URL } = CONSTANTS.STORAGE_KEYS;
@@ -269,3 +270,16 @@ export const alignClass = (align?: ColumnAlign) =>
     : align === "right"
       ? "text-right"
       : "text-left";
+
+export const hideBelowClass = (breakpoint?: ColumnBreakpoint): string => {
+  switch (breakpoint) {
+    case COLUMN_BREAKPOINT.SM:
+      return "hidden sm:table-cell";
+    case COLUMN_BREAKPOINT.MD:
+      return "hidden md:table-cell";
+    case COLUMN_BREAKPOINT.LG:
+      return "hidden lg:table-cell";
+    default:
+      return "";
+  }
+};

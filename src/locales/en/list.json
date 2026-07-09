@@ -10,6 +10,7 @@
   "emptyTitle": "Nothing here yet",
   "viewGrid": "Grid view",
   "viewList": "List view",
+  "sortBy": "Sort by {column}",
   "pagination": { "page": "Page", "of": "of", "results": "results" },
   "table": { "empty": "No data", "comingSoon": "Coming soon" },
   "dateRange": {
@@ -26,6 +27,8 @@
   "announce": {
     "filtersApplied": "Filters applied.",
     "filtersCleared": "Filters cleared.",
-    "pageChanged": "Navigating to page {page}"
+    "pageChanged": "Navigating to page {page}",
+    "sortedAsc": "Sorted ascending.",
+    "sortedDesc": "Sorted descending."
   }
 }
