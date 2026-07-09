@@ -1,6 +1,6 @@
 // components
-import AdminEntitlementsTable from "./mains/AdminEntitlementsTable";
+import AdminEntitlementsBoard from "./mains/AdminEntitlementsBoard";
 
-const AdminEntitlements = () => <AdminEntitlementsTable />;
+const AdminEntitlements = () => <AdminEntitlementsBoard />;
 
 export default AdminEntitlements;

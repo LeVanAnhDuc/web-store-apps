@@ -53,7 +53,6 @@ const END_POINTS = {
 
   // Users (admin)
   ADMIN_USERS: "/admin/users",
-  ADMIN_USER_OPTIONS: "/admin/users/options",
 
   // Notifications
   NOTIFICATIONS: "/notifications",

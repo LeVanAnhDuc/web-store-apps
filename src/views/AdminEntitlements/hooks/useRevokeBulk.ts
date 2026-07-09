@@ -4,20 +4,21 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 // others
 import CONSTANTS from "@/constants";
-import { revokeEntitlement } from "@/mocks/AdminEntitlements";
+import { revokeEntitlementBulk } from "@/mocks/AdminEntitlements";
 
-const useRevokeEntitlement = () => {
+const useRevokeBulk = () => {
   const queryClient = useQueryClient();
   const tToast = useTranslations("adminEntitlements.toast");
   return useMutation({
-    mutationFn: revokeEntitlement,
-    onSuccess: (_, variables) => {
+    mutationFn: revokeEntitlementBulk,
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_ENTITLEMENTS, variables.userId]
+        queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_ENTITLEMENTS]
       });
       toast.success(tToast("revokeSuccess"));
-    }
+    },
+    onError: () => toast.error(tToast("error"))
   });
 };
 
-export default useRevokeEntitlement;
+export default useRevokeBulk;

@@ -12,16 +12,16 @@ import CONSTANTS from "@/constants";
 
 const { GRANTED, INSUFFICIENT_ROLE } = CONSTANTS.ENTITLEMENT_STATUS;
 
-const GrantToggleButton = ({
+const AppAccessAction = ({
   status,
+  isPending = false,
   onGrant,
-  onRevokeRequest,
-  isPending = false
+  onRevokeRequest
 }: {
   status: EntitlementStatus;
+  isPending?: boolean;
   onGrant: () => void;
   onRevokeRequest: () => void;
-  isPending?: boolean;
 }) => {
   const t = useTranslations("adminEntitlements.actions");
 
@@ -29,13 +29,13 @@ const GrantToggleButton = ({
     return (
       <CustomButton
         type="button"
-        variant="outline"
+        variant="default"
         size="sm"
         disabled
-        aria-label={t("blockedTooltip")}
-        title={t("blockedTooltip")}
+        title={t("roleRequiredTooltip")}
+        iconLeft={<Check aria-hidden="true" />}
       >
-        —
+        {t("grantAll")}
       </CustomButton>
     );
   }
@@ -46,11 +46,11 @@ const GrantToggleButton = ({
         type="button"
         variant="outline"
         size="sm"
-        onClick={onRevokeRequest}
         loading={isPending}
+        onClick={onRevokeRequest}
         iconLeft={<X aria-hidden="true" />}
       >
-        {isPending ? t("revoking") : t("revoke")}
+        {t("revokeAll")}
       </CustomButton>
     );
   }
@@ -60,13 +60,13 @@ const GrantToggleButton = ({
       type="button"
       variant="default"
       size="sm"
-      onClick={onGrant}
       loading={isPending}
+      onClick={onGrant}
       iconLeft={<Check aria-hidden="true" />}
     >
-      {isPending ? t("granting") : t("grant")}
+      {t("grantAll")}
     </CustomButton>
   );
 };
 
-export default GrantToggleButton;
+export default AppAccessAction;
