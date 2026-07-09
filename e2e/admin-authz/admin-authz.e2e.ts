@@ -22,7 +22,10 @@ import {
 //     ("You do not have permission to perform this action."). That toast
 //     auto-dismisses, so asserting it is flaky. Instead each page settles into a
 //     STABLE deny state that we assert per route:
-//       - /admin/users         => error UI "Could not load users. Please try again."
+//       - /admin/users         => empty state "No users match" (base PR #54
+//         changed the unified-list refactor's 403 deny rendering from an error
+//         UI to an empty state; the security assertion below — admin@test.com
+//         never rendered — is unaffected by this drift)
 //       - /admin/apps          => empty registry "No apps registered yet."
 //       - /admin/login-history => empty table "No login history found"
 //     In every case the protected admin-only data (admin@test.com) never renders.
@@ -50,7 +53,7 @@ const ADMIN_ROUTES = [
   {
     route: "/admin/users",
     apiPath: "/api/v1/admin/users",
-    denySignal: "Could not load users. Please try again."
+    denySignal: "No users match"
   },
   {
     route: "/admin/apps",
