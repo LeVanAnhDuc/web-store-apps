@@ -1,10 +1,16 @@
 // types
 import type { CustomBreadcrumbItem } from "@/types/CustomBreadcrumb";
+import type { LeafKeyOf, LoginHistoryMessages } from "@/types/libs";
 // others
 import CONSTANTS from "@/constants";
 
-export const ADMIN_LOGIN_HISTORY_DETAIL_BREADCRUMB: readonly CustomBreadcrumbItem[] =
-  [
-    { key: "list", href: CONSTANTS.ROUTES.ADMIN_LOGIN_HISTORY },
-    { key: "current" }
-  ] as const;
+export const buildAdminLoginHistoryDetailBreadcrumb = (
+  t: (key: LeafKeyOf<LoginHistoryMessages>) => string
+): readonly CustomBreadcrumbItem[] => [
+  {
+    key: "list",
+    label: t("admin.detail.breadcrumb.list"),
+    href: CONSTANTS.ROUTES.ADMIN_LOGIN_HISTORY
+  },
+  { key: "current", label: t("admin.detail.breadcrumb.current") }
+];

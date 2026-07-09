@@ -1,6 +1,7 @@
 // types
 import type { AdminUser } from "@/types/AdminUsers";
 import type { ListColumn, ListFilterDef } from "@/types/List";
+import type { AdminUsersMessages, LeafKeyOf } from "@/types/libs";
 // components
 import FormatTime from "@/components/FormatTime";
 import UserRoleBadge from "@/views/AdminUsers/components/UserRoleBadge";
@@ -9,9 +10,9 @@ import UserStatusBadge from "@/views/AdminUsers/components/UserStatusBadge";
 import CONSTANTS from "@/constants";
 
 export const buildAdminUsersFilterDefs = (
-  tRole: (k: string) => string,
-  tStatus: (k: string) => string,
-  tToolbar: (k: string) => string
+  tRole: (key: LeafKeyOf<AdminUsersMessages["role"]>) => string,
+  tStatus: (key: LeafKeyOf<AdminUsersMessages["status"]>) => string,
+  tToolbar: (key: LeafKeyOf<AdminUsersMessages["toolbar"]>) => string
 ): ListFilterDef[] => [
   {
     key: "role",
@@ -40,7 +41,7 @@ export const buildAdminUsersFilterDefs = (
 ];
 
 export const buildAdminUsersColumns = (
-  tTable: (k: string) => string
+  tTable: (key: LeafKeyOf<AdminUsersMessages["table"]>) => string
 ): ListColumn<AdminUser>[] => [
   {
     id: "user",

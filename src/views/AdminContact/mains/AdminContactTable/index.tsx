@@ -36,26 +36,19 @@ const AdminContactTable = () => {
 
   const filterDefs = useMemo(
     () =>
-      buildAdminContactFilterDefs(
-        (k) => tStatus(k as Parameters<typeof tStatus>[0]),
-        {
-          status: tFilters("status"),
-          email: tFilters("email"),
-          dateRange: tList("dateRange.label"),
-          emailPh: tFilters("email")
-        }
-      ),
+      buildAdminContactFilterDefs(tStatus, {
+        status: tFilters("status"),
+        email: tFilters("email"),
+        dateRange: tList("dateRange.label"),
+        emailPh: tFilters("email")
+      }),
     [tStatus, tFilters, tList]
   );
 
   const query = useListQuery(filterDefs);
 
   const columns = useMemo(
-    () =>
-      buildAdminContactColumns(
-        (k) => tTable(k as Parameters<typeof tTable>[0]),
-        (k) => tStatus(k as Parameters<typeof tStatus>[0])
-      ),
+    () => buildAdminContactColumns(tTable, tStatus),
     [tTable, tStatus]
   );
 

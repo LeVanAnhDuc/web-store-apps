@@ -51,21 +51,12 @@ const AdminUsersTable = () => {
   const tStatus = useTranslations("adminUsers.status");
 
   const filterDefs = useMemo(
-    () =>
-      buildAdminUsersFilterDefs(
-        (k) => tRole(k as Parameters<typeof tRole>[0]),
-        (k) => tStatus(k as Parameters<typeof tStatus>[0]),
-        (k) => tToolbar(k as Parameters<typeof tToolbar>[0])
-      ),
+    () => buildAdminUsersFilterDefs(tRole, tStatus, tToolbar),
     [tRole, tStatus, tToolbar]
   );
   const query = useListQuery(filterDefs);
 
-  const columns = useMemo(
-    () =>
-      buildAdminUsersColumns((k) => tTable(k as Parameters<typeof tTable>[0])),
-    [tTable]
-  );
+  const columns = useMemo(() => buildAdminUsersColumns(tTable), [tTable]);
 
   const params: AdminUsersQueryParams = {
     page: query.page,

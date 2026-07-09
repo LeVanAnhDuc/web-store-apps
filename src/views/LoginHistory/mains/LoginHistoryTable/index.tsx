@@ -32,23 +32,12 @@ const LoginHistoryTable = () => {
   const tLocation = useTranslations("loginHistory.location");
 
   const filterDefs = useMemo(
-    () =>
-      buildLoginHistoryFilterDefs(
-        (k) => tStatus(k as Parameters<typeof tStatus>[0]),
-        (k) => tMethod(k as Parameters<typeof tMethod>[0]),
-        (k) => tFilters(k as Parameters<typeof tFilters>[0])
-      ),
+    () => buildLoginHistoryFilterDefs(tStatus, tMethod, tFilters),
     [tStatus, tMethod, tFilters]
   );
 
   const columns = useMemo(
-    () =>
-      buildLoginHistoryColumns(
-        (k) => tTable(k as Parameters<typeof tTable>[0]),
-        (k) => tStatus(k as Parameters<typeof tStatus>[0]),
-        (k) => tMethod(k as Parameters<typeof tMethod>[0]),
-        (k) => tLocation(k as Parameters<typeof tLocation>[0])
-      ),
+    () => buildLoginHistoryColumns(tTable, tStatus, tMethod, tLocation),
     [tTable, tStatus, tMethod, tLocation]
   );
 

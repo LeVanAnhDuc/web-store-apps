@@ -8,6 +8,7 @@ import type {
   LoginHistoryMethod,
   LoginHistoryStatus
 } from "@/types/LoginHistory";
+import type { LeafKeyOf, LoginHistoryMessages } from "@/types/libs";
 // components
 import FormatTime from "@/components/FormatTime";
 import CustomBadge from "@/components/CustomBadge";
@@ -31,9 +32,9 @@ export const LOGIN_HISTORY_STATUS_VALUES: LoginHistoryStatus[] = STATUS_VALUES;
 export const LOGIN_HISTORY_METHOD_VALUES: LoginHistoryMethod[] = METHOD_VALUES;
 
 export const buildLoginHistoryFilterDefs = (
-  tStatus: (k: string) => string,
-  tMethod: (k: string) => string,
-  tFilters: (k: string) => string
+  tStatus: (key: LeafKeyOf<LoginHistoryMessages["status"]>) => string,
+  tMethod: (key: LeafKeyOf<LoginHistoryMessages["method"]>) => string,
+  tFilters: (key: LeafKeyOf<LoginHistoryMessages["filters"]>) => string
 ): ListFilterDef[] => [
   {
     key: "status",
@@ -61,10 +62,10 @@ export const buildLoginHistoryFilterDefs = (
 ];
 
 export const buildLoginHistoryColumns = (
-  tTable: (k: string) => string,
-  tStatus: (k: string) => string,
-  tMethod: (k: string) => string,
-  tLocation: (k: string) => string
+  tTable: (key: LeafKeyOf<LoginHistoryMessages["table"]>) => string,
+  tStatus: (key: LeafKeyOf<LoginHistoryMessages["status"]>) => string,
+  tMethod: (key: LeafKeyOf<LoginHistoryMessages["method"]>) => string,
+  tLocation: (key: LeafKeyOf<LoginHistoryMessages["location"]>) => string
 ): ListColumn<LoginHistoryItem>[] => [
   {
     id: "createdAt",
@@ -131,10 +132,10 @@ export const buildLoginHistoryColumns = (
 ];
 
 export const buildAdminLoginHistoryColumns = (
-  tTable: (k: string) => string,
-  tMethod: (k: string) => string,
-  tStatus: (k: string) => string,
-  tLocation: (k: string) => string
+  tTable: (key: LeafKeyOf<LoginHistoryMessages["table"]>) => string,
+  tMethod: (key: LeafKeyOf<LoginHistoryMessages["method"]>) => string,
+  tStatus: (key: LeafKeyOf<LoginHistoryMessages["status"]>) => string,
+  tLocation: (key: LeafKeyOf<LoginHistoryMessages["location"]>) => string
 ): ListColumn<LoginHistoryAdminItem>[] => [
   {
     id: "usernameAttempted",

@@ -7,14 +7,11 @@ import PageTitle from "@/components/PageTitle";
 import { buildAdminContactDetailBreadcrumb } from "@/dataSources/AdminContactDetail";
 
 const AdminContactDetailHeader = async ({ id }: { id: string }) => {
-  const t = await getTranslations("contactAdmin.admin.detail");
+  const t = await getTranslations("contactAdmin");
   return (
     <div className="flex flex-col gap-3">
-      <CustomBreadcrumb
-        items={buildAdminContactDetailBreadcrumb(id)}
-        namespace="contactAdmin.admin.detail.breadcrumb"
-      />
-      <PageTitle>{t("title")}</PageTitle>
+      <CustomBreadcrumb items={buildAdminContactDetailBreadcrumb(id, t)} />
+      <PageTitle>{t("admin.detail.title")}</PageTitle>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 // types
-import type { NavGroup, SortOption } from "@/types/Dashboard";
+import type { NavGroup } from "@/types/Dashboard";
 // libs
 import {
   Home,
@@ -46,8 +46,3 @@ export const SORT_OPTIONS = [
   { value: "downloads" },
   { value: "name" }
 ] as const;
-
-export const getSortLabel = (
-  t: (key: SortOption) => string,
-  value: SortOption
-): string => t(value);
