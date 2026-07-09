@@ -29,3 +29,8 @@ export interface AdminUsersQueryParams {
 }
 
 export type PaginatedAdminUsersResponse = Paginated<AdminUser>;
+
+export interface SetAdminUserActiveResult {
+  _id: string;
+  isActive: boolean;
+}
