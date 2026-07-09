@@ -5,6 +5,8 @@ import type { ListColumn, ListFilterDef } from "@/types/List";
 import CustomBadge from "@/components/CustomBadge";
 import FormatTime from "@/components/FormatTime";
 import ShortId from "@/components/ShortId";
+// others
+import CONSTANTS from "@/constants";
 
 export const NEXT_STEPS = [
   {
@@ -41,7 +43,7 @@ export const buildAdminContactFilterDefs = (
     key: "status",
     type: "select",
     label: labels.status,
-    options: (["new", "processing", "resolved"] as const).map((s) => ({
+    options: Object.values(CONSTANTS.CONTACT_STATUS).map((s) => ({
       value: s,
       label: tStatus(s)
     }))

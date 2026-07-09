@@ -22,7 +22,7 @@ const useSetAdminAppStatus = () => {
       });
       queryClient.invalidateQueries({ queryKey: [CONSTANTS.QUERY_KEYS.APPS] });
       toast.success(
-        variables.status === "inactive"
+        variables.status === CONSTANTS.APP_STATUS.INACTIVE
           ? tToast("hidden")
           : tToast("reactivated")
       );

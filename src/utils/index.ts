@@ -160,14 +160,13 @@ export const formatYmdLocal = (date: Date): string => {
   return `${y}-${m}-${d}`;
 };
 
-const LOGIN_HISTORY_STATUSES: LoginHistoryStatus[] = ["success", "failed"];
-const LOGIN_HISTORY_METHODS: LoginHistoryMethod[] = [
-  "password",
-  "otp",
-  "magic-link",
-  "forgot-password"
-];
-const CONTACT_STATUSES: ContactStatus[] = ["new", "processing", "resolved"];
+const LOGIN_HISTORY_STATUSES: LoginHistoryStatus[] =
+  CONSTANTS.LOGIN_HISTORY.STATUS_VALUES;
+const LOGIN_HISTORY_METHODS: LoginHistoryMethod[] =
+  CONSTANTS.LOGIN_HISTORY.METHOD_VALUES;
+const CONTACT_STATUSES: ContactStatus[] = Object.values(
+  CONSTANTS.CONTACT_STATUS
+);
 
 export const isLoginHistoryStatus = (
   value: string | null
@@ -179,7 +178,8 @@ export const isLoginHistoryMethod = (
 ): value is LoginHistoryMethod =>
   value !== null && (LOGIN_HISTORY_METHODS as string[]).includes(value);
 
-const LOGIN_LOCATION_SENTINELS = ["UNKNOWN", "LOCAL"];
+const { LOCATION_SENTINEL } = CONSTANTS.LOGIN_HISTORY;
+const LOGIN_LOCATION_SENTINELS: string[] = Object.values(LOCATION_SENTINEL);
 
 export const formatLoginLocation = (
   city: string,
@@ -187,9 +187,9 @@ export const formatLoginLocation = (
   t: (key: "local" | "unknown") => string
 ): string => {
   const countryLabel =
-    country === "LOCAL"
+    country === LOCATION_SENTINEL.LOCAL
       ? t("local")
-      : country === "UNKNOWN"
+      : country === LOCATION_SENTINEL.UNKNOWN
         ? t("unknown")
         : country;
   if (LOGIN_LOCATION_SENTINELS.includes(city)) {

@@ -4,6 +4,7 @@ import type { InvoiceStatus } from "@/types/Billing";
 import { Badge } from "@/components/ui/badge";
 // others
 import { cn } from "@/libs/utils";
+import CONSTANTS from "@/constants";
 
 const InvoiceStatusBadge = ({
   status,
@@ -13,9 +14,9 @@ const InvoiceStatusBadge = ({
   label: string;
 }) => {
   const tone =
-    status === "paid"
+    status === CONSTANTS.INVOICE_STATUS.PAID
       ? "bg-success/15 text-success"
-      : status === "pending"
+      : status === CONSTANTS.INVOICE_STATUS.PENDING
         ? "bg-warning/20 text-warning-foreground"
         : "bg-destructive/15 text-destructive";
   return (

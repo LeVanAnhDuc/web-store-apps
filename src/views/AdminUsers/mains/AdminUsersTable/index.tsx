@@ -38,8 +38,10 @@ const { AUTHENTICATION_ROLES } = CONSTANTS;
 const isRole = (value: unknown): value is AuthenticationRole =>
   value === AUTHENTICATION_ROLES.USER || value === AUTHENTICATION_ROLES.ADMIN;
 
+const { ACTIVE, LOCKED } = CONSTANTS.ADMIN_USER_STATUS;
+
 const isStatus = (value: unknown): value is AdminUserStatusFilter =>
-  value === "active" || value === "locked";
+  value === ACTIVE || value === LOCKED;
 
 const AdminUsersTable = () => {
   const t = useTranslations("adminUsers");

@@ -1,8 +1,12 @@
 // types
 import type { SortOrder } from "@/types/List";
+// constants
+import type CONTACT_STATUS from "@/constants/contactStatus";
+import type PRIORITY from "@/constants/priority";
 
-export type ContactStatus = "new" | "processing" | "resolved";
-export type Priority = "low" | "medium" | "high";
+export type ContactStatus =
+  (typeof CONTACT_STATUS)[keyof typeof CONTACT_STATUS];
+export type Priority = (typeof PRIORITY)[keyof typeof PRIORITY];
 
 export interface ContactAttachmentResponse {
   originalName: string;

@@ -27,6 +27,7 @@ import useAppCategories from "@/views/Apps/hooks/useAppCategories";
 import { buildFavoritesFilterDefs } from "@/dataSources/Favorites";
 // others
 import { resolveCategoryLabel } from "@/utils";
+import CONSTANTS from "@/constants";
 
 const FavoritesGridSkeleton = () => (
   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -41,7 +42,9 @@ const FavoritesGrid = () => {
   const tCat = useTranslations("common.categories");
 
   // sort is a display preference — kept in local state, not URL
-  const [sort, setSort] = useState<FavoritesSortKey>("recent");
+  const [sort, setSort] = useState<FavoritesSortKey>(
+    CONSTANTS.FAVORITES_SORT.RECENT
+  );
 
   const { data: categories = [] } = useAppCategories();
 
@@ -91,10 +94,14 @@ const FavoritesGrid = () => {
         </CustomButton>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setSort("recent")}>
+        <DropdownMenuItem
+          onClick={() => setSort(CONSTANTS.FAVORITES_SORT.RECENT)}
+        >
           {t("sort.recent")}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setSort("name")}>
+        <DropdownMenuItem
+          onClick={() => setSort(CONSTANTS.FAVORITES_SORT.NAME)}
+        >
           {t("sort.name")}
         </DropdownMenuItem>
       </DropdownMenuContent>

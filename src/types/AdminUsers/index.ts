@@ -1,6 +1,8 @@
 // types
 import type { AuthenticationRole } from "@/types/User";
 import type { SortOrder } from "@/types/List";
+// constants
+import type ADMIN_USER_STATUS from "@/constants/adminUserStatus";
 
 export interface AdminUser {
   _id: string;
@@ -13,7 +15,8 @@ export interface AdminUser {
   createdAt: string;
 }
 
-export type AdminUserStatusFilter = "active" | "locked";
+export type AdminUserStatusFilter =
+  (typeof ADMIN_USER_STATUS)[keyof typeof ADMIN_USER_STATUS];
 
 export interface AdminUsersQueryParams {
   search?: string;

@@ -20,8 +20,8 @@ import {
 } from "@/components/ui/select";
 import CustomSelectTrigger from "@/components/CustomSelectTrigger";
 import FormFieldMessage from "@/components/FormFieldMessage";
-// dataSources
-import { GENDER_VALUES } from "@/dataSources/Profile";
+// others
+import { GENDER_VALUES } from "@/constants/gender";
 
 const GenderField = ({
   control,

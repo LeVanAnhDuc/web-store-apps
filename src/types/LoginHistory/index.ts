@@ -1,19 +1,17 @@
 // types
 import type { SortOrder } from "@/types/List";
+// constants
+import type LOGIN_HISTORY from "@/constants/loginHistory";
 
-export type LoginHistoryStatus = "success" | "failed";
+export type LoginHistoryStatus =
+  (typeof LOGIN_HISTORY.STATUS)[keyof typeof LOGIN_HISTORY.STATUS];
 export type LoginHistoryMethod =
-  | "password"
-  | "otp"
-  | "magic-link"
-  | "forgot-password";
+  (typeof LOGIN_HISTORY.METHOD)[keyof typeof LOGIN_HISTORY.METHOD];
 export type LoginHistoryDeviceType =
-  | "DESKTOP"
-  | "MOBILE"
-  | "TABLET"
-  | "UNKNOWN";
+  (typeof LOGIN_HISTORY.DEVICE_TYPE)[keyof typeof LOGIN_HISTORY.DEVICE_TYPE];
 type DeviceType = LoginHistoryDeviceType;
-type ClientType = "WEB" | "MOBILE_IOS" | "MOBILE_ANDROID";
+type ClientType =
+  (typeof LOGIN_HISTORY.CLIENT_TYPE)[keyof typeof LOGIN_HISTORY.CLIENT_TYPE];
 
 export interface LoginHistoryItem {
   _id: string;

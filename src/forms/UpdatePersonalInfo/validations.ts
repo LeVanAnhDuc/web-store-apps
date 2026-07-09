@@ -1,9 +1,10 @@
 // libs
 import * as z from "zod";
+// constants
+import { GENDER_VALUES } from "@/constants/gender";
 
 const SAFE_PHONE_PATTERN = /^[\d\s()+-]+$/;
 const SAFE_ADDRESS_PATTERN = /^[\p{L}\p{N}\s,.\-'/#]+$/u;
-const GENDER_VALUES = ["male", "female", "other", "prefer_not_to_say"] as const;
 
 export const updatePersonalInfoValidation = z.object({
   firstName: z

@@ -1,17 +1,22 @@
 // types
 import type { LucideIcon } from "lucide-react";
+// constants
+import type PAYMENT_BRAND from "@/constants/paymentBrand";
+import type INVOICE_STATUS from "@/constants/invoiceStatus";
+
+export type PaymentBrand = (typeof PAYMENT_BRAND)[keyof typeof PAYMENT_BRAND];
+export type InvoiceStatus =
+  (typeof INVOICE_STATUS)[keyof typeof INVOICE_STATUS];
 
 export interface PaymentMethodMock {
   id: string;
-  brand: "visa" | "mastercard";
+  brand: PaymentBrand;
   brandLabel: string;
   last4: string;
   expires: string;
   isDefault: boolean;
   icon: LucideIcon;
 }
-
-export type InvoiceStatus = "paid" | "pending" | "failed";
 
 export interface InvoiceMock {
   id: string;

@@ -5,6 +5,8 @@ import type { ListColumn, ListFilterDef } from "@/types/List";
 import FormatTime from "@/components/FormatTime";
 import UserRoleBadge from "@/views/AdminUsers/components/UserRoleBadge";
 import UserStatusBadge from "@/views/AdminUsers/components/UserStatusBadge";
+// others
+import CONSTANTS from "@/constants";
 
 export const buildAdminUsersFilterDefs = (
   tRole: (k: string) => string,
@@ -25,8 +27,14 @@ export const buildAdminUsersFilterDefs = (
     type: "select",
     label: tToolbar("status"),
     options: [
-      { value: "active", label: tStatus("active") },
-      { value: "locked", label: tStatus("locked") }
+      {
+        value: CONSTANTS.ADMIN_USER_STATUS.ACTIVE,
+        label: tStatus("active")
+      },
+      {
+        value: CONSTANTS.ADMIN_USER_STATUS.LOCKED,
+        label: tStatus("locked")
+      }
     ]
   }
 ];

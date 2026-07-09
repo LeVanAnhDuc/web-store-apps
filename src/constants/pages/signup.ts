@@ -1,10 +1,3 @@
-export const GENDER_VALUES = [
-  "male",
-  "female",
-  "other",
-  "prefer_not_to_say"
-] as const;
-
 const SIGNUP_CONSTANTS = {
   OTP_LENGTH: 6,
   RESEND_COUNTDOWN: 60,

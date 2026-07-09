@@ -14,25 +14,21 @@ import CustomBadge from "@/components/CustomBadge";
 // others
 import { cn } from "@/libs/utils";
 import { formatLoginLocation } from "@/utils";
+import CONSTANTS from "@/constants";
+
+const { METHOD, STATUS, DEVICE_TYPE, METHOD_VALUES, STATUS_VALUES } =
+  CONSTANTS.LOGIN_HISTORY;
 
 export const LOGIN_HISTORY_METHOD_COLOR: Record<LoginHistoryMethod, string> = {
-  password: "text-foreground",
-  otp: "text-warning-foreground",
-  "magic-link": "text-info",
-  "forgot-password": "text-muted-foreground"
+  [METHOD.PASSWORD]: "text-foreground",
+  [METHOD.OTP]: "text-warning-foreground",
+  [METHOD.MAGIC_LINK]: "text-info",
+  [METHOD.FORGOT_PASSWORD]: "text-muted-foreground"
 };
 
-export const LOGIN_HISTORY_STATUS_VALUES: LoginHistoryStatus[] = [
-  "success",
-  "failed"
-];
+export const LOGIN_HISTORY_STATUS_VALUES: LoginHistoryStatus[] = STATUS_VALUES;
 
-export const LOGIN_HISTORY_METHOD_VALUES: LoginHistoryMethod[] = [
-  "password",
-  "otp",
-  "magic-link",
-  "forgot-password"
-];
+export const LOGIN_HISTORY_METHOD_VALUES: LoginHistoryMethod[] = METHOD_VALUES;
 
 export const buildLoginHistoryFilterDefs = (
   tStatus: (k: string) => string,
@@ -98,14 +94,14 @@ export const buildLoginHistoryColumns = (
         <span
           className={cn(
             "size-1.5 rounded-full",
-            item.status === "success" ? "bg-success" : "bg-destructive"
+            item.status === STATUS.SUCCESS ? "bg-success" : "bg-destructive"
           )}
           aria-hidden="true"
         />
         <span
           className={cn(
             "font-medium",
-            item.status === "success" ? "text-success" : "text-destructive"
+            item.status === STATUS.SUCCESS ? "text-success" : "text-destructive"
           )}
         >
           {tStatus(item.status)}
@@ -117,7 +113,7 @@ export const buildLoginHistoryColumns = (
     id: "deviceType",
     header: tTable("deviceType"),
     cell: (item) =>
-      item.deviceType !== "UNKNOWN"
+      item.deviceType !== DEVICE_TYPE.UNKNOWN
         ? `${item.deviceType} · ${item.browser}`
         : item.browser
   },
@@ -155,7 +151,7 @@ export const buildAdminLoginHistoryColumns = (
     header: tTable("status"),
     cell: (item) => (
       <CustomBadge
-        variant={item.status === "success" ? "success" : "warning"}
+        variant={item.status === STATUS.SUCCESS ? "success" : "warning"}
         className="text-xs"
       >
         {tStatus(item.status)}

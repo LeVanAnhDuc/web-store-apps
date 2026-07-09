@@ -1,5 +1,7 @@
 // types
 import type { WebApp } from "@/types/AdminApps";
+// constants
+import type ENTITLEMENT_STATUS from "@/constants/entitlementStatus";
 
 export interface Entitlement {
   _id: string;
@@ -10,7 +12,8 @@ export interface Entitlement {
   revokedAt: string | null;
 }
 
-export type EntitlementStatus = "granted" | "not_granted" | "insufficient_role";
+export type EntitlementStatus =
+  (typeof ENTITLEMENT_STATUS)[keyof typeof ENTITLEMENT_STATUS];
 
 export interface EntitlementRow {
   app: WebApp;

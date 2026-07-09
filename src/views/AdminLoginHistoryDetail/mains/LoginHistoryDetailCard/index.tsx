@@ -17,6 +17,7 @@ import LoginHistoryDetailAnnouncer from "../../ghosts/LoginHistoryDetailAnnounce
 import useAdminLoginHistoryDetail from "../../hooks/useAdminLoginHistoryDetail";
 // others
 import { formatLoginLocation } from "@/utils";
+import CONSTANTS from "@/constants";
 
 const LoginHistoryDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("loginHistory.admin.detail");
@@ -52,7 +53,11 @@ const LoginHistoryDetailCard = ({ id }: { id: string }) => {
             </p>
           </div>
           <CustomBadge
-            variant={data.status === "success" ? "success" : "warning"}
+            variant={
+              data.status === CONSTANTS.LOGIN_HISTORY.STATUS.SUCCESS
+                ? "success"
+                : "warning"
+            }
             className="text-sm"
           >
             {tStatus(data.status)}

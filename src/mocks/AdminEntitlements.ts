@@ -9,6 +9,10 @@ import type {
 import { getAdminApps } from "@/requests/adminApps";
 // others
 import { MOCK_ADMIN_USERS } from "./AdminUsers";
+import CONSTANTS from "@/constants";
+
+const { GRANTED, NOT_GRANTED, INSUFFICIENT_ROLE } =
+  CONSTANTS.ENTITLEMENT_STATUS;
 
 const SIMULATED_LATENCY_MS = 250;
 const ID_RANDOM_RADIX = 36;
@@ -76,10 +80,9 @@ export const getEntitlementsByUserId = async (
   const rows: EntitlementRow[] = apps.map((app) => {
     const entitlement = findActiveEntitlement(userId, app._id) ?? null;
     let status: EntitlementStatus;
-    if (entitlement) status = "granted";
-    else if (!app.requiredRoles.includes(user.role))
-      status = "insufficient_role";
-    else status = "not_granted";
+    if (entitlement) status = GRANTED;
+    else if (!app.requiredRoles.includes(user.role)) status = INSUFFICIENT_ROLE;
+    else status = NOT_GRANTED;
     return { app, entitlement, status };
   });
   return delay(rows);

@@ -32,7 +32,7 @@ export const useForgotPasswordReset = ({
   const router = useRouter();
   const tAnnounce = useTranslations("forgotPassword.announce");
   const { announce } = useAnnounce();
-  const isMagicLink = method === "magic-link";
+  const isMagicLink = method === CONSTANTS.LOGIN_HISTORY.METHOD.MAGIC_LINK;
 
   // For OTP flow: token is already the resetToken
   // For magic-link flow: token is the magic link token, need to verify first

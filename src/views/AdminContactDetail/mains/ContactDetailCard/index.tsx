@@ -21,6 +21,8 @@ import useAdminContactDetail from "../../hooks/useAdminContactDetail";
 import useUpdateContactStatus from "../../hooks/useUpdateContactStatus";
 // dataSources
 import { CONTACT_STATUS_VARIANT } from "@/dataSources/ContactAdmin";
+// others
+import CONSTANTS from "@/constants";
 
 const ContactDetailCard = ({ id }: { id: string }) => {
   const t = useTranslations("contactAdmin.admin.detail");
@@ -67,11 +69,15 @@ const ContactDetailCard = ({ id }: { id: string }) => {
               <SelectValue placeholder={t("updateStatus.label")} />
             </CustomSelectTrigger>
             <SelectContent>
-              <SelectItem value="new">{tStatus("new")}</SelectItem>
-              <SelectItem value="processing">
+              <SelectItem value={CONSTANTS.CONTACT_STATUS.NEW}>
+                {tStatus("new")}
+              </SelectItem>
+              <SelectItem value={CONSTANTS.CONTACT_STATUS.PROCESSING}>
                 {tStatus("processing")}
               </SelectItem>
-              <SelectItem value="resolved">{tStatus("resolved")}</SelectItem>
+              <SelectItem value={CONSTANTS.CONTACT_STATUS.RESOLVED}>
+                {tStatus("resolved")}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>

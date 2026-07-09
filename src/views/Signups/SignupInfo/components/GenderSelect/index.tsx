@@ -20,7 +20,6 @@ import CustomSelectTrigger from "@/components/CustomSelectTrigger";
 // hooks
 import { useFieldProps } from "@/hooks";
 // others
-import { GENDER_VALUES } from "@/constants/pages/signup";
 import CONSTANTS from "@/constants";
 
 const { GENDER } = CONSTANTS.FIELD_NAMES.SIGNUP_FIELD_NAMES;
@@ -62,7 +61,7 @@ const GenderSelect = ({
               </CustomSelectTrigger>
             </FormControl>
             <SelectContent>
-              {GENDER_VALUES.map((option) => (
+              {CONSTANTS.GENDER_VALUES.map((option) => (
                 <SelectItem key={option} value={option}>
                   {genderLabels[option]}
                 </SelectItem>

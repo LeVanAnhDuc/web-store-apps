@@ -7,6 +7,10 @@ import { useTranslations } from "next-intl";
 import type { EntitlementStatus } from "@/types/AdminEntitlements";
 // components
 import CustomButton from "@/components/CustomButton";
+// others
+import CONSTANTS from "@/constants";
+
+const { GRANTED, INSUFFICIENT_ROLE } = CONSTANTS.ENTITLEMENT_STATUS;
 
 const GrantToggleButton = ({
   status,
@@ -21,7 +25,7 @@ const GrantToggleButton = ({
 }) => {
   const t = useTranslations("adminEntitlements.actions");
 
-  if (status === "insufficient_role") {
+  if (status === INSUFFICIENT_ROLE) {
     return (
       <CustomButton
         type="button"
@@ -36,7 +40,7 @@ const GrantToggleButton = ({
     );
   }
 
-  if (status === "granted") {
+  if (status === GRANTED) {
     return (
       <CustomButton
         type="button"

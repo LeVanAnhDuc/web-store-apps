@@ -6,23 +6,28 @@ import { useTranslations } from "next-intl";
 import type { EntitlementStatus } from "@/types/AdminEntitlements";
 // components
 import CustomBadge from "@/components/CustomBadge";
+// others
+import CONSTANTS from "@/constants";
+
+const { GRANTED, NOT_GRANTED, INSUFFICIENT_ROLE } =
+  CONSTANTS.ENTITLEMENT_STATUS;
 
 const VARIANT_MAP: Record<
   EntitlementStatus,
   "success" | "secondary" | "warning"
 > = {
-  granted: "success",
-  not_granted: "secondary",
-  insufficient_role: "warning"
+  [GRANTED]: "success",
+  [NOT_GRANTED]: "secondary",
+  [INSUFFICIENT_ROLE]: "warning"
 };
 
 const KEY_MAP: Record<
   EntitlementStatus,
   "granted" | "notGranted" | "insufficientRole"
 > = {
-  granted: "granted",
-  not_granted: "notGranted",
-  insufficient_role: "insufficientRole"
+  [GRANTED]: "granted",
+  [NOT_GRANTED]: "notGranted",
+  [INSUFFICIENT_ROLE]: "insufficientRole"
 };
 
 const EntitlementStatusBadge = ({ status }: { status: EntitlementStatus }) => {

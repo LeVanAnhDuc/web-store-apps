@@ -1,7 +1,8 @@
 // others
 import type AUTHENTICATION_ROLES from "@/constants/roles";
+import type GENDER from "@/constants/gender";
 
-export type GenderEnum = "male" | "female" | "other" | "prefer_not_to_say";
+export type GenderEnum = (typeof GENDER)[keyof typeof GENDER];
 
 export type MyProfileResponse = {
   _id: string;

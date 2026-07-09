@@ -1,3 +1,6 @@
+// constants
+import type FAVORITES_SORT from "@/constants/favoritesSort";
+
 export interface UserApp {
   _id: string;
   displayName: string;
@@ -24,7 +27,8 @@ export interface UserCategory {
   slug: string;
 }
 
-export type FavoritesSortKey = "recent" | "name";
+export type FavoritesSortKey =
+  (typeof FAVORITES_SORT)[keyof typeof FAVORITES_SORT];
 
 export interface FavoritesQueryParams {
   search?: string;

@@ -30,22 +30,28 @@ const ListContent = ({
   fullHeight?: boolean;
   children: ReactNode;
 }) => {
-  const content = isLoading ? (
-    skeleton
-  ) : isEmpty ? (
-    <ListEmptyState
-      hasActiveFilters={hasActiveFilters}
-      onClearFilters={onClearFilters}
-      title={emptyTitle}
-      description={emptyDescription}
-      icon={emptyIcon}
-      action={emptyAction}
-    />
-  ) : (
-    children
-  );
-  if (!fullHeight) return <>{content}</>;
-  return <div className="md:flex md:min-h-0 md:flex-col">{content}</div>;
+  const wrap = (node: ReactNode) =>
+    fullHeight ? (
+      <div className="md:flex md:min-h-0 md:flex-col">{node}</div>
+    ) : (
+      <>{node}</>
+    );
+
+  if (isLoading) return wrap(skeleton);
+
+  if (isEmpty)
+    return wrap(
+      <ListEmptyState
+        hasActiveFilters={hasActiveFilters}
+        onClearFilters={onClearFilters}
+        title={emptyTitle}
+        description={emptyDescription}
+        icon={emptyIcon}
+        action={emptyAction}
+      />
+    );
+
+  return wrap(children);
 };
 
 export default ListContent;

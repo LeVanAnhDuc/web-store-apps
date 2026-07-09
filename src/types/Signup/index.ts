@@ -2,7 +2,7 @@
 import type { z } from "zod";
 import type { signupInfoFormValidation } from "@/forms/Signup/validations";
 import type { LoginTokenResponse } from "@/types/Login";
-import type { GENDER_VALUES } from "@/constants/pages/signup";
+import type { GENDER_VALUES } from "@/constants/gender";
 
 export type GenderValue = (typeof GENDER_VALUES)[number];
 
