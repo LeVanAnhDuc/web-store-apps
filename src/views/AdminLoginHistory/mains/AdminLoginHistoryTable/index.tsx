@@ -6,12 +6,12 @@ import { useTranslations } from "next-intl";
 // types
 import type { AdminLoginHistoryQueryParams } from "@/types/LoginHistory";
 // components
-import ListPageShell from "@/components/list/ListPageShell";
-import ListPageHeader from "@/components/list/ListPageHeader";
-import ListToolbar from "@/components/list/ListToolbar";
-import ListContent from "@/components/list/ListContent";
-import ListPagination from "@/components/list/ListPagination";
-import ListTable from "@/components/list/ListTable";
+import PageShell from "@/components/PageContainer/PageShell";
+import PageHeader from "@/components/PageContainer/PageHeader";
+import PageToolbar from "@/components/PageContainer/PageToolbar";
+import PageContent from "@/components/PageContainer/PageContent";
+import CustomPagination from "@/components/CustomPagination";
+import CustomTable from "@/components/CustomTable";
 import LoginHistoryTableSkeleton from "../../components/LoginHistoryTableSkeleton";
 // hooks
 import { useListQuery } from "@/hooks";
@@ -68,13 +68,10 @@ const AdminLoginHistoryTable = () => {
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   return (
-    <ListPageShell fullHeight>
-      <ListPageHeader
-        title={tAdmin("title")}
-        description={tAdmin("description")}
-      />
-      <ListToolbar query={query} filterDefs={filterDefs} showSearch={false} />
-      <ListContent
+    <PageShell fullHeight>
+      <PageHeader title={tAdmin("title")} description={tAdmin("description")} />
+      <PageToolbar query={query} filterDefs={filterDefs} showSearch={false} />
+      <PageContent
         fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
@@ -83,7 +80,8 @@ const AdminLoginHistoryTable = () => {
         skeleton={<LoginHistoryTableSkeleton />}
         emptyTitle={tTable("empty")}
       >
-        <ListTable
+        <CustomTable
+          fullHeight
           columns={columns}
           rows={items}
           getRowKey={(r) => r._id}
@@ -93,15 +91,15 @@ const AdminLoginHistoryTable = () => {
             tTable("viewDetailFor", { name: r.usernameAttempted })
           }
         />
-      </ListContent>
-      <ListPagination
-        page={meta?.page ?? query.page}
-        totalPages={meta?.totalPages ?? 1}
-        total={meta?.total ?? 0}
-        onPageChange={query.setPage}
-        loading={isLoading}
-      />
-    </ListPageShell>
+      </PageContent>
+      {(meta?.totalPages ?? 1) > 1 && (
+        <CustomPagination
+          page={meta?.page ?? query.page}
+          totalPages={meta?.totalPages ?? 1}
+          onPageChange={query.setPage}
+        />
+      )}
+    </PageShell>
   );
 };
 

@@ -18,7 +18,7 @@ import CONSTANTS from "@/constants";
 
 const { LIST } = CONSTANTS;
 
-const DateRangeFilter = ({
+const PageDateRangeFilter = ({
   value,
   onChange
 }: {
@@ -49,4 +49,4 @@ const DateRangeFilter = ({
   );
 };
 
-export default DateRangeFilter;
+export default PageDateRangeFilter;

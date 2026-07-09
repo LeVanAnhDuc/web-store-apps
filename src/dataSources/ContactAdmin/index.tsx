@@ -1,6 +1,7 @@
 // types
 import type { ContactListItem, ContactStatus } from "@/types/ContactAdmin";
-import type { ListColumn, ListFilterDef } from "@/types/List";
+import type { CustomTableColumn } from "@/types/CustomTable";
+import type { ListFilterDef } from "@/types/List";
 import type { ContactAdminMessages, LeafKeyOf } from "@/types/libs";
 // components
 import CustomBadge from "@/components/CustomBadge";
@@ -67,7 +68,7 @@ export const buildAdminContactColumns = (
   tStatus: (
     key: LeafKeyOf<ContactAdminMessages["admin"]["list"]["status"]>
   ) => string
-): ListColumn<ContactListItem>[] => [
+): CustomTableColumn<ContactListItem>[] => [
   {
     id: "ticketNumber",
     header: tTable("ticketNumber"),

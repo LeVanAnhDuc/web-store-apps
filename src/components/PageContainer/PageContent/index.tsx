@@ -3,9 +3,9 @@
 // libs
 import type { ReactNode } from "react";
 // components
-import ListEmptyState from "../ListEmptyState";
+import PageEmptyState from "../PageEmptyState";
 
-const ListContent = ({
+const PageContent = ({
   isLoading,
   isEmpty,
   hasActiveFilters,
@@ -41,7 +41,7 @@ const ListContent = ({
 
   if (isEmpty)
     return wrap(
-      <ListEmptyState
+      <PageEmptyState
         hasActiveFilters={hasActiveFilters}
         onClearFilters={onClearFilters}
         title={emptyTitle}
@@ -54,4 +54,4 @@ const ListContent = ({
   return wrap(children);
 };
 
-export default ListContent;
+export default PageContent;

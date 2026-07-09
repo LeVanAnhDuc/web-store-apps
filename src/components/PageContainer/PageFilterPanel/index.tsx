@@ -16,13 +16,13 @@ import { Label } from "@/components/ui/label";
 import CustomButton from "@/components/CustomButton";
 import CustomInput from "@/components/CustomInput";
 import CustomSelectTrigger from "@/components/CustomSelectTrigger";
-import DateRangeFilter from "../DateRangeFilter";
+import PageDateRangeFilter from "../PageDateRangeFilter";
 // constants
 import CONSTANTS from "@/constants";
 
 const { LIST } = CONSTANTS;
 
-const ListFilterPanel = ({
+const PageFilterPanel = ({
   filterDefs,
   query
 }: {
@@ -80,7 +80,7 @@ const ListFilterPanel = ({
             />
           )}
           {def.type === "dateRange" && (
-            <DateRangeFilter
+            <PageDateRangeFilter
               value={query.filters[LIST.PARAM.DATE_RANGE] ?? ""}
               onChange={query.setDateRange}
             />
@@ -91,4 +91,4 @@ const ListFilterPanel = ({
   );
 };
 
-export default ListFilterPanel;
+export default PageFilterPanel;

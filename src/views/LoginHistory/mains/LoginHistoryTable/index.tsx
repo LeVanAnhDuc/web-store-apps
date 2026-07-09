@@ -6,11 +6,11 @@ import { useTranslations } from "next-intl";
 // types
 import type { LoginHistoryQueryParams } from "@/types/LoginHistory";
 // components
-import ListPageShell from "@/components/list/ListPageShell";
-import ListToolbar from "@/components/list/ListToolbar";
-import ListContent from "@/components/list/ListContent";
-import ListPagination from "@/components/list/ListPagination";
-import ListTable from "@/components/list/ListTable";
+import PageShell from "@/components/PageContainer/PageShell";
+import PageToolbar from "@/components/PageContainer/PageToolbar";
+import PageContent from "@/components/PageContainer/PageContent";
+import CustomPagination from "@/components/CustomPagination";
+import CustomTable from "@/components/CustomTable";
 import LoginHistoryTableSkeleton from "../../components/LoginHistoryTableSkeleton";
 // hooks
 import { useListQuery } from "@/hooks";
@@ -64,9 +64,9 @@ const LoginHistoryTable = () => {
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   return (
-    <ListPageShell fullHeight>
-      <ListToolbar query={query} filterDefs={filterDefs} showSearch={false} />
-      <ListContent
+    <PageShell fullHeight>
+      <PageToolbar query={query} filterDefs={filterDefs} showSearch={false} />
+      <PageContent
         fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
@@ -75,21 +75,22 @@ const LoginHistoryTable = () => {
         skeleton={<LoginHistoryTableSkeleton />}
         emptyTitle={tTable("empty")}
       >
-        <ListTable
+        <CustomTable
+          fullHeight
           columns={columns}
           rows={items}
           getRowKey={(r) => r._id}
           caption={tTable("caption")}
         />
-      </ListContent>
-      <ListPagination
-        page={meta?.page ?? query.page}
-        totalPages={meta?.totalPages ?? 1}
-        total={meta?.total ?? 0}
-        onPageChange={query.setPage}
-        loading={isLoading}
-      />
-    </ListPageShell>
+      </PageContent>
+      {(meta?.totalPages ?? 1) > 1 && (
+        <CustomPagination
+          page={meta?.page ?? query.page}
+          totalPages={meta?.totalPages ?? 1}
+          onPageChange={query.setPage}
+        />
+      )}
+    </PageShell>
   );
 };
 

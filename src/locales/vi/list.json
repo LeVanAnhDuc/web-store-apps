@@ -10,8 +10,6 @@
   "emptyTitle": "Chưa có gì ở đây",
   "viewGrid": "Dạng lưới",
   "viewList": "Dạng danh sách",
-  "sortBy": "Sắp xếp theo {column}",
-  "pagination": { "page": "Trang", "of": "trên", "results": "kết quả" },
   "table": { "empty": "Không có dữ liệu", "comingSoon": "Sắp ra mắt" },
   "dateRange": {
     "label": "Khoảng thời gian",
@@ -27,8 +25,6 @@
   "announce": {
     "filtersApplied": "Đã áp dụng bộ lọc.",
     "filtersCleared": "Đã xóa bộ lọc.",
-    "pageChanged": "Chuyển đến trang {page}",
-    "sortedAsc": "Đã sắp xếp tăng dần.",
-    "sortedDesc": "Đã sắp xếp giảm dần."
+    "pageChanged": "Chuyển đến trang {page}"
   }
 }
