@@ -1,7 +1,8 @@
 // types
 import type { AppStatus, WebApp } from "@/types/AdminApps";
 import type { AuthenticationRole } from "@/types/User";
-import type { ListColumn, ListFilterDef, ListFilterOption } from "@/types/List";
+import type { CustomTableColumn } from "@/types/CustomTable";
+import type { ListFilterDef, ListFilterOption } from "@/types/List";
 import type { AdminAppsMessages, LeafKeyOf } from "@/types/libs";
 // components
 import FormatTime from "@/components/FormatTime";
@@ -45,7 +46,7 @@ export const buildAdminAppsFilterDefs = (
 export const buildAdminAppsColumns = (
   tTable: (key: LeafKeyOf<AdminAppsMessages["table"]>) => string,
   categoryMap: Map<string, string>
-): ListColumn<WebApp>[] => [
+): CustomTableColumn<WebApp>[] => [
   {
     id: "app",
     header: tTable("app"),

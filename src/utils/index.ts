@@ -13,7 +13,7 @@ import type { ContactStatus } from "@/types/ContactAdmin";
 import type { MyProfileResponse } from "@/types/User";
 import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 import type { LeafKeyOf, Messages } from "@/types/libs";
-import type { ColumnAlign, ColumnBreakpoint } from "@/types/List";
+import type { ColumnAlign, ColumnBreakpoint } from "@/types/CustomTable";
 // dataSources
 import { CATEGORY_LABEL_KEY } from "@/dataSources/Categories";
 // others

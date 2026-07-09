@@ -1,6 +1,6 @@
 // types
 import type { EntitlementRow } from "@/types/AdminEntitlements";
-import type { ListColumn } from "@/types/List";
+import type { CustomTableColumn } from "@/types/CustomTable";
 import type { AdminEntitlementsMessages, LeafKeyOf } from "@/types/libs";
 // components
 import FormatTime from "@/components/FormatTime";
@@ -10,7 +10,7 @@ import EntitlementStatusBadge from "@/views/AdminEntitlements/components/Entitle
 export const buildAdminEntitlementsColumns = (
   tTable: (key: LeafKeyOf<AdminEntitlementsMessages["table"]>) => string,
   tGrant: (key: LeafKeyOf<AdminEntitlementsMessages["grantInfo"]>) => string
-): ListColumn<EntitlementRow>[] => [
+): CustomTableColumn<EntitlementRow>[] => [
   {
     id: "app",
     header: tTable("app"),

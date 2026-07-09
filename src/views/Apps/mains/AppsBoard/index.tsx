@@ -8,11 +8,11 @@ import { useTranslations } from "next-intl";
 import type { UserCategory } from "@/types/Apps";
 // components
 import CustomButton from "@/components/CustomButton";
-import ListPageShell from "@/components/list/ListPageShell";
-import ListPageHeader from "@/components/list/ListPageHeader";
-import ListToolbar from "@/components/list/ListToolbar";
-import ListContent from "@/components/list/ListContent";
-import ListPagination from "@/components/list/ListPagination";
+import PageShell from "@/components/PageContainer/PageShell";
+import PageHeader from "@/components/PageContainer/PageHeader";
+import PageToolbar from "@/components/PageContainer/PageToolbar";
+import PageContent from "@/components/PageContainer/PageContent";
+import CustomPagination from "@/components/CustomPagination";
 import AppCard from "@/components/AppCard";
 import AppCardSkeleton from "../../components/AppCardSkeleton";
 // hooks
@@ -140,15 +140,15 @@ const AppsBoard = ({
   const hasActiveFilters = activeFilterCount > 0 || Boolean(appliedSearch);
 
   return (
-    <ListPageShell>
-      <ListPageHeader title={t("title")} description={t("description")} />
-      <ListToolbar
+    <PageShell>
+      <PageHeader title={t("title")} description={t("description")} />
+      <PageToolbar
         query={query}
         filterDefs={filterDefs}
         searchPlaceholder={t("search.placeholder")}
         rightSlot={<ViewToggle view={view} onViewChange={setView} />}
       />
-      <ListContent
+      <PageContent
         isLoading={isLoading}
         isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
@@ -200,15 +200,15 @@ const AppsBoard = ({
             />
           ))}
         </div>
-      </ListContent>
-      <ListPagination
-        page={meta?.page ?? page}
-        totalPages={meta?.totalPages ?? 1}
-        total={meta?.total ?? 0}
-        onPageChange={setPage}
-        loading={isLoading}
-      />
-    </ListPageShell>
+      </PageContent>
+      {(meta?.totalPages ?? 1) > 1 && (
+        <CustomPagination
+          page={meta?.page ?? page}
+          totalPages={meta?.totalPages ?? 1}
+          onPageChange={setPage}
+        />
+      )}
+    </PageShell>
   );
 };
 

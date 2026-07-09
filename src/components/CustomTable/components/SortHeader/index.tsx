@@ -10,7 +10,7 @@ import CustomButton from "@/components/CustomButton";
 // others
 import { SORT_ORDER } from "@/constants/list";
 
-const ListSortHeader = ({
+const SortHeader = ({
   label,
   active,
   order,
@@ -47,4 +47,4 @@ const ListSortHeader = ({
   );
 };
 
-export default ListSortHeader;
+export default SortHeader;

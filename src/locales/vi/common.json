@@ -136,5 +136,10 @@
       "minLength": "Nội dung phải có ít nhất 20 ký tự",
       "maxLength": "Nội dung không được vượt quá 5000 ký tự"
     }
+  },
+  "table": {
+    "sortBy": "Sắp xếp theo {column}",
+    "sortedAscending": "Đã sắp xếp tăng dần.",
+    "sortedDescending": "Đã sắp xếp giảm dần."
   }
 }

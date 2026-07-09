@@ -6,12 +6,12 @@ import { useTranslations } from "next-intl";
 // types
 import type { AdminContactQuery } from "@/types/ContactAdmin";
 // components
-import ListPageShell from "@/components/list/ListPageShell";
-import ListPageHeader from "@/components/list/ListPageHeader";
-import ListToolbar from "@/components/list/ListToolbar";
-import ListContent from "@/components/list/ListContent";
-import ListTable from "@/components/list/ListTable";
-import ListPagination from "@/components/list/ListPagination";
+import PageShell from "@/components/PageContainer/PageShell";
+import PageHeader from "@/components/PageContainer/PageHeader";
+import PageToolbar from "@/components/PageContainer/PageToolbar";
+import PageContent from "@/components/PageContainer/PageContent";
+import CustomTable from "@/components/CustomTable";
+import CustomPagination from "@/components/CustomPagination";
 import ContactTableSkeleton from "../../components/ContactTableSkeleton";
 // hooks
 import { useListQuery } from "@/hooks";
@@ -72,17 +72,14 @@ const AdminContactTable = () => {
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   return (
-    <ListPageShell fullHeight>
-      <ListPageHeader
-        title={tPage("title")}
-        description={tPage("description")}
-      />
-      <ListToolbar
+    <PageShell fullHeight>
+      <PageHeader title={tPage("title")} description={tPage("description")} />
+      <PageToolbar
         query={query}
         filterDefs={filterDefs}
         searchPlaceholder={tFilters("searchPlaceholder")}
       />
-      <ListContent
+      <PageContent
         fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
@@ -91,7 +88,8 @@ const AdminContactTable = () => {
         skeleton={<ContactTableSkeleton />}
         emptyTitle={tTable("empty")}
       >
-        <ListTable
+        <CustomTable
+          fullHeight
           columns={columns}
           rows={items}
           getRowKey={(r) => r._id}
@@ -99,15 +97,15 @@ const AdminContactTable = () => {
           rowLabel={(r) => tTable("viewDetailFor", { id: r._id })}
           caption={tTable("caption")}
         />
-      </ListContent>
-      <ListPagination
-        page={meta?.page ?? query.page}
-        totalPages={meta?.totalPages ?? 1}
-        total={meta?.total ?? 0}
-        onPageChange={query.setPage}
-        loading={isLoading}
-      />
-    </ListPageShell>
+      </PageContent>
+      {(meta?.totalPages ?? 1) > 1 && (
+        <CustomPagination
+          page={meta?.page ?? query.page}
+          totalPages={meta?.totalPages ?? 1}
+          onPageChange={query.setPage}
+        />
+      )}
+    </PageShell>
   );
 };
 

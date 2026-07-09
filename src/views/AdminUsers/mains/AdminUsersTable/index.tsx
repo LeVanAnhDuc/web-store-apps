@@ -11,12 +11,12 @@ import type {
 } from "@/types/AdminUsers";
 import type { AuthenticationRole } from "@/types/User";
 // components
-import ListPageShell from "@/components/list/ListPageShell";
-import ListPageHeader from "@/components/list/ListPageHeader";
-import ListToolbar from "@/components/list/ListToolbar";
-import ListContent from "@/components/list/ListContent";
-import ListTable from "@/components/list/ListTable";
-import ListPagination from "@/components/list/ListPagination";
+import PageShell from "@/components/PageContainer/PageShell";
+import PageHeader from "@/components/PageContainer/PageHeader";
+import PageToolbar from "@/components/PageContainer/PageToolbar";
+import PageContent from "@/components/PageContainer/PageContent";
+import CustomTable from "@/components/CustomTable";
+import CustomPagination from "@/components/CustomPagination";
 import UserRowActions from "../../components/UserRowActions";
 import UsersTableSkeleton from "../../components/UsersTableSkeleton";
 import AdminUsersResetPasswordDialog from "../AdminUsersResetPasswordDialog";
@@ -79,14 +79,14 @@ const AdminUsersTable = () => {
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
   return (
-    <ListPageShell fullHeight>
-      <ListPageHeader title={t("title")} description={t("description")} />
-      <ListToolbar
+    <PageShell fullHeight>
+      <PageHeader title={t("title")} description={t("description")} />
+      <PageToolbar
         query={query}
         filterDefs={filterDefs}
         searchPlaceholder={tToolbar("searchPlaceholder")}
       />
-      <ListContent
+      <PageContent
         fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
@@ -96,7 +96,8 @@ const AdminUsersTable = () => {
         emptyTitle={tTable("empty")}
         emptyDescription={tTable("emptyDescription")}
       >
-        <ListTable
+        <CustomTable
+          fullHeight
           columns={columns}
           rows={items}
           getRowKey={(r) => r._id}
@@ -110,14 +111,14 @@ const AdminUsersTable = () => {
           )}
           actionsLabel={tTable("actions")}
         />
-      </ListContent>
-      <ListPagination
-        page={meta?.page ?? query.page}
-        totalPages={meta?.totalPages ?? 1}
-        total={meta?.total ?? 0}
-        onPageChange={query.setPage}
-        loading={isLoading}
-      />
+      </PageContent>
+      {(meta?.totalPages ?? 1) > 1 && (
+        <CustomPagination
+          page={meta?.page ?? query.page}
+          totalPages={meta?.totalPages ?? 1}
+          onPageChange={query.setPage}
+        />
+      )}
       <AdminUsersResetPasswordDialog
         target={resetTarget}
         onClose={() => setResetTarget(null)}
@@ -130,7 +131,7 @@ const AdminUsersTable = () => {
         target={forceLogoutTarget}
         onClose={() => setForceLogoutTarget(null)}
       />
-    </ListPageShell>
+    </PageShell>
   );
 };
 

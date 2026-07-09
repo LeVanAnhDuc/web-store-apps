@@ -136,5 +136,10 @@
       "minLength": "Message must be at least 20 characters",
       "maxLength": "Message must not exceed 5000 characters"
     }
+  },
+  "table": {
+    "sortBy": "Sort by {column}",
+    "sortedAscending": "Sorted ascending.",
+    "sortedDescending": "Sorted descending."
   }
 }

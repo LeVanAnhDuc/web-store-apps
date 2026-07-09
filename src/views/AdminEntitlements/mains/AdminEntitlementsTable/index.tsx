@@ -8,11 +8,11 @@ import { useTranslations } from "next-intl";
 import type { EntitlementRow } from "@/types/AdminEntitlements";
 // components
 import { Label } from "@/components/ui/label";
-import ListPageShell from "@/components/list/ListPageShell";
-import ListPageHeader from "@/components/list/ListPageHeader";
-import ListToolbar from "@/components/list/ListToolbar";
-import ListContent from "@/components/list/ListContent";
-import ListTable from "@/components/list/ListTable";
+import PageShell from "@/components/PageContainer/PageShell";
+import PageHeader from "@/components/PageContainer/PageHeader";
+import PageToolbar from "@/components/PageContainer/PageToolbar";
+import PageContent from "@/components/PageContainer/PageContent";
+import CustomTable from "@/components/CustomTable";
 import GrantToggleButton from "../../components/GrantToggleButton";
 import UserNotSelectedEmpty from "../../components/UserNotSelectedEmpty";
 import EntitlementsTableSkeleton from "../../components/EntitlementsTableSkeleton";
@@ -104,9 +104,9 @@ const AdminEntitlementsTable = () => {
   );
 
   return (
-    <ListPageShell fullHeight>
-      <ListPageHeader title={t("title")} description={t("description")} />
-      <ListToolbar
+    <PageShell fullHeight>
+      <PageHeader title={t("title")} description={t("description")} />
+      <PageToolbar
         query={query}
         searchPlaceholder={tToolbar("appSearchPlaceholder")}
         rightSlot={userPickerSlot}
@@ -114,7 +114,7 @@ const AdminEntitlementsTable = () => {
       {!user ? (
         <UserNotSelectedEmpty />
       ) : (
-        <ListContent
+        <PageContent
           fullHeight
           isLoading={isLoading}
           isEmpty={filtered.length === 0}
@@ -122,7 +122,8 @@ const AdminEntitlementsTable = () => {
           onClearFilters={query.clearFilters}
           skeleton={<EntitlementsTableSkeleton />}
         >
-          <ListTable
+          <CustomTable
+            fullHeight
             columns={columns}
             rows={filtered}
             getRowKey={(r) => r.app._id}
@@ -141,14 +142,14 @@ const AdminEntitlementsTable = () => {
             }}
             actionsLabel={tTable("action")}
           />
-        </ListContent>
+        </PageContent>
       )}
       <AdminEntitlementsRevokeDialog
         user={user}
         target={revokeTarget}
         onClose={() => setRevokeTarget(null)}
       />
-    </ListPageShell>
+    </PageShell>
   );
 };
 

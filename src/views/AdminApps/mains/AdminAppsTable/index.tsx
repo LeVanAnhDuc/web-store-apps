@@ -13,12 +13,11 @@ import type {
   WebApp
 } from "@/types/AdminApps";
 // components
-import ListPageShell from "@/components/list/ListPageShell";
-import ListPageHeader from "@/components/list/ListPageHeader";
-import ListToolbar from "@/components/list/ListToolbar";
-import ListContent from "@/components/list/ListContent";
-import ListTable from "@/components/list/ListTable";
-import ListPagination from "@/components/list/ListPagination";
+import PageShell from "@/components/PageContainer/PageShell";
+import PageHeader from "@/components/PageContainer/PageHeader";
+import PageToolbar from "@/components/PageContainer/PageToolbar";
+import PageContent from "@/components/PageContainer/PageContent";
+import CustomTable from "@/components/CustomTable";
 import CustomButton from "@/components/CustomButton";
 import AppRowActions from "../../components/AppRowActions";
 import AdminAppsLoading from "../../components/AdminAppsLoading";
@@ -163,8 +162,8 @@ const AdminAppsTable = () => {
   const handleCloseSecret = () => setCreatedApp(null);
 
   return (
-    <ListPageShell fullHeight>
-      <ListPageHeader
+    <PageShell fullHeight>
+      <PageHeader
         title={t("title")}
         description={t("description")}
         action={
@@ -176,12 +175,12 @@ const AdminAppsTable = () => {
           </CustomButton>
         }
       />
-      <ListToolbar
+      <PageToolbar
         query={query}
         filterDefs={filterDefs}
         searchPlaceholder={tToolbar("searchPlaceholder")}
       />
-      <ListContent
+      <PageContent
         fullHeight
         isLoading={isLoading}
         isEmpty={items.length === 0}
@@ -191,7 +190,8 @@ const AdminAppsTable = () => {
         emptyTitle={tTable("empty")}
         emptyDescription={tTable("emptyCta")}
       >
-        <ListTable
+        <CustomTable
+          fullHeight
           columns={columns}
           rows={items}
           getRowKey={(r) => r._id}
@@ -208,14 +208,7 @@ const AdminAppsTable = () => {
           )}
           actionsLabel={tTable("actions")}
         />
-      </ListContent>
-      <ListPagination
-        page={query.page}
-        totalPages={1}
-        total={items.length}
-        onPageChange={query.setPage}
-        loading={isLoading}
-      />
+      </PageContent>
       <AdminAppsFormSheet
         open={formOpen}
         editingApp={editingApp}
@@ -224,7 +217,7 @@ const AdminAppsTable = () => {
       />
       <AdminAppsHideDialog target={hideTarget} onClose={handleCloseHide} />
       <AdminAppsSecretDialog app={createdApp} onClose={handleCloseSecret} />
-    </ListPageShell>
+    </PageShell>
   );
 };
 

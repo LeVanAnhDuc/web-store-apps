@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 // components
 import CustomButton from "@/components/CustomButton";
 
-const ListEmptyState = ({
+const PageEmptyState = ({
   hasActiveFilters,
   onClearFilters,
   title,
@@ -50,4 +50,4 @@ const ListEmptyState = ({
   );
 };
 
-export default ListEmptyState;
+export default PageEmptyState;

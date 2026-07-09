@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/popover";
 import CustomButton from "@/components/CustomButton";
 import SearchInput from "@/components/SearchInput";
-import ListFilterPanel from "../ListFilterPanel";
+import PageFilterPanel from "../PageFilterPanel";
 
-const ListToolbar = ({
+const PageToolbar = ({
   query,
   filterDefs = [],
   searchPlaceholder,
@@ -67,7 +67,7 @@ const ListToolbar = ({
               </CustomButton>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-80">
-              <ListFilterPanel filterDefs={filterDefs} query={query} />
+              <PageFilterPanel filterDefs={filterDefs} query={query} />
             </PopoverContent>
           </Popover>
         )}
@@ -76,4 +76,4 @@ const ListToolbar = ({
   );
 };
 
-export default ListToolbar;
+export default PageToolbar;
