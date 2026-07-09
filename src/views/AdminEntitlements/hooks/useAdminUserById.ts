@@ -1,14 +1,17 @@
 // libs
-import { useQuery } from "@tanstack/react-query";
-// others
-import CONSTANTS from "@/constants";
-import { getAdminUserById } from "@/mocks/AdminUsers";
+import { useMemo } from "react";
+// hooks
+import useAdminUsers from "./useAdminUsers";
 
-const useAdminUserById = (userId: string | null) =>
-  useQuery({
-    queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_USER, userId],
-    queryFn: () => getAdminUserById(userId!),
-    enabled: Boolean(userId)
-  });
+const useAdminUserById = (userId: string | null) => {
+  const { data: users, isLoading } = useAdminUsers();
+
+  const data = useMemo(
+    () => users?.find((user) => user._id === userId) ?? null,
+    [users, userId]
+  );
+
+  return { data, isLoading };
+};
 
 export default useAdminUserById;

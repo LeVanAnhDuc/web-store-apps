@@ -1,7 +1,7 @@
 "use client";
 
 // types
-import type { AdminUser } from "@/types/AdminUsers";
+import type { AdminUserOption } from "@/types/AdminUsers";
 // components
 import {
   Select,
@@ -30,7 +30,7 @@ const UserPickerSelect = ({
         <SelectValue placeholder={placeholder} />
       </CustomSelectTrigger>
       <SelectContent>
-        {users.map((user: AdminUser) => (
+        {users.map((user: AdminUserOption) => (
           <SelectItem key={user._id} value={user._id}>
             <div className="flex items-center gap-2">
               <span className="text-foreground">{user.fullName}</span>

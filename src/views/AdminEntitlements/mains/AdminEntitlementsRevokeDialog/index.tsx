@@ -4,7 +4,7 @@
 import { useTranslations } from "next-intl";
 // types
 import type { EntitlementRow } from "@/types/AdminEntitlements";
-import type { AdminUser } from "@/types/AdminUsers";
+import type { AdminUserOption } from "@/types/AdminUsers";
 // components
 import CustomButton from "@/components/CustomButton";
 import {
@@ -24,7 +24,7 @@ const AdminEntitlementsRevokeDialog = ({
   target,
   onClose
 }: {
-  user: AdminUser | null;
+  user: AdminUserOption | null;
   target: EntitlementRow | null;
   onClose: () => void;
 }) => {

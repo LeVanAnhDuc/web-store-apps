@@ -1,5 +1,6 @@
 // types
 import type {
+  AdminUserOption,
   AdminUsersQueryParams,
   PaginatedAdminUsersResponse
 } from "@/types/AdminUsers";
@@ -15,5 +16,12 @@ export const getAdminUsers = async (
   const response = await axiosInstance.get<
     ResponsePattern<PaginatedAdminUsersResponse>
   >(END_POINTS.ADMIN_USERS, { params });
+  return response.data.data;
+};
+
+export const getAdminUserOptions = async (): Promise<AdminUserOption[]> => {
+  const response = await axiosInstance.get<ResponsePattern<AdminUserOption[]>>(
+    END_POINTS.ADMIN_USER_OPTIONS
+  );
   return response.data.data;
 };

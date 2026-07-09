@@ -15,6 +15,13 @@ export interface AdminUser {
   createdAt: string;
 }
 
+export interface AdminUserOption {
+  _id: string;
+  fullName: string;
+  email: string;
+  role: AuthenticationRole;
+}
+
 export type AdminUserStatusFilter =
   (typeof ADMIN_USER_STATUS)[keyof typeof ADMIN_USER_STATUS];
 

@@ -1,13 +1,14 @@
 // libs
 import { useQuery } from "@tanstack/react-query";
+// requests
+import { getAdminUserOptions } from "@/requests/adminUsers";
 // others
 import CONSTANTS from "@/constants";
-import { getAdminUsers } from "@/mocks/AdminUsers";
 
 const useAdminUsers = () =>
   useQuery({
     queryKey: [CONSTANTS.QUERY_KEYS.ADMIN_USERS],
-    queryFn: getAdminUsers
+    queryFn: getAdminUserOptions
   });
 
 export default useAdminUsers;
