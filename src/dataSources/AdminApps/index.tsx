@@ -9,6 +9,7 @@ import AppStatusBadge from "@/views/AdminApps/components/AppStatusBadge";
 import RoleChip from "@/views/AdminApps/components/RoleChip";
 // others
 import CONSTANTS from "@/constants";
+import { COLUMN_BREAKPOINT } from "@/constants/list";
 
 const { AUTHENTICATION_ROLES, APP_STATUS } = CONSTANTS;
 
@@ -48,6 +49,8 @@ export const buildAdminAppsColumns = (
   {
     id: "app",
     header: tTable("app"),
+    sortable: true,
+    width: "28%",
     cell: (app) => (
       <div className="flex flex-col">
         <span className="text-foreground font-medium">{app.displayName}</span>
@@ -60,6 +63,7 @@ export const buildAdminAppsColumns = (
   {
     id: "category",
     header: tTable("category"),
+    hideBelow: COLUMN_BREAKPOINT.SM,
     cell: (app) => categoryMap.get(app.categoryId) ?? "—",
     cellClassName: "text-muted-foreground text-sm"
   },
@@ -82,13 +86,23 @@ export const buildAdminAppsColumns = (
   {
     id: "redirectUris",
     header: tTable("redirectUris"),
+    hideBelow: COLUMN_BREAKPOINT.MD,
     cell: (app) => app.redirectUris.length,
     cellClassName: "text-muted-foreground text-sm"
   },
   {
     id: "updatedAt",
     header: tTable("updatedAt"),
+    sortable: true,
     cell: (app) => <FormatTime value={app.updatedAt} variant="datetime" />,
     cellClassName: "text-muted-foreground text-xs"
   }
 ];
+
+export const ADMIN_APPS_SORT_ACCESSORS: Record<
+  string,
+  (app: WebApp) => string | number
+> = {
+  app: (app) => app.displayName.toLowerCase(),
+  updatedAt: (app) => app.updatedAt
+};

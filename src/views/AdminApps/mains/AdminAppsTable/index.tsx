@@ -26,13 +26,14 @@ import AdminAppsFormSheet from "../AdminAppsFormSheet";
 import AdminAppsHideDialog from "../AdminAppsHideDialog";
 import AdminAppsSecretDialog from "../AdminAppsSecretDialog";
 // hooks
-import { useListQuery, useAnnounce } from "@/hooks";
+import { useListQuery, useAnnounce, useClientSortedRows } from "@/hooks";
 import useSetAdminAppStatus from "../../hooks/useSetAdminAppStatus";
 // dataSources
 import {
   APP_STATUSES,
   buildAdminAppsFilterDefs,
-  buildAdminAppsColumns
+  buildAdminAppsColumns,
+  ADMIN_APPS_SORT_ACCESSORS
 } from "@/dataSources/AdminApps";
 // requests
 import { getAdminApps, getAdminAppCategories } from "@/requests/adminApps";
@@ -117,7 +118,13 @@ const AdminAppsTable = () => {
     [categories, tCategory]
   );
 
-  const items = data?.items ?? [];
+  const rawItems = data?.items ?? [];
+  const items = useClientSortedRows(
+    rawItems,
+    query.sortBy,
+    query.sortOrder,
+    ADMIN_APPS_SORT_ACCESSORS
+  );
   const hasActiveFilters =
     query.activeFilterCount > 0 || Boolean(query.appliedSearch);
 
@@ -188,6 +195,9 @@ const AdminAppsTable = () => {
           columns={columns}
           rows={items}
           getRowKey={(r) => r._id}
+          sortBy={query.sortBy}
+          sortOrder={query.sortOrder}
+          onSort={query.setSort}
           rowActions={(app) => (
             <AppRowActions
               app={app}
