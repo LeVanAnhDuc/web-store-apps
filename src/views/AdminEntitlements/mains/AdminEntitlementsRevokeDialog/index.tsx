@@ -3,8 +3,8 @@
 // libs
 import { useTranslations } from "next-intl";
 // types
-import type { EntitlementRow } from "@/types/AdminEntitlements";
 import type { AdminUser } from "@/types/AdminUsers";
+import type { BulkEntitlementRow } from "@/types/AdminEntitlements";
 // components
 import CustomButton from "@/components/CustomButton";
 import {
@@ -17,57 +17,46 @@ import {
 } from "@/components/ui/dialog";
 // hooks
 import { useAnnounce } from "@/hooks";
-import useRevokeEntitlement from "../../hooks/useRevokeEntitlement";
+import useRevokeBulk from "../../hooks/useRevokeBulk";
 
 const AdminEntitlementsRevokeDialog = ({
-  user,
+  selectedUsers,
   target,
   onClose
 }: {
-  user: AdminUser | null;
-  target: EntitlementRow | null;
+  selectedUsers: AdminUser[];
+  target: BulkEntitlementRow | null;
   onClose: () => void;
 }) => {
-  const t = useTranslations("adminEntitlements");
+  const t = useTranslations("adminEntitlements.revoke");
   const tActions = useTranslations("adminEntitlements.actions");
   const tAnnounce = useTranslations("adminEntitlements.announce");
   const { announce } = useAnnounce();
 
-  const mutation = useRevokeEntitlement();
+  const mutation = useRevokeBulk();
+  const appName = target?.app.displayName ?? "";
+  const count = selectedUsers.length;
 
   const handleConfirm = () => {
-    if (target && user) {
-      mutation.mutate(
-        { userId: user._id, webAppId: target.app._id },
-        {
-          onSuccess: () => {
-            announce(
-              tAnnounce("revoked", {
-                appName: target.app.displayName,
-                userName: user.fullName
-              })
-            );
-            onClose();
-          }
+    if (!target) return;
+    mutation.mutate(
+      { appId: target.app._id, userIds: selectedUsers.map((user) => user._id) },
+      {
+        onSuccess: () => {
+          announce(tAnnounce("revoked", { appName, count }));
+          onClose();
         }
-      );
-    }
+      }
+    );
   };
 
   return (
-    <Dialog open={target !== null} onOpenChange={(o) => !o && onClose()}>
+    <Dialog open={target !== null} onOpenChange={(open) => !open && onClose()}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            {target
-              ? t("revoke.title", { appName: target.app.displayName })
-              : t("revoke.title", { appName: "" })}
-          </DialogTitle>
+          <DialogTitle>{t("title", { appName })}</DialogTitle>
           <DialogDescription>
-            {t("revoke.description", {
-              userName: user?.fullName ?? "",
-              appName: target?.app.displayName ?? ""
-            })}
+            {t("description", { appName, count })}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -85,7 +74,7 @@ const AdminEntitlementsRevokeDialog = ({
             loading={mutation.isPending}
             onClick={handleConfirm}
           >
-            {tActions("confirmRevoke")}
+            {tActions("revokeAll")}
           </CustomButton>
         </DialogFooter>
       </DialogContent>

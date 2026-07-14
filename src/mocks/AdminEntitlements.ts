@@ -1,9 +1,9 @@
 // types
 import type {
+  BulkEntitlementInput,
+  BulkEntitlementRow,
   Entitlement,
-  EntitlementRow,
-  EntitlementStatus,
-  GrantEntitlementInput
+  EntitlementStatus
 } from "@/types/AdminEntitlements";
 // requests
 import { getAdminApps } from "@/requests/adminApps";
@@ -11,7 +11,7 @@ import { getAdminApps } from "@/requests/adminApps";
 import { MOCK_ADMIN_USERS } from "./AdminUsers";
 import CONSTANTS from "@/constants";
 
-const { GRANTED, NOT_GRANTED, INSUFFICIENT_ROLE } =
+const { GRANTED, PARTIAL, NOT_GRANTED, INSUFFICIENT_ROLE } =
   CONSTANTS.ENTITLEMENT_STATUS;
 
 const SIMULATED_LATENCY_MS = 250;
@@ -62,70 +62,97 @@ const MOCK_ENTITLEMENTS: Entitlement[] = [
   // Dave (user) — no entitlements yet
 ];
 
-const findActiveEntitlement = (
-  userId: string,
-  webAppId: string
-): Entitlement | undefined =>
-  MOCK_ENTITLEMENTS.find(
+const isGranted = (userId: string, webAppId: string): boolean =>
+  MOCK_ENTITLEMENTS.some(
     (e) =>
       e.userId === userId && e.webAppId === webAppId && e.revokedAt === null
   );
 
-export const getEntitlementsByUserId = async (
-  userId: string
-): Promise<EntitlementRow[]> => {
+const isInsufficientRole = (
+  userId: string,
+  requiredRoles: string[]
+): boolean => {
   const user = MOCK_ADMIN_USERS.find((u) => u._id === userId);
-  if (!user) throw new Error(`User ${userId} not found`);
+  // Unknown users (e.g. selected via the real API) have no known mock role,
+  // so we cannot assert a role deficiency — treat them as sufficient.
+  if (!user) return false;
+  // Apps with no required roles are open to everyone — never insufficient.
+  return requiredRoles.length > 0 && !requiredRoles.includes(user.role);
+};
+
+const deriveStatus = (
+  grantedCount: number,
+  totalCount: number,
+  insufficientCount: number
+): EntitlementStatus => {
+  if (insufficientCount > 0) return INSUFFICIENT_ROLE;
+  if (totalCount > 0 && grantedCount === totalCount) return GRANTED;
+  if (grantedCount === 0) return NOT_GRANTED;
+  return PARTIAL;
+};
+
+export const getBulkEntitlements = async (
+  userIds: string[]
+): Promise<BulkEntitlementRow[]> => {
   const { items: apps } = await getAdminApps();
-  const rows: EntitlementRow[] = apps.map((app) => {
-    const entitlement = findActiveEntitlement(userId, app._id) ?? null;
-    let status: EntitlementStatus;
-    if (entitlement) status = GRANTED;
-    else if (!app.requiredRoles.includes(user.role)) status = INSUFFICIENT_ROLE;
-    else status = NOT_GRANTED;
-    return { app, entitlement, status };
+  const rows: BulkEntitlementRow[] = apps.map((app) => {
+    const insufficientRoleUserIds = userIds.filter((userId) =>
+      isInsufficientRole(userId, app.requiredRoles)
+    );
+    const grantedCount = userIds.filter((userId) =>
+      isGranted(userId, app._id)
+    ).length;
+    const totalCount = userIds.length;
+    return {
+      app,
+      grantedCount,
+      totalCount,
+      status: deriveStatus(
+        grantedCount,
+        totalCount,
+        insufficientRoleUserIds.length
+      ),
+      insufficientRoleUserIds
+    };
   });
   return delay(rows);
 };
 
-export const grantEntitlement = async (
-  input: GrantEntitlementInput
-): Promise<Entitlement> => {
-  const existing = MOCK_ENTITLEMENTS.find(
-    (e) => e.userId === input.userId && e.webAppId === input.webAppId
-  );
-  if (existing) {
-    existing.revokedAt = null;
-    existing.grantedAt = new Date().toISOString();
-    existing.grantedBy = ADMIN_ACTOR_ID;
-    return delay(existing);
-  }
-  const created: Entitlement = {
-    _id: generateId("ent"),
-    userId: input.userId,
-    webAppId: input.webAppId,
-    grantedBy: ADMIN_ACTOR_ID,
-    grantedAt: new Date().toISOString(),
-    revokedAt: null
-  };
-  MOCK_ENTITLEMENTS.push(created);
-  return delay(created);
+export const grantEntitlementBulk = async ({
+  appId,
+  userIds
+}: BulkEntitlementInput): Promise<void> => {
+  userIds.forEach((userId) => {
+    const existing = MOCK_ENTITLEMENTS.find(
+      (e) => e.userId === userId && e.webAppId === appId
+    );
+    if (existing) {
+      existing.revokedAt = null;
+      existing.grantedAt = new Date().toISOString();
+      existing.grantedBy = ADMIN_ACTOR_ID;
+      return;
+    }
+    MOCK_ENTITLEMENTS.push({
+      _id: generateId("ent"),
+      userId,
+      webAppId: appId,
+      grantedBy: ADMIN_ACTOR_ID,
+      grantedAt: new Date().toISOString(),
+      revokedAt: null
+    });
+  });
+  return delay(undefined);
 };
 
-export const revokeEntitlement = async (
-  input: GrantEntitlementInput
-): Promise<{ userId: string; webAppId: string }> => {
-  const existing = MOCK_ENTITLEMENTS.find(
-    (e) =>
-      e.userId === input.userId &&
-      e.webAppId === input.webAppId &&
-      e.revokedAt === null
-  );
-  if (!existing) {
-    throw new Error(
-      `No active entitlement for user ${input.userId} on app ${input.webAppId}`
+export const revokeEntitlementBulk = async ({
+  appId,
+  userIds
+}: BulkEntitlementInput): Promise<void> => {
+  userIds.forEach((userId) => {
+    const existing = MOCK_ENTITLEMENTS.find(
+      (e) => e.userId === userId && e.webAppId === appId && e.revokedAt === null
     );
-  }
-  existing.revokedAt = new Date().toISOString();
-  return delay({ userId: input.userId, webAppId: input.webAppId });
+    if (existing) existing.revokedAt = new Date().toISOString();
+  });
+  return delay(undefined);
 };

@@ -15,13 +15,15 @@ export interface Entitlement {
 export type EntitlementStatus =
   (typeof ENTITLEMENT_STATUS)[keyof typeof ENTITLEMENT_STATUS];
 
-export interface EntitlementRow {
+export interface BulkEntitlementRow {
   app: WebApp;
-  entitlement: Entitlement | null;
+  grantedCount: number;
+  totalCount: number;
   status: EntitlementStatus;
+  insufficientRoleUserIds: string[];
 }
 
-export interface GrantEntitlementInput {
-  userId: string;
-  webAppId: string;
+export interface BulkEntitlementInput {
+  appId: string;
+  userIds: string[];
 }

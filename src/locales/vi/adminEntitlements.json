@@ -1,50 +1,36 @@
 {
   "title": "Phân quyền truy cập",
-  "description": "Cấp hoặc thu hồi quyền truy cập app theo từng người dùng. Override mặc định role-based theo từng case riêng.",
-  "toolbar": {
-    "user": "Người dùng",
-    "userPlaceholder": "Chọn người dùng…",
-    "appSearchPlaceholder": "Lọc theo tên hoặc mô tả ứng dụng…",
-    "clear": "Xóa bộ lọc"
+  "subtitle": "Cấp hoặc thu hồi quyền truy cập app cho một hoặc nhiều người dùng cùng lúc.",
+  "picker": {
+    "searchPlaceholder": "Tìm người dùng theo tên hoặc email...",
+    "results": "Kết quả",
+    "showing": "Hiển thị {shown} trên {total} — hãy thu hẹp tìm kiếm",
+    "noResults": "Không tìm thấy người dùng",
+    "removeUser": "Bỏ chọn {name}"
   },
-  "emptyUser": {
-    "title": "Chọn người dùng để quản lý phân quyền",
-    "description": "Chọn một người dùng từ dropdown phía trên để xem và chỉnh sửa quyền truy cập app vệ tinh của họ."
-  },
-  "emptyApps": {
-    "title": "Không có ứng dụng phù hợp",
-    "description": "Thử điều chỉnh tìm kiếm hoặc xóa bộ lọc."
-  },
-  "table": {
-    "app": "Ứng dụng",
-    "category": "Danh mục",
-    "requiredRoles": "Role yêu cầu",
-    "status": "Trạng thái",
-    "grantInfo": "Thông tin cấp quyền",
-    "action": "Thao tác"
+  "matrix": {
+    "title": "Quyền truy cập app",
+    "subtitle": "Thay đổi áp dụng cho tất cả {count} người dùng đã chọn."
   },
   "status": {
-    "granted": "Đã cấp",
+    "allGranted": "Đã cấp tất cả",
+    "partial": "Đã cấp {granted}/{total}",
     "notGranted": "Chưa cấp",
-    "insufficientRole": "Không đủ role"
-  },
-  "grantInfo": {
-    "by": "bởi",
-    "on": "vào",
-    "neverGranted": "—"
+    "roleRequired": "Cần role phù hợp"
   },
   "actions": {
-    "grant": "Cấp quyền",
-    "revoke": "Thu hồi",
-    "granting": "Đang cấp…",
-    "revoking": "Đang thu hồi…",
-    "confirmRevoke": "Thu hồi quyền",
-    "cancel": "Hủy",
-    "blockedTooltip": "Role của người dùng không đáp ứng yêu cầu của ứng dụng này."
+    "grantAll": "Cấp tất cả",
+    "revokeAll": "Thu hồi tất cả",
+    "roleRequiredTooltip": "Một số người dùng đã chọn không đủ role yêu cầu.",
+    "cancel": "Hủy"
   },
   "revoke": {
     "title": "Thu hồi quyền truy cập {appName}?",
-    "description": "{userName} sẽ mất quyền SSO vào ứng dụng này ngay lập tức. Lịch sử cấp quyền ban đầu vẫn được giữ để audit. Bạn có thể cấp lại sau."
+    "description": "Tất cả {count} người dùng đã chọn sẽ mất quyền truy cập {appName} ngay lập tức. Bạn có thể cấp lại sau."
+  },
+  "emptyUser": {
+    "title": "Chưa chọn người dùng",
+    "description": "Tìm và chọn một hoặc nhiều người dùng phía trên để quản lý quyền truy cập app của họ."
   },
   "toast": {
     "grantSuccess": "Đã cấp quyền.",
@@ -52,7 +38,10 @@
     "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
   },
   "announce": {
-    "granted": "Đã cấp quyền truy cập {appName} cho {userName}.",
-    "revoked": "Đã thu hồi quyền truy cập {appName} của {userName}."
+    "results": "Tìm thấy {count} người dùng.",
+    "selected": "Đã chọn {name}.",
+    "deselected": "Đã bỏ chọn {name}.",
+    "granted": "Đã cấp quyền truy cập {appName} cho {count} người dùng đã chọn.",
+    "revoked": "Đã thu hồi quyền truy cập {appName} của {count} người dùng đã chọn."
   }
 }

@@ -1,50 +1,36 @@
 {
   "title": "Entitlements",
-  "description": "Grant or revoke per-user access to satellite apps. Override default role-based access on a case-by-case basis.",
-  "toolbar": {
-    "user": "User",
-    "userPlaceholder": "Select a user…",
-    "appSearchPlaceholder": "Filter by app name or description…",
-    "clear": "Clear filters"
+  "subtitle": "Grant or revoke app access for one or more users at once.",
+  "picker": {
+    "searchPlaceholder": "Search users by name or email...",
+    "results": "Results",
+    "showing": "Showing {shown} of {total} — refine your search",
+    "noResults": "No users found",
+    "removeUser": "Remove {name}"
   },
-  "emptyUser": {
-    "title": "Select a user to manage entitlements",
-    "description": "Pick a user from the dropdown above to view and edit their access to satellite apps."
-  },
-  "emptyApps": {
-    "title": "No apps match",
-    "description": "Try adjusting the search or clearing the filter."
-  },
-  "table": {
-    "app": "App",
-    "category": "Category",
-    "requiredRoles": "Required Roles",
-    "status": "Status",
-    "grantInfo": "Grant Info",
-    "action": "Action"
+  "matrix": {
+    "title": "App access",
+    "subtitle": "Changes apply to all {count} selected users."
   },
   "status": {
-    "granted": "Granted",
+    "allGranted": "All granted",
+    "partial": "{granted}/{total} granted",
     "notGranted": "Not granted",
-    "insufficientRole": "Insufficient role"
-  },
-  "grantInfo": {
-    "by": "by",
-    "on": "on",
-    "neverGranted": "—"
+    "roleRequired": "Role required"
   },
   "actions": {
-    "grant": "Grant",
-    "revoke": "Revoke",
-    "granting": "Granting…",
-    "revoking": "Revoking…",
-    "confirmRevoke": "Revoke Access",
-    "cancel": "Cancel",
-    "blockedTooltip": "User role does not meet this app's requirements."
+    "grantAll": "Grant all",
+    "revokeAll": "Revoke all",
+    "roleRequiredTooltip": "Some selected users lack the required role.",
+    "cancel": "Cancel"
   },
   "revoke": {
     "title": "Revoke access to {appName}?",
-    "description": "{userName} will lose SSO access to this app immediately. The audit trail of the original grant is preserved. You can grant again later."
+    "description": "All {count} selected users will lose access to {appName} immediately. You can grant it again later."
+  },
+  "emptyUser": {
+    "title": "No users selected",
+    "description": "Search and select one or more users above to manage their app access."
   },
   "toast": {
     "grantSuccess": "Access granted.",
@@ -52,7 +38,10 @@
     "error": "Something went wrong. Please try again."
   },
   "announce": {
-    "granted": "Granted access to {appName} for {userName}.",
-    "revoked": "Revoked access to {appName} for {userName}."
+    "results": "{count} users found.",
+    "selected": "Selected {name}.",
+    "deselected": "Removed {name}.",
+    "granted": "Granted access to {appName} for {count} selected users.",
+    "revoked": "Revoked access to {appName} from {count} selected users."
   }
 }
