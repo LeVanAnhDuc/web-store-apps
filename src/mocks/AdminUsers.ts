@@ -61,19 +61,6 @@ export const getAdminUserById = async (
   return delay(user);
 };
 
-const updateUser = (id: string, patch: Partial<AdminUser>): AdminUser => {
-  const idx = MOCK_USERS.findIndex((u) => u._id === id);
-  if (idx === -1) throw new Error(`User ${id} not found`);
-  MOCK_USERS[idx] = { ...MOCK_USERS[idx], ...patch };
-  return MOCK_USERS[idx];
-};
-
-export const lockAdminUser = async (id: string): Promise<AdminUser> =>
-  delay(updateUser(id, { isActive: false }));
-
-export const unlockAdminUser = async (id: string): Promise<AdminUser> =>
-  delay(updateUser(id, { isActive: true }));
-
 export const resetAdminUserPassword = async (
   id: string
 ): Promise<{ id: string; email: string }> => {

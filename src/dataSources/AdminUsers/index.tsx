@@ -1,6 +1,7 @@
 // types
 import type { AdminUser } from "@/types/AdminUsers";
-import type { ListColumn, ListFilterDef } from "@/types/List";
+import type { CustomTableColumn } from "@/types/CustomTable";
+import type { ListFilterDef } from "@/types/List";
 import type { AdminUsersMessages, LeafKeyOf } from "@/types/libs";
 // components
 import FormatTime from "@/components/FormatTime";
@@ -42,7 +43,7 @@ export const buildAdminUsersFilterDefs = (
 
 export const buildAdminUsersColumns = (
   tTable: (key: LeafKeyOf<AdminUsersMessages["table"]>) => string
-): ListColumn<AdminUser>[] => [
+): CustomTableColumn<AdminUser>[] => [
   {
     id: "user",
     header: tTable("user"),

@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 // others
 import CONSTANTS from "@/constants";
-import { lockAdminUser } from "@/mocks/AdminUsers";
+import { lockAdminUser } from "@/requests/adminUsers";
 
 const useLockAdminUser = () => {
   const queryClient = useQueryClient();

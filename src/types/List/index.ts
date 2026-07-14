@@ -1,13 +1,8 @@
-// libs
-import type { ReactNode } from "react";
 // types
 import type LIST from "@/constants/list";
-import type { SORT_ORDER, COLUMN_BREAKPOINT } from "@/constants/list";
+import type { SORT_ORDER } from "@/constants/list";
 
 export type SortOrder = (typeof SORT_ORDER)[keyof typeof SORT_ORDER];
-
-export type ColumnBreakpoint =
-  (typeof COLUMN_BREAKPOINT)[keyof typeof COLUMN_BREAKPOINT];
 
 export type DateRangePreset = (typeof LIST.DATE_PRESETS)[number];
 
@@ -40,19 +35,4 @@ export interface ListQueryState {
   clearFilters: () => void;
   setPage: (page: number) => void;
   setSort: (sortBy: string, sortOrder: SortOrder) => void;
-}
-
-export type ColumnAlign = "left" | "center" | "right";
-
-export interface ListColumn<T> {
-  id: string;
-  header: ReactNode;
-  align?: ColumnAlign;
-  cell: (row: T) => ReactNode;
-  headerClassName?: string;
-  cellClassName?: string;
-  srOnlyHeader?: boolean;
-  sortable?: boolean;
-  width?: string;
-  hideBelow?: ColumnBreakpoint;
 }

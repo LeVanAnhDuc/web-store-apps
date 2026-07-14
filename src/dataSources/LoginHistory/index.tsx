@@ -1,7 +1,8 @@
 // libs
 import type { ReactNode } from "react";
 // types
-import type { ListColumn, ListFilterDef } from "@/types/List";
+import type { CustomTableColumn } from "@/types/CustomTable";
+import type { ListFilterDef } from "@/types/List";
 import type {
   LoginHistoryAdminItem,
   LoginHistoryItem,
@@ -66,7 +67,7 @@ export const buildLoginHistoryColumns = (
   tStatus: (key: LeafKeyOf<LoginHistoryMessages["status"]>) => string,
   tMethod: (key: LeafKeyOf<LoginHistoryMessages["method"]>) => string,
   tLocation: (key: LeafKeyOf<LoginHistoryMessages["location"]>) => string
-): ListColumn<LoginHistoryItem>[] => [
+): CustomTableColumn<LoginHistoryItem>[] => [
   {
     id: "createdAt",
     header: tTable("createdAt"),
@@ -136,7 +137,7 @@ export const buildAdminLoginHistoryColumns = (
   tMethod: (key: LeafKeyOf<LoginHistoryMessages["method"]>) => string,
   tStatus: (key: LeafKeyOf<LoginHistoryMessages["status"]>) => string,
   tLocation: (key: LeafKeyOf<LoginHistoryMessages["location"]>) => string
-): ListColumn<LoginHistoryAdminItem>[] => [
+): CustomTableColumn<LoginHistoryAdminItem>[] => [
   {
     id: "usernameAttempted",
     header: tTable("usernameAttempted"),

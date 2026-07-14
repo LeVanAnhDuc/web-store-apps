@@ -9,10 +9,10 @@ import type { FavoritesSortKey } from "@/types/Apps";
 import AppCard from "@/components/AppCard";
 import AppCardSkeleton from "@/views/Apps/components/AppCardSkeleton";
 import CustomButton from "@/components/CustomButton";
-import ListPageShell from "@/components/list/ListPageShell";
-import ListPageHeader from "@/components/list/ListPageHeader";
-import ListToolbar from "@/components/list/ListToolbar";
-import ListContent from "@/components/list/ListContent";
+import PageShell from "@/components/PageContainer/PageShell";
+import PageHeader from "@/components/PageContainer/PageHeader";
+import PageToolbar from "@/components/PageContainer/PageToolbar";
+import PageContent from "@/components/PageContainer/PageContent";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -109,15 +109,15 @@ const FavoritesGrid = () => {
   );
 
   return (
-    <ListPageShell>
-      <ListPageHeader title={t("title")} description={t("description")} />
-      <ListToolbar
+    <PageShell>
+      <PageHeader title={t("title")} description={t("description")} />
+      <PageToolbar
         query={query}
         filterDefs={filterDefs}
         searchPlaceholder={t("search.placeholder")}
         rightSlot={SortDropdown}
       />
-      <ListContent
+      <PageContent
         isLoading={isLoading}
         isEmpty={items.length === 0}
         hasActiveFilters={hasActiveFilters}
@@ -162,8 +162,8 @@ const FavoritesGrid = () => {
             />
           ))}
         </div>
-      </ListContent>
-    </ListPageShell>
+      </PageContent>
+    </PageShell>
   );
 };
 

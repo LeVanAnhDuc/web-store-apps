@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 // components
 import PageTitle from "@/components/PageTitle";
 
-const ListPageHeader = ({
+const PageHeader = ({
   title,
   description,
   action
@@ -23,4 +23,4 @@ const ListPageHeader = ({
   </div>
 );
 
-export default ListPageHeader;
+export default PageHeader;

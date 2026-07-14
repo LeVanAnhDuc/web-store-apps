@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 // others
 import { cn } from "@/libs/utils";
 
-const ListPageShell = ({
+const PageShell = ({
   fullHeight = false,
   children
 }: {
@@ -17,4 +17,4 @@ const ListPageShell = ({
   </div>
 );
 
-export default ListPageShell;
+export default PageShell;
