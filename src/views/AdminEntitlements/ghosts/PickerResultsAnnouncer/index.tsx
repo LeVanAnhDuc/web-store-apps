@@ -7,19 +7,17 @@ import { useAnnounce, useUpdateEffect } from "@/hooks";
 
 const PickerResultsAnnouncer = ({
   count,
-  isOpen,
-  query
+  isOpen
 }: {
   count: number;
   isOpen: boolean;
-  query: string;
 }) => {
   const t = useTranslations("adminEntitlements.announce");
   const { announce } = useAnnounce();
 
   useUpdateEffect(() => {
-    if (isOpen && query) announce(t("results", { count }));
-  }, [count, isOpen, query]);
+    if (isOpen) announce(t("results", { count }));
+  }, [count, isOpen]);
 
   return null;
 };
