@@ -6,7 +6,14 @@
     "results": "Kết quả",
     "showing": "Hiển thị {shown} trên {total} — hãy thu hẹp tìm kiếm",
     "noResults": "Không tìm thấy người dùng",
-    "removeUser": "Bỏ chọn {name}"
+    "removeUser": "Bỏ chọn {name}",
+    "filtersLabel": "Bộ lọc",
+    "role": {
+      "label": "Vai trò",
+      "all": "Tất cả",
+      "admin": "Quản trị",
+      "user": "Người dùng"
+    }
   },
   "matrix": {
     "title": "Quyền truy cập app",

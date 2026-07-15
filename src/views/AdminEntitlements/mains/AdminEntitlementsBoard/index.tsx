@@ -7,7 +7,10 @@ import { useTranslations } from "next-intl";
 import type { AdminUser } from "@/types/AdminUsers";
 import type { BulkEntitlementRow } from "@/types/AdminEntitlements";
 // components
+import PageShell from "@/components/PageContainer/PageShell";
+import PageHeader from "@/components/PageContainer/PageHeader";
 import UserMultiSelect from "../../components/UserMultiSelect";
+import SelectedUserChips from "../../components/SelectedUserChips";
 import UserNotSelectedEmpty from "../../components/UserNotSelectedEmpty";
 import AdminEntitlementsMatrix from "../AdminEntitlementsMatrix";
 import AdminEntitlementsRevokeDialog from "../AdminEntitlementsRevokeDialog";
@@ -40,17 +43,11 @@ const AdminEntitlementsBoard = () => {
   };
 
   return (
-    <main className="mx-auto w-full max-w-3xl p-8">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">{t("title")}</h1>
-        <p className="text-muted-foreground mt-1 text-sm">{t("subtitle")}</p>
-      </div>
-      <UserMultiSelect
-        selectedUsers={selectedUsers}
-        onToggle={toggleUser}
-        onRemove={removeUser}
-      />
-      <div className="mt-6">
+    <PageShell fullHeight>
+      <PageHeader title={t("title")} description={t("subtitle")} />
+      <UserMultiSelect selectedUsers={selectedUsers} onToggle={toggleUser} />
+      <SelectedUserChips users={selectedUsers} onRemove={removeUser} />
+      <div>
         {selectedUsers.length === 0 ? (
           <UserNotSelectedEmpty />
         ) : (
@@ -65,7 +62,7 @@ const AdminEntitlementsBoard = () => {
         target={revokeTarget}
         onClose={() => setRevokeTarget(null)}
       />
-    </main>
+    </PageShell>
   );
 };
 
