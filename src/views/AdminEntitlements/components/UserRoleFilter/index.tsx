@@ -42,7 +42,6 @@ const UserRoleFilter = ({
           type="button"
           variant="outline"
           iconLeft={<SlidersHorizontal className="size-4" />}
-          aria-label={t("filtersLabel")}
         >
           {t("filtersLabel")}
           {isActive && (

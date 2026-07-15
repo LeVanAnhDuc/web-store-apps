@@ -19,7 +19,6 @@ import { useAnnounce } from "@/hooks";
 
 const AdminEntitlementsBoard = () => {
   const t = useTranslations("adminEntitlements");
-  const tPicker = useTranslations("adminEntitlements.picker");
   const tAnnounce = useTranslations("adminEntitlements.announce");
   const { announce } = useAnnounce();
 
@@ -47,11 +46,7 @@ const AdminEntitlementsBoard = () => {
     <PageShell fullHeight>
       <PageHeader title={t("title")} description={t("subtitle")} />
       <UserMultiSelect selectedUsers={selectedUsers} onToggle={toggleUser} />
-      <SelectedUserChips
-        users={selectedUsers}
-        onRemove={removeUser}
-        removeLabel={(name) => tPicker("removeUser", { name })}
-      />
+      <SelectedUserChips users={selectedUsers} onRemove={removeUser} />
       <div>
         {selectedUsers.length === 0 ? (
           <UserNotSelectedEmpty />

@@ -80,7 +80,11 @@ const UserMultiSelect = ({
           onToggle={onToggle}
         />
       </PopoverContent>
-      <PickerResultsAnnouncer count={users.length} isOpen={isOpen} />
+      <PickerResultsAnnouncer
+        count={users.length}
+        isOpen={isOpen}
+        isFetching={isFetching}
+      />
     </Popover>
   );
 };

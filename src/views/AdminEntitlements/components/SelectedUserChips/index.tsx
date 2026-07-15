@@ -1,5 +1,7 @@
 "use client";
 
+// libs
+import { useTranslations } from "next-intl";
 // types
 import type { AdminUser } from "@/types/AdminUsers";
 // components
@@ -7,13 +9,13 @@ import UserChip from "../UserChip";
 
 const SelectedUserChips = ({
   users,
-  onRemove,
-  removeLabel
+  onRemove
 }: {
   users: AdminUser[];
   onRemove: (user: AdminUser) => void;
-  removeLabel: (name: string) => string;
 }) => {
+  const t = useTranslations("adminEntitlements.picker");
+
   if (users.length === 0) return null;
 
   return (
@@ -22,7 +24,7 @@ const SelectedUserChips = ({
         <UserChip
           key={user._id}
           user={user}
-          removeLabel={removeLabel(user.fullName)}
+          removeLabel={t("removeUser", { name: user.fullName })}
           onRemove={() => onRemove(user)}
         />
       ))}
