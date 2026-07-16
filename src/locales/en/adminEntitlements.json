@@ -37,29 +37,11 @@
     "insufficientRole": "Role required",
     "grantAria": "Grant {app} to {user}"
   },
-  "status": {
-    "allGranted": "All granted",
-    "partial": "{granted}/{total} granted",
-    "notGranted": "Not granted",
-    "roleRequired": "Role required"
-  },
-  "actions": {
-    "grantAll": "Grant all",
-    "revokeAll": "Revoke all",
-    "roleRequiredTooltip": "Some selected users lack the required role.",
-    "cancel": "Cancel"
-  },
-  "revoke": {
-    "title": "Revoke access to {appName}?",
-    "description": "All {count} selected users will lose access to {appName} immediately. You can grant it again later."
-  },
   "emptyUser": {
     "title": "No users selected",
     "description": "Search and select one or more users above to manage their app access."
   },
   "toast": {
-    "grantSuccess": "Access granted.",
-    "revokeSuccess": "Access revoked.",
     "saveSuccess": "Access updated.",
     "error": "Something went wrong. Please try again."
   },
@@ -67,8 +49,6 @@
     "results": "{count} users found.",
     "selected": "Selected {name}.",
     "deselected": "Removed {name}.",
-    "granted": "Granted access to {appName} for {count} selected users.",
-    "revoked": "Revoked access to {appName} from {count} selected users.",
     "editStart": "Editing app access.",
     "saved": "App access saved.",
     "canceled": "Changes discarded.",

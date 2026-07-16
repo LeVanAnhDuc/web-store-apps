@@ -12,6 +12,10 @@ import type {
 import type { ContactStatus } from "@/types/ContactAdmin";
 import type { AdminUser } from "@/types/AdminUsers";
 import type { WebApp } from "@/types/AdminApps";
+import type {
+  EntitlementChange,
+  EntitlementMatrixFormValues
+} from "@/types/AdminEntitlements";
 import type { MyProfileResponse } from "@/types/User";
 import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 import type { LeafKeyOf, Messages } from "@/types/libs";
@@ -288,3 +292,34 @@ export const hideBelowClass = (breakpoint?: ColumnBreakpoint): string => {
 
 export const isAppEligibleForUser = (user: AdminUser, app: WebApp): boolean =>
   app.requiredRoles.length === 0 || app.requiredRoles.includes(user.role);
+
+export const buildEntitlementDefaults = (
+  users: AdminUser[],
+  apps: WebApp[],
+  grantsByUser: Record<string, string[]>
+): EntitlementMatrixFormValues => {
+  const grants: Record<string, Record<string, boolean>> = {};
+  users.forEach((user) => {
+    const grantedAppIds = grantsByUser[user._id] ?? [];
+    grants[user._id] = {};
+    apps.forEach((app) => {
+      grants[user._id][app._id] = grantedAppIds.includes(app._id);
+    });
+  });
+  return { grants };
+};
+
+export const diffEntitlementGrants = (
+  values: EntitlementMatrixFormValues,
+  defaults: EntitlementMatrixFormValues
+): EntitlementChange[] => {
+  const changes: EntitlementChange[] = [];
+  Object.entries(values.grants).forEach(([userId, appGrants]) => {
+    Object.entries(appGrants).forEach(([appId, granted]) => {
+      if (defaults.grants[userId]?.[appId] !== granted) {
+        changes.push({ userId, appId, granted });
+      }
+    });
+  });
+  return changes;
+};

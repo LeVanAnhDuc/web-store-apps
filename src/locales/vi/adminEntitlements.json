@@ -37,29 +37,11 @@
     "insufficientRole": "Cần quyền",
     "grantAria": "Cấp {app} cho {user}"
   },
-  "status": {
-    "allGranted": "Đã cấp tất cả",
-    "partial": "Đã cấp {granted}/{total}",
-    "notGranted": "Chưa cấp",
-    "roleRequired": "Cần role phù hợp"
-  },
-  "actions": {
-    "grantAll": "Cấp tất cả",
-    "revokeAll": "Thu hồi tất cả",
-    "roleRequiredTooltip": "Một số người dùng đã chọn không đủ role yêu cầu.",
-    "cancel": "Hủy"
-  },
-  "revoke": {
-    "title": "Thu hồi quyền truy cập {appName}?",
-    "description": "Tất cả {count} người dùng đã chọn sẽ mất quyền truy cập {appName} ngay lập tức. Bạn có thể cấp lại sau."
-  },
   "emptyUser": {
     "title": "Chưa chọn người dùng",
     "description": "Tìm và chọn một hoặc nhiều người dùng phía trên để quản lý quyền truy cập app của họ."
   },
   "toast": {
-    "grantSuccess": "Đã cấp quyền.",
-    "revokeSuccess": "Đã thu hồi quyền.",
     "saveSuccess": "Đã cập nhật quyền truy cập.",
     "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
   },
@@ -67,8 +49,6 @@
     "results": "Tìm thấy {count} người dùng.",
     "selected": "Đã chọn {name}.",
     "deselected": "Đã bỏ chọn {name}.",
-    "granted": "Đã cấp quyền truy cập {appName} cho {count} người dùng đã chọn.",
-    "revoked": "Đã thu hồi quyền truy cập {appName} của {count} người dùng đã chọn.",
     "editStart": "Đang chỉnh sửa quyền truy cập ứng dụng.",
     "saved": "Đã lưu quyền truy cập ứng dụng.",
     "canceled": "Đã hủy các thay đổi.",
