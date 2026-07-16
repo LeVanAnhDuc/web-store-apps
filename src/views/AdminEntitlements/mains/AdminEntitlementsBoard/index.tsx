@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 // types
 import type { AdminUser } from "@/types/AdminUsers";
-import type { BulkEntitlementRow } from "@/types/AdminEntitlements";
 // components
 import PageShell from "@/components/PageContainer/PageShell";
 import PageHeader from "@/components/PageContainer/PageHeader";
@@ -13,7 +12,6 @@ import UserMultiSelect from "../../components/UserMultiSelect";
 import SelectedUserChips from "../../components/SelectedUserChips";
 import UserNotSelectedEmpty from "../../components/UserNotSelectedEmpty";
 import AdminEntitlementsMatrix from "../AdminEntitlementsMatrix";
-import AdminEntitlementsRevokeDialog from "../AdminEntitlementsRevokeDialog";
 // hooks
 import { useAnnounce } from "@/hooks";
 
@@ -23,9 +21,7 @@ const AdminEntitlementsBoard = () => {
   const { announce } = useAnnounce();
 
   const [selectedUsers, setSelectedUsers] = useState<AdminUser[]>([]);
-  const [revokeTarget, setRevokeTarget] = useState<BulkEntitlementRow | null>(
-    null
-  );
+  const [isEditing, setIsEditing] = useState(false);
 
   const removeUser = (user: AdminUser) => {
     setSelectedUsers((prev) => prev.filter((item) => item._id !== user._id));
@@ -45,23 +41,27 @@ const AdminEntitlementsBoard = () => {
   return (
     <PageShell fullHeight>
       <PageHeader title={t("title")} description={t("subtitle")} />
-      <UserMultiSelect selectedUsers={selectedUsers} onToggle={toggleUser} />
-      <SelectedUserChips users={selectedUsers} onRemove={removeUser} />
+      <UserMultiSelect
+        selectedUsers={selectedUsers}
+        onToggle={toggleUser}
+        disabled={isEditing}
+      />
+      <SelectedUserChips
+        users={selectedUsers}
+        onRemove={removeUser}
+        disabled={isEditing}
+      />
       <div>
         {selectedUsers.length === 0 ? (
           <UserNotSelectedEmpty />
         ) : (
           <AdminEntitlementsMatrix
             selectedUsers={selectedUsers}
-            onRevokeRequest={setRevokeTarget}
+            isEditing={isEditing}
+            onEditingChange={setIsEditing}
           />
         )}
       </div>
-      <AdminEntitlementsRevokeDialog
-        selectedUsers={selectedUsers}
-        target={revokeTarget}
-        onClose={() => setRevokeTarget(null)}
-      />
     </PageShell>
   );
 };

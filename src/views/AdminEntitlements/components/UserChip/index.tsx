@@ -10,10 +10,12 @@ import CustomButton from "@/components/CustomButton";
 const UserChip = ({
   user,
   removeLabel,
+  disabled = false,
   onRemove
 }: {
   user: AdminUser;
   removeLabel: string;
+  disabled?: boolean;
   onRemove: () => void;
 }) => (
   <span className="bg-primary/10 text-primary inline-flex items-center gap-1.5 rounded-md py-1 pr-1 pl-2 text-xs font-medium">
@@ -27,6 +29,7 @@ const UserChip = ({
       size="icon-sm"
       className="text-primary hover:bg-primary/10 size-5"
       aria-label={removeLabel}
+      disabled={disabled}
       onClick={onRemove}
     >
       <X className="size-3" aria-hidden="true" />
