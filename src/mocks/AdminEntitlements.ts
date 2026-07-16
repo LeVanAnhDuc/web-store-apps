@@ -3,6 +3,7 @@ import type {
   BulkEntitlementInput,
   BulkEntitlementRow,
   Entitlement,
+  EntitlementChange,
   EntitlementStatus
 } from "@/types/AdminEntitlements";
 // requests
@@ -153,6 +154,49 @@ export const revokeEntitlementBulk = async ({
       (e) => e.userId === userId && e.webAppId === appId && e.revokedAt === null
     );
     if (existing) existing.revokedAt = new Date().toISOString();
+  });
+  return delay(undefined);
+};
+
+export const getUserGrants = async (
+  userIds: string[]
+): Promise<Record<string, string[]>> => {
+  const grantsByUser: Record<string, string[]> = {};
+  userIds.forEach((userId) => {
+    grantsByUser[userId] = MOCK_ENTITLEMENTS.filter(
+      (e) => e.userId === userId && e.revokedAt === null
+    ).map((e) => e.webAppId);
+  });
+  return delay(grantsByUser);
+};
+
+export const updateUserGrants = async (
+  changes: EntitlementChange[]
+): Promise<void> => {
+  changes.forEach(({ userId, appId, granted }) => {
+    const existing = MOCK_ENTITLEMENTS.find(
+      (e) => e.userId === userId && e.webAppId === appId
+    );
+    if (granted) {
+      if (existing) {
+        existing.revokedAt = null;
+        existing.grantedAt = new Date().toISOString();
+        existing.grantedBy = ADMIN_ACTOR_ID;
+        return;
+      }
+      MOCK_ENTITLEMENTS.push({
+        _id: generateId("ent"),
+        userId,
+        webAppId: appId,
+        grantedBy: ADMIN_ACTOR_ID,
+        grantedAt: new Date().toISOString(),
+        revokedAt: null
+      });
+      return;
+    }
+    if (existing && existing.revokedAt === null) {
+      existing.revokedAt = new Date().toISOString();
+    }
   });
   return delay(undefined);
 };
