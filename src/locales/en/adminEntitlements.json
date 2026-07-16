@@ -1,6 +1,6 @@
 {
   "title": "Entitlements",
-  "subtitle": "Grant or revoke app access for one or more users at once.",
+  "subtitle": "Review and edit each user's app access.",
   "picker": {
     "searchPlaceholder": "Search users by name or email...",
     "results": "Results",
@@ -17,7 +17,6 @@
   },
   "matrix": {
     "title": "App access",
-    "subtitle": "Toggle app access per user, then save.",
     "userColumn": "User",
     "edit": "Edit",
     "save": "Save",
@@ -49,6 +48,7 @@
     "results": "{count} users found.",
     "selected": "Selected {name}.",
     "deselected": "Removed {name}.",
+    "loaded": "App access loaded.",
     "editStart": "Editing app access.",
     "saved": "App access saved.",
     "canceled": "Changes discarded.",

@@ -1,6 +1,6 @@
 {
   "title": "Phân quyền truy cập",
-  "subtitle": "Cấp hoặc thu hồi quyền truy cập app cho một hoặc nhiều người dùng cùng lúc.",
+  "subtitle": "Xem và chỉnh sửa quyền truy cập ứng dụng của từng người dùng.",
   "picker": {
     "searchPlaceholder": "Tìm người dùng theo tên hoặc email...",
     "results": "Kết quả",
@@ -17,7 +17,6 @@
   },
   "matrix": {
     "title": "Quyền truy cập ứng dụng",
-    "subtitle": "Bật/tắt quyền truy cập app cho từng người dùng, sau đó lưu lại.",
     "userColumn": "Người dùng",
     "edit": "Chỉnh sửa",
     "save": "Lưu",
@@ -49,6 +48,7 @@
     "results": "Tìm thấy {count} người dùng.",
     "selected": "Đã chọn {name}.",
     "deselected": "Đã bỏ chọn {name}.",
+    "loaded": "Đã tải quyền truy cập ứng dụng.",
     "editStart": "Đang chỉnh sửa quyền truy cập ứng dụng.",
     "saved": "Đã lưu quyền truy cập ứng dụng.",
     "canceled": "Đã hủy các thay đổi.",
