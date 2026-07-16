@@ -27,3 +27,13 @@ export interface BulkEntitlementInput {
   appId: string;
   userIds: string[];
 }
+
+export interface EntitlementMatrixFormValues {
+  grants: Record<string, Record<string, boolean>>;
+}
+
+export interface EntitlementChange {
+  userId: string;
+  appId: string;
+  granted: boolean;
+}
