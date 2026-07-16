@@ -166,8 +166,10 @@ test.describe("Admin Entitlements — selection", () => {
     await expect(
       page.getByRole("button", { name: /^Remove /i }).first()
     ).toBeVisible();
-    // Matrix header (matrix.title = "App access") replaces the empty prompt
-    await expect(page.getByText("App access")).toBeVisible();
+    // Matrix appears (Edit control visible) and replaces the empty prompt.
+    // matrix.title moved to an sr-only <caption> in the redesign, so assert
+    // the visible read-mode "Edit" toolbar button instead.
+    await expect(page.getByRole("button", { name: /^Edit$/i })).toBeVisible();
     await expect(page.getByText("No users selected")).toHaveCount(0);
   });
 });
