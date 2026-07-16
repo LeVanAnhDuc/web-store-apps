@@ -9,10 +9,12 @@ import UserChip from "../UserChip";
 
 const SelectedUserChips = ({
   users,
-  onRemove
+  onRemove,
+  disabled = false
 }: {
   users: AdminUser[];
   onRemove: (user: AdminUser) => void;
+  disabled?: boolean;
 }) => {
   const t = useTranslations("adminEntitlements.picker");
 
@@ -25,7 +27,10 @@ const SelectedUserChips = ({
           key={user._id}
           user={user}
           removeLabel={t("removeUser", { name: user.fullName })}
-          onRemove={() => onRemove(user)}
+          disabled={disabled}
+          onRemove={() => {
+            if (!disabled) onRemove(user);
+          }}
         />
       ))}
     </div>

@@ -1,8 +1,3 @@
-// types
-import type { WebApp } from "@/types/AdminApps";
-// constants
-import type ENTITLEMENT_STATUS from "@/constants/entitlementStatus";
-
 export interface Entitlement {
   _id: string;
   userId: string;
@@ -12,18 +7,12 @@ export interface Entitlement {
   revokedAt: string | null;
 }
 
-export type EntitlementStatus =
-  (typeof ENTITLEMENT_STATUS)[keyof typeof ENTITLEMENT_STATUS];
-
-export interface BulkEntitlementRow {
-  app: WebApp;
-  grantedCount: number;
-  totalCount: number;
-  status: EntitlementStatus;
-  insufficientRoleUserIds: string[];
+export interface EntitlementMatrixFormValues {
+  grants: Record<string, Record<string, boolean>>;
 }
 
-export interface BulkEntitlementInput {
+export interface EntitlementChange {
+  userId: string;
   appId: string;
-  userIds: string[];
+  granted: boolean;
 }

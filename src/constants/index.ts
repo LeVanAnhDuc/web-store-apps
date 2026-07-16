@@ -13,7 +13,6 @@ import ADMIN_USER_STATUS from "./adminUserStatus";
 import GENDER, { GENDER_VALUES } from "./gender";
 import PRIORITY from "./priority";
 import INVOICE_STATUS from "./invoiceStatus";
-import ENTITLEMENT_STATUS from "./entitlementStatus";
 import FAVORITES_SORT from "./favoritesSort";
 import PAYMENT_BRAND from "./paymentBrand";
 import FORGOT_PASSWORD from "./pages/forgotPassword";
@@ -41,7 +40,6 @@ const CONSTANTS = {
   GENDER_VALUES,
   PRIORITY,
   INVOICE_STATUS,
-  ENTITLEMENT_STATUS,
   FAVORITES_SORT,
   PAYMENT_BRAND,
   FORGOT_PASSWORD,

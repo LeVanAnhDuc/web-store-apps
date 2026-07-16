@@ -23,10 +23,12 @@ import useAdminUsersSearch from "../../hooks/useAdminUsersSearch";
 
 const UserMultiSelect = ({
   selectedUsers,
-  onToggle
+  onToggle,
+  disabled = false
 }: {
   selectedUsers: AdminUser[];
   onToggle: (user: AdminUser) => void;
+  disabled?: boolean;
 }) => {
   const t = useTranslations("adminEntitlements.picker");
   const [search, setSearch] = useState("");
@@ -34,12 +36,12 @@ const UserMultiSelect = ({
   const [isFocused, setIsFocused] = useState(false);
 
   const debounced = useDebouncedValue(search, 300);
-  const isOpen = isFocused;
+  const isOpen = isFocused && !disabled;
 
   const { data, isFetching } = useAdminUsersSearch(
     debounced.trim(),
     role,
-    isFocused
+    isOpen
   );
   const users = data?.items ?? [];
   const total = data?.meta.total ?? 0;
@@ -58,6 +60,7 @@ const UserMultiSelect = ({
               ariaLabel={t("searchPlaceholder")}
               value={search}
               placeholder={t("searchPlaceholder")}
+              disabled={disabled}
               onChange={setSearch}
               onFocus={() => setIsFocused(true)}
             />
