@@ -55,6 +55,7 @@ const AdminEntitlementsMatrix = ({
   const handleCancel = () => {
     form.reset(buildDefaults());
     onEditingChange(false);
+    announce(tAnnounce("canceled"));
   };
 
   const handleSave = (values: EntitlementMatrixFormValues) => {

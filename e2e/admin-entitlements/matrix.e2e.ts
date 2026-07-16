@@ -50,7 +50,7 @@ const goto = (page: Page, locale = "") =>
 // The page renders a GLOBAL header search too; scope the picker search by its
 // accessible name (aria-label = picker.searchPlaceholder) to stay unambiguous.
 const pickerSearch = (page: Page) =>
-  page.getByRole("combobox", { name: /Search users/i });
+  page.getByRole("combobox", { name: /Search users|Tìm người dùng/i });
 
 const editButton = (page: Page) => page.getByRole("button", { name: "Edit" });
 const saveButton = (page: Page) => page.getByRole("button", { name: "Save" });
@@ -63,6 +63,11 @@ const cellCheckbox = (page: Page, app: string, user = TEST_USER_FULLNAME) =>
 const selectUserByEmail = async (page: Page, email: string) => {
   await pickerSearch(page).fill(email);
   await page.getByRole("option").filter({ hasText: email }).first().click();
+  // The multi-select keeps its results popover open after a pick (to allow
+  // picking more users); dismiss it so it does not overlay the matrix
+  // controls below and intercept pointer events.
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("listbox")).toHaveCount(0);
 };
 
 // ---------------------------------------------------------------------------
@@ -152,7 +157,9 @@ test.describe("Admin Entitlements Matrix — edit mode + dirty gate", () => {
     await expect(cancelButton(page)).toBeVisible();
     await expect(saveButton(page)).toBeDisabled();
 
-    await saveButton(page).hover();
+    // Save is disabled (pointer-events:none); the tooltip trigger is the
+    // wrapping span, so force the hover over that region to open it.
+    await saveButton(page).hover({ force: true });
     await expect(page.getByRole("tooltip")).toContainText(
       "No changes to save."
     );
@@ -211,7 +218,9 @@ test.describe("Admin Entitlements Matrix — save", () => {
 
     await expect(editButton(page)).toBeVisible();
     await expect(saveButton(page)).toHaveCount(0);
-    await expect(page.getByRole("img", { name: "Granted" })).toHaveCount(1);
+    await expect(
+      page.getByRole("img", { name: "Granted", exact: true })
+    ).toHaveCount(1);
     await expect(page.getByRole("img", { name: "Not granted" })).toHaveCount(
       ELIGIBLE_APPS.length - 1
     );
@@ -287,7 +296,10 @@ test.describe("Admin Entitlements Matrix — sticky user column", () => {
     await goto(page);
     await selectUserByEmail(page, USER_EMAIL);
 
-    const userHeaderCell = page.getByRole("columnheader", { name: "User" });
+    const userHeaderCell = page.getByRole("columnheader", {
+      name: "User",
+      exact: true
+    });
     await expect(userHeaderCell).toHaveCSS("position", "sticky");
     await expect(userHeaderCell).toHaveCSS("left", "0px");
 
@@ -337,7 +349,7 @@ test.describe("Admin Entitlements Matrix — i18n", () => {
 
     await expect(editButton(page)).toBeVisible();
     await expect(
-      page.getByRole("columnheader", { name: "User" })
+      page.getByRole("columnheader", { name: "User", exact: true })
     ).toBeVisible();
     await expect(page.getByText(/\[adminEntitlements\./)).toHaveCount(0);
   });
@@ -350,7 +362,7 @@ test.describe("Admin Entitlements Matrix — i18n", () => {
 
     await expect(page.getByRole("button", { name: "Chỉnh sửa" })).toBeVisible();
     await expect(
-      page.getByRole("columnheader", { name: "Người dùng" })
+      page.getByRole("columnheader", { name: "Người dùng", exact: true })
     ).toBeVisible();
     await expect(page.getByText(/\[adminEntitlements\./)).toHaveCount(0);
   });
@@ -396,5 +408,14 @@ test.describe("Admin Entitlements Matrix — accessibility", () => {
     await cellCheckbox(page, "Blog").click();
     await saveButton(page).click();
     await expect(page.locator("#announcer")).toHaveText("App access saved.");
+  });
+
+  test("live region announces cancel (screen reader)", async ({ page }) => {
+    await goto(page);
+    await selectUserByEmail(page, USER_EMAIL);
+    await editButton(page).click();
+    await cellCheckbox(page, "Blog").click();
+    await cancelButton(page).click();
+    await expect(page.locator("#announcer")).toHaveText("Changes discarded.");
   });
 });
