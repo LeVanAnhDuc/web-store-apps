@@ -10,6 +10,8 @@ import type {
   LoginHistoryMethod
 } from "@/types/LoginHistory";
 import type { ContactStatus } from "@/types/ContactAdmin";
+import type { AdminUser } from "@/types/AdminUsers";
+import type { WebApp } from "@/types/AdminApps";
 import type { MyProfileResponse } from "@/types/User";
 import type { UpdatePersonalInfoFormValues } from "@/types/UpdatePersonalInfo";
 import type { LeafKeyOf, Messages } from "@/types/libs";
@@ -283,3 +285,6 @@ export const hideBelowClass = (breakpoint?: ColumnBreakpoint): string => {
       return "";
   }
 };
+
+export const isAppEligibleForUser = (user: AdminUser, app: WebApp): boolean =>
+  app.requiredRoles.length === 0 || app.requiredRoles.includes(user.role);
