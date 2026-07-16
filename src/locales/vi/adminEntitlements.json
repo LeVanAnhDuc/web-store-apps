@@ -16,8 +16,26 @@
     }
   },
   "matrix": {
-    "title": "Quyền truy cập app",
-    "subtitle": "Thay đổi áp dụng cho tất cả {count} người dùng đã chọn."
+    "title": "Quyền truy cập ứng dụng",
+    "subtitle": "Bật/tắt quyền truy cập app cho từng người dùng, sau đó lưu lại.",
+    "userColumn": "Người dùng",
+    "edit": "Chỉnh sửa",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "saveDisabledTooltip": "Chưa có thay đổi nào để lưu.",
+    "checkAll": "Cấp tất cả ứng dụng khả dụng",
+    "uncheckAll": "Thu hồi tất cả ứng dụng",
+    "insufficientRoleTooltip": "Người dùng này không đủ quyền.",
+    "empty": {
+      "title": "Không có ứng dụng",
+      "description": "Chưa có ứng dụng nào để quản lý."
+    }
+  },
+  "cell": {
+    "granted": "Đã cấp",
+    "notGranted": "Chưa cấp",
+    "insufficientRole": "Cần quyền",
+    "grantAria": "Cấp {app} cho {user}"
   },
   "status": {
     "allGranted": "Đã cấp tất cả",
@@ -42,6 +60,7 @@
   "toast": {
     "grantSuccess": "Đã cấp quyền.",
     "revokeSuccess": "Đã thu hồi quyền.",
+    "saveSuccess": "Đã cập nhật quyền truy cập.",
     "error": "Đã có lỗi xảy ra. Vui lòng thử lại."
   },
   "announce": {
@@ -49,6 +68,11 @@
     "selected": "Đã chọn {name}.",
     "deselected": "Đã bỏ chọn {name}.",
     "granted": "Đã cấp quyền truy cập {appName} cho {count} người dùng đã chọn.",
-    "revoked": "Đã thu hồi quyền truy cập {appName} của {count} người dùng đã chọn."
+    "revoked": "Đã thu hồi quyền truy cập {appName} của {count} người dùng đã chọn.",
+    "editStart": "Đang chỉnh sửa quyền truy cập ứng dụng.",
+    "saved": "Đã lưu quyền truy cập ứng dụng.",
+    "canceled": "Đã hủy các thay đổi.",
+    "checkAll": "Đã cấp tất cả ứng dụng khả dụng cho {name}.",
+    "uncheckAll": "Đã thu hồi tất cả ứng dụng của {name}."
   }
 }

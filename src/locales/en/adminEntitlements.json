@@ -17,7 +17,25 @@
   },
   "matrix": {
     "title": "App access",
-    "subtitle": "Changes apply to all {count} selected users."
+    "subtitle": "Toggle app access per user, then save.",
+    "userColumn": "User",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "saveDisabledTooltip": "No changes to save.",
+    "checkAll": "Grant all eligible apps",
+    "uncheckAll": "Revoke all apps",
+    "insufficientRoleTooltip": "This user lacks the required role.",
+    "empty": {
+      "title": "No apps found",
+      "description": "There are no apps to manage yet."
+    }
+  },
+  "cell": {
+    "granted": "Granted",
+    "notGranted": "Not granted",
+    "insufficientRole": "Role required",
+    "grantAria": "Grant {app} to {user}"
   },
   "status": {
     "allGranted": "All granted",
@@ -42,6 +60,7 @@
   "toast": {
     "grantSuccess": "Access granted.",
     "revokeSuccess": "Access revoked.",
+    "saveSuccess": "Access updated.",
     "error": "Something went wrong. Please try again."
   },
   "announce": {
@@ -49,6 +68,11 @@
     "selected": "Selected {name}.",
     "deselected": "Removed {name}.",
     "granted": "Granted access to {appName} for {count} selected users.",
-    "revoked": "Revoked access to {appName} from {count} selected users."
+    "revoked": "Revoked access to {appName} from {count} selected users.",
+    "editStart": "Editing app access.",
+    "saved": "App access saved.",
+    "canceled": "Changes discarded.",
+    "checkAll": "Granted all eligible apps for {name}.",
+    "uncheckAll": "Revoked all apps for {name}."
   }
 }
