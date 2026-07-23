@@ -232,7 +232,9 @@ test.describe("Admin reset-password — data rendering", () => {
     await openRowMenu(page, UI_TARGET_EMAIL);
     await page.getByRole("menuitem", { name: "Reset password" }).click();
 
-    await expect(page.getByText(UI_TARGET_EMAIL)).toBeVisible();
+    await expect(
+      page.getByRole("dialog").getByText(UI_TARGET_EMAIL)
+    ).toBeVisible();
     await expect(page.getByText(/adminUsers\./)).toHaveCount(0);
 
     await page.getByRole("button", { name: "Send reset" }).click();
