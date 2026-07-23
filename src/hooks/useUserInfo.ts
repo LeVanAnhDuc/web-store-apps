@@ -33,7 +33,8 @@ const useUserInfo = () => {
     fullName,
     avatar: idPayload.picture ?? null,
     initials: getInitials(fullName),
-    roles: accessPayload?.roles ?? USER
+    roles: accessPayload?.roles ?? USER,
+    mustChangePassword: idPayload.mustChangePassword ?? false
   };
 };
 

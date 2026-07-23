@@ -7,13 +7,13 @@ import { useTranslations } from "next-intl";
 // types
 import type { ChangePasswordFormValues } from "@/types/ChangePassword";
 // hooks
-import { useAnnounce } from "@/hooks";
+import useAnnounce from "./useAnnounce";
 // stores
 import { useAuthStore } from "@/stores";
 // requests
 import { changePassword } from "@/requests/changePassword";
 
-export const useChangePassword = () => {
+const useChangePassword = () => {
   const setTokens = useAuthStore((state) => state.setTokens);
   const t = useTranslations("account.changePassword");
   const { announce } = useAnnounce();
@@ -31,3 +31,5 @@ export const useChangePassword = () => {
     }
   });
 };
+
+export default useChangePassword;

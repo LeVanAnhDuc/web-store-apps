@@ -61,14 +61,6 @@ export const getAdminUserById = async (
   return delay(user);
 };
 
-export const resetAdminUserPassword = async (
-  id: string
-): Promise<{ id: string; email: string }> => {
-  const user = MOCK_USERS.find((u) => u._id === id);
-  if (!user) throw new Error(`User ${id} not found`);
-  return delay({ id, email: user.email });
-};
-
 export const forceLogoutAdminUser = async (
   id: string
 ): Promise<{ id: string; sessionsRevoked: number }> => {

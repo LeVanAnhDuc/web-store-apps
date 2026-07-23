@@ -18,8 +18,7 @@ import CustomButton from "@/components/CustomButton";
 import CustomTooltip from "@/components/CustomTooltip";
 import PasswordInput from "@/components/PasswordInput";
 // hooks
-import { useSubmitGuard } from "@/hooks";
-import { useChangePassword } from "../../hooks/useChangePassword";
+import { useSubmitGuard, useChangePassword } from "@/hooks";
 // forms
 import { changePasswordFormProps } from "@/forms/ChangePassword";
 // others

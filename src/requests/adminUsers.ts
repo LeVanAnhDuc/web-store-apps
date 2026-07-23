@@ -2,7 +2,8 @@
 import type {
   AdminUsersQueryParams,
   PaginatedAdminUsersResponse,
-  SetAdminUserActiveResult
+  SetAdminUserActiveResult,
+  ResetAdminUserPasswordResult
 } from "@/types/AdminUsers";
 // others
 import axiosInstance from "@/libs/axios";
@@ -35,5 +36,14 @@ export const unlockAdminUser = async (
   const response = await axiosInstance.patch<
     ResponsePattern<SetAdminUserActiveResult>
   >(generatePath(END_POINTS.ADMIN_USER_UNLOCK, { id }));
+  return response.data.data;
+};
+
+export const resetAdminUserPassword = async (
+  id: string
+): Promise<ResetAdminUserPasswordResult> => {
+  const response = await axiosInstance.post<
+    ResponsePattern<ResetAdminUserPasswordResult>
+  >(generatePath(END_POINTS.ADMIN_USER_RESET_PASSWORD, { id }));
   return response.data.data;
 };

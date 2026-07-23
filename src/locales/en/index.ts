@@ -21,6 +21,7 @@ import adminApps from "./adminApps.json";
 import adminEntitlements from "./adminEntitlements.json";
 import adminUsers from "./adminUsers.json";
 import list from "./list.json";
+import forceChangePassword from "./forceChangePassword.json";
 
 const messages = {
   common,
@@ -45,7 +46,8 @@ const messages = {
   adminApps,
   adminEntitlements,
   adminUsers,
-  list
+  list,
+  forceChangePassword
 };
 
 export default messages;

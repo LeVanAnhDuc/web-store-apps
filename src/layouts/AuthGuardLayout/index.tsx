@@ -7,6 +7,7 @@ import { useRouter, usePathname } from "@/i18n/navigation";
 import type { ReactNode } from "react";
 // ghosts
 import TokenRefresher from "@/ghosts/TokenRefresher";
+import MustChangePasswordGate from "./ghosts/MustChangePasswordGate";
 // stores
 import { useAuthStore } from "@/stores";
 // others
@@ -34,6 +35,7 @@ const AuthGuardLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <TokenRefresher />
+      <MustChangePasswordGate />
       {children}
     </>
   );

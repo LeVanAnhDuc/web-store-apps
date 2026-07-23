@@ -39,6 +39,7 @@ export interface DecodedIdToken {
   name: string;
   email: string;
   picture?: string | null;
+  mustChangePassword?: boolean;
 }
 
 export interface DecodedAccessToken {

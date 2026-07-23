@@ -26,7 +26,8 @@ const ROUTES = {
   ADMIN_USERS: "/admin/users",
   ADMIN_LOGIN_HISTORY: "/admin/login-history",
   ADMIN_CONTACT: "/admin/contact",
-  MY_CONTACTS: "/contacts/me"
+  MY_CONTACTS: "/contacts/me",
+  FORCE_CHANGE_PASSWORD: "/change-password"
 };
 
 export default ROUTES;

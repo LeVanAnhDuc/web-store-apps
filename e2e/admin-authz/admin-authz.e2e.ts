@@ -177,3 +177,44 @@ test.describe("Admin lock/unlock — AuthN denial (no token)", () => {
     }
   });
 });
+
+// ---------------------------------------------------------------------------
+// Reset-password endpoint — AuthZ denial (non-admin) + AuthN denial (no token).
+// Mirrors the lock/unlock blocks above (admin-reset-password feature, matrix
+// rows #2/#3): adminGuard rejects a non-admin BEFORE the service's self-reset
+// check ever runs, so the placeholder id (not a real user) is sufficient —
+// the guard short-circuits before existence/format validation of the target.
+// The full reset-action test suite (client/e2e/admin-users-reset/) covers the
+// admin-authenticated contract (self-reset 403, format 400, not-found 404,
+// valid-target 200) and the UI happy path; non-admin/token-less denial for
+// this endpoint lives HERE, consistent with the lock/unlock convention above.
+// ---------------------------------------------------------------------------
+test.describe("Admin reset-password — non-admin authorization (403)", () => {
+  test("non-admin POST /admin/users/:id/reset-password → 403 AUTH_ADMIN_ONLY", async () => {
+    const res = await apiContext.post(
+      `/api/v1/admin/users/${PLACEHOLDER_ID}/reset-password`,
+      { headers: { Authorization: `Bearer ${nonAdminToken}` } }
+    );
+    expect(res.status()).toBe(403);
+    const body = (await res.json()) as { code?: string };
+    expect(body.code).toBe("AUTH_ADMIN_ONLY");
+  });
+});
+
+test.describe("Admin reset-password — AuthN denial (no token)", () => {
+  test("token-less POST /admin/users/:id/reset-password → 401 AUTH_MISSING_TOKEN", async ({
+    baseURL
+  }) => {
+    const tokenLessContext = await playwrightRequest.newContext({ baseURL });
+    try {
+      const res = await tokenLessContext.post(
+        `/api/v1/admin/users/${PLACEHOLDER_ID}/reset-password`
+      );
+      expect(res.status()).toBe(401);
+      const body = (await res.json()) as { code?: string };
+      expect(body.code).toBe("AUTH_MISSING_TOKEN");
+    } finally {
+      await tokenLessContext.dispose();
+    }
+  });
+});
