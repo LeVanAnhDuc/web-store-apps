@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 // components
 import AuthStepLayout from "@/components/AuthStepLayout";
 import ForceChangePasswordForm from "./mains/ForceChangePasswordForm";
+// ghosts
 import ForceChangeGuard from "./ghosts/ForceChangeGuard";
 
 const ForceChangePassword = async () => {
