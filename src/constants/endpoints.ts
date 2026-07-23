@@ -55,6 +55,7 @@ const END_POINTS = {
   ADMIN_USERS: "/admin/users",
   ADMIN_USER_LOCK: "/admin/users/:id/lock",
   ADMIN_USER_UNLOCK: "/admin/users/:id/unlock",
+  ADMIN_USER_RESET_PASSWORD: "/admin/users/:id/reset-password",
 
   // Notifications
   NOTIFICATIONS: "/notifications",
