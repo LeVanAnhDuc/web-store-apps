@@ -2,8 +2,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-// others
-import { resetAdminUserPassword } from "@/mocks/AdminUsers";
+// requests
+import { resetAdminUserPassword } from "@/requests/adminUsers";
 
 const useResetAdminUserPassword = () => {
   const tToast = useTranslations("adminUsers.toast");

@@ -34,3 +34,8 @@ export interface SetAdminUserActiveResult {
   _id: string;
   isActive: boolean;
 }
+
+export interface ResetAdminUserPasswordResult {
+  _id: string;
+  email: string;
+}
