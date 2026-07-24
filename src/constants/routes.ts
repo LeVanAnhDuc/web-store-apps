@@ -27,6 +27,7 @@ const ROUTES = {
   ADMIN_LOGIN_HISTORY: "/admin/login-history",
   ADMIN_CONTACT: "/admin/contact",
   MY_CONTACTS: "/contacts/me",
+  MY_CONTACT_DETAIL: "/contacts/me/:id",
   FORCE_CHANGE_PASSWORD: "/change-password"
 };
 

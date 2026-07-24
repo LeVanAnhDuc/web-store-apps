@@ -21,11 +21,13 @@ type Mode = "form" | "success";
 const SupportDialog = ({
   open,
   onOpenChange,
-  initialEmail
+  initialEmail,
+  onSubmitted
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   initialEmail?: string;
+  onSubmitted?: (id: string) => void;
 }) => {
   const t = useTranslations("support.dialog");
   const userInfo = useUserInfo();
@@ -48,6 +50,7 @@ const SupportDialog = ({
   const handleSubmitted = (nextId: string) => {
     setId(nextId);
     setMode("success");
+    onSubmitted?.(nextId);
   };
 
   const handleSubmitAnother = () => {

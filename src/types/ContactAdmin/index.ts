@@ -33,17 +33,7 @@ export interface ContactDetailItem extends ContactListItem {
   attachments: ContactAttachmentResponse[];
 }
 
-export interface UserContactItem {
-  _id: string;
-  subject: string;
-  priority: Priority;
-  status: ContactStatus;
-  createdAt: string;
-}
-
 export type PaginatedContactsResponse = Paginated<ContactListItem>;
-
-export type PaginatedUserContactsResponse = Paginated<UserContactItem>;
 
 export interface AdminContactQuery {
   page?: number;
@@ -56,12 +46,5 @@ export interface AdminContactQuery {
   fromDate?: string;
   toDate?: string;
   sortBy?: "createdAt" | "priority" | "status";
-  sortOrder?: SortOrder;
-}
-
-export interface MyContactsQuery {
-  page?: number;
-  limit?: number;
-  sortBy?: "createdAt";
   sortOrder?: SortOrder;
 }

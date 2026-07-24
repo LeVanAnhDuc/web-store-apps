@@ -7,6 +7,8 @@ const QUERY_KEYS = {
   // Contact
   ADMIN_CONTACT_LIST: "adminContactList",
   ADMIN_CONTACT_DETAIL: "adminContactDetail",
+  MY_CONTACTS: "myContacts",
+  MY_CONTACT_DETAIL: "myContactDetail",
   // Entitlements
   ADMIN_USERS: "adminUsers",
   // Users (admin list)

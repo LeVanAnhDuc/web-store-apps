@@ -71,13 +71,43 @@
     "title": "My Requests",
     "description": "View your submitted support requests",
     "table": {
+      "caption": "Your submitted support requests",
       "ticketNumber": "Ticket",
       "subject": "Subject",
       "status": "Status",
-      "attachments": "Files",
+      "priority": "Priority",
       "createdAt": "Date",
-      "empty": "No requests submitted yet"
+      "empty": "No requests submitted yet",
+      "viewDetailFor": "View details for ticket {id}"
     },
-    "submitNew": "Submit new request"
+    "filters": {
+      "status": "Status",
+      "searchPlaceholder": "Search by subject..."
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "submitNew": "Submit new request",
+    "detail": {
+      "title": "Request Detail",
+      "breadcrumb": {
+        "list": "My Requests",
+        "current": "Request Detail"
+      },
+      "fields": {
+        "priority": "Priority",
+        "createdAt": "Date",
+        "subject": "Subject",
+        "message": "Message"
+      },
+      "notFound": "This request could not be found.",
+      "announce": {
+        "loading": "Loading request detail...",
+        "loaded": "Request detail loaded.",
+        "error": "This request could not be found."
+      }
+    }
   }
 }
