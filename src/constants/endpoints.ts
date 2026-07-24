@@ -32,6 +32,8 @@ const END_POINTS = {
 
   // Contact
   CONTACT_SUBMIT: "/contact/submit",
+  MY_CONTACTS: "/contacts",
+  MY_CONTACT_BY_ID: "/contacts/:id",
   ADMIN_CONTACTS: "/admin/contacts",
   ADMIN_CONTACT_BY_ID: "/admin/contacts/:id",
   ADMIN_CONTACT_STATUS: "/admin/contacts/:id/status",
