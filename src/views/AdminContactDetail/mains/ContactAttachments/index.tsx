@@ -7,14 +7,10 @@ import { useTranslations } from "next-intl";
 import { FileText, Download } from "lucide-react";
 // components
 import CustomButton from "@/components/CustomButton";
+import CustomDialogContent from "@/components/CustomDialogContent";
 import CustomImage from "@/components/CustomImage";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription
-} from "@/components/ui/dialog";
+import { Dialog, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 // requests
 import { getAdminContactDetail } from "@/requests/contactAdmin";
 // others
@@ -105,10 +101,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
         open={previewUrl !== null}
         onOpenChange={(open) => !open && setPreviewUrl(null)}
       >
-        <DialogContent
-          className="max-h-[90vh] w-auto max-w-[90vw] border-0 bg-transparent p-0 shadow-none sm:max-w-[90vw]"
-          showCloseButton
-        >
+        <CustomDialogContent className="max-h-[90vh] w-auto max-w-[90vw] border-0 bg-transparent p-0 shadow-none sm:max-w-[90vw]">
           <DialogTitle className="sr-only">
             {tFields("attachments")}
           </DialogTitle>
@@ -124,7 +117,7 @@ const ContactAttachments = ({ id }: { id: string }) => {
               className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
             />
           )}
-        </DialogContent>
+        </CustomDialogContent>
       </Dialog>
     </div>
   );

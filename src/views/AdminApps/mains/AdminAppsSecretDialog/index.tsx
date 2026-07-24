@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl";
 import type { AdminAppCreateResult } from "@/types/AdminApps";
 // components
 import CustomButton from "@/components/CustomButton";
+import CustomDialogContent from "@/components/CustomDialogContent";
 import {
   Dialog,
-  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -31,7 +31,7 @@ const AdminAppsSecretDialog = ({
 
   return (
     <Dialog open={app !== null} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent>
+      <CustomDialogContent>
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>{t("description")}</DialogDescription>
@@ -62,7 +62,7 @@ const AdminAppsSecretDialog = ({
             {t("done")}
           </CustomButton>
         </DialogFooter>
-      </DialogContent>
+      </CustomDialogContent>
     </Dialog>
   );
 };

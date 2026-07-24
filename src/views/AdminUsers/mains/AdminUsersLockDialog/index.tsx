@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl";
 import type { AdminUser } from "@/types/AdminUsers";
 // components
 import CustomButton from "@/components/CustomButton";
+import CustomDialogContent from "@/components/CustomDialogContent";
 import {
   Dialog,
-  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -56,7 +56,7 @@ const AdminUsersLockDialog = ({
 
   return (
     <Dialog open={target !== null} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent>
+      <CustomDialogContent>
         <DialogHeader>
           <DialogTitle>
             {target
@@ -83,7 +83,7 @@ const AdminUsersLockDialog = ({
             {tActions(confirmKey)}
           </CustomButton>
         </DialogFooter>
-      </DialogContent>
+      </CustomDialogContent>
     </Dialog>
   );
 };

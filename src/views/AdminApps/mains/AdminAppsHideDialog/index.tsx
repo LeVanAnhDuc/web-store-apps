@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl";
 import type { WebApp } from "@/types/AdminApps";
 // components
 import CustomButton from "@/components/CustomButton";
+import CustomDialogContent from "@/components/CustomDialogContent";
 import {
   Dialog,
-  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -48,7 +48,7 @@ const AdminAppsHideDialog = ({
 
   return (
     <Dialog open={target !== null} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent>
+      <CustomDialogContent>
         <DialogHeader>
           <DialogTitle>
             {t("hide.title", { name: target?.displayName ?? "" })}
@@ -73,7 +73,7 @@ const AdminAppsHideDialog = ({
             {tActions("confirmHide")}
           </CustomButton>
         </DialogFooter>
-      </DialogContent>
+      </CustomDialogContent>
     </Dialog>
   );
 };
