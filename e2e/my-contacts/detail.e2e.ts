@@ -16,7 +16,6 @@ import { USER_EMAIL, USER_PASSWORD } from "../helpers/env";
 // is sufficient to prove "not mine → 404" without depending on any other
 // seeded account.
 
-const OWNED_SUBJECT = "App crashes on launch after latest update";
 const ABSENT_ID = "ffffffffffffffffffffffff"; // valid 24-hex ObjectId format, does not exist
 const MALFORMED_ID = "not-a-valid-object-id";
 
@@ -36,6 +35,49 @@ const getOwnContactId = async (page: Page): Promise<string> => {
     );
   }
   return match[1];
+};
+
+// Derives a REAL owned contact { id, subject } via an authenticated API call
+// (login as the seeded user, then GET /api/v1/contacts) — used by the happy
+// path test so the subject assertion matches whichever contact the backend
+// actually returns first, instead of a hardcoded subject string that may not
+// correspond to the first-by-default-sort owned row.
+const getFirstOwnContact = async (
+  baseURL: string | undefined
+): Promise<{ id: string; subject: string }> => {
+  const ctx = await playwrightRequest.newContext({ baseURL });
+  try {
+    const loginRes = await ctx.post("/api/v1/auth/login", {
+      data: { email: USER_EMAIL, password: USER_PASSWORD }
+    });
+    expect(loginRes.ok()).toBeTruthy();
+    const loginBody = (await loginRes.json()) as {
+      data?: { accessToken?: string };
+    };
+    const token = loginBody.data?.accessToken;
+    expect(token).toBeTruthy();
+
+    const res = await ctx.get("/api/v1/contacts", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    expect(res.ok()).toBeTruthy();
+    const body = (await res.json()) as {
+      data?: {
+        items?: Array<{ _id?: string; id?: string; subject?: string }>;
+      };
+    };
+    const first = body.data?.items?.[0];
+    const id = first?._id ?? first?.id;
+    const subject = first?.subject;
+    if (!id || !subject) {
+      throw new Error(
+        "detail.e2e.ts: could not derive an owned contact via GET /api/v1/contacts — check the seeder (attachMyContactsOwner)"
+      );
+    }
+    return { id, subject };
+  } finally {
+    await ctx.dispose();
+  }
 };
 
 // Creates a guest (unauthenticated) contact via a token-less request context
@@ -68,15 +110,16 @@ const createGuestContactId = async (baseURL: string | undefined) => {
 // ---------------------------------------------------------------------------
 test.describe("MyContact Detail — happy path (read-only)", () => {
   test("renders full message, priority, status badge and date; no status-change control", async ({
-    page
+    page,
+    baseURL
   }) => {
-    const id = await getOwnContactId(page);
+    const { id, subject } = await getFirstOwnContact(baseURL);
     await page.goto(`/contacts/me/${id}`);
 
     await expect(
       page.getByRole("heading", { name: /request detail/i })
     ).toBeVisible();
-    await expect(page.getByText(OWNED_SUBJECT, { exact: true })).toBeVisible();
+    await expect(page.getByText(subject, { exact: true })).toBeVisible();
     // Full message body renders (dt/dd definition list, not truncated).
     await expect(page.getByText("Message", { exact: true })).toBeVisible();
     await expect(page.locator("time").first()).toBeVisible();
@@ -107,9 +150,17 @@ test.describe("MyContact Detail — authZ (owner-scope)", () => {
     const guestId = await createGuestContactId(baseURL);
     await page.goto(`/contacts/me/${guestId}`);
 
-    await expect(
-      page.getByText(/this request could not be found/i)
-    ).toBeVisible();
+    // Scoped to the app's own <p role="alert"> (MyContactDetailNotFound) —
+    // an unscoped `page.getByRole("alert")` ALSO matches Next.js's built-in
+    // `#__next-route-announcer__` (a route-change `div role="alert"`
+    // present on every page), which trips Playwright strict mode on
+    // multi-match assertions like toContainText (toBeVisible is exempted
+    // from strict mode, which is why only toContainText failed in Round 1).
+    const notFoundAlert = page.locator('p[role="alert"]');
+    await expect(notFoundAlert).toBeVisible();
+    await expect(notFoundAlert).toContainText(
+      /this request could not be found/i
+    );
     // The guest contact's content must never leak onto the page.
     await expect(
       page.getByText("E2E guest AuthZ probe", { exact: false })
@@ -120,9 +171,11 @@ test.describe("MyContact Detail — authZ (owner-scope)", () => {
     page
   }) => {
     await page.goto(`/contacts/me/${ABSENT_ID}`);
-    await expect(
-      page.getByText(/this request could not be found/i)
-    ).toBeVisible();
+    const notFoundAlert = page.locator('p[role="alert"]');
+    await expect(notFoundAlert).toBeVisible();
+    await expect(notFoundAlert).toContainText(
+      /this request could not be found/i
+    );
   });
 
   test("GET /contacts/:id for a not-owned contact returns 404 at the API level (authenticated)", async ({
@@ -170,9 +223,11 @@ test.describe("MyContact Detail — validation", () => {
     page
   }) => {
     await page.goto(`/contacts/me/${MALFORMED_ID}`);
-    await expect(
-      page.getByText(/this request could not be found/i)
-    ).toBeVisible();
+    const notFoundAlert = page.locator('p[role="alert"]');
+    await expect(notFoundAlert).toBeVisible();
+    await expect(notFoundAlert).toContainText(
+      /this request could not be found/i
+    );
   });
 });
 
@@ -220,7 +275,9 @@ test.describe("MyContact Detail — i18n", () => {
     page
   }) => {
     await page.goto(`/vi/contacts/me/${ABSENT_ID}`);
-    await expect(page.getByText("Không tìm thấy yêu cầu này.")).toBeVisible();
+    const notFoundAlert = page.locator('p[role="alert"]');
+    await expect(notFoundAlert).toBeVisible();
+    await expect(notFoundAlert).toContainText("Không tìm thấy yêu cầu này.");
   });
 });
 

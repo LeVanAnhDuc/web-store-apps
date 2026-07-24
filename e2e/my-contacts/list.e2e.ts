@@ -457,9 +457,20 @@ test.describe("MyContacts — mutation safety (submit new)", () => {
     const dialog = page.getByRole("dialog", { name: /contact support/i });
     await expect(dialog).toBeVisible();
 
-    await dialog.getByLabel(/subject/i).fill(uniqueSubject);
+    // Robust field locators by RHF field `name` (CONSTANTS.FIELD_NAMES.
+    // SUPPORT_FIELD_NAMES), NOT getByLabel: SubjectField (and EmailField)
+    // build their input via `useFieldProps` (src/hooks/useFieldProps.ts),
+    // which sets `field.id = field.name` (e.g. "subject") — that explicit
+    // `id` on the underlying <CustomInput> wins over the id injected by the
+    // shadcn <FormControl> Radix Slot (the auto-generated `formItemId`,
+    // which is what <FormLabel>'s `htmlFor` actually points to). Net
+    // effect: the "Subject" <label> is NOT programmatically associated with
+    // its <input> — a real a11y gap in app code (out of scope here, do not
+    // fix). MessageField (Controller-based, no id override) IS correctly
+    // associated, but the `name` selector is used for both for consistency.
+    await dialog.locator('input[name="subject"]').fill(uniqueSubject);
     await dialog
-      .getByLabel(/detailed description/i)
+      .locator('textarea[name="message"]')
       .fill(
         "E2E-generated support request body, at least twenty characters long."
       );
@@ -469,7 +480,16 @@ test.describe("MyContacts — mutation safety (submit new)", () => {
     await expect(dialog.getByText(SHORT_ID_RE)).toBeVisible({
       timeout: 10000
     });
-    await dialog.getByRole("button", { name: /^close$/i }).click();
+    // `dialog.getByRole("button", { name: /^close$/i })` is ambiguous:
+    // shadcn's <DialogContent> injects its own icon-only close button
+    // (data-slot="dialog-close", accessible name "Close" via sr-only text)
+    // IN ADDITION to SupportSuccess's own explicit CustomButton — both
+    // resolve to the "Close" accessible name. Scope to the explicit button
+    // (data-slot="button", the shadcn Button/CustomButton wrapper) to avoid
+    // the strict-mode collision.
+    await dialog
+      .locator('button[data-slot="button"]', { hasText: /^close$/i })
+      .click();
     await expect(dialog).not.toBeVisible();
 
     // List invalidates + refetches → the new request appears, owned by me.
