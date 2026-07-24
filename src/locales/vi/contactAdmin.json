@@ -71,12 +71,23 @@
     "title": "Yêu cầu của tôi",
     "description": "Xem các yêu cầu hỗ trợ bạn đã gửi",
     "table": {
+      "caption": "Các yêu cầu hỗ trợ bạn đã gửi",
       "ticketNumber": "Mã ticket",
       "subject": "Tiêu đề",
       "status": "Trạng thái",
-      "attachments": "Tệp",
+      "priority": "Độ ưu tiên",
       "createdAt": "Ngày tạo",
-      "empty": "Chưa gửi yêu cầu nào"
+      "empty": "Chưa gửi yêu cầu nào",
+      "viewDetailFor": "Xem chi tiết ticket {id}"
+    },
+    "filters": {
+      "status": "Trạng thái",
+      "searchPlaceholder": "Tìm theo tiêu đề..."
+    },
+    "priority": {
+      "low": "Thấp",
+      "medium": "Trung bình",
+      "high": "Cao"
     },
     "submitNew": "Gửi yêu cầu mới"
   }

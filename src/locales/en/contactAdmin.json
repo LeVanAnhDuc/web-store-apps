@@ -71,12 +71,23 @@
     "title": "My Requests",
     "description": "View your submitted support requests",
     "table": {
+      "caption": "Your submitted support requests",
       "ticketNumber": "Ticket",
       "subject": "Subject",
       "status": "Status",
-      "attachments": "Files",
+      "priority": "Priority",
       "createdAt": "Date",
-      "empty": "No requests submitted yet"
+      "empty": "No requests submitted yet",
+      "viewDetailFor": "View details for ticket {id}"
+    },
+    "filters": {
+      "status": "Status",
+      "searchPlaceholder": "Search by subject..."
+    },
+    "priority": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
     },
     "submitNew": "Submit new request"
   }
