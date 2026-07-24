@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl";
 import type { AdminUser } from "@/types/AdminUsers";
 // components
 import CustomButton from "@/components/CustomButton";
+import CustomDialogContent from "@/components/CustomDialogContent";
 import {
   Dialog,
-  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -43,7 +43,7 @@ const AdminUsersForceLogoutDialog = ({
 
   return (
     <Dialog open={target !== null} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent>
+      <CustomDialogContent>
         <DialogHeader>
           <DialogTitle>
             {target
@@ -70,7 +70,7 @@ const AdminUsersForceLogoutDialog = ({
             {tActions("confirmForceLogout")}
           </CustomButton>
         </DialogFooter>
-      </DialogContent>
+      </CustomDialogContent>
     </Dialog>
   );
 };

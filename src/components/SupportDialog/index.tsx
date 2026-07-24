@@ -6,11 +6,11 @@ import { useTranslations } from "next-intl";
 // components
 import {
   Dialog,
-  DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
+import CustomDialogContent from "@/components/CustomDialogContent";
 import SupportForm from "./mains/SupportForm";
 import SupportSuccess from "./mains/SupportSuccess";
 // hooks
@@ -59,7 +59,7 @@ const SupportDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-xl">
+      <CustomDialogContent className="sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>{t("description")}</DialogDescription>
@@ -78,7 +78,7 @@ const SupportDialog = ({
             onClose={handleClose}
           />
         )}
-      </DialogContent>
+      </CustomDialogContent>
     </Dialog>
   );
 };
