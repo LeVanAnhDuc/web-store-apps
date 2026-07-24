@@ -89,6 +89,25 @@
       "medium": "Trung bình",
       "high": "Cao"
     },
-    "submitNew": "Gửi yêu cầu mới"
+    "submitNew": "Gửi yêu cầu mới",
+    "detail": {
+      "title": "Chi tiết yêu cầu",
+      "breadcrumb": {
+        "list": "Yêu cầu của tôi",
+        "current": "Chi tiết yêu cầu"
+      },
+      "fields": {
+        "priority": "Độ ưu tiên",
+        "createdAt": "Ngày tạo",
+        "subject": "Tiêu đề",
+        "message": "Tin nhắn"
+      },
+      "notFound": "Không tìm thấy yêu cầu này.",
+      "announce": {
+        "loading": "Đang tải chi tiết yêu cầu...",
+        "loaded": "Đã tải chi tiết yêu cầu.",
+        "error": "Không tìm thấy yêu cầu này."
+      }
+    }
   }
 }

@@ -89,6 +89,25 @@
       "medium": "Medium",
       "high": "High"
     },
-    "submitNew": "Submit new request"
+    "submitNew": "Submit new request",
+    "detail": {
+      "title": "Request Detail",
+      "breadcrumb": {
+        "list": "My Requests",
+        "current": "Request Detail"
+      },
+      "fields": {
+        "priority": "Priority",
+        "createdAt": "Date",
+        "subject": "Subject",
+        "message": "Message"
+      },
+      "notFound": "This request could not be found.",
+      "announce": {
+        "loading": "Loading request detail...",
+        "loaded": "Request detail loaded.",
+        "error": "This request could not be found."
+      }
+    }
   }
 }
